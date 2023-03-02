@@ -1,4 +1,4 @@
-# Duke
+# PENUS
 
 {Give product intro here}
 
