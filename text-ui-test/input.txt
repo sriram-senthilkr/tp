@@ -1,1 +1,2 @@
-James Gosling
+plan CS2113 y/1 s/2
+exit
