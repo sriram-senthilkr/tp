@@ -22,38 +22,18 @@ public class CommandParser {
         this.moduleList = moduleList;
     }
 
-    public void parseCommand(String[] inputArray) throws InvalidCommandException, InvalidTaskException, InvalidFormatException {
+    public void parseCommand(String[] inputArray)
+            throws InvalidCommandException, InvalidTaskException, InvalidFormatException {
         String command = inputArray[0];
+
         switch(command) {
         case PLAN:
-            if (inputArray.length == 1) {
-                throw new InvalidTaskException(command);
-            }
-            if (!inputArray[1].contains("y/") && !inputArray[1].contains("s/")) {
-                throw new InvalidFormatException("y/", "s/");
-            }
-            String[] planDetails = inputArray[1].split(" y/| s/", 3);
-            String moduleCode = planDetails[0];
-            Integer year = Integer.parseInt(planDetails[1]);
-            Integer semester = Integer.parseInt(planDetails[2]);
-            Module plan = new Module(moduleCode, year, semester);
-            moduleList.addModule(plan);
-            break;
-
         case TAKEN:
             if (inputArray.length == 1) {
                 throw new InvalidTaskException(command);
             }
-            if (!inputArray[1].contains("y/") && !inputArray[1].contains("s/") && !inputArray[1].contains("g/")) {
-                throw new InvalidFormatException("y/", "s/", "g/");
-            }
-            String[] takenDetails = inputArray[1].split(" y/| s/| g/", 4);
-            String takenCode = takenDetails[0];
-            Integer takenYear = Integer.parseInt(takenDetails[1]);
-            Integer takenSemester = Integer.parseInt(takenDetails[2]);
-            String takenGrade = takenDetails[3];
-            Module taken = new Module(takenCode, takenYear, takenSemester, takenGrade);
-            moduleList.addModule(taken);
+            Module moduleToAdd = ModuleParser.getModuleFromCommand(inputArray);
+            moduleList.addModule(moduleToAdd);
             break;
 
         case MARK:
