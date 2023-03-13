@@ -154,10 +154,10 @@ class ParserTest {
     //parse in g/ in unexpected range (A+ to D, S/U)
     @Test
     void parseTaken_wrongGrade_expectException() {
-        String inputString = "taken CS2113 y/1 s/2 g/D-";
+        String inputString = "taken CS2113 y/1 s/2 g/K";
         String[] input = inputString.split(" ", 2);
         assertThrows(
-            InvalidFormatException.class,
+            InvalidGradeException.class,
             () -> parser.parseCommand(input)
         );
     }

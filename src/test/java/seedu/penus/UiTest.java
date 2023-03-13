@@ -22,7 +22,7 @@ class UiTest {
 
         if (os.contains("Windows")) {
             expectedOutput = 
-                    "\t____________________________________" + WINDOWS_NEWLINE +
+                    "\t____________________________________" + WINDOWS_NEWLINE + WINDOWS_NEWLINE + 
                     "\t___   ____  _      _     __  " + WINDOWS_NEWLINE +
                     "\t| |_) | |_  | |\\ | | | | ( (`" + WINDOWS_NEWLINE +
                     "\t|_|   |_|__ |_| \\| \\_\\_/ _)_)" + WINDOWS_NEWLINE +
@@ -31,7 +31,7 @@ class UiTest {
                     "\t____________________________________" + WINDOWS_NEWLINE;
         } else {
             expectedOutput = 
-                    "\t____________________________________" + IOS_NEWLINE +
+                    "\t____________________________________" + IOS_NEWLINE + IOS_NEWLINE +
                     "\t___   ____  _      _     __  " + IOS_NEWLINE +
                     "\t| |_) | |_  | |\\ | | | | ( (`" + IOS_NEWLINE +
                     "\t|_|   |_|__ |_| \\| \\_\\_/ _)_)" + IOS_NEWLINE +
