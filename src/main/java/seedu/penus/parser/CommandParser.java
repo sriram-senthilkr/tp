@@ -3,9 +3,11 @@ package seedu.penus.parser;
 import java.util.Scanner;
 import seedu.penus.exceptions.InvalidCommandException;
 import seedu.penus.exceptions.InvalidFormatException;
-import seedu.penus.exceptions.InvalidTaskException;
+import seedu.penus.exceptions.InvalidGradeException;
+import seedu.penus.exceptions.InvalidModuleException;
 import seedu.penus.modules.Module;
 import seedu.penus.modules.ModuleList;
+import seedu.penus.modules.Grade;
 
 public class CommandParser {
     private static final String LIST = "list";
@@ -23,14 +25,14 @@ public class CommandParser {
     }
 
     public void parseCommand(String[] inputArray)
-            throws InvalidCommandException, InvalidTaskException, InvalidFormatException {
+            throws InvalidCommandException, InvalidModuleException, InvalidFormatException, InvalidGradeException {
         String command = inputArray[0];
 
         switch(command) {
         case PLAN:
         case TAKEN:
             if (inputArray.length == 1) {
-                throw new InvalidTaskException(command);
+                throw new InvalidModuleException(command);
             }
             Module moduleToAdd = ModuleParser.getModuleFromCommand(inputArray);
             moduleList.addModule(moduleToAdd);
@@ -41,6 +43,9 @@ public class CommandParser {
                 throw new InvalidFormatException("g/");
             }
             String[] markDetails = inputArray[1].split(" g/");
+            if (!Grade.isValid(markDetails[1])) {
+                throw new InvalidGradeException();
+            }
             moduleList.markModule(markDetails[0], markDetails[1]);
             break;
 
@@ -75,7 +80,8 @@ public class CommandParser {
                 try {
                     parseCommand(inputArray);
 
-                } catch (InvalidTaskException | InvalidCommandException | InvalidFormatException e) {
+                } catch (InvalidModuleException | InvalidCommandException |
+                         InvalidGradeException | InvalidFormatException e) {
                     System.out.println(e.getMessage());
                 }
             }
