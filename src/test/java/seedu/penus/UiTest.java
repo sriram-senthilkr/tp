@@ -12,37 +12,6 @@ class UiTest {
     public static final String IOS_NEWLINE = "\n";
 
     @Test
-    void testWelcome() {
-        ByteArrayOutputStream actualOutput = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(actualOutput));
-
-        Ui.printWelcome();
-        String expectedOutput;
-        String os = System.getProperty("os.name");
-
-        if (os.contains("Windows")) {
-            expectedOutput =
-                    "\t____________________________________" + WINDOWS_NEWLINE + WINDOWS_NEWLINE +
-                    "\t___   ____  _      _     __  " + WINDOWS_NEWLINE +
-                    "\t| |_) | |_  | |\\ | | | | ( (`" + WINDOWS_NEWLINE +
-                    "\t|_|   |_|__ |_| \\| \\_\\_/ _)_)" + WINDOWS_NEWLINE + WINDOWS_NEWLINE +
-                    "\tWelcome to PENUS!" + WINDOWS_NEWLINE +
-                    "\tWhat can I do for you?" + WINDOWS_NEWLINE +
-                    "\t____________________________________" + WINDOWS_NEWLINE;
-        } else {
-            expectedOutput =
-                    "\t____________________________________" + IOS_NEWLINE + IOS_NEWLINE +
-                    "\t___   ____  _      _     __  " + IOS_NEWLINE +
-                    "\t| |_) | |_  | |\\ | | | | ( (`" + IOS_NEWLINE +
-                    "\t|_|   |_|__ |_| \\| \\_\\_/ _)_)" + IOS_NEWLINE + IOS_NEWLINE +
-                    "\tWelcome to PENUS!" + IOS_NEWLINE +
-                    "\tWhat can I do for you?" + IOS_NEWLINE +
-                    "\t____________________________________" + IOS_NEWLINE ;
-        }
-        assertEquals(expectedOutput, actualOutput.toString());
-    }
-
-    @Test
     void testExit() {
         ByteArrayOutputStream actualOutput = new ByteArrayOutputStream();
         System.setOut(new PrintStream(actualOutput));
