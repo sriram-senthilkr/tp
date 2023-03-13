@@ -3,11 +3,12 @@ package seedu.penus.modules;
 import java.util.ArrayList;
 import java.util.List;
 import seedu.penus.exceptions.InvalidCommandException;
+import seedu.penus.exceptions.InvalidGradeException;
 import seedu.penus.ui.Ui;
 
 
 public class ModuleList {
-    private List<Module> modules;
+    private final List<Module> modules;
 
     /**
      * Overloaded constructor for the creation of a ModuleList object.
@@ -100,14 +101,12 @@ public class ModuleList {
      * @return sizeMessage The message indicating how many modules are in the list.
      */
     public String printSize() {
-        String sizeMessage = "\tYou have " + this.modules.size() + " modules in your planner.";
 
-        return sizeMessage;
+        return "\tYou have " + this.modules.size() + " modules in your planner.";
     }
 
     /**
      * Marks the module as taken with grade
-     * 
      * 
      * @param modCode The module code to be marked taken
      * @param grade The grade received upon taking the module
@@ -162,7 +161,14 @@ public class ModuleList {
     }
 
     //TODO: write status structure
-    public void printStatus() {
-
+    public void printStatus() throws InvalidGradeException {
+        String[] messagePacket = new String[this.modules.size() + 1];
+        messagePacket[0] = "\tListing all modules:";
+        int messageCount = 1;
+        for (int i = 0; i < this.modules.size(); i++) {
+            String line = "\t" + (i + 1) + ". " + this.modules.get(i).getGradePoint();
+            messagePacket[messageCount++] = line;
+        }
+        Ui.printMessage(messagePacket);
     }
 }
