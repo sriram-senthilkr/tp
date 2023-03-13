@@ -21,23 +21,23 @@ class UiTest {
         String os = System.getProperty("os.name");
 
         if (os.contains("Windows")) {
-            expectedOutput = 
-                    "\t____________________________________" + WINDOWS_NEWLINE + WINDOWS_NEWLINE + 
+            expectedOutput =
+                    "\t____________________________________" + WINDOWS_NEWLINE + WINDOWS_NEWLINE +
                     "\t___   ____  _      _     __  " + WINDOWS_NEWLINE +
                     "\t| |_) | |_  | |\\ | | | | ( (`" + WINDOWS_NEWLINE +
-                    "\t|_|   |_|__ |_| \\| \\_\\_/ _)_)" + WINDOWS_NEWLINE +
-                    "\tWelcome to PENUS!" + WINDOWS_NEWLINE + 
-                    "\tWhat can I do for you?" + WINDOWS_NEWLINE + 
+                    "\t|_|   |_|__ |_| \\| \\_\\_/ _)_)" + WINDOWS_NEWLINE + WINDOWS_NEWLINE +
+                    "\tWelcome to PENUS!" + WINDOWS_NEWLINE +
+                    "\tWhat can I do for you?" + WINDOWS_NEWLINE +
                     "\t____________________________________" + WINDOWS_NEWLINE;
         } else {
-            expectedOutput = 
+            expectedOutput =
                     "\t____________________________________" + IOS_NEWLINE + IOS_NEWLINE +
                     "\t___   ____  _      _     __  " + IOS_NEWLINE +
                     "\t| |_) | |_  | |\\ | | | | ( (`" + IOS_NEWLINE +
-                    "\t|_|   |_|__ |_| \\| \\_\\_/ _)_)" + IOS_NEWLINE +
-                    "\tWelcome to PENUS!" + IOS_NEWLINE + 
-                    "\tWhat can I do for you?" + IOS_NEWLINE + 
-                    "\t____________________________________" + IOS_NEWLINE;
+                    "\t|_|   |_|__ |_| \\| \\_\\_/ _)_)" + IOS_NEWLINE + IOS_NEWLINE +
+                    "\tWelcome to PENUS!" + IOS_NEWLINE +
+                    "\tWhat can I do for you?" + IOS_NEWLINE +
+                    "\t____________________________________" + IOS_NEWLINE ;
         }
         assertEquals(expectedOutput, actualOutput.toString());
     }
@@ -54,13 +54,13 @@ class UiTest {
         if (os.contains("Windows")) {
             expectedOutput = 
                     "\t____________________________________" + WINDOWS_NEWLINE +
-                    "\t\tBye see you again!" + WINDOWS_NEWLINE + 
+                    "\tBye see you again!" + WINDOWS_NEWLINE +
                     "\t____________________________________" + WINDOWS_NEWLINE;
         } else {
             expectedOutput = 
                     "\t____________________________________" + IOS_NEWLINE +
-                    "\t\tBye see you again!" + IOS_NEWLINE + 
-                    "\t____________________________________" + IOS_NEWLINE;
+                    "\tBye see you again!" + IOS_NEWLINE +
+                    "\t____________________________________" + IOS_NEWLINE ;
         }
         assertEquals(expectedOutput, actualOutput.toString());
     }
