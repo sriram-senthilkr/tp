@@ -68,8 +68,8 @@ public class ModuleDetailsFile {
     /**
      * Decoder method to read a line of module-details.txt storage and splits the string
      * into a string array
-     * Format: moduleCode ### numberOfMcs ### preRequisites ### coRequisites ### preclusions ###
-     * semOfferedIn ### canSU
+     * Format: moduleCode ### moduleName ### numberOfMcs ### preRequisites ### coRequisites ###
+     * preclusions ### semOfferedIn ### canSU
      * @param module the string corresponding to the lines of module-details.txt
      * @return decoded String array
      */
