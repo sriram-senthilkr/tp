@@ -1,5 +1,7 @@
 package seedu.penus.modules;
 
+import seedu.penus.exceptions.InvalidGradeException;
+
 public class Module {
     protected String moduleCode;
     protected Integer year;
@@ -27,6 +29,14 @@ public class Module {
         return this.moduleCode;
     }
 
+    public Integer getYear() {
+        return this.year;
+    }
+
+    public Integer getSem() {
+        return this.semester;
+    }
+
     public void markTaken(String grade) {
         this.isTaken = true;
         this.grade = grade;
@@ -43,6 +53,10 @@ public class Module {
 
     public String getGrade() {
         return (isTaken ? grade : "");
+    }
+
+    public double getGradePoint() throws InvalidGradeException {
+        return Grade.getGradePoint(this.grade);
     }
 
     //TODO: change format accordingly
