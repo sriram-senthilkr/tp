@@ -3,11 +3,14 @@ package seedu.penus.modules;
 import java.util.ArrayList;
 import java.util.List;
 import seedu.penus.exceptions.InvalidCommandException;
+import seedu.penus.storage.FileManager;
 import seedu.penus.ui.Ui;
 
 
 public class ModuleList {
     private List<Module> modules;
+
+    FileManager fileManager = new FileManager();
 
     /**
      * Overloaded constructor for the creation of a ModuleList object.
@@ -163,6 +166,29 @@ public class ModuleList {
 
     //TODO: write status structure
     public void printStatus() {
-
+        List <String> coreMods = fileManager.retrieveCoreMods();
+        List <String> takenCoreMods = new ArrayList<>();
+        List <String> untakenCoreMods = new ArrayList<>();
+        for (int i = 0; i < coreMods.size(); i++){
+            boolean isCoreModTaken = false;
+            for (int j = 0; j < modules.size(); j++){
+                if (coreMods.get(i).equals(modules.get(j).moduleCode) && modules.get(j).isTaken){
+                    takenCoreMods.add(coreMods.get(i));
+                    isCoreModTaken = true;
+                    break;
+                }
+            }
+            if (!isCoreModTaken) {
+                untakenCoreMods.add(coreMods.get(i));
+            }
+        }
+        System.out.println("-Taken-");
+        for (int k = 0; k < takenCoreMods.size(); k++) {
+            System.out.println(takenCoreMods.get(k));
+        }
+        System.out.println("-Not Taken-");
+        for (int k = 0; k < untakenCoreMods.size(); k++) {
+            System.out.println(untakenCoreMods.get(k));
+        }
     }
 }
