@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
-public class FileManagerForModuleDetails {
+public class ModuleDetailsFile {
     private File file;
     private String filePath;
     private String dataDirectory;
@@ -20,7 +20,7 @@ public class FileManagerForModuleDetails {
      * <p>
      * Initializes a /data/ folder and module-details.txt if it does not exist
      */
-    public FileManagerForModuleDetails() {
+    public ModuleDetailsFile() {
 
         this.dataDirectory = "./data/";
         this.filePath = this.dataDirectory + "module-details.txt";
@@ -46,7 +46,6 @@ public class FileManagerForModuleDetails {
      * @return the List containing all the decoded modules.
      */
     public List<String[]> getAllModuleDetails() {
-        System.out.println("dick");
         Scanner scanner = null;
         List<String[]> moduleDetailsList = new ArrayList<>();
         try {
