@@ -13,6 +13,9 @@ public class ModuleList {
     private final List<Module> modules;
 
     FileManager fileManager = new FileManager();
+    List<String> coreMods = fileManager.retrieveCoreMods();
+    List<String[]> moduleDetails = fileManager.getAllModuleDetails();
+
 
     /**
      * Overloaded constructor for the creation of a ModuleList object.
@@ -164,16 +167,27 @@ public class ModuleList {
         Ui.printMessage(messagePacket);
     }
 
-    //TODO: write status structure
+    public int numberOfMcsTaken(){
+        int numberOfMcs = 0;
+        for (int i = 0; i < modules.size(); i++){
+            for (int j = 0; j < moduleDetails.size(); j++){
+                if(modules.get(i).moduleCode.equals(moduleDetails.get(j)[0]) && modules.get(i).isTaken){
+                    numberOfMcs = numberOfMcs + Integer.parseInt(moduleDetails.get(j)[2]);
+                }
+            }
+        }
+        return numberOfMcs;
+    }
 
     public void printStatus() {
-        List <String> coreMods = fileManager.retrieveCoreMods();
-        List <String> takenCoreMods = new ArrayList<>();
-        List <String> untakenCoreMods = new ArrayList<>();
-        for (int i = 0; i < coreMods.size(); i++){
+        List<String> coreMods = fileManager.retrieveCoreMods();
+        List<String[]> moduleDetails = fileManager.getAllModuleDetails();
+        List<String> takenCoreMods = new ArrayList<>();
+        List<String> untakenCoreMods = new ArrayList<>();
+        for (int i = 0; i < coreMods.size(); i++) {
             boolean isCoreModTaken = false;
-            for (int j = 0; j < modules.size(); j++){
-                if (coreMods.get(i).equals(modules.get(j).moduleCode) && modules.get(j).isTaken){
+            for (int j = 0; j < modules.size(); j++) {
+                if (coreMods.get(i).equals(modules.get(j).moduleCode) && modules.get(j).isTaken) {
                     takenCoreMods.add(coreMods.get(i));
                     isCoreModTaken = true;
                     break;
@@ -185,14 +199,28 @@ public class ModuleList {
         }
         System.out.println("-Taken-");
         for (int k = 0; k < takenCoreMods.size(); k++) {
-            System.out.println(takenCoreMods.get(k));
+            System.out.print(takenCoreMods.get(k));
+            for (int j = 0; j < moduleDetails.size(); j++){
+                if (moduleDetails.get(j)[0].equals(takenCoreMods.get(k))){
+                    System.out.print(" " + moduleDetails.get(j)[1] + " " + "MCs:" + moduleDetails.get(j)[2]);
+                }
+            }
+            System.out.println();
         }
         System.out.println("-Not Taken-");
         for (int k = 0; k < untakenCoreMods.size(); k++) {
-            System.out.println(untakenCoreMods.get(k));
+            System.out.print(untakenCoreMods.get(k));
+            for (int j = 0; j < moduleDetails.size(); j++){
+                if (moduleDetails.get(j)[0].equals(untakenCoreMods.get(k))){
+                    System.out.print(" " + moduleDetails.get(j)[1] + " " + "MCs:" + moduleDetails.get(j)[2]);
+                }
+            }
+            System.out.println();
         }
+        System.out.println(numberOfMcsTaken() + "/160");
+    }
 
-    public void printStatus() throws InvalidGradeException {
+    /*public void printStatus() throws InvalidGradeException {
         String[] messagePacket = new String[this.modules.size() + 1];
         messagePacket[0] = "\tListing all modules:";
         int messageCount = 1;
@@ -202,5 +230,5 @@ public class ModuleList {
         }
         Ui.printMessage(messagePacket);
 
-    }
+    } */
 }
