@@ -14,6 +14,7 @@ public class FileManager {
     private final String modDetailsFilePath;
     private final String dataDirectory;
 
+
     public FileManager() {
         this.dataDirectory = "./data/";
         this.coreModFilePath = this.dataDirectory + "CoreMods.txt";
@@ -82,7 +83,7 @@ public class FileManager {
      * @param module the string corresponding to the lines of module-details.txt
      * @return decoded String array
      */
-    private String[] decodeModule(String module) {
+    public String[] decodeModule(String module) {
         String[] components = module.split(" ### ");
         return components;
     }

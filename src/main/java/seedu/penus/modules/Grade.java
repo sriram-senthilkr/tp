@@ -54,7 +54,6 @@ public class Grade {
             throw new InvalidGradeException();
 
         }
-
         return gradePoint;
     }
 
