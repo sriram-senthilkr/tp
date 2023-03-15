@@ -5,7 +5,7 @@ import java.util.List;
 import seedu.penus.exceptions.InvalidCommandException;
 
 import seedu.penus.storage.FileManager;
-import seedu.penus.exceptions.InvalidGradeException;
+//import seedu.penus.exceptions.InvalidGradeException;
 import seedu.penus.ui.Ui;
 
 
@@ -21,6 +21,7 @@ public class ModuleList {
      */
     public ModuleList() {
         this.modules = new ArrayList<>();
+        this.fileManager = new FileManager();
     }
 
     /**
