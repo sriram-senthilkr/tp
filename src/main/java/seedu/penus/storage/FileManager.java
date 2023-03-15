@@ -1,43 +1,56 @@
 package seedu.penus.storage;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
-public class ModuleDetailsFile {
-    private File file;
-    private String filePath;
+public class FileManager {
+    private File coreModFile;
+    private File modDetailsFile;
+    private String coreModFilePath;
+    private String modDetailsFilePath;
     private String dataDirectory;
 
-    /**
-     * Constructor for the File Manager object.
-     * <p>
-     * Creates a File object according to the relative path /data/module-details.txt to store the data
-     * <p>
-     * Initializes a /data/ folder and module-details.txt if it does not exist
-     */
-    public ModuleDetailsFile() {
-
+    public FileManager() {
         this.dataDirectory = "./data/";
-        this.filePath = this.dataDirectory + "module-details.txt";
-        this.file = new File(this.filePath);
+        this.coreModFilePath = this.dataDirectory + "CoreMods.txt";
+        this.coreModFile = new File(this.coreModFilePath);
+        this.modDetailsFilePath = this.dataDirectory + "module-details.txt";
+        this.modDetailsFile = new File(this.modDetailsFilePath);
         File directory = new File(this.dataDirectory);
         try {
             if (!directory.exists()) {
                 directory.mkdirs();
             }
-            if (!this.file.exists()) {
-                this.file.createNewFile();
+            if (!this.modDetailsFile.exists()) {
+                this.modDetailsFile.createNewFile();
             }
         } catch (IOException e) {
             System.out.println(e);
         }
     }
 
+    public List<String> retrieveCoreMods() {
+        Scanner scanner = null;
+        List<String> coreModules = new ArrayList<>();
+        try {
+            scanner = new Scanner(this.coreModFile);
+            while (scanner.hasNextLine()) {
+                String coreModuleCode = scanner.nextLine();
+                coreModules.add(coreModuleCode);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Core Mod File not found");
+        } finally {
+            scanner.close();
+        }
+        return coreModules;
+    }
 
     /**
      * Retrieves all module details in /data/module-details.txt
@@ -49,13 +62,12 @@ public class ModuleDetailsFile {
         Scanner scanner = null;
         List<String[]> moduleDetailsList = new ArrayList<>();
         try {
-            scanner = new Scanner(this.file);
+            scanner = new Scanner(this.modDetailsFile);
             while (scanner.hasNextLine()) {
                 String encoded = scanner.nextLine();
                 String[] decodedModule = decodeModule(encoded);
                 moduleDetailsList.add(decodedModule);
             }
-
         } catch (FileNotFoundException e) {
             System.out.println(e);
         } finally {
@@ -63,7 +75,6 @@ public class ModuleDetailsFile {
         }
         return moduleDetailsList;
     }
-
 
     /**
      * Decoder method to read a line of module-details.txt storage and splits the string
@@ -77,5 +88,7 @@ public class ModuleDetailsFile {
         String[] components = module.split(" ### ");
         return components;
     }
+
 }
+
 
