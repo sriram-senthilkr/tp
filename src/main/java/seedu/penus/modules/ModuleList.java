@@ -2,6 +2,8 @@ package seedu.penus.modules;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.penus.exceptions.DuplicateModuleException;
 import seedu.penus.exceptions.InvalidCommandException;
 
 import seedu.penus.storage.FileManager;
@@ -66,7 +68,13 @@ public class ModuleList {
      * 
      * @param module The module to be added.
      */
-    public void addModule(Module module) {
+    public void addModule(Module module) throws DuplicateModuleException {
+        for (Module m : modules) {
+            if (m.getCode().equals(module.getCode())) {
+                throw new DuplicateModuleException("This module has already been added to the list. Please try again");
+            }
+        }
+
         this.modules.add(module);
 
         String addedMessage = "\tModule has been added:\n" + "\t  " + module;
@@ -159,12 +167,19 @@ public class ModuleList {
         String[] messagePacket = new String[this.modules.size() + 1];
         messagePacket[0] = "\tListing all modules:";
         int messageCount = 1;
+
         for (int i = 0; i < this.modules.size(); i++) {
             String line = "\t" + (i + 1) + ". " + this.modules.get(i);
             messagePacket[messageCount++] = line;
         }
         Ui.printMessage(messagePacket);
     }
+
+    /*
+     public void printModules() {
+         for (int year  )
+     }
+    */
 
 
     public int numberOfMcsTaken(List<String> takenCoreModulesList){
