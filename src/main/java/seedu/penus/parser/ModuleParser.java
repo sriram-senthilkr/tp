@@ -25,7 +25,7 @@ public class ModuleParser {
                 throw new InvalidFormatException("Try again in the format: PLAN CODE y/YEAR s/SEM");
             }
             
-            String moduleCode = planDetails[0];
+            String moduleCode = planDetails[0].toUpperCase();
             Integer year = Integer.parseInt(planDetails[1]);
             int semester = Integer.parseInt(planDetails[2]);
             if (semester != 1 && semester != 2) {
@@ -42,7 +42,7 @@ public class ModuleParser {
             if (takenDetails[1].length() == 0 || takenDetails[2].length() == 0 || takenDetails[3].length() == 0) {
                 throw new InvalidFormatException("Try again, y/ s/ g/ cannot be empty");
             }
-            String takenCode = takenDetails[0];
+            String takenCode = takenDetails[0].toUpperCase();
             Integer takenYear = Integer.parseInt(takenDetails[1]);
             int takenSemester = Integer.parseInt(takenDetails[2]);
             String takenGrade = takenDetails[3];
