@@ -1,10 +1,8 @@
 package seedu.penus.parser;
 
 import java.util.Scanner;
-import seedu.penus.exceptions.InvalidCommandException;
-import seedu.penus.exceptions.InvalidFormatException;
-import seedu.penus.exceptions.InvalidGradeException;
-import seedu.penus.exceptions.InvalidModuleException;
+
+import seedu.penus.exceptions.*;
 import seedu.penus.modules.Module;
 import seedu.penus.modules.ModuleList;
 import seedu.penus.modules.Grade;
@@ -25,7 +23,7 @@ public class CommandParser {
     }
 
     public void parseCommand(String[] inputArray)
-            throws InvalidCommandException, InvalidModuleException, InvalidFormatException, InvalidGradeException {
+            throws InvalidCommandException, InvalidModuleException, InvalidFormatException, InvalidGradeException, DuplicateModuleException {
         String command = inputArray[0];
 
         switch(command) {
@@ -81,7 +79,7 @@ public class CommandParser {
                     parseCommand(inputArray);
 
                 } catch (InvalidModuleException | InvalidCommandException |
-                         InvalidGradeException | InvalidFormatException e) {
+                         InvalidGradeException | InvalidFormatException | DuplicateModuleException e) {
                     System.out.println(e.getMessage());
                 }
             }

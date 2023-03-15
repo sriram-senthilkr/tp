@@ -2,6 +2,8 @@ package seedu.penus.modules;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import seedu.penus.exceptions.DuplicateModuleException;
 import seedu.penus.exceptions.InvalidCommandException;
 import seedu.penus.exceptions.InvalidGradeException;
 import seedu.penus.ui.Ui;
@@ -59,7 +61,13 @@ public class ModuleList {
      * 
      * @param module The module to be added.
      */
-    public void addModule(Module module) {
+    public void addModule(Module module) throws DuplicateModuleException {
+        for (Module m : modules) {
+            if (m.getCode().equals(module.getCode())) {
+                throw new DuplicateModuleException("This module has already been added to the list. Please try again");
+            }
+        }
+
         this.modules.add(module);
 
         String addedMessage = "\tModule has been added:\n" + "\t  " + module;
