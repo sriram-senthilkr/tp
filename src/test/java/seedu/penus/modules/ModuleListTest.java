@@ -4,6 +4,7 @@ package seedu.penus.modules;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import seedu.penus.exceptions.DuplicateModuleException;
 import seedu.penus.exceptions.InvalidCommandException;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +18,7 @@ class ModuleListTest {
     }
 
     @Test
-    void addModuleTest() {
+    void addModuleTest() throws DuplicateModuleException {
         Module testModule = new Module("CS2113", 2, 2, "A+");
         list.addModule(testModule);
 
@@ -25,7 +26,7 @@ class ModuleListTest {
     }
 
     @Test
-    void markModuleTest() throws InvalidCommandException {
+    void markModuleTest() throws InvalidCommandException, DuplicateModuleException {
         Module unmarkedModule = new Module("CS2113", 2, 2);
         list.addModule(unmarkedModule);
 
@@ -44,7 +45,7 @@ class ModuleListTest {
     }
 
     @Test
-    void deleteModuleTest() throws InvalidCommandException {
+    void deleteModuleTest() throws InvalidCommandException, DuplicateModuleException {
         Module unmarkedModule = new Module("CS2113", 2, 2);
         list.addModule(unmarkedModule);
 
@@ -60,7 +61,7 @@ class ModuleListTest {
     }
 
     @Test
-    void retrieveUntakenCoreModsTest() {
+    void retrieveUntakenCoreModsTest() throws DuplicateModuleException {
         Module coreModuleUntaken = new Module("CS2113", 2, 2);
         Module coreModuleTaken = new Module("CS2040C", 2, 2, "A+");
         Module notCoreModule = new Module("CS2103", 2, 2);
@@ -73,7 +74,7 @@ class ModuleListTest {
     }
 
     @Test 
-    void retrieveTakenCoreModsTest() {
+    void retrieveTakenCoreModsTest() throws DuplicateModuleException {
         Module coreModuleUntaken = new Module("CS2113", 2, 2);
         Module coreModuleTaken = new Module("CS2040C", 2, 2, "A+");
         Module notCoreModule = new Module("CS2103", 2, 2);
