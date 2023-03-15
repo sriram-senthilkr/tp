@@ -1,6 +1,10 @@
 package seedu.penus.parser;
 
-import seedu.penus.exceptions.*;
+import seedu.penus.exceptions.InvalidCommandException;
+import seedu.penus.exceptions.InvalidFormatException;
+import seedu.penus.exceptions.InvalidGradeException;
+import seedu.penus.exceptions.InvalidSemesterException;
+
 import seedu.penus.modules.Module;
 import seedu.penus.modules.Grade;
 
