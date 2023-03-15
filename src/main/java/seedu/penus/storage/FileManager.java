@@ -16,9 +16,6 @@ public class FileManager {
     private String modDetailsFilePath;
     private String dataDirectory;
 
-
-
-
     public FileManager() {
         this.dataDirectory = "./data/";
         this.coreModFilePath = this.dataDirectory + "CoreMods.txt";
@@ -71,7 +68,6 @@ public class FileManager {
                 String[] decodedModule = decodeModule(encoded);
                 moduleDetailsList.add(decodedModule);
             }
-
         } catch (FileNotFoundException e) {
             System.out.println(e);
         } finally {
