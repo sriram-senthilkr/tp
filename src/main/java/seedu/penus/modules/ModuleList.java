@@ -2,11 +2,10 @@ package seedu.penus.modules;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import seedu.penus.exceptions.DuplicateModuleException;
 import seedu.penus.exceptions.InvalidCommandException;
 import seedu.penus.exceptions.InvalidGradeException;
 import seedu.penus.ui.Ui;
+
 
 public class ModuleList {
     private final List<Module> modules;
@@ -35,7 +34,7 @@ public class ModuleList {
     public int size() {
         return modules.size();
     }
-
+    
     /**
      * Gets the list of modules.
      * 
@@ -59,19 +58,14 @@ public class ModuleList {
      * Adds a given module to the ModuleList object.
      * 
      * @param module The module to be added.
-     * @throws DuplicateModuleException
      */
-    public void addModule(Module module) throws DuplicateModuleException {
-        if (modules.contains(module)) {
-            throw new DuplicateModuleException("\tThe module you entered already exists in the list. Please try again");
-        }
-
+    public void addModule(Module module) {
         this.modules.add(module);
 
         String addedMessage = "\tModule has been added:\n" + "\t  " + module;
         String sizeMessage = printSize();
 
-        String[] messagePacket = { addedMessage, sizeMessage };
+        String[] messagePacket = {addedMessage, sizeMessage};
         Ui.printMessage(messagePacket);
     }
 
@@ -97,7 +91,7 @@ public class ModuleList {
         String removeMessage = "\tModule has been removed:\n" + "\t  " + modToDelete;
         String sizeMessage = printSize();
 
-        String[] messagePacket = { removeMessage, sizeMessage };
+        String[] messagePacket = {removeMessage, sizeMessage};
         Ui.printMessage(messagePacket);
     }
 
@@ -107,20 +101,15 @@ public class ModuleList {
      * @return sizeMessage The message indicating how many modules are in the list.
      */
     public String printSize() {
-        String sizeMessage;
-        if (this.modules.size() == 1) {
-            sizeMessage = "\tYou have " + this.modules.size() + " module in your planner.";
-        } else {
-            sizeMessage = "\tYou have " + this.modules.size() + " modules in your planner.";
-        }
-        return sizeMessage;
+
+        return "\tYou have " + this.modules.size() + " modules in your planner.";
     }
 
     /**
      * Marks the module as taken with grade
      * 
      * @param modCode The module code to be marked taken
-     * @param grade   The grade received upon taking the module
+     * @param grade The grade received upon taking the module
      */
     public void markModule(String modCode, String grade) throws InvalidCommandException {
         int index = -1;
@@ -138,7 +127,7 @@ public class ModuleList {
 
         String markMessage = "\tModule has been taken:\n" + "\t  " + currentMod;
 
-        String[] messagePacket = { markMessage };
+        String[] messagePacket = {markMessage};
         Ui.printMessage(messagePacket);
     }
 
@@ -151,13 +140,14 @@ public class ModuleList {
         Module currentMod = this.modules.get(modNum - 1);
         currentMod.markUntaken();
 
-        String unmarkMessage = "\tModule has been untaken:\n" + "\t  " + currentMod;
+        String unmarkMessage =
+                "\tModule has been untaken:\n" + "\t  " + currentMod;
 
-        String[] messagePacket = { unmarkMessage };
+        String[] messagePacket = {unmarkMessage};
         Ui.printMessage(messagePacket);
     }
 
-    // TODO: change list structure
+    //TODO: change list structure
     public void printModules() {
         String[] messagePacket = new String[this.modules.size() + 1];
         messagePacket[0] = "\tListing all modules:";
@@ -170,7 +160,7 @@ public class ModuleList {
         Ui.printMessage(messagePacket);
     }
 
-    // TODO: write status structure
+    //TODO: write status structure
     public void printStatus() throws InvalidGradeException {
         String[] messagePacket = new String[this.modules.size() + 1];
         messagePacket[0] = "\tListing all modules:";
