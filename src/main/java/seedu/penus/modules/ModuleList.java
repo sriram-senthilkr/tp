@@ -10,13 +10,11 @@ import seedu.penus.storage.FileManager;
 //import seedu.penus.exceptions.InvalidGradeException;
 import seedu.penus.ui.Ui;
 
-
 public class ModuleList {
     private final List<Module> modules;
 
     private FileManager fileManager = new FileManager();
     List<String[]> moduleDetails = fileManager.getAllModuleDetails();
-
 
     /**
      * Overloaded constructor for the creation of a ModuleList object.
@@ -43,7 +41,7 @@ public class ModuleList {
     public int size() {
         return modules.size();
     }
-    
+
     /**
      * Gets the list of modules.
      * 
@@ -80,7 +78,7 @@ public class ModuleList {
         String addedMessage = "\tModule has been added:\n" + "\t  " + module;
         String sizeMessage = printSize();
 
-        String[] messagePacket = {addedMessage, sizeMessage};
+        String[] messagePacket = { addedMessage, sizeMessage };
         Ui.printMessage(messagePacket);
     }
 
@@ -106,7 +104,7 @@ public class ModuleList {
         String removeMessage = "\tModule has been removed:\n" + "\t  " + modToDelete;
         String sizeMessage = printSize();
 
-        String[] messagePacket = {removeMessage, sizeMessage};
+        String[] messagePacket = { removeMessage, sizeMessage };
         Ui.printMessage(messagePacket);
     }
 
@@ -124,7 +122,7 @@ public class ModuleList {
      * Marks the module as taken with grade
      * 
      * @param modCode The module code to be marked taken
-     * @param grade The grade received upon taking the module
+     * @param grade   The grade received upon taking the module
      */
     public void markModule(String modCode, String grade) throws InvalidCommandException {
         int index = -1;
@@ -142,7 +140,7 @@ public class ModuleList {
 
         String markMessage = "\tModule has been taken:\n" + "\t  " + currentMod;
 
-        String[] messagePacket = {markMessage};
+        String[] messagePacket = { markMessage };
         Ui.printMessage(messagePacket);
     }
 
@@ -155,34 +153,145 @@ public class ModuleList {
         Module currentMod = this.modules.get(modNum - 1);
         currentMod.markUntaken();
 
-        String unmarkMessage =
-                "\tModule has been untaken:\n" + "\t  " + currentMod;
+        String unmarkMessage = "\tModule has been untaken:\n" + "\t  " + currentMod;
 
-        String[] messagePacket = {unmarkMessage};
+        String[] messagePacket = { unmarkMessage };
         Ui.printMessage(messagePacket);
     }
 
-    //TODO: change list structure
+    // TODO: change list structure
+    // public void printModules() {
+    // String[] messagePacket = new String[this.modules.size() + 1];
+    // messagePacket[0] = "\tListing all modules:";
+    // int messageCount = 1;
+    //
+    // for (int i = 0; i < this.modules.size(); i++) {
+    // String line = "\t" + (i + 1) + ". " + this.modules.get(i);
+    // messagePacket[messageCount++] = line;
+    // }
+    // Ui.printMessage(messagePacket);
+    // }
+
     public void printModules() {
-        String[] messagePacket = new String[this.modules.size() + 1];
-        messagePacket[0] = "\tListing all modules:";
-        int messageCount = 1;
+        List<String[]> y1s1 = new ArrayList<>();
+        List<String[]> y1s2 = new ArrayList<>();
+        List<String[]> y2s1 = new ArrayList<>();
+        List<String[]> y2s2 = new ArrayList<>();
+        List<String[]> y3s1 = new ArrayList<>();
+        List<String[]> y3s2 = new ArrayList<>();
+        List<String[]> y4s1 = new ArrayList<>();
+        List<String[]> y4s2 = new ArrayList<>();
 
-        for (int i = 0; i < this.modules.size(); i++) {
-            String line = "\t" + (i + 1) + ". " + this.modules.get(i);
-            messagePacket[messageCount++] = line;
+        for (Module m : modules) {
+            if (m.getYear() == 1) {
+                if (m.getSem() == 1) {
+                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
+                    y1s1.add(moduleArray);
+                } else {
+                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
+                    y1s2.add(moduleArray);
+                }
+            } else if (m.getYear() == 2) {
+                if (m.getSem() == 1) {
+                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
+                    y2s1.add(moduleArray);
+                } else {
+                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
+                    y2s2.add(moduleArray);
+                }
+            } else if (m.getYear() == 3) {
+                if (m.getSem() == 1) {
+                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
+                    y3s1.add(moduleArray);
+                } else {
+                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
+                    y3s2.add(moduleArray);
+                }
+            } else if (m.getYear() == 4) {
+                if (m.getSem() == 1) {
+                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
+                    y4s1.add(moduleArray);
+                } else {
+                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
+                    y4s2.add(moduleArray);
+                }
+            }
         }
-        Ui.printMessage(messagePacket);
+        Ui.printDivider();
+        for (int year = 1; year < 5; year++) {
+            for (int semester = 1; semester <= 2; semester++) {
+                System.out.println("- Year " + year + " Semester " + semester + " -");
+                if (year == 1) {
+                    if (semester == 1) {
+                        if (y1s1.isEmpty()) {
+                            System.out.println("\tNo modules taken/added.");
+                        }
+                        for (String[] s : y1s1) {
+
+                            System.out.println(s[0] + " " + s[1]);
+                        }
+                    } else {
+                        if (y1s2.isEmpty()) {
+                            System.out.println("\tNo modules taken/added.");
+                        }
+                        for (String[] s : y1s2) {
+                            System.out.println(s[0] + " " + s[1]);
+                        }
+                    }
+                } else if (year == 2) {
+                    if (semester == 1) {
+                        if (y2s1.isEmpty()) {
+                            System.out.println("\tNo modules taken/added.");
+                        }
+                        for (String[] s : y2s1) {
+                            System.out.println(s[0] + " " + s[1]);
+                        }
+                    } else {
+                        if (y2s2.isEmpty()) {
+                            System.out.println("\tNo modules taken/added.");
+                        }
+                        for (String[] s : y2s2) {
+                            System.out.println(s[0] + " " + s[1]);
+                        }
+                    }
+                } else if (year == 3) {
+                    if (semester == 1) {
+                        if (y3s1.isEmpty()) {
+                            System.out.println("\tNo modules taken/added.");
+                        }
+                        for (String[] s : y3s1) {
+                            System.out.println(s[0] + " " + s[1]);
+                        }
+                    } else {
+                        if (y3s2.isEmpty()) {
+                            System.out.println("\tNo modules taken/added.");
+                        }
+                        for (String[] s : y3s2) {
+                            System.out.println(s[0] + " " + s[1]);
+                        }
+                    }
+                } else {
+                    if (semester == 1) {
+                        if (y4s1.isEmpty()) {
+                            System.out.println("\tNo modules taken/added.");
+                        }
+                        for (String[] s : y4s1) {
+                            System.out.println(s[0] + " " + s[1]);
+                        }
+                    } else {
+                        if (y4s2.isEmpty()) {
+                            System.out.println("\tNo modules taken/added.");
+                        }
+                        for (String[] s : y4s2) {
+                            System.out.println(s[0] + " " + s[1]);
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    /*
-     public void printModules() {
-         for (int year  )
-     }
-    */
-
-
-    public int numberOfMcsTaken(List<String> takenCoreModulesList){
+    public int numberOfMcsTaken(List<String> takenCoreModulesList) {
         int numberOfMcs = 0;
         for (String currentUserModuleCode : takenCoreModulesList) {
             for (String[] moduleDetail : moduleDetails) {
@@ -195,7 +304,6 @@ public class ModuleList {
         }
         return numberOfMcs;
     }
-
 
     public List<String> retrieveTakenCoreModsList() {
         List<String> coreMods = fileManager.retrieveCoreMods();
