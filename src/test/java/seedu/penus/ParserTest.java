@@ -2,7 +2,14 @@ package seedu.penus;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import seedu.penus.exceptions.*;
+
+import seedu.penus.exceptions.DuplicateModuleException;
+import seedu.penus.exceptions.InvalidCommandException;
+import seedu.penus.exceptions.InvalidFormatException;
+import seedu.penus.exceptions.InvalidGradeException;
+import seedu.penus.exceptions.InvalidModuleException;
+import seedu.penus.exceptions.InvalidSemesterException;
+
 import seedu.penus.modules.ModuleList;
 import seedu.penus.parser.CommandParser;
 
