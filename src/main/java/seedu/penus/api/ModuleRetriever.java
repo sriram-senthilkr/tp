@@ -1,4 +1,4 @@
-package seedu.penus.modules;
+package seedu.penus.api;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
+<<<<<<< HEAD:src/main/java/seedu/penus/modules/moduleNUS.java
 public class moduleNUS {
    public static JSONObject moduleInfo;
 
@@ -15,6 +16,15 @@ public class moduleNUS {
        try {
            //Public API:
            //https://api.nusmods.com/v2/2022-2023/modules/<module_code>.json
+=======
+public class ModuleRetriever {
+    public static JSONObject moduleInfo;
+
+    public static void getData(String module) {
+        try {
+            //Public API:
+            //https://api.nusmods.com/v2/2022-2023/modules/<module_code>.json
+>>>>>>> aebb038bbbdcebba057e486a99ffb8047bf93c99:src/main/java/seedu/penus/api/ModuleRetriever.java
 
            module = module.toUpperCase();
 
