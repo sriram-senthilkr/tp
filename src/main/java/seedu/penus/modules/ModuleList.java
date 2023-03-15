@@ -156,21 +156,23 @@ public class ModuleList {
     }
 
     //TODO: change list structure
-   public void printModules() {
-       String[] messagePacket = new String[this.modules.size() + 1];
-       messagePacket[0] = "\tListing all modules:";
-       int messageCount = 1;
+    public void printModules() {
+        String[] messagePacket = new String[this.modules.size() + 1];
+        messagePacket[0] = "\tListing all modules:";
+        int messageCount = 1;
 
-       for (int i = 0; i < this.modules.size(); i++) {
-           String line = "\t" + (i + 1) + ". " + this.modules.get(i);
-           messagePacket[messageCount++] = line;
-       }
-       Ui.printMessage(messagePacket);
-   }
+        for (int i = 0; i < this.modules.size(); i++) {
+            String line = "\t" + (i + 1) + ". " + this.modules.get(i);
+            messagePacket[messageCount++] = line;
+        }
+        Ui.printMessage(messagePacket);
+    }
 
-    // public void printModules() {
-    //     for (int year  )
-    // }
+    /*
+     public void printModules() {
+         for (int year  )
+     }
+    */
 
     //TODO: write status structure
     public void printStatus() throws InvalidGradeException {
