@@ -3,18 +3,25 @@ package seedu.penus.modules;
 import java.util.ArrayList;
 import java.util.List;
 import seedu.penus.exceptions.InvalidCommandException;
-import seedu.penus.exceptions.InvalidGradeException;
+
+import seedu.penus.storage.FileManager;
+//import seedu.penus.exceptions.InvalidGradeException;
 import seedu.penus.ui.Ui;
 
 
 public class ModuleList {
     private final List<Module> modules;
 
+    private FileManager fileManager = new FileManager();
+    List<String[]> moduleDetails = fileManager.getAllModuleDetails();
+
+
     /**
      * Overloaded constructor for the creation of a ModuleList object.
      */
     public ModuleList() {
         this.modules = new ArrayList<>();
+        this.fileManager = new FileManager();
     }
 
     /**
@@ -152,7 +159,6 @@ public class ModuleList {
         String[] messagePacket = new String[this.modules.size() + 1];
         messagePacket[0] = "\tListing all modules:";
         int messageCount = 1;
-
         for (int i = 0; i < this.modules.size(); i++) {
             String line = "\t" + (i + 1) + ". " + this.modules.get(i);
             messagePacket[messageCount++] = line;
@@ -160,15 +166,81 @@ public class ModuleList {
         Ui.printMessage(messagePacket);
     }
 
-    //TODO: write status structure
-    public void printStatus() throws InvalidGradeException {
-        String[] messagePacket = new String[this.modules.size() + 1];
-        messagePacket[0] = "\tListing all modules:";
-        int messageCount = 1;
-        for (int i = 0; i < this.modules.size(); i++) {
-            String line = "\t" + (i + 1) + ". " + this.modules.get(i).getGradePoint();
-            messagePacket[messageCount++] = line;
+
+    public int numberOfMcsTaken(List<String> takenCoreModulesList){
+        int numberOfMcs = 0;
+        for (int i = 0; i < takenCoreModulesList.size(); i++){
+            String currentUserModuleCode = takenCoreModulesList.get(i);
+            for (int j = 0; j < moduleDetails.size(); j++){
+                String moduleDetailCode = moduleDetails.get(j)[0];
+                int moduleMcs = Integer.parseInt(moduleDetails.get(j)[2]);
+                if(currentUserModuleCode.equals(moduleDetailCode)){
+                    numberOfMcs = numberOfMcs + moduleMcs;
+                }
+            }
         }
-        Ui.printMessage(messagePacket);
+        return numberOfMcs;
+    }
+
+
+    public List<String> retrieveTakenCoreModsList() {
+        List<String> coreMods = fileManager.retrieveCoreMods();
+        List<String> takenCoreMods = new ArrayList<>();
+        for (int i = 0; i < coreMods.size(); i++) {
+            String currentCoreModCode = coreMods.get(i);
+            for (int j = 0; j < modules.size(); j++) {
+                String currentUserModuleCode = modules.get(j).moduleCode;
+                boolean isCurrentUserModuleTaken = modules.get(j).isTaken;
+                if (currentCoreModCode.equals(currentUserModuleCode) && isCurrentUserModuleTaken) {
+                    takenCoreMods.add(currentCoreModCode);
+                    break;
+                }
+            }
+        }
+        return takenCoreMods;
+    }
+
+    public List<String> retrieveUntakenCoreModsList() {
+        List<String> coreMods = fileManager.retrieveCoreMods();
+        List<String> untakenCoreMods = new ArrayList<>();
+        for (int i = 0; i < coreMods.size(); i++) {
+            boolean isCoreModTaken = false;
+            String currentCoreModCode = coreMods.get(i);
+            for (int j = 0; j < modules.size(); j++) {
+                String currentUserModuleCode = modules.get(j).moduleCode;
+                boolean isCurrentUserModuleTaken = modules.get(j).isTaken;
+                if (currentCoreModCode.equals(currentUserModuleCode) && isCurrentUserModuleTaken) {
+                    isCoreModTaken = true;
+                    break;
+                }
+            }
+            if (!isCoreModTaken) {
+                untakenCoreMods.add(currentCoreModCode);
+            }
+        }
+        return untakenCoreMods;
+    }
+
+    public void statusPrintFunction(List<String> moduleList) {
+        List<String[]> moduleDetails = fileManager.getAllModuleDetails();
+        for (int k = 0; k < moduleList.size(); k++) {
+            System.out.print(moduleList.get(k));
+            for (int j = 0; j < moduleDetails.size(); j++){
+                if (moduleDetails.get(j)[0].equals(moduleList.get(k))){
+                    System.out.print(" " + moduleDetails.get(j)[1] + " " + "MCs:" + moduleDetails.get(j)[2]);
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public void printStatus() {
+        List<String> takenCoreModsList = retrieveTakenCoreModsList();
+        List<String> untakenCoreModsList = retrieveUntakenCoreModsList();
+        System.out.println("-Taken-");
+        statusPrintFunction(takenCoreModsList);
+        System.out.println("-Not Taken-");
+        statusPrintFunction(untakenCoreModsList);
+        System.out.println(numberOfMcsTaken(takenCoreModsList) + "/160");
     }
 }
