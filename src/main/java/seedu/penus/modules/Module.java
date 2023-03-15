@@ -61,6 +61,7 @@ public class Module {
 
     //TODO: change format accordingly
     public String toString() {
-        return this.getStatus() + " " + this.moduleCode + " " + this.year + " " + this.semester + " " + getGrade();    
+        return this.getStatus() + " " + this.moduleCode + " year "
+                + this.year + " semester " + this.semester + " " + getGrade();
     }
 }
