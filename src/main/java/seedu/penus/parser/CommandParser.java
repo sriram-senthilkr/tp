@@ -2,6 +2,7 @@ package seedu.penus.parser;
 
 import java.util.Scanner;
 
+import seedu.penus.api.ModuleRetriever;
 import seedu.penus.exceptions.DuplicateModuleException;
 import seedu.penus.exceptions.InvalidCommandException;
 import seedu.penus.exceptions.InvalidFormatException;
@@ -12,7 +13,6 @@ import seedu.penus.exceptions.InvalidSemesterException;
 import seedu.penus.modules.Module;
 import seedu.penus.modules.ModuleList;
 import seedu.penus.modules.Grade;
-import seedu.penus.modules.moduleNUS;
 
 public class CommandParser {
     private static final String LIST = "list";
@@ -80,8 +80,8 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            moduleNUS.dataRetriever(moduleCode);
-            moduleNUS.printPrerequisite();
+            ModuleRetriever.getData(moduleCode);
+            ModuleRetriever.printPrerequisite();
             break;
 
         case PRECLUSION:
@@ -89,8 +89,8 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            moduleNUS.dataRetriever(moduleCode);
-            moduleNUS.printPreclusion();
+            ModuleRetriever.getData(moduleCode);
+            ModuleRetriever.printPreclusion();
             break;
 
         case DESCRIPTION:
@@ -98,8 +98,8 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            moduleNUS.dataRetriever(moduleCode);
-            moduleNUS.printDescription();
+            ModuleRetriever.getData(moduleCode);
+            ModuleRetriever.printDescription();
             break;
 
         case TITLE:
@@ -107,8 +107,8 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            moduleNUS.dataRetriever(moduleCode);
-            moduleNUS.printTitle();
+            ModuleRetriever.getData(moduleCode);
+            ModuleRetriever.printTitle();
             break;
 
         case MODULECREDIT:
@@ -116,8 +116,8 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            moduleNUS.dataRetriever(moduleCode);
-            moduleNUS.printModuleCredit();
+            ModuleRetriever.getData(moduleCode);
+            ModuleRetriever.printModuleCredit();
             break;
 
         default:

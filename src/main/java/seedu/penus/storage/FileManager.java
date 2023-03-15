@@ -14,6 +14,7 @@ public class FileManager {
     public String modDetailsFilePath;
     public String dataDirectory;
 
+
     public FileManager() {
         this.dataDirectory = "./data/";
         this.coreModFilePath = this.dataDirectory + "CoreMods.txt";
