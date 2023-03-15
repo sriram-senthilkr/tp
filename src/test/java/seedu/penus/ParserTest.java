@@ -2,12 +2,9 @@ package seedu.penus;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.penus.exceptions.*;
 import seedu.penus.modules.ModuleList;
 import seedu.penus.parser.CommandParser;
-import seedu.penus.exceptions.InvalidCommandException;
-import seedu.penus.exceptions.InvalidFormatException;
-import seedu.penus.exceptions.InvalidGradeException;
-import seedu.penus.exceptions.InvalidModuleException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,8 +22,9 @@ class ParserTest {
 
     //parse in taken module with correct format
     @Test
-    void parseTaken_expectCodeYearSemAndGrade() 
-            throws InvalidCommandException, InvalidModuleException, InvalidFormatException, InvalidGradeException {
+    void parseTaken_expectCodeYearSemAndGrade()
+            throws InvalidCommandException, InvalidModuleException, InvalidFormatException,
+            InvalidGradeException, DuplicateModuleException, InvalidSemesterException {
         String inputString = "taken CS2113 y/1 s/1 g/A+";
         String[] input = inputString.split(" ", 2);
         parser.parseCommand(input);
@@ -44,8 +42,9 @@ class ParserTest {
 
     //parse in plan module with correct format
     @Test
-    void parsePlan_expectCodeYearAndSem() 
-            throws InvalidCommandException, InvalidModuleException, InvalidFormatException, InvalidGradeException {
+    void parsePlan_expectCodeYearAndSem()
+            throws InvalidCommandException, InvalidModuleException, InvalidFormatException,
+            InvalidGradeException, DuplicateModuleException, InvalidSemesterException {
         String inputString = "plan CS2113 y/4 s/2";
         String[] input = inputString.split(" ", 2);
         parser.parseCommand(input);
@@ -60,8 +59,9 @@ class ParserTest {
 
     //parse in remove module with module found
     @Test
-    void parseRemove_moduleFound_expectTrue() 
-            throws InvalidCommandException, InvalidModuleException, InvalidFormatException, InvalidGradeException {
+    void parseRemove_moduleFound_expectTrue()
+            throws InvalidCommandException, InvalidModuleException, InvalidFormatException,
+            InvalidGradeException, DuplicateModuleException, InvalidSemesterException {
         //add a module to the list and removes it, checks if module list is empty
         String inputString = "plan CS2113 y/4 s/2";
         String[] input = inputString.split(" ", 2);
