@@ -12,7 +12,7 @@ import seedu.penus.ui.Ui;
 public class ModuleList {
     private final List<Module> modules;
 
-    FileManager fileManager = new FileManager();
+    private FileManager fileManager = new FileManager();
     List<String[]> moduleDetails = fileManager.getAllModuleDetails();
 
 
@@ -221,12 +221,12 @@ public class ModuleList {
         return untakenCoreMods;
     }
 
-    public void statusPrintFunction(List<String> ModuleList) {
+    public void statusPrintFunction(List<String> moduleList) {
         List<String[]> moduleDetails = fileManager.getAllModuleDetails();
-        for (int k = 0; k < ModuleList.size(); k++) {
-            System.out.print(ModuleList.get(k));
+        for (int k = 0; k < moduleList.size(); k++) {
+            System.out.print(moduleList.get(k));
             for (int j = 0; j < moduleDetails.size(); j++){
-                if (moduleDetails.get(j)[0].equals(ModuleList.get(k))){
+                if (moduleDetails.get(j)[0].equals(moduleList.get(k))){
                     System.out.print(" " + moduleDetails.get(j)[1] + " " + "MCs:" + moduleDetails.get(j)[2]);
                 }
             }
