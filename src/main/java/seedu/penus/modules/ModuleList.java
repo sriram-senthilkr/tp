@@ -84,7 +84,7 @@ public class ModuleList {
     public void deleteModule(String deleteCode) throws InvalidCommandException {
         int index = -1;
         for (int i = 0; i < this.modules.size(); i++) {
-            if (modules.get(i).getCode().equals(deleteCode)) {
+            if (modules.get(i).getCode().equals(deleteCode.toUpperCase())) {
                 index = i;
                 break;
             }
@@ -121,7 +121,7 @@ public class ModuleList {
     public void markModule(String modCode, String grade) throws InvalidCommandException {
         int index = -1;
         for (int i = 0; i < this.modules.size(); i++) {
-            if (modules.get(i).getCode().equals(modCode)) {
+            if (modules.get(i).getCode().equals(modCode.toUpperCase())) {
                 index = i;
                 break;
             }
@@ -169,12 +169,11 @@ public class ModuleList {
 
     public int numberOfMcsTaken(List<String> takenCoreModulesList){
         int numberOfMcs = 0;
-        for (int i = 0; i < takenCoreModulesList.size(); i++){
-            String currentUserModuleCode = takenCoreModulesList.get(i);
-            for (int j = 0; j < moduleDetails.size(); j++){
-                String moduleDetailCode = moduleDetails.get(j)[0];
-                int moduleMcs = Integer.parseInt(moduleDetails.get(j)[2]);
-                if(currentUserModuleCode.equals(moduleDetailCode)){
+        for (String currentUserModuleCode : takenCoreModulesList) {
+            for (String[] moduleDetail : moduleDetails) {
+                String moduleDetailCode = moduleDetail[0];
+                int moduleMcs = Integer.parseInt(moduleDetail[2]);
+                if (currentUserModuleCode.equals(moduleDetailCode)) {
                     numberOfMcs = numberOfMcs + moduleMcs;
                 }
             }
@@ -186,11 +185,10 @@ public class ModuleList {
     public List<String> retrieveTakenCoreModsList() {
         List<String> coreMods = fileManager.retrieveCoreMods();
         List<String> takenCoreMods = new ArrayList<>();
-        for (int i = 0; i < coreMods.size(); i++) {
-            String currentCoreModCode = coreMods.get(i);
-            for (int j = 0; j < modules.size(); j++) {
-                String currentUserModuleCode = modules.get(j).moduleCode;
-                boolean isCurrentUserModuleTaken = modules.get(j).isTaken;
+        for (String currentCoreModCode : coreMods) {
+            for (Module module : modules) {
+                String currentUserModuleCode = module.moduleCode;
+                boolean isCurrentUserModuleTaken = module.isTaken;
                 if (currentCoreModCode.equals(currentUserModuleCode) && isCurrentUserModuleTaken) {
                     takenCoreMods.add(currentCoreModCode);
                     break;
@@ -203,12 +201,12 @@ public class ModuleList {
     public List<String> retrieveUntakenCoreModsList() {
         List<String> coreMods = fileManager.retrieveCoreMods();
         List<String> untakenCoreMods = new ArrayList<>();
-        for (int i = 0; i < coreMods.size(); i++) {
+        for (String coreMod : coreMods) {
             boolean isCoreModTaken = false;
-            String currentCoreModCode = coreMods.get(i);
-            for (int j = 0; j < modules.size(); j++) {
-                String currentUserModuleCode = modules.get(j).moduleCode;
-                boolean isCurrentUserModuleTaken = modules.get(j).isTaken;
+            String currentCoreModCode = coreMod;
+            for (Module module : modules) {
+                String currentUserModuleCode = module.moduleCode;
+                boolean isCurrentUserModuleTaken = module.isTaken;
                 if (currentCoreModCode.equals(currentUserModuleCode) && isCurrentUserModuleTaken) {
                     isCoreModTaken = true;
                     break;
@@ -223,11 +221,11 @@ public class ModuleList {
 
     public void statusPrintFunction(List<String> moduleList) {
         List<String[]> moduleDetails = fileManager.getAllModuleDetails();
-        for (int k = 0; k < moduleList.size(); k++) {
-            System.out.print(moduleList.get(k));
-            for (int j = 0; j < moduleDetails.size(); j++){
-                if (moduleDetails.get(j)[0].equals(moduleList.get(k))){
-                    System.out.print(" " + moduleDetails.get(j)[1] + " " + "MCs:" + moduleDetails.get(j)[2]);
+        for (String s : moduleList) {
+            System.out.print(s);
+            for (String[] moduleDetail : moduleDetails) {
+                if (moduleDetail[0].equals(s)) {
+                    System.out.print(" " + moduleDetail[1] + " " + "MCs:" + moduleDetail[2]);
                 }
             }
             System.out.println();

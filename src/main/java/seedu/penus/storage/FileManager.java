@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 
 public class FileManager {
-    private File coreModFile;
-    private File modDetailsFile;
-    private String coreModFilePath;
-    private String modDetailsFilePath;
-    private String dataDirectory;
+    private final File coreModFile;
+    private final File modDetailsFile;
+    private final String coreModFilePath;
+    private final String modDetailsFilePath;
+    private final String dataDirectory;
 
     public FileManager() {
         this.dataDirectory = "./data/";

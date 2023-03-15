@@ -74,7 +74,7 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            ModuleRetriever.dataRetriever(moduleCode);
+            ModuleRetriever.getData(moduleCode);
             ModuleRetriever.printPrerequisite();
             break;
 
@@ -83,7 +83,7 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            ModuleRetriever.dataRetriever(moduleCode);
+            ModuleRetriever.getData(moduleCode);
             ModuleRetriever.printPreclusion();
             break;
 
@@ -92,7 +92,7 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            ModuleRetriever.dataRetriever(moduleCode);
+            ModuleRetriever.getData(moduleCode);
             ModuleRetriever.printDescription();
             break;
 
@@ -101,7 +101,7 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            ModuleRetriever.dataRetriever(moduleCode);
+            ModuleRetriever.getData(moduleCode);
             ModuleRetriever.printTitle();
             break;
 
@@ -110,7 +110,7 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            ModuleRetriever.dataRetriever(moduleCode);
+            ModuleRetriever.getData(moduleCode);
             ModuleRetriever.printModuleCredit();
             break;
 
