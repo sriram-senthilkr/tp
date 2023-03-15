@@ -1,14 +1,13 @@
 package seedu.penus.parser;
 
-import seedu.penus.exceptions.InvalidCommandException;
-import seedu.penus.exceptions.InvalidFormatException;
-import seedu.penus.exceptions.InvalidGradeException;
+import seedu.penus.exceptions.*;
 import seedu.penus.modules.Module;
 import seedu.penus.modules.Grade;
 
 public class ModuleParser {
     public static Module getModuleFromCommand(String[] inputArray)
-            throws InvalidFormatException, InvalidCommandException, InvalidGradeException {
+            throws InvalidFormatException, InvalidCommandException,
+            InvalidGradeException, InvalidSemesterException {
         Module module;
         String command = inputArray[0];
 
@@ -26,7 +25,7 @@ public class ModuleParser {
             Integer year = Integer.parseInt(planDetails[1]);
             int semester = Integer.parseInt(planDetails[2]);
             if (semester != 1 && semester != 2) {
-                throw new InvalidFormatException("Semester must be 1 or 2!");
+                throw new InvalidSemesterException("Semester must be 1 or 2!");
             }
             module = new Module(moduleCode, year, semester);
             break;
@@ -46,7 +45,7 @@ public class ModuleParser {
             if (!Grade.isValid(takenGrade)) {
                 throw new InvalidGradeException();
             }
-            
+
             if (takenSemester != 1 && takenSemester != 2) {
                 throw new InvalidFormatException("Semester must be 1 or 2!");
             }
