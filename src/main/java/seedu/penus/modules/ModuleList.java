@@ -237,7 +237,7 @@ public class ModuleList {
     public void statusPrintFunction(List<String> moduleList) {
         List<String[]> moduleDetails = fileManager.getAllModuleDetails();
         for (String s : moduleList) {
-            System.out.print(s);
+            System.out.print("\t" + s);
             for (String[] moduleDetail : moduleDetails) {
                 if (moduleDetail[0].equals(s)) {
                     System.out.print(" " + moduleDetail[1] + " " + "MCs:" + moduleDetail[2]);
@@ -250,10 +250,10 @@ public class ModuleList {
     public void printStatus() {
         List<String> takenCoreModsList = retrieveTakenCoreModsList();
         List<String> untakenCoreModsList = retrieveUntakenCoreModsList();
-        System.out.println("-Taken-");
+        System.out.println("\t---------Taken---------");
         statusPrintFunction(takenCoreModsList);
-        System.out.println("-Not Taken-");
+        System.out.println("\n\t---------Not Taken---------");
         statusPrintFunction(untakenCoreModsList);
-        System.out.println(numberOfMcsTaken(takenCoreModsList) + "/160");
+        System.out.println("\n\tTotal MCs taken: " + numberOfMcsTaken(takenCoreModsList) + "/160");
     }
 }
