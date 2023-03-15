@@ -37,15 +37,6 @@ public class moduleNUS {
                 //Close scanner
                 scanner.close();
 
-                // see if want to implement this, it gets complicated for modules with complicated pre reqs
-//                String newInfo = informationString.replace("\\t", "")
-//                        //.replace("if undertaking an Undergraduate Degree then", "")
-//                        .replace("\\nthen\\n", " then")
-//                        //.replace("or\\n", "or")
-//                        .replace("\\n", " ")
-//                        .replace("( ", "\\n(")
-//                        .replace(" )", ")\\n");
-
                 //JSON simple library Setup with Maven is used to convert strings to JSON
                 JSONParser parser = new JSONParser();
                 Object obj =  parser.parse(String.valueOf(informationString));
