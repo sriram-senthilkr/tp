@@ -1,4 +1,4 @@
-package seedu.penus.modules;
+package seedu.penus.api;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
@@ -8,10 +8,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
-public class moduleNUS {
+public class ModuleRetriever {
     public static JSONObject moduleInfo;
 
-    public static void dataRetriever(String module) {
+    public static void getData(String module) {
         try {
             //Public API:
             //https://api.nusmods.com/v2/2022-2023/modules/<module_code>.json
