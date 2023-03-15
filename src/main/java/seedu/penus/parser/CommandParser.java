@@ -8,7 +8,6 @@ import seedu.penus.exceptions.InvalidModuleException;
 import seedu.penus.modules.Module;
 import seedu.penus.modules.ModuleList;
 import seedu.penus.modules.Grade;
-import seedu.penus.modules.moduleNUS;
 
 public class CommandParser {
     private static final String LIST = "list";
@@ -18,12 +17,7 @@ public class CommandParser {
     private static final String REMOVE = "remove";
     private static final String PLAN = "plan";
     private static final String TAKEN = "taken";
-    private static final String PREREQUISITE = "prerequisite";
-    private static final String PRECLUSION = "preclusion";
-    private static final String DESCRIPTION = "description";
-    private static final String TITLE = "title";
-    private static final String MODULECREDIT = "modulecredit";
-
+    
     private final ModuleList moduleList;
 
     public CommandParser(ModuleList moduleList) {
@@ -33,7 +27,6 @@ public class CommandParser {
     public void parseCommand(String[] inputArray)
             throws InvalidCommandException, InvalidModuleException, InvalidFormatException, InvalidGradeException {
         String command = inputArray[0];
-        String moduleCode;
 
         switch(command) {
         case PLAN:
@@ -67,51 +60,6 @@ public class CommandParser {
         case REMOVE:
             String removeCode = inputArray[1];
             moduleList.deleteModule(removeCode);
-            break;
-
-        case PREREQUISITE:
-            if (inputArray.length == 1 || inputArray.length > 2) {
-                throw new InvalidModuleException(command);
-            }
-            moduleCode = inputArray[1];
-            moduleNUS.dataRetriever(moduleCode);
-            moduleNUS.printPrerequisite();
-            break;
-
-        case PRECLUSION:
-            if (inputArray.length == 1 || inputArray.length > 2) {
-                throw new InvalidModuleException(command);
-            }
-            moduleCode = inputArray[1];
-            moduleNUS.dataRetriever(moduleCode);
-            moduleNUS.printPreclusion();
-            break;
-
-        case DESCRIPTION:
-            if (inputArray.length == 1 || inputArray.length > 2) {
-                throw new InvalidModuleException(command);
-            }
-            moduleCode = inputArray[1];
-            moduleNUS.dataRetriever(moduleCode);
-            moduleNUS.printDescription();
-            break;
-
-        case TITLE:
-            if (inputArray.length == 1 || inputArray.length > 2) {
-                throw new InvalidModuleException(command);
-            }
-            moduleCode = inputArray[1];
-            moduleNUS.dataRetriever(moduleCode);
-            moduleNUS.printTitle();
-            break;
-
-        case MODULECREDIT:
-            if (inputArray.length == 1 || inputArray.length > 2) {
-                throw new InvalidModuleException(command);
-            }
-            moduleCode = inputArray[1];
-            moduleNUS.dataRetriever(moduleCode);
-            moduleNUS.printModuleCredit();
             break;
 
         default:
