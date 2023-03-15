@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 
 public class FileManager {
-    private File coreModFile;
-    private File modDetailsFile;
-    private String coreModFilePath;
-    private String modDetailsFilePath;
-    private String dataDirectory;
+    public File coreModFile;
+    public File modDetailsFile;
+    public String coreModFilePath;
+    public String modDetailsFilePath;
+    public String dataDirectory;
 
     public FileManager() {
         this.dataDirectory = "./data/";
@@ -82,7 +82,7 @@ public class FileManager {
      * @param module the string corresponding to the lines of module-details.txt
      * @return decoded String array
      */
-    private String[] decodeModule(String module) {
+    public String[] decodeModule(String module) {
         String[] components = module.split(" ### ");
         return components;
     }
