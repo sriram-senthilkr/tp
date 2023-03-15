@@ -80,8 +80,8 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            moduleNUS.dataRetriever(moduleCode);
-            moduleNUS.printPrerequisite();
+           moduleNUS.dataRetriever(moduleCode);
+           moduleNUS.printPrerequisite();
             break;
 
         case PRECLUSION:
@@ -89,8 +89,8 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            moduleNUS.dataRetriever(moduleCode);
-            moduleNUS.printPreclusion();
+           moduleNUS.dataRetriever(moduleCode);
+           moduleNUS.printPreclusion();
             break;
 
         case DESCRIPTION:
@@ -98,8 +98,8 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            moduleNUS.dataRetriever(moduleCode);
-            moduleNUS.printDescription();
+           moduleNUS.dataRetriever(moduleCode);
+           moduleNUS.printDescription();
             break;
 
         case TITLE:
@@ -107,8 +107,8 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            moduleNUS.dataRetriever(moduleCode);
-            moduleNUS.printTitle();
+           moduleNUS.dataRetriever(moduleCode);
+           moduleNUS.printTitle();
             break;
 
         case MODULECREDIT:
@@ -116,8 +116,8 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            moduleNUS.dataRetriever(moduleCode);
-            moduleNUS.printModuleCredit();
+           moduleNUS.dataRetriever(moduleCode);
+           moduleNUS.printModuleCredit();
             break;
 
         default:
