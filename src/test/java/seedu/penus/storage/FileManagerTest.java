@@ -17,7 +17,7 @@ class FileManagerTest {
     public void testConstructor() {
         assertNotNull(fileManager.filePath);
         assertEquals("./data/penus.txt", fileManager.filePath);
-        assert fileManager.filePath == "./data/penus.txt" : "saved file path error";
+        assert fileManager.filePath.equals("./data/penus.txt") : "saved file path error";
     }
 }
 
