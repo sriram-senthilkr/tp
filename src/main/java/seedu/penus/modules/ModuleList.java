@@ -5,23 +5,21 @@ import java.util.List;
 
 import seedu.penus.exceptions.DuplicateModuleException;
 import seedu.penus.exceptions.InvalidCommandException;
-
-import seedu.penus.storage.FileManager;
-//import seedu.penus.exceptions.InvalidGradeException;
+import seedu.penus.storage.ResourceManager;
 import seedu.penus.ui.Ui;
 
 public class ModuleList {
     private final List<Module> modules;
-
-    private FileManager fileManager = new FileManager();
-    List<String[]> moduleDetails = fileManager.getAllModuleDetails();
+    private ResourceManager resource;
+    List<String[]> moduleDetails;
 
     /**
      * Overloaded constructor for the creation of a ModuleList object.
      */
     public ModuleList() {
         this.modules = new ArrayList<>();
-        this.fileManager = new FileManager();
+        this.resource = new ResourceManager();
+        this.moduleDetails = resource.getAllModuleDetails();
     }
 
     /**
@@ -31,6 +29,8 @@ public class ModuleList {
      */
     public ModuleList(List<Module> mods) {
         this.modules = mods;
+        this.resource = new ResourceManager();
+        this.moduleDetails = resource.getAllModuleDetails();
     }
 
     /**
@@ -305,8 +305,8 @@ public class ModuleList {
         return numberOfMcs;
     }
 
-    public List<String> retrieveTakenCoreModsList() {
-        List<String> coreMods = fileManager.retrieveCoreMods();
+    public List<String> getTakenCoreModsList() {
+        List<String> coreMods = resource.getCoreMods();
         List<String> takenCoreMods = new ArrayList<>();
         for (String currentCoreModCode : coreMods) {
             for (Module module : modules) {
@@ -321,8 +321,8 @@ public class ModuleList {
         return takenCoreMods;
     }
 
-    public List<String> retrieveUntakenCoreModsList() {
-        List<String> coreMods = fileManager.retrieveCoreMods();
+    public List<String> getUntakenCoreModsList() {
+        List<String> coreMods = resource.getCoreMods();
         List<String> untakenCoreMods = new ArrayList<>();
         for (String coreMod : coreMods) {
             boolean isCoreModTaken = false;
@@ -343,7 +343,7 @@ public class ModuleList {
     }
 
     public void statusPrintFunction(List<String> moduleList) {
-        List<String[]> moduleDetails = fileManager.getAllModuleDetails();
+        List<String[]> moduleDetails = resource.getAllModuleDetails();
         for (String s : moduleList) {
             System.out.print("\t" + s);
             for (String[] moduleDetail : moduleDetails) {
@@ -356,12 +356,14 @@ public class ModuleList {
     }
 
     public void printStatus() {
-        List<String> takenCoreModsList = retrieveTakenCoreModsList();
-        List<String> untakenCoreModsList = retrieveUntakenCoreModsList();
-        System.out.println("\t---------Taken---------");
+        List<String> takenCoreModsList = getTakenCoreModsList();
+        List<String> untakenCoreModsList = getUntakenCoreModsList();
+        Ui.printDivider();
+        System.out.println("\t--------- Taken ---------");
         statusPrintFunction(takenCoreModsList);
-        System.out.println("\n\t---------Not Taken---------");
+        System.out.println("\n\t--------- Not Taken ---------");
         statusPrintFunction(untakenCoreModsList);
         System.out.println("\n\tTotal MCs taken: " + numberOfMcsTaken(takenCoreModsList) + "/160");
+        Ui.printDivider();
     }
 }
