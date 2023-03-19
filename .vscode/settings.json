@@ -1,0 +1,10 @@
+{
+    "java.configuration.updateBuildConfiguration": "disabled",
+    "java.debug.settings.onBuildFailureProceed": true,
+    "java.project.referencedLibraries": [
+        {
+            "scope": "java",
+            "path": "src/main/resources"
+        }
+   ]
+}

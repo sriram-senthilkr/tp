@@ -4,75 +4,83 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+import seedu.penus.modules.Module;
+import seedu.penus.modules.ModuleList;
+
 public class FileManager {
-    public File coreModFile;
-    public File modDetailsFile;
-    public String coreModFilePath;
-    public String modDetailsFilePath;
+    public File file;
     public String dataDirectory;
+    public String filePath;
 
-
+    /**
+     * Constructor for the File Manager object.
+     * <p>
+     * Creates a File object according to the relative path /data/duke.txt to store the data
+     * <p>
+     * Initializes a /data/ folder and duke.txt if it does not exist
+     */
     public FileManager() {
         this.dataDirectory = "./data/";
-        this.coreModFilePath = this.dataDirectory + "CoreMods.txt";
-        this.coreModFile = new File(this.coreModFilePath);
-        this.modDetailsFilePath = this.dataDirectory + "module-details.txt";
-        this.modDetailsFile = new File(this.modDetailsFilePath);
+        this.filePath = this.dataDirectory + "penus.txt";
+        this.file = new File(this.filePath);
         File directory = new File(this.dataDirectory);
         try {
             if (!directory.exists()) {
                 directory.mkdirs();
             }
-            if (!this.modDetailsFile.exists()) {
-                this.modDetailsFile.createNewFile();
+            if (!this.file.exists()) {
+                this.file.createNewFile();
             }
         } catch (IOException e) {
             System.out.println(e);
         }
     }
 
-    public List<String> retrieveCoreMods() {
-        Scanner scanner = null;
-        List<String> coreModules = new ArrayList<>();
+    /**
+     * Saves the current moduleList accumulated over the program's life and stores it in /data/duke.txt
+     *
+     * @param moduleList the moduleList containing all the user's modules
+     */
+    public void save(ModuleList moduleList) {
         try {
-            scanner = new Scanner(this.coreModFile);
-            while (scanner.hasNextLine()) {
-                String coreModuleCode = scanner.nextLine();
-                coreModules.add(coreModuleCode);
+            FileWriter writer = new FileWriter(this.filePath);
+            for (Module module : moduleList.getModuleList()) {
+                writer.write(module.encode() + "\n");
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("Core Mod File not found");
-        } finally {
-            scanner.close();
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(e);
         }
-        return coreModules;
     }
 
     /**
-     * Retrieves all module details in /data/module-details.txt
+     * Retrieves any modules saved in /data/duke.txt if the directory exists.
      * <p>
-     * Parses the content of module-details.txt into a List of decoded modules.
-     * @return the List containing all the decoded modules.
+     * Decodes the contents of duke.txt into a moduleList object. 
+     * Called upon initialisation of Duke.java
+     *
+     * @return moduleList the moduleList containing all the user's modules saved in storage
      */
-    public List<String[]> getAllModuleDetails() {
+    public List<Module> retrieve() {
         Scanner scanner = null;
-        List<String[]> moduleDetailsList = new ArrayList<>();
+        List<Module> moduleList = new ArrayList<>();
         try {
-            scanner = new Scanner(this.modDetailsFile);
+            scanner = new Scanner(this.file);
             while (scanner.hasNextLine()) {
                 String encoded = scanner.nextLine();
-                String[] decodedModule = decodeModule(encoded);
-                moduleDetailsList.add(decodedModule);
+                moduleList.add(this.decodemodule(encoded));
             }
         } catch (FileNotFoundException e) {
             System.out.println(e);
         } finally {
             scanner.close();
         }
-        return moduleDetailsList;
+        
+        return moduleList;
     }
 
     /**
@@ -83,9 +91,32 @@ public class FileManager {
      * @param module the string corresponding to the lines of module-details.txt
      * @return decoded String array
      */
-    public String[] decodeModule(String module) {
+    private Module decodemodule(String module) {
         String[] components = module.split(" ### ");
-        return components;
+        String status = components[0];
+        String moduleCode = components[1];
+        int year = Integer.parseInt(components[2]);
+        int semester = Integer.parseInt(components[3]);
+
+        Module decoded = null;
+
+        switch (status) {
+        case "Taken":
+            String grade = components[4];
+            decoded = new Module(moduleCode, year, semester, grade);
+            System.out.println(moduleCode + year + semester + grade);
+            break;
+
+        case "Plan":
+            decoded = new Module(moduleCode, year, semester);
+            System.out.println(moduleCode + year + semester);
+            break;
+
+        default:
+            break;
+        }
+
+        return decoded;
     }
 
 }
