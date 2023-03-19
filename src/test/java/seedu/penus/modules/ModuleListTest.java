@@ -70,7 +70,7 @@ class ModuleListTest {
         list.addModule(coreModuleTaken);
         list.addModule(notCoreModule);
 
-        List<String> untakenList = list.retrieveUntakenCoreModsList();
+        List<String> untakenList = list.getUntakenCoreModsList();
         assertEquals(30, untakenList.size());
     }
 
@@ -83,7 +83,7 @@ class ModuleListTest {
         list.addModule(coreModuleTaken);
         list.addModule(notCoreModule);
 
-        List<String> takenList = list.retrieveTakenCoreModsList();
+        List<String> takenList = list.getTakenCoreModsList();
         assertEquals(1, takenList.size());
     }
 }
