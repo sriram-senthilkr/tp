@@ -67,9 +67,11 @@ public class Module {
     public String encode() {
         String encoded = null;
         if (getStatus() == "Taken") {
-            encoded = String.format("%s ### %s ### %s ### %s ### %s", getStatus(), this.moduleCode, this.year, this.semester, this.grade);
+            encoded = String.format("%s ### %s ### %s ### %s ### %s",
+                    getStatus(), this.moduleCode, this.year, this.semester, this.grade);
         } else if (getStatus() == "Plan") {
-            encoded = String.format("%s ### %s ### %s ### %s", getStatus(), this.moduleCode, this.year, this.semester);
+            encoded = String.format("%s ### %s ### %s ### %s", 
+                    getStatus(), this.moduleCode, this.year, this.semester);
         }
 
         return encoded;

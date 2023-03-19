@@ -35,7 +35,9 @@ public class ResourceManager {
         BufferedReader reader = null;
         List<String> coreModules = new ArrayList<>();
         try {
-            InputStreamReader stream = new InputStreamReader(getClass().getClassLoader().getResourceAsStream(coreModFile));
+            InputStreamReader stream = new InputStreamReader(
+                    getClass().getClassLoader().getResourceAsStream(coreModFile)
+            );
             reader = new BufferedReader(stream);
             String line = null;
             while ((line = reader.readLine()) != null) {
@@ -59,7 +61,9 @@ public class ResourceManager {
         BufferedReader reader = null;
         List<String[]> moduleDetailsList = new ArrayList<>();
         try {
-            InputStreamReader stream = new InputStreamReader(getClass().getClassLoader().getResourceAsStream(modDetailsFile));
+            InputStreamReader stream = new InputStreamReader(
+                    getClass().getClassLoader().getResourceAsStream(modDetailsFile)
+            );
             reader = new BufferedReader(stream);
             String line = null;
             while ((line = reader.readLine()) != null) {

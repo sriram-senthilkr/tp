@@ -11,7 +11,7 @@ import seedu.penus.ui.Ui;
 public class ModuleList {
     private final List<Module> modules;
     private ResourceManager resource;
-    List<String[]> moduleDetails;
+    private List<String[]> moduleDetails;
 
     /**
      * Overloaded constructor for the creation of a ModuleList object.

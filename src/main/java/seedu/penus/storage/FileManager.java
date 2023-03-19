@@ -12,8 +12,8 @@ import seedu.penus.modules.Module;
 import seedu.penus.modules.ModuleList;
 
 public class FileManager {
-    private File file;
-    private String dataDirectory;
+    public File file;
+    public String dataDirectory;
     public String filePath;
 
     /**
