@@ -328,11 +328,14 @@ public class ModuleList {
         System.out.println("\t Initialization Completed. Please type help for list of commands");
     }
 
+    /**
+     * 
+     */
     public static void printHelp() {
         Ui.printDivider();
         System.out.println("\texit" + "\t\t\t\t\t\t\t\tExits the program");
-        System.out.println("\tlist mods [FILTER]" + "\t\t\t\t\t\tDisplays a list of all modules taken or planned."
-                + "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tIf [FILTER] is not specified, then all modules will shown.");
+        System.out.println("\tlist mods [FILTER]" + "\t\t\t\t\t\tDisplays a list of all modules taken or planned.\n"
+                + "\t\t\t\t\t\t\t\t\tIf [FILTER] is not specified, then all modules will shown.");
         System.out.println("\tmark [MODULE CODE] g/[GRADE]"
                 + "\t\t\t\t\tMarks the module that has been cleared, while updating its grades");
         System.out.println(
