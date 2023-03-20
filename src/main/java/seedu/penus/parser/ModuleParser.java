@@ -43,7 +43,7 @@ public class ModuleParser {
                 throw new InvalidFormatException("Try again, y/ s/ g/ cannot be empty");
             }
             String takenCode = takenDetails[0].toUpperCase();
-            Integer takenYear = Integer.parseInt(takenDetails[1]);
+            int takenYear = Integer.parseInt(takenDetails[1]);
             int takenSemester = Integer.parseInt(takenDetails[2]);
             String takenGrade = takenDetails[3];
             if (!Grade.isValid(takenGrade)) {
