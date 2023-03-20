@@ -3,7 +3,7 @@ package seedu.penus.api;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
-
+import seedu.penus.ui.Ui;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
@@ -61,7 +61,9 @@ public class ModuleRetriever {
                 .replace("\\n", " ")
                 .replace("( ", "\\n(")
                 .replace(" )", ")\\n");
-        System.out.println(prereq);
+
+        String[] messagePacket = {prereq};
+        Ui.printMessage(messagePacket);
     }
 
     public static void printPreclusion() {
@@ -74,27 +76,37 @@ public class ModuleRetriever {
                 .replace("\\n", " ")
                 .replace("( ", "\\n(")
                 .replace(" )", ")\\n");
-        System.out.println(preclusion);
+
+        String[] messagePacket = {preclusion};
+        Ui.printMessage(messagePacket);
     }
 
     public static void printDescription() {
-        String description = (String) moduleInfo.get("description");
-        System.out.println(description);
+        String description = "\t" + (String) moduleInfo.get("description");
+
+        String[] messagePacket = {description};
+        Ui.printMessage(messagePacket);
     }
 
     public static void printTitle() {
-        String title = (String) moduleInfo.get("title");
-        System.out.println(title);
+        String title = "\t" + (String) moduleInfo.get("title");
+
+        String[] messagePacket = {title};
+        Ui.printMessage(messagePacket);
     }
 
     public static void printModuleCredit() {
-        String moduleCredit = (String) moduleInfo.get("moduleCredit");
-        System.out.println(moduleCredit);
+        String moduleCredit = "\t" + (String) moduleInfo.get("moduleCredit");
+
+        String[] messagePacket = {moduleCredit};
+        Ui.printMessage(messagePacket);
     }
 
     public static void printPrereqRule() {
-        String prereqRule = (String) moduleInfo.get("prerequisiteRule");
-        System.out.println(prereqRule);
+        String prereqRule = "\t" + (String) moduleInfo.get("prerequisiteRule");
+
+        String[] messagePacket = {prereqRule};
+        Ui.printMessage(messagePacket);
     }
 
 }

@@ -59,8 +59,21 @@ public class Module {
         return Grade.getGradePoint(this.grade);
     }
 
-    //TODO: change format accordingly
     public String toString() {
-        return this.getStatus() + " " + this.moduleCode + " " + this.year + " " + this.semester + " " + getGrade();    
+        return this.getStatus() + " " + this.moduleCode + " year "
+                + this.year + " semester " + this.semester + " " + getGrade();
+    }
+
+    public String encode() {
+        String encoded = null;
+        if (getStatus() == "Taken") {
+            encoded = String.format("%s ### %s ### %s ### %s ### %s",
+                    getStatus(), this.moduleCode, this.year, this.semester, this.grade);
+        } else if (getStatus() == "Plan") {
+            encoded = String.format("%s ### %s ### %s ### %s", 
+                    getStatus(), this.moduleCode, this.year, this.semester);
+        }
+
+        return encoded;
     }
 }
