@@ -2,17 +2,21 @@ package seedu.penus.modules;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
+import seedu.penus.exceptions.CourseIndexOutOfBoundsException;
 import seedu.penus.exceptions.DuplicateModuleException;
 import seedu.penus.exceptions.InvalidCommandException;
 
+import seedu.penus.exceptions.InvalidCourseIndexException;
 import seedu.penus.storage.FileManager;
 //import seedu.penus.exceptions.InvalidGradeException;
 import seedu.penus.ui.Ui;
+import seedu.penus.user.User;
 
 public class ModuleList {
     private final List<Module> modules;
-
+    private User user = new User();
     private FileManager fileManager = new FileManager();
     List<String[]> moduleDetails = fileManager.getAllModuleDetails();
 
@@ -363,5 +367,40 @@ public class ModuleList {
         System.out.println("\n\t---------Not Taken---------");
         statusPrintFunction(untakenCoreModsList);
         System.out.println("\n\tTotal MCs taken: " + numberOfMcsTaken(takenCoreModsList) + "/160");
+    }
+
+    public void initialize() throws InvalidCourseIndexException, CourseIndexOutOfBoundsException {
+        Scanner input = new Scanner(System.in);
+        String inputCourse = "";
+        int inputCourseIndex;
+        System.out.println("\t What is your name?");
+        String inputName = input.nextLine();
+        user.setName(inputName);
+        System.out.println("\t Name confirmed: " + user.name );
+        System.out.println("\t Now, please enter the index of your corresponding course");
+        System.out.println("\t 1. Biomedical Engineering \n" +
+                           "\t 2. Chemical Engineering \n" +
+                           "\t 3. Civil Engineering \n" +
+                           "\t 4. Computer Engineering" );
+        try {
+            inputCourseIndex = Integer.parseInt(input.nextLine());
+        } catch (NumberFormatException e) {
+            throw new InvalidCourseIndexException("The index must be an integer. Please initialize again.");
+        }
+
+        switch(inputCourseIndex) {
+        case 1: inputCourse = "Biomedical Engineering";
+                break;
+        case 2: inputCourse = "Chemical Engineering";
+                break;
+        case 3: inputCourse = "Civil Engineering";
+                break;
+        case 4: inputCourse = "Computer Engineering";
+                break;
+        default: throw new CourseIndexOutOfBoundsException("Enter within the index. Please initialize again");
+        }
+        user.setCourse(inputCourse);
+        System.out.println("\t Course Confirmed: " + user.course);
+        System.out.println("\t Initialization Completed. Please type help for list of commands");
     }
 }
