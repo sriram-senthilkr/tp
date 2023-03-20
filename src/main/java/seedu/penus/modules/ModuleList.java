@@ -1,10 +1,14 @@
 package seedu.penus.modules;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
+
 import seedu.penus.exceptions.DuplicateModuleException;
 import seedu.penus.exceptions.InvalidCommandException;
+
+import seedu.penus.exceptions.InvalidGradeException;
 import seedu.penus.storage.ResourceManager;
 import seedu.penus.ui.Ui;
 
@@ -172,7 +176,7 @@ public class ModuleList {
     // Ui.printMessage(messagePacket);
     // }
 
-    public void printModules() {
+    public void printModules() throws InvalidGradeException {
         List<String[]> y1s1 = new ArrayList<>();
         List<String[]> y1s2 = new ArrayList<>();
         List<String[]> y2s1 = new ArrayList<>();
@@ -230,6 +234,7 @@ public class ModuleList {
 
                             System.out.println(s[0] + " " + s[1]);
                         }
+                        CAP.printSemCAP(y1s1);
                     } else {
                         if (y1s2.isEmpty()) {
                             System.out.println("\tNo modules taken/added.");
@@ -237,6 +242,7 @@ public class ModuleList {
                         for (String[] s : y1s2) {
                             System.out.println(s[0] + " " + s[1]);
                         }
+                        CAP.printSemCAP(y1s2);
                     }
                 } else if (year == 2) {
                     if (semester == 1) {
@@ -246,6 +252,7 @@ public class ModuleList {
                         for (String[] s : y2s1) {
                             System.out.println(s[0] + " " + s[1]);
                         }
+                        CAP.printSemCAP(y2s1);
                     } else {
                         if (y2s2.isEmpty()) {
                             System.out.println("\tNo modules taken/added.");
@@ -253,6 +260,7 @@ public class ModuleList {
                         for (String[] s : y2s2) {
                             System.out.println(s[0] + " " + s[1]);
                         }
+                        CAP.printSemCAP(y2s2);
                     }
                 } else if (year == 3) {
                     if (semester == 1) {
@@ -262,6 +270,7 @@ public class ModuleList {
                         for (String[] s : y3s1) {
                             System.out.println(s[0] + " " + s[1]);
                         }
+                        CAP.printSemCAP(y3s1);
                     } else {
                         if (y3s2.isEmpty()) {
                             System.out.println("\tNo modules taken/added.");
@@ -269,6 +278,7 @@ public class ModuleList {
                         for (String[] s : y3s2) {
                             System.out.println(s[0] + " " + s[1]);
                         }
+                        CAP.printSemCAP(y3s2);
                     }
                 } else {
                     if (semester == 1) {
@@ -278,6 +288,7 @@ public class ModuleList {
                         for (String[] s : y4s1) {
                             System.out.println(s[0] + " " + s[1]);
                         }
+                        CAP.printSemCAP(y4s1);
                     } else {
                         if (y4s2.isEmpty()) {
                             System.out.println("\tNo modules taken/added.");
@@ -285,6 +296,7 @@ public class ModuleList {
                         for (String[] s : y4s2) {
                             System.out.println(s[0] + " " + s[1]);
                         }
+                        CAP.printSemCAP(y4s2);
                     }
                 }
             }
