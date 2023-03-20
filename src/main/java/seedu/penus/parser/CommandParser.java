@@ -3,7 +3,14 @@ package seedu.penus.parser;
 import java.util.Scanner;
 
 import seedu.penus.api.ModuleRetriever;
-import seedu.penus.exceptions.*;
+import seedu.penus.exceptions.DuplicateModuleException;
+import seedu.penus.exceptions.InvalidCommandException;
+import seedu.penus.exceptions.InvalidFormatException;
+import seedu.penus.exceptions.InvalidGradeException;
+import seedu.penus.exceptions.InvalidModuleException;
+import seedu.penus.exceptions.InvalidSemesterException;
+import seedu.penus.exceptions.CourseIndexOutOfBoundsException;
+import seedu.penus.exceptions.InvalidCourseIndexException;
 import seedu.penus.modules.Module;
 import seedu.penus.modules.ModuleList;
 import seedu.penus.modules.Grade;
