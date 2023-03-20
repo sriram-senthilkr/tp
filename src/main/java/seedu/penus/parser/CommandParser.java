@@ -10,6 +10,7 @@ import seedu.penus.exceptions.InvalidGradeException;
 import seedu.penus.exceptions.InvalidModuleException;
 import seedu.penus.exceptions.InvalidSemesterException;
 
+import seedu.penus.modules.CAP;
 import seedu.penus.modules.Module;
 import seedu.penus.modules.ModuleList;
 import seedu.penus.storage.FileManager;
@@ -65,6 +66,7 @@ public class CommandParser {
 
         case LIST:
             moduleList.printModules();
+            CAP.printOverallCAP(moduleList.getModuleList());
             break;
 
         case STATUS:
