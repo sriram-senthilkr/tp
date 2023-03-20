@@ -30,6 +30,14 @@ test {
     }
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+}
+
 application {
     mainClass = "seedu.penus.Penus"
 }
@@ -45,4 +53,5 @@ checkstyle {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }

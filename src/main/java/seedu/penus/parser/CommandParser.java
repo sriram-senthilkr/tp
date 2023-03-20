@@ -13,6 +13,7 @@ import seedu.penus.exceptions.CourseIndexOutOfBoundsException;
 import seedu.penus.exceptions.InvalidCourseIndexException;
 import seedu.penus.modules.Module;
 import seedu.penus.modules.ModuleList;
+import seedu.penus.storage.FileManager;
 import seedu.penus.modules.Grade;
 
 public class CommandParser {
@@ -125,13 +126,13 @@ public class CommandParser {
             ModuleRetriever.getData(moduleCode);
             ModuleRetriever.printModuleCredit();
             break;
-
+            
         default:
             throw new InvalidCommandException();
         }
     }
 
-    public void getInput() {
+    public void getInput(FileManager fileManager) {
         Scanner input = new Scanner(System.in);
         boolean isRunning = true;
 
@@ -150,6 +151,7 @@ public class CommandParser {
                     System.out.println(e.getMessage());
                 }
             }
+            fileManager.save(moduleList);
         } while(isRunning);
 
         input.close();
