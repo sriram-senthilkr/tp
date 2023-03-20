@@ -27,6 +27,7 @@ public class CommandParser {
     private static final String DESCRIPTION = "description";
     private static final String TITLE = "title";
     private static final String MODULECREDIT = "modulecredit";
+    private static final String HELP = "help";
 
     private final ModuleList moduleList;
 
@@ -41,87 +42,91 @@ public class CommandParser {
         String command = inputArray[0];
         String moduleCode;
 
-        switch(command) {
-        case PLAN:
-        case TAKEN:
-            if (inputArray.length == 1) {
-                throw new InvalidModuleException(command);
-            }
-            Module moduleToAdd = ModuleParser.getModuleFromCommand(inputArray);
-            moduleList.addModule(moduleToAdd);
-            break;
+        switch (command) {
+            case PLAN:
+            case TAKEN:
+                if (inputArray.length == 1) {
+                    throw new InvalidModuleException(command);
+                }
+                Module moduleToAdd = ModuleParser.getModuleFromCommand(inputArray);
+                moduleList.addModule(moduleToAdd);
+                break;
 
-        case MARK:
-            if (!inputArray[1].contains("g/")) {
-                throw new InvalidFormatException("g/");
-            }
-            String[] markDetails = inputArray[1].split(" g/");
-            if (!Grade.isValid(markDetails[1])) {
-                throw new InvalidGradeException();
-            }
-            moduleList.markModule(markDetails[0], markDetails[1]);
-            break;
+            case MARK:
+                if (!inputArray[1].contains("g/")) {
+                    throw new InvalidFormatException("g/");
+                }
+                String[] markDetails = inputArray[1].split(" g/");
+                if (!Grade.isValid(markDetails[1])) {
+                    throw new InvalidGradeException();
+                }
+                moduleList.markModule(markDetails[0], markDetails[1]);
+                break;
 
-        case LIST:
-            moduleList.printModules();
-            break;
+            case LIST:
+                moduleList.printModules();
+                break;
 
-        case STATUS:
-            moduleList.printStatus();
-            break;
+            case STATUS:
+                moduleList.printStatus();
+                break;
 
-        case REMOVE:
-            String removeCode = inputArray[1];
-            moduleList.deleteModule(removeCode);
-            break;
+            case REMOVE:
+                String removeCode = inputArray[1];
+                moduleList.deleteModule(removeCode);
+                break;
 
-        case PREREQUISITE:
-            if (inputArray.length == 1 || inputArray.length > 2) {
-                throw new InvalidModuleException(command);
-            }
-            moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printPrerequisite();
-            break;
+            case PREREQUISITE:
+                if (inputArray.length == 1 || inputArray.length > 2) {
+                    throw new InvalidModuleException(command);
+                }
+                moduleCode = inputArray[1];
+                ModuleRetriever.getData(moduleCode);
+                ModuleRetriever.printPrerequisite();
+                break;
 
-        case PRECLUSION:
-            if (inputArray.length == 1 || inputArray.length > 2) {
-                throw new InvalidModuleException(command);
-            }
-            moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printPreclusion();
-            break;
+            case PRECLUSION:
+                if (inputArray.length == 1 || inputArray.length > 2) {
+                    throw new InvalidModuleException(command);
+                }
+                moduleCode = inputArray[1];
+                ModuleRetriever.getData(moduleCode);
+                ModuleRetriever.printPreclusion();
+                break;
 
-        case DESCRIPTION:
-            if (inputArray.length == 1 || inputArray.length > 2) {
-                throw new InvalidModuleException(command);
-            }
-            moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printDescription();
-            break;
+            case DESCRIPTION:
+                if (inputArray.length == 1 || inputArray.length > 2) {
+                    throw new InvalidModuleException(command);
+                }
+                moduleCode = inputArray[1];
+                ModuleRetriever.getData(moduleCode);
+                ModuleRetriever.printDescription();
+                break;
 
-        case TITLE:
-            if (inputArray.length == 1 || inputArray.length > 2) {
-                throw new InvalidModuleException(command);
-            }
-            moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printTitle();
-            break;
+            case TITLE:
+                if (inputArray.length == 1 || inputArray.length > 2) {
+                    throw new InvalidModuleException(command);
+                }
+                moduleCode = inputArray[1];
+                ModuleRetriever.getData(moduleCode);
+                ModuleRetriever.printTitle();
+                break;
 
-        case MODULECREDIT:
-            if (inputArray.length == 1 || inputArray.length > 2) {
-                throw new InvalidModuleException(command);
-            }
-            moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printModuleCredit();
-            break;
+            case MODULECREDIT:
+                if (inputArray.length == 1 || inputArray.length > 2) {
+                    throw new InvalidModuleException(command);
+                }
+                moduleCode = inputArray[1];
+                ModuleRetriever.getData(moduleCode);
+                ModuleRetriever.printModuleCredit();
+                break;
 
-        default:
-            throw new InvalidCommandException();
+            case HELP:
+                ModuleList.printHelp();
+                break;
+
+            default:
+                throw new InvalidCommandException();
         }
     }
 
@@ -138,12 +143,12 @@ public class CommandParser {
                 try {
                     parseCommand(inputArray);
 
-                } catch (InvalidModuleException | InvalidCommandException | InvalidGradeException |
-                         InvalidFormatException | DuplicateModuleException | InvalidSemesterException e) {
+                } catch (InvalidModuleException | InvalidCommandException | InvalidGradeException
+                        | InvalidFormatException | DuplicateModuleException | InvalidSemesterException e) {
                     System.out.println(e.getMessage());
                 }
             }
-        } while(isRunning);
+        } while (isRunning);
 
         input.close();
     }

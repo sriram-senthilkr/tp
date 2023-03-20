@@ -17,7 +17,7 @@
 	____________________________________
 	Module has been added:
 	  Plan CS2113 1 2 
-	You have 1 modules in your planner.
+	You have 1 module in your planner.
 	____________________________________
 	____________________________________
 	Bye see you again!

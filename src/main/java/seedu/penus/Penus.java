@@ -9,6 +9,7 @@ public class Penus {
      * Main entry-point for the java.penus.Penus application.
      */
     public static void main(String[] args) {
+
         ModuleList moduleList = new ModuleList();
         CommandParser parser = new CommandParser(moduleList);
         Ui.printWelcome();
