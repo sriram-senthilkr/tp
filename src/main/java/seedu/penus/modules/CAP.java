@@ -3,6 +3,7 @@ package seedu.penus.modules;
 import seedu.penus.api.ModuleRetriever;
 import seedu.penus.exceptions.InvalidGradeException;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class CAP {
@@ -13,13 +14,12 @@ public class CAP {
      * @param moduleList the list containing all modules taken
      * @return the total CAP for all mods taken thus far
      */
-    public static double calculateCAP(ModuleList moduleList) throws InvalidGradeException {
+    public static double calculateOverallCAP(List<Module> moduleList) throws InvalidGradeException {
         ModuleRetriever moduleRetriever = new ModuleRetriever();
-        List<Module> modsTaken = moduleList.getModuleList();
         Double totalScore = 0.0;
         Double totalMC = 0.0;
         String numberOfMCs;
-        for (Module module : modsTaken) {
+        for (Module module : moduleList) {
             moduleRetriever.getData(module.moduleCode);
             numberOfMCs = (String) ModuleRetriever.moduleInfo.get("moduleCredit");
             double weightedScore = Double.parseDouble(numberOfMCs) * module.getGradePoint();
@@ -27,5 +27,28 @@ public class CAP {
             totalMC += Double.parseDouble(numberOfMCs);
         }
         return (totalScore/totalMC);
+    }
+    public static double calculateSemCAP(List<String[]> semArray) throws InvalidGradeException {
+        ModuleRetriever moduleRetriever = new ModuleRetriever();
+        Double totalScore = 0.0;
+        Double totalMC = 0.0;
+        String numberOfMCs;
+        for (String[] module : semArray) {
+            String moduleCode = module[0];
+            String moduleGrade = module[1];
+            moduleRetriever.getData(moduleCode);
+            numberOfMCs = (String) ModuleRetriever.moduleInfo.get("moduleCredit");
+            double weightedScore = Double.parseDouble(numberOfMCs) * Grade.getGradePoint(moduleGrade);
+            totalScore += weightedScore;
+            totalMC += Double.parseDouble(numberOfMCs);
+        }
+        return (totalScore/totalMC);
+    }
+    public static void printOverallCAP(List<Module> moduleList) throws InvalidGradeException {
+        System.out.println("Overall CAP : " + new DecimalFormat("#.##").format(CAP.calculateOverallCAP(moduleList)));
+    }
+
+    public static void printSemCAP(List<String[]> semArray) throws InvalidGradeException {
+        System.out.println("Semester CAP : " + new DecimalFormat("#.##").format(CAP.calculateSemCAP(semArray)));
     }
 }
