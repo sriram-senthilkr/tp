@@ -381,7 +381,11 @@ public class ModuleList {
         System.out.println("\t 1. Biomedical Engineering \n" +
                            "\t 2. Chemical Engineering \n" +
                            "\t 3. Civil Engineering \n" +
-                           "\t 4. Computer Engineering" );
+                           "\t 4. Computer Engineering \n" +
+                           "\t 5. Electrical Engineering \n" +
+                           "\t 6. Environmental Engineering \n" +
+                           "\t 7. Industrial and Systems Engineering \n" +
+                           "\t 8. Mechanical Engineering \n ");
         try {
             inputCourseIndex = Integer.parseInt(input.nextLine());
         } catch (NumberFormatException e) {
@@ -396,6 +400,14 @@ public class ModuleList {
         case 3: inputCourse = "Civil Engineering";
                 break;
         case 4: inputCourse = "Computer Engineering";
+                break;
+        case 5: inputCourse = "Electrical Engineering";
+                break;
+        case 6: inputCourse = "Environmental Engineering";
+                break;
+        case 7: inputCourse = "Industrial and Systems Engineering";
+                break;
+        case 8: inputCourse = "Mechanical Engineering";
                 break;
         default: throw new CourseIndexOutOfBoundsException("Enter within the index. Please initialize again");
         }
