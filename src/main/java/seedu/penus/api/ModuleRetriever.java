@@ -95,11 +95,22 @@ public class ModuleRetriever {
         Ui.printMessage(messagePacket);
     }
 
+    public static String getTitle() {
+        String title = (String) moduleInfo.get("title");
+        return title;
+    }
+
+
     public static void printModuleCredit() {
         String moduleCredit = "\t" + (String) moduleInfo.get("moduleCredit");
 
         String[] messagePacket = {moduleCredit};
         Ui.printMessage(messagePacket);
+    }
+
+    public static String getModuleCredit() {
+        String moduleCredit = (String) moduleInfo.get("moduleCredit");
+        return moduleCredit;
     }
 
     public static void printPrereqRule() {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import seedu.penus.api.ModuleRetriever;
 import seedu.penus.exceptions.CourseIndexOutOfBoundsException;
 import seedu.penus.exceptions.DuplicateModuleException;
 import seedu.penus.exceptions.InvalidCommandException;
@@ -14,9 +15,11 @@ import seedu.penus.user.User;
 
 public class ModuleList {
     private final List<Module> modules;
-    private User user;
+    //private User user;
     private ResourceManager resource;
     private List<String[]> moduleDetails;
+
+    private User user = new User();
 
     /**
      * Overloaded constructor for the creation of a ModuleList object.
@@ -25,12 +28,12 @@ public class ModuleList {
         this.modules = new ArrayList<>();
         this.resource = new ResourceManager();
         this.moduleDetails = resource.getAllModuleDetails();
-        this.user = new User();
+        //this.user = new User();
     }
 
     /**
      * Constructor for the creation of a ModuleList object.
-     * 
+     *
      * @param mods List of mods to be included in ModuleLIst after creation.
      */
     public ModuleList(List<Module> mods) {
@@ -41,7 +44,7 @@ public class ModuleList {
 
     /**
      * Returns the number of modules in the module list
-     * 
+     *
      * @return the number of modules in the module list
      */
     public int size() {
@@ -50,7 +53,7 @@ public class ModuleList {
 
     /**
      * Gets the list of modules.
-     * 
+     *
      * @return List of modules inline separated by commas
      */
     public List<Module> getModuleList() {
@@ -69,7 +72,7 @@ public class ModuleList {
 
     /**
      * Adds a given module to the ModuleList object.
-     * 
+     *
      * @param module The module to be added.
      */
     public void addModule(Module module) throws DuplicateModuleException {
@@ -84,13 +87,13 @@ public class ModuleList {
         String addedMessage = "\tModule has been added:\n" + "\t  " + module;
         String sizeMessage = printSize();
 
-        String[] messagePacket = { addedMessage, sizeMessage };
+        String[] messagePacket = {addedMessage, sizeMessage};
         Ui.printMessage(messagePacket);
     }
 
     /**
      * Deletes the module identified by its code from the ModuleList
-     * 
+     *
      * @param deleteCode The module code corresponding to the module to be deleted.
      */
     public void deleteModule(String deleteCode) throws InvalidCommandException {
@@ -110,13 +113,13 @@ public class ModuleList {
         String removeMessage = "\tModule has been removed:\n" + "\t  " + modToDelete;
         String sizeMessage = printSize();
 
-        String[] messagePacket = { removeMessage, sizeMessage };
+        String[] messagePacket = {removeMessage, sizeMessage};
         Ui.printMessage(messagePacket);
     }
 
     /**
      * Gets the number of modules in the list as a message.
-     * 
+     *
      * @return sizeMessage The message indicating how many modules are in the list.
      */
     public String printSize() {
@@ -126,7 +129,7 @@ public class ModuleList {
 
     /**
      * Marks the module as taken with grade
-     * 
+     *
      * @param modCode The module code to be marked taken
      * @param grade   The grade received upon taking the module
      */
@@ -146,13 +149,13 @@ public class ModuleList {
 
         String markMessage = "\tModule has been taken:\n" + "\t  " + currentMod;
 
-        String[] messagePacket = { markMessage };
+        String[] messagePacket = {markMessage};
         Ui.printMessage(messagePacket);
     }
 
     /**
      * Unmarks the module, identified by its order, as incomplete.
-     * 
+     *
      * @param modNum The number corresponding to the module to be unmarked.
      */
     public void unmarkMod(int modNum) {
@@ -161,7 +164,7 @@ public class ModuleList {
 
         String unmarkMessage = "\tModule has been untaken:\n" + "\t  " + currentMod;
 
-        String[] messagePacket = { unmarkMessage };
+        String[] messagePacket = {unmarkMessage};
         Ui.printMessage(messagePacket);
     }
 
@@ -191,34 +194,34 @@ public class ModuleList {
         for (Module m : modules) {
             if (m.getYear() == 1) {
                 if (m.getSem() == 1) {
-                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
+                    String[] moduleArray = new String[]{m.getCode(), m.getGrade()};
                     y1s1.add(moduleArray);
                 } else {
-                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
+                    String[] moduleArray = new String[]{m.getCode(), m.getGrade()};
                     y1s2.add(moduleArray);
                 }
             } else if (m.getYear() == 2) {
                 if (m.getSem() == 1) {
-                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
+                    String[] moduleArray = new String[]{m.getCode(), m.getGrade()};
                     y2s1.add(moduleArray);
                 } else {
-                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
+                    String[] moduleArray = new String[]{m.getCode(), m.getGrade()};
                     y2s2.add(moduleArray);
                 }
             } else if (m.getYear() == 3) {
                 if (m.getSem() == 1) {
-                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
+                    String[] moduleArray = new String[]{m.getCode(), m.getGrade()};
                     y3s1.add(moduleArray);
                 } else {
-                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
+                    String[] moduleArray = new String[]{m.getCode(), m.getGrade()};
                     y3s2.add(moduleArray);
                 }
             } else if (m.getYear() == 4) {
                 if (m.getSem() == 1) {
-                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
+                    String[] moduleArray = new String[]{m.getCode(), m.getGrade()};
                     y4s1.add(moduleArray);
                 } else {
-                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
+                    String[] moduleArray = new String[]{m.getCode(), m.getGrade()};
                     y4s2.add(moduleArray);
                 }
             }
@@ -297,22 +300,52 @@ public class ModuleList {
         }
     }
 
-    public int numberOfMcsTaken(List<String> takenCoreModulesList) {
+    public int numberOfMcsTaken() {
         int numberOfMcs = 0;
-        for (String currentUserModuleCode : takenCoreModulesList) {
-            for (String[] moduleDetail : moduleDetails) {
-                String moduleDetailCode = moduleDetail[0];
-                int moduleMcs = Integer.parseInt(moduleDetail[2]);
-                if (currentUserModuleCode.equals(moduleDetailCode)) {
-                    numberOfMcs = numberOfMcs + moduleMcs;
-                }
+        for (Module currentUserModule : modules) {
+            if (currentUserModule.isTaken) {
+                ModuleRetriever.getData(currentUserModule.moduleCode);
+                numberOfMcs = numberOfMcs + Integer.parseInt(ModuleRetriever.getModuleCredit());
             }
         }
         return numberOfMcs;
     }
 
+    public String getGESS() {
+        for (Module currentUserModule : modules)  {
+            if (currentUserModule.moduleCode.substring(0,4).equals("GESS")) {
+                ModuleRetriever.getData(currentUserModule.moduleCode);
+                return "\t" + currentUserModule.moduleCode +
+                        " " + ModuleRetriever.getTitle() + " " + "MCs:" + ModuleRetriever.getModuleCredit();
+            }
+        }
+        return "";
+    }
+
+    public String getGEC() {
+        for (Module currentUserModule : modules) {
+            if (currentUserModule.moduleCode.substring(0, 3).equals("GEC")) {
+                ModuleRetriever.getData(currentUserModule.moduleCode);
+                return "\t" + currentUserModule.moduleCode +
+                        " " + ModuleRetriever.getTitle() + " " + "MCs:" + ModuleRetriever.getModuleCredit();
+            }
+        }
+        return "";
+    }
+
+    public String getGEN() {
+        for (Module currentUserModule : modules)  {
+            if (currentUserModule.moduleCode.substring(0,3).equals("GEN")) {
+                ModuleRetriever.getData(currentUserModule.moduleCode);
+                return "\t" + currentUserModule.moduleCode + " " + ModuleRetriever.getTitle() +
+                        " " + "MCs:" + ModuleRetriever.getModuleCredit();
+            }
+        }
+        return "";
+    }
+
     public List<String> getTakenCoreModsList() {
-        List<String> coreMods = resource.getCoreMods();
+        List<String> coreMods = resource.getCoreMods().get(user.course);
         List<String> takenCoreMods = new ArrayList<>();
         for (String currentCoreModCode : coreMods) {
             for (Module module : modules) {
@@ -328,7 +361,7 @@ public class ModuleList {
     }
 
     public List<String> getUntakenCoreModsList() {
-        List<String> coreMods = resource.getCoreMods();
+        List<String> coreMods = resource.getCoreMods().get(user.course);
         List<String> untakenCoreMods = new ArrayList<>();
         for (String coreMod : coreMods) {
             boolean isCoreModTaken = false;
@@ -349,14 +382,10 @@ public class ModuleList {
     }
 
     public void statusPrintFunction(List<String> moduleList) {
-        List<String[]> moduleDetails = resource.getAllModuleDetails();
         for (String s : moduleList) {
+            ModuleRetriever.getData(s);
             System.out.print("\t" + s);
-            for (String[] moduleDetail : moduleDetails) {
-                if (moduleDetail[0].equals(s)) {
-                    System.out.print(" " + moduleDetail[1] + " " + "MCs:" + moduleDetail[2]);
-                }
-            }
+            System.out.print(" " + ModuleRetriever.getTitle() + " " + "MCs:" + ModuleRetriever.getModuleCredit());
             System.out.println();
         }
     }
@@ -366,10 +395,28 @@ public class ModuleList {
         List<String> untakenCoreModsList = getUntakenCoreModsList();
         Ui.printDivider();
         System.out.println("\t--------- Taken ---------");
+        if (!getGESS().equals("")) {
+            System.out.println(getGESS());
+        }
+        if (!getGEC().equals("")) {
+            System.out.println(getGEC());
+        }
+        if (!getGEN().equals("")) {
+            System.out.println(getGEN());
+        }
         statusPrintFunction(takenCoreModsList);
         System.out.println("\n\t--------- Not Taken ---------");
+        if (getGESS().equals("")) {
+            System.out.println("\tGESSXXXX");
+        }
+        if (getGEC().equals("")) {
+            System.out.println("\tGECXXXX");
+        }
+        if (getGEN().equals("")) {
+            System.out.println("\tGENXXXX");
+        }
         statusPrintFunction(untakenCoreModsList);
-        System.out.println("\n\tTotal MCs taken: " + numberOfMcsTaken(takenCoreModsList) + "/160");
+        System.out.println("\n\tTotal MCs taken: " + numberOfMcsTaken() + "/160");
         Ui.printDivider();
     }
 
@@ -395,7 +442,6 @@ public class ModuleList {
         } catch (NumberFormatException e) {
             throw new InvalidCourseIndexException("The index must be an integer. Please initialize again.");
         }
-
         switch(inputCourseIndex) {
         case 1: inputCourse = "Biomedical Engineering";
                 break;
