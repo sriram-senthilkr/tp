@@ -178,7 +178,7 @@ public class ModuleList {
     }
 
 
-    public void printModules() {
+    public void printModules() throws InvalidGradeException {
         Map<Integer, Map<Integer, List<String[]>>> modulesByYearAndSemester = new HashMap<>();
         for (Module m : modules) {
             int year = m.getYear();
@@ -206,8 +206,10 @@ public class ModuleList {
                         System.out.println(s[0] + " " + s[1]);
                     }
                 }
+                CAP.printSemCAP(modules);
             }
         }
+        CAP.printOverallCAP(modules);
     }
 
     public int numberOfMcsTaken(List<String> takenCoreModulesList) {
