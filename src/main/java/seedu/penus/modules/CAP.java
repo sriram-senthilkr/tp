@@ -15,13 +15,12 @@ public class CAP {
      * @throws InvalidGradeException if there exists an unidentified Grade type
      */
     public static double calculateOverallCAP(List<Module> moduleList) throws InvalidGradeException {
-        ModuleRetriever moduleRetriever = new ModuleRetriever();
-        Double totalScore = 0.0;
-        Double totalMC = 0.0;
+        double totalScore = 0.0;
+        double totalMC = 0.0;
         String numberOfMCs;
         for (Module module : moduleList) {
-            if (!module.getGrade().matches("S|U") && module.getStatus().equals("Taken")) {
-                moduleRetriever.getData(module.moduleCode);
+            if (!module.getGrade().matches("[SU]") && module.getStatus().equals("Taken")) {
+                ModuleRetriever.getData(module.moduleCode);
                 numberOfMCs = (String) ModuleRetriever.moduleInfo.get("moduleCredit");
                 double weightedScore = Double.parseDouble(numberOfMCs) * module.getGradePoint();
                 totalScore += weightedScore;
@@ -44,15 +43,14 @@ public class CAP {
      * @throws InvalidGradeException if there exists an unidentified Grade type
      */
     public static double calculateSemCAP(List<String[]> semArray) throws InvalidGradeException {
-        ModuleRetriever moduleRetriever = new ModuleRetriever();
-        Double totalScore = 0.0;
-        Double totalMC = 0.0;
+        double totalScore = 0.0;
+        double totalMC = 0.0;
         String numberOfMCs;
         for (String[] module : semArray) {
             String moduleCode = module[0];
             String moduleGrade = module[1];
-            if (!moduleGrade.matches("S|U") && !moduleGrade.equals("")) {
-                moduleRetriever.getData(moduleCode);
+            if (!moduleGrade.matches("[SU]") && !moduleGrade.equals("")) {
+                ModuleRetriever.getData(moduleCode);
                 numberOfMCs = (String) ModuleRetriever.moduleInfo.get("moduleCredit");
                 double weightedScore = Double.parseDouble(numberOfMCs) * Grade.getGradePoint(moduleGrade);
                 totalScore += weightedScore;
@@ -90,9 +88,9 @@ public class CAP {
         if (semArray.isEmpty()) {
             System.out.println("\nSemester CAP : 0.00\n");
         } else {
-            Double SemCAP = CAP.calculateSemCAP(semArray);
+            Double semCAP = CAP.calculateSemCAP(semArray);
             System.out.println("\nSemester CAP : " +
-                    String.format("%.2f", SemCAP) + '\n');
+                    String.format("%.2f", semCAP) + '\n');
         }
     }
 }

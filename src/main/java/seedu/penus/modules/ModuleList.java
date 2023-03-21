@@ -5,26 +5,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-//import javax.naming.PartialResultException;
 import java.util.Scanner;
 
-
-import seedu.penus.exceptions.CourseIndexOutOfBoundsException;
 import seedu.penus.exceptions.DuplicateModuleException;
 import seedu.penus.exceptions.InvalidCommandException;
-import seedu.penus.exceptions.InvalidCourseIndexException;
 import seedu.penus.exceptions.InvalidGradeException;
-
+import seedu.penus.exceptions.InvalidIndexException;
 import seedu.penus.storage.ResourceManager;
 import seedu.penus.ui.Ui;
 import seedu.penus.user.User;
 
 public class ModuleList {
     private final List<Module> modules;
-    private User user = new User();
-    private ResourceManager resource;
-    private List<String[]> moduleDetails;
+    private final User user;
+    private final ResourceManager resource;
+    private final List<String[]> moduleDetails;
 
     /**
      * Overloaded constructor for the creation of a ModuleList object.
@@ -33,6 +28,7 @@ public class ModuleList {
         this.modules = new ArrayList<>();
         this.resource = new ResourceManager();
         this.moduleDetails = resource.getAllModuleDetails();
+        this.user = new User();
     }
 
     /**
@@ -40,10 +36,11 @@ public class ModuleList {
      * 
      * @param mods List of mods to be included in ModuleLIst after creation.
      */
-    public ModuleList(List<Module> mods) {
+    public ModuleList(User user, List<Module> mods) {
         this.modules = mods;
         this.resource = new ResourceManager();
         this.moduleDetails = resource.getAllModuleDetails();
+        this.user = user;
     }
 
     /**
@@ -72,6 +69,10 @@ public class ModuleList {
      */
     public Module getModule(int index) {
         return modules.get(index);
+    }
+
+    public User getUser() {
+        return this.user;
     }
 
     /**
@@ -246,17 +247,16 @@ public class ModuleList {
         List<String> untakenCoreMods = new ArrayList<>();
         for (String coreMod : coreMods) {
             boolean isCoreModTaken = false;
-            String currentCoreModCode = coreMod;
             for (Module module : modules) {
                 String currentUserModuleCode = module.moduleCode;
                 boolean isCurrentUserModuleTaken = module.isTaken;
-                if (currentCoreModCode.equals(currentUserModuleCode) && isCurrentUserModuleTaken) {
+                if (coreMod.equals(currentUserModuleCode) && isCurrentUserModuleTaken) {
                     isCoreModTaken = true;
                     break;
                 }
             }
             if (!isCoreModTaken) {
-                untakenCoreMods.add(currentCoreModCode);
+                untakenCoreMods.add(coreMod);
             }
         }
         return untakenCoreMods;
@@ -287,14 +287,20 @@ public class ModuleList {
         Ui.printDivider();
     }
 
-    public void initialize() throws InvalidCourseIndexException, CourseIndexOutOfBoundsException {
+    public void initialize() throws InvalidIndexException {
         Scanner input = new Scanner(System.in);
-        String inputCourse = "";
+        String inputCourse;
         int inputCourseIndex;
-        System.out.println("\t What is your name?");
+        Ui.printDivider();
+        System.out.println("\tWhat is your name?");
+        Ui.printDivider();
         String inputName = input.nextLine();
+        if (inputName.equals("")) {
+            throw new InvalidIndexException("Name cannot be empty. Please init again");
+        }
         user.setName(inputName);
-        System.out.println("\t Name confirmed: " + user.name );
+        Ui.printDivider();
+        System.out.println("\t Name confirmed: " + user.name + "\n");
         System.out.println("\t Now, please enter the index of your corresponding course");
         System.out.println("\t 1. Biomedical Engineering \n" +
                            "\t 2. Chemical Engineering \n" +
@@ -303,11 +309,12 @@ public class ModuleList {
                            "\t 5. Electrical Engineering \n" +
                            "\t 6. Environmental Engineering \n" +
                            "\t 7. Industrial and Systems Engineering \n" +
-                           "\t 8. Mechanical Engineering \n ");
+                           "\t 8. Mechanical Engineering");
+        Ui.printDivider();
         try {
             inputCourseIndex = Integer.parseInt(input.nextLine());
         } catch (NumberFormatException e) {
-            throw new InvalidCourseIndexException("The index must be an integer. Please initialize again.");
+            throw new InvalidIndexException("The index must be an integer. Please initialize again.");
         }
 
         switch(inputCourseIndex) {
@@ -327,27 +334,13 @@ public class ModuleList {
                 break;
         case 8: inputCourse = "Mechanical Engineering";
                 break;
-        default: throw new CourseIndexOutOfBoundsException("Enter within the index. Please initialize again");
+        default: throw new InvalidIndexException("Enter within the index. Please initialize again");
         }
         user.setCourse(inputCourse);
+        Ui.printDivider();
         System.out.println("\t Course Confirmed: " + user.course);
         System.out.println("\t Initialization Completed. Please type help for list of commands");
+        Ui.printDivider();
     }
 
-    public static void printHelp() {
-        Ui.printDivider();
-        System.out.println("\texit" + "\t\t\t\t\t\t\t\tExits the program");
-        System.out.println("\tlist mods [FILTER]" + "\t\t\t\t\t\tDisplays a list of all modules taken or planned."
-                + "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tIf [FILTER] is not specified, then all modules will shown.");
-        System.out.println("\tmark [MODULE CODE] g/[GRADE]"
-                + "\t\t\t\t\tMarks the module that has been cleared, while updating its grades");
-        System.out.println(
-                "\tplan [MODULE CODE] y/[YEAR] s/[SEMESTER]"
-                        + "\t\t\tAdds a module to the planner as an untaken module");
-        System.out.println("\tremove [MODULECODE]" + "\t\t\t\t\t\tRemoves a module from the planner");
-        System.out.println("\tstatus" + "\t\t\t\t\t\t\t\tDisplays the status of Core Modules and MCs taken");
-        System.out.println("\ttaken [MODULE CODE] y/[YEAR] s/[SEMESTER] g/[GRADE]"
-                + "\t\tAdds a module to the planner as a module you have already taken");
-        Ui.printDivider();
-    }
 }

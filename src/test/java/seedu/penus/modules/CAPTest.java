@@ -28,9 +28,9 @@ class CAPTest {
             DuplicateModuleException, InvalidGradeException {
         moduleList.addModule(new Module("CS1010", 1, 1, "B+"));
         moduleList.addModule(new Module("CS2113", 2, 2, "A+"));
-        double CAP = Double.parseDouble(new DecimalFormat("#.##").
+        double cap = Double.parseDouble(new DecimalFormat("#.##").
                 format(seedu.penus.modules.CAP.calculateOverallCAP(moduleList.getModuleList())));
-        assertEquals(CAP, 4.50);
+        assertEquals(cap, 4.50);
     }
 
     @Test
@@ -41,8 +41,8 @@ class CAPTest {
         semArray.add(new String[] { module1.getCode(), module1.getGrade()});
         semArray.add(new String[] { module2.getCode(), module2.getGrade()});
         semArray.add(new String[] { module3.getCode(), module3.getGrade()});
-        double CAP = Double.parseDouble(new DecimalFormat("#.##").
+        double cap = Double.parseDouble(new DecimalFormat("#.##").
                 format(seedu.penus.modules.CAP.calculateSemCAP(semArray)));
-        assertEquals(CAP, 4.67);
+        assertEquals(cap, 4.67);
     }
 }

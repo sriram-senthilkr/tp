@@ -12,7 +12,7 @@
 	 \__|__/  \______/\___/  \_____/  \__________/  \_________/
 
 	Welcome to PENUS!
-	What can I do for you?
+	Enter help for a list of commands or init to start
 	____________________________________
 	____________________________________
 	Module has been added:

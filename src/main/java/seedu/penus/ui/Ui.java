@@ -26,7 +26,7 @@ public class Ui {
         printDivider();
         System.out.println(LOGO);
         System.out.println("\tWelcome to PENUS!\n"
-                + "\tWhat can I do for you?");
+                + "\tEnter help for a list of commands or init to start");
         printDivider();
     }
 
@@ -46,5 +46,22 @@ public class Ui {
             System.out.println(message);
         }
         printDivider();
+    }
+
+    public static void printHelp() {
+        Ui.printDivider();
+        System.out.println("\texit" + "\t\t\t\t\t\t\t\tExits the program");
+        System.out.println("\tlist mods [FILTER]" + "\t\t\t\t\t\tDisplays a list of all modules taken or planned."
+                + "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tIf [FILTER] is not specified, then all modules will shown.");
+        System.out.println("\tmark [MODULE CODE] g/[GRADE]"
+                + "\t\t\t\t\tMarks the module that has been cleared, while updating its grades");
+        System.out.println(
+                "\tplan [MODULE CODE] y/[YEAR] s/[SEMESTER]"
+                        + "\t\t\tAdds a module to the planner as an untaken module");
+        System.out.println("\tremove [MODULECODE]" + "\t\t\t\t\t\tRemoves a module from the planner");
+        System.out.println("\tstatus" + "\t\t\t\t\t\t\t\tDisplays the status of Core Modules and MCs taken");
+        System.out.println("\ttaken [MODULE CODE] y/[YEAR] s/[SEMESTER] g/[GRADE]"
+                + "\t\tAdds a module to the planner as a module you have already taken");
+        Ui.printDivider();
     }
 }

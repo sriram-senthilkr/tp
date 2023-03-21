@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Objects;
 
 /*
  * IMPORTANT NOTE: 
@@ -16,7 +17,7 @@ import java.io.InputStreamReader;
             "path": "src/main/resources"
         }
     ]
- * then in VScode Explorer Tab -> Java Projects -> ... -> Clean Workspace
+ * then in VSCode Explorer Tab -> Java Projects -> ... -> Clean Workspace
  * 
  * returns "jar:file:/C:/path/to/project/build/resources/main/.txt"
  * returns "file:/C:/path/to/project/src/main/resources/.txt"
@@ -32,14 +33,14 @@ public class ResourceManager {
     }
 
     public List<String> getCoreMods() {
-        BufferedReader reader = null;
+        BufferedReader reader;
         List<String> coreModules = new ArrayList<>();
         try {
             InputStreamReader stream = new InputStreamReader(
-                    getClass().getClassLoader().getResourceAsStream(coreModFile)
+                    Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(coreModFile))
             );
             reader = new BufferedReader(stream);
-            String line = null;
+            String line;
             while ((line = reader.readLine()) != null) {
                 coreModules.add(line);
             }
@@ -58,14 +59,14 @@ public class ResourceManager {
      * @return the List containing all the decoded modules.
      */
     public List<String[]> getAllModuleDetails() {
-        BufferedReader reader = null;
+        BufferedReader reader;
         List<String[]> moduleDetailsList = new ArrayList<>();
         try {
             InputStreamReader stream = new InputStreamReader(
-                    getClass().getClassLoader().getResourceAsStream(modDetailsFile)
+                    Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(modDetailsFile))
             );
             reader = new BufferedReader(stream);
-            String line = null;
+            String line;
             while ((line = reader.readLine()) != null) {
                 String[] decodedModule = decodeModule(line);
                 moduleDetailsList.add(decodedModule);
