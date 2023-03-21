@@ -74,7 +74,6 @@ public class CommandParser {
 
         case LIST:
             moduleList.printModules();
-            CAP.printOverallCAP(moduleList.getModuleList());
             break;
 
         case STATUS:
