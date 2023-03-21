@@ -51,7 +51,31 @@
 <!----------------------------Implementation----------------------------------------->
 ## Implementation
 ### Add module
-(TBA)
+The Add Module features allows users to add two types of modules (taken or planning) to the ModuleList using the commands `plan` or `taken`. The two types of modules are differentiated by its `Module()` overloaded constructor, accepting different type signatures. It is facilitated by `ModuleList`.
+
+Given below is an example usage scenario of the 2 types of modules and how the add module mechanism behaves at each step.
+
+**When a planned module is added:**
+Step 1. The user launches the application for the first time. The ModuleList will be initialised with the initial module list state if provided in `penus.txt`.
+
+Step 2. The user executes the `plan CS2113 y/1 s/2` command to plan the module CS2113 for year 1 and semester 2 to be added into the list. The `plan` command is executed within the switch case of the `parseCommand()` method of `CommandParser`.
+
+Step 3. If a valid command is provided, a new `Module` will be instantiated within `ModuleParser` where another switch case is executed. The `ModuleParser` is extracted away from the `CommandParser` for more readability. The string is then split into parts separated by the flags `y/` and `s/` into a `planDetails` array. An overloaded constructor `Module()` is instantiated with the arguments corresponding to the array which sets the `isTaken` parameter `false`. The arguments are `moduleCode`, `year` and `semester`.
+
+Step 4. The new `Module` object is then returned to the `CommandParser` where it is assigned and added to the `ModuleList`. The `addModule()` method is then executed in `ModuleList`. 
+
+Step 5. It first checks if the module already exists in the list by iterating through the current list and checking for the same `moduleCode`. If so, `DuplicateModuleException` is thrown. If the module does not exist, it is added to the `ModuleList` by calling the `add()` method of the class. 
+
+Step 6. A confirmation message is prited to indicate the success of the module addition. This is called using the `printMessage()` method from `Ui` which accpets an array of strings as message lines.
+
+**When a taken module is added:**
+Step 1. The user launches the application for the first time. The ModuleList will be initialised with the initial module list state if provided in `penus.txt`.
+
+Step 2. The user executes the `taken CS2113 y/1 s/2 g/A+` command to plan the module CS2113 for year 1 and semester 2 to be added into the list. The `plan` command is executed within the switch case of the `parseCommand()` method of `CommandParser`.
+
+Step 3. If a valid command is provided, a new `Module` will be instantiated within `ModuleParser` where another switch case is executed. The `ModuleParser` is extracted away from the `CommandParser` for more readability. The string is then split into parts separated by the flags `y/`, `s/` and `g/` into a `takenDetails` array. An overloaded constructor `Module()` is instantiated with the arguments corresponding to the array which sets the `isTaken` parameter `true`. The arguments are `moduleCode`, `year`, `semester` and `grade`.
+
+Step 4 - 6. Identical to that of a `plan` command as mentioned above.
 
 ### Remove module
 (TBA)
@@ -71,7 +95,10 @@
 ### Initialise user
 (TBA)
 
-### Save plan to local drive
+### Calculate CAP
+(TBA)
+
+### Save planner to local drive
 (TBA)
 
 <!----------------------------Documentation----------------------------------------->
