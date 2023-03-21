@@ -1,5 +1,6 @@
 package seedu.penus.modules;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,10 +9,13 @@ import java.util.Map;
 //import javax.naming.PartialResultException;
 import java.util.Scanner;
 
+
 import seedu.penus.exceptions.CourseIndexOutOfBoundsException;
 import seedu.penus.exceptions.DuplicateModuleException;
 import seedu.penus.exceptions.InvalidCommandException;
 import seedu.penus.exceptions.InvalidCourseIndexException;
+import seedu.penus.exceptions.InvalidGradeException;
+
 import seedu.penus.storage.ResourceManager;
 import seedu.penus.ui.Ui;
 import seedu.penus.user.User;
@@ -173,9 +177,9 @@ public class ModuleList {
         Ui.printMessage(messagePacket);
     }
 
-    public void printModules() {
-        Map<Integer, Map<Integer, List<String[]>>> modulesByYearAndSemester = new HashMap<>();
 
+    public void printModules() throws InvalidGradeException {
+        Map<Integer, Map<Integer, List<String[]>>> modulesByYearAndSemester = new HashMap<>();
         for (Module m : modules) {
             int year = m.getYear();
             int sem = m.getSem();
@@ -191,6 +195,7 @@ public class ModuleList {
             for (int semester = 1; semester <= 2; semester++) {
                 System.out.println("- Year " + year + " Semester " + semester + " -");
 
+
                 List<String[]> modules = modulesByYearAndSemester.getOrDefault(year, new HashMap<>())
                         .getOrDefault(semester, new ArrayList<>());
 
@@ -201,8 +206,10 @@ public class ModuleList {
                         System.out.println(s[0] + " " + s[1]);
                     }
                 }
+                CAP.printSemCAP(modules);
             }
         }
+        CAP.printOverallCAP(modules);
     }
 
     public int numberOfMcsTaken(List<String> takenCoreModulesList) {
