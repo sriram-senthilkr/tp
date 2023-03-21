@@ -9,13 +9,14 @@ import seedu.penus.exceptions.InvalidFormatException;
 import seedu.penus.exceptions.InvalidGradeException;
 import seedu.penus.exceptions.InvalidModuleException;
 import seedu.penus.exceptions.InvalidSemesterException;
+import seedu.penus.exceptions.CourseIndexOutOfBoundsException;
+import seedu.penus.exceptions.InvalidCourseIndexException;
 
-import seedu.penus.modules.CAP;
 import seedu.penus.modules.Module;
 import seedu.penus.modules.ModuleList;
 import seedu.penus.storage.FileManager;
 import seedu.penus.modules.Grade;
-
+import seedu.penus.modules.CAP;
 public class CommandParser {
     private static final String LIST = "list";
     private static final String STATUS = "status";
@@ -30,6 +31,8 @@ public class CommandParser {
     private static final String TITLE = "title";
     private static final String MODULECREDIT = "modulecredit";
 
+    private static final String INITIALIZATION = "init";
+
     private final ModuleList moduleList;
 
     public CommandParser(ModuleList moduleList) {
@@ -39,11 +42,14 @@ public class CommandParser {
     public void parseCommand(String[] inputArray)
             throws InvalidCommandException, InvalidModuleException, InvalidFormatException,
             InvalidGradeException, DuplicateModuleException,
-            InvalidSemesterException {
+            InvalidSemesterException, InvalidCourseIndexException, CourseIndexOutOfBoundsException {
         String command = inputArray[0];
         String moduleCode;
 
         switch(command) {
+        case INITIALIZATION:
+            moduleList.initialize();
+            break;
         case PLAN:
         case TAKEN:
             if (inputArray.length == 1) {
@@ -142,7 +148,8 @@ public class CommandParser {
                     parseCommand(inputArray);
 
                 } catch (InvalidModuleException | InvalidCommandException | InvalidGradeException |
-                         InvalidFormatException | DuplicateModuleException | InvalidSemesterException e) {
+                         InvalidFormatException | DuplicateModuleException | InvalidCourseIndexException |
+                         CourseIndexOutOfBoundsException | InvalidSemesterException e) {
                     System.out.println(e.getMessage());
                 }
             }

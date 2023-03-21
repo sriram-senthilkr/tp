@@ -3,17 +3,22 @@ package seedu.penus.modules;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
+import seedu.penus.exceptions.CourseIndexOutOfBoundsException;
 import seedu.penus.exceptions.DuplicateModuleException;
 import seedu.penus.exceptions.InvalidCommandException;
-
+import seedu.penus.exceptions.InvalidCourseIndexException;
 import seedu.penus.exceptions.InvalidGradeException;
+
 import seedu.penus.storage.ResourceManager;
 import seedu.penus.ui.Ui;
+import seedu.penus.user.User;
 
 public class ModuleList {
     private final List<Module> modules;
+    private User user;
     private ResourceManager resource;
     private List<String[]> moduleDetails;
 
@@ -24,6 +29,7 @@ public class ModuleList {
         this.modules = new ArrayList<>();
         this.resource = new ResourceManager();
         this.moduleDetails = resource.getAllModuleDetails();
+        this.user = new User();
     }
 
     /**
@@ -377,5 +383,52 @@ public class ModuleList {
         statusPrintFunction(untakenCoreModsList);
         System.out.println("\n\tTotal MCs taken: " + numberOfMcsTaken(takenCoreModsList) + "/160");
         Ui.printDivider();
+    }
+
+    public void initialize() throws InvalidCourseIndexException, CourseIndexOutOfBoundsException {
+        Scanner input = new Scanner(System.in);
+        String inputCourse = "";
+        int inputCourseIndex;
+        System.out.println("\t What is your name?");
+        String inputName = input.nextLine();
+        user.setName(inputName);
+        System.out.println("\t Name confirmed: " + user.name );
+        System.out.println("\t Now, please enter the index of your corresponding course");
+        System.out.println("\t 1. Biomedical Engineering \n" +
+                           "\t 2. Chemical Engineering \n" +
+                           "\t 3. Civil Engineering \n" +
+                           "\t 4. Computer Engineering \n" +
+                           "\t 5. Electrical Engineering \n" +
+                           "\t 6. Environmental Engineering \n" +
+                           "\t 7. Industrial and Systems Engineering \n" +
+                           "\t 8. Mechanical Engineering \n ");
+        try {
+            inputCourseIndex = Integer.parseInt(input.nextLine());
+        } catch (NumberFormatException e) {
+            throw new InvalidCourseIndexException("The index must be an integer. Please initialize again.");
+        }
+
+        switch(inputCourseIndex) {
+        case 1: inputCourse = "Biomedical Engineering";
+                break;
+        case 2: inputCourse = "Chemical Engineering";
+                break;
+        case 3: inputCourse = "Civil Engineering";
+                break;
+        case 4: inputCourse = "Computer Engineering";
+                break;
+        case 5: inputCourse = "Electrical Engineering";
+                break;
+        case 6: inputCourse = "Environmental Engineering";
+                break;
+        case 7: inputCourse = "Industrial and Systems Engineering";
+                break;
+        case 8: inputCourse = "Mechanical Engineering";
+                break;
+        default: throw new CourseIndexOutOfBoundsException("Enter within the index. Please initialize again");
+        }
+        user.setCourse(inputCourse);
+        System.out.println("\t Course Confirmed: " + user.course);
+        System.out.println("\t Initialization Completed. Please type help for list of commands");
     }
 }
