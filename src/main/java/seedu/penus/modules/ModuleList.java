@@ -17,9 +17,9 @@ import seedu.penus.user.User;
 
 public class ModuleList {
     private final List<Module> modules;
-    private User user;
-    private ResourceManager resource;
-    private List<String[]> moduleDetails;
+    private final User user;
+    private final ResourceManager resource;
+    private final List<String[]> moduleDetails;
 
     /**
      * Overloaded constructor for the creation of a ModuleList object.
@@ -247,17 +247,16 @@ public class ModuleList {
         List<String> untakenCoreMods = new ArrayList<>();
         for (String coreMod : coreMods) {
             boolean isCoreModTaken = false;
-            String currentCoreModCode = coreMod;
             for (Module module : modules) {
                 String currentUserModuleCode = module.moduleCode;
                 boolean isCurrentUserModuleTaken = module.isTaken;
-                if (currentCoreModCode.equals(currentUserModuleCode) && isCurrentUserModuleTaken) {
+                if (coreMod.equals(currentUserModuleCode) && isCurrentUserModuleTaken) {
                     isCoreModTaken = true;
                     break;
                 }
             }
             if (!isCoreModTaken) {
-                untakenCoreMods.add(currentCoreModCode);
+                untakenCoreMods.add(coreMod);
             }
         }
         return untakenCoreMods;
@@ -290,7 +289,7 @@ public class ModuleList {
 
     public void initialize() throws InvalidIndexException {
         Scanner input = new Scanner(System.in);
-        String inputCourse = "";
+        String inputCourse;
         int inputCourseIndex;
         Ui.printDivider();
         System.out.println("\tWhat is your name?");

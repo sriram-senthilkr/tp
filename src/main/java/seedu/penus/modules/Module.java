@@ -66,10 +66,10 @@ public class Module {
 
     public String encode() {
         String encoded = null;
-        if (getStatus() == "Taken") {
+        if (getStatus().equals("Taken")) {
             encoded = String.format("%s ### %s ### %s ### %s ### %s",
                     getStatus(), this.moduleCode, this.year, this.semester, this.grade);
-        } else if (getStatus() == "Plan") {
+        } else if (getStatus().equals("Plan")) {
             encoded = String.format("%s ### %s ### %s ### %s", 
                     getStatus(), this.moduleCode, this.year, this.semester);
         }

@@ -85,7 +85,9 @@ public class FileManager {
         } catch (FileNotFoundException e) {
             System.out.println(e);
         } finally {
-            scanner.close();
+            if (scanner != null) {
+                scanner.close();
+            }
         }
         
         return moduleList;
@@ -107,7 +109,9 @@ public class FileManager {
         } catch (FileNotFoundException e) {
             System.out.println(e);
         } finally {
-            scanner.close();
+            if (scanner != null) {
+                scanner.close();
+            }
         }
 
         return user;

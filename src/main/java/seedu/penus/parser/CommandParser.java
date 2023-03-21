@@ -153,7 +153,8 @@ public class CommandParser {
                     parseCommand(inputArray);
 
                 } catch (InvalidModuleException | InvalidCommandException | InvalidGradeException |
-                         InvalidFormatException | DuplicateModuleException | InvalidIndexException | InvalidSemesterException e) {
+                         InvalidFormatException | DuplicateModuleException | InvalidIndexException |
+                         InvalidSemesterException e) {
                     System.out.println(e.getMessage());
                 }
             }
