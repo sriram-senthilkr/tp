@@ -20,7 +20,7 @@ public class CAP {
         Double totalMC = 0.0;
         String numberOfMCs;
         for (Module module : moduleList) {
-            if (!module.getGrade().matches("S|U")) {
+            if (!module.getGrade().matches("S|U") && module.getStatus().equals("Taken")) {
                 moduleRetriever.getData(module.moduleCode);
                 numberOfMCs = (String) ModuleRetriever.moduleInfo.get("moduleCredit");
                 double weightedScore = Double.parseDouble(numberOfMCs) * module.getGradePoint();
@@ -51,7 +51,7 @@ public class CAP {
         for (String[] module : semArray) {
             String moduleCode = module[0];
             String moduleGrade = module[1];
-            if (!moduleGrade.matches("S|U")) {
+            if (!moduleGrade.matches("S|U") && !moduleGrade.equals("")) {
                 moduleRetriever.getData(moduleCode);
                 numberOfMCs = (String) ModuleRetriever.moduleInfo.get("moduleCredit");
                 double weightedScore = Double.parseDouble(numberOfMCs) * Grade.getGradePoint(moduleGrade);
