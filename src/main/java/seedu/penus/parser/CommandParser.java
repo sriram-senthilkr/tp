@@ -16,7 +16,6 @@ import seedu.penus.modules.Module;
 import seedu.penus.modules.ModuleList;
 import seedu.penus.storage.FileManager;
 import seedu.penus.modules.Grade;
-import seedu.penus.modules.CAP;
 public class CommandParser {
     private static final String LIST = "list";
     private static final String STATUS = "status";
