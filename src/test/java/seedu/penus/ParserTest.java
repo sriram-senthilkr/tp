@@ -9,7 +9,7 @@ import seedu.penus.exceptions.InvalidFormatException;
 import seedu.penus.exceptions.InvalidGradeException;
 import seedu.penus.exceptions.InvalidModuleException;
 import seedu.penus.exceptions.InvalidSemesterException;
-import seedu.penus.exceptions.CourseIndexOutOfBoundsException;
+import seedu.penus.exceptions.InvalidIndexException;
 import seedu.penus.modules.ModuleList;
 import seedu.penus.parser.CommandParser;
 
@@ -31,7 +31,7 @@ class ParserTest {
     @Test
     void parseTaken_expectCodeYearSemAndGrade()
             throws InvalidCommandException, InvalidModuleException, InvalidFormatException,
-            InvalidGradeException, DuplicateModuleException, InvalidSemesterException, CourseIndexOutOfBoundsException {
+            InvalidGradeException, DuplicateModuleException, InvalidSemesterException, InvalidIndexException {
         String inputString = "taken CS2113 y/1 s/1 g/A+";
         String[] input = inputString.split(" ", 2);
         parser.parseCommand(input);
@@ -51,7 +51,7 @@ class ParserTest {
     @Test
     void parsePlan_expectCodeYearAndSem()
             throws InvalidCommandException, InvalidModuleException, InvalidFormatException,
-            InvalidGradeException, DuplicateModuleException, InvalidSemesterException, CourseIndexOutOfBoundsException {
+            InvalidGradeException, DuplicateModuleException, InvalidSemesterException, InvalidIndexException {
         String inputString = "plan CS2113 y/4 s/2";
         String[] input = inputString.split(" ", 2);
         parser.parseCommand(input);
@@ -68,7 +68,7 @@ class ParserTest {
     @Test
     void parseRemove_moduleFound_expectTrue()
             throws InvalidCommandException, InvalidModuleException, InvalidFormatException,
-            InvalidGradeException, DuplicateModuleException, InvalidSemesterException, CourseIndexOutOfBoundsException {
+            InvalidGradeException, DuplicateModuleException, InvalidSemesterException, InvalidIndexException {
         //add a module to the list and removes it, checks if module list is empty
         String inputString = "plan CS2113 y/4 s/2";
         String[] input = inputString.split(" ", 2);
