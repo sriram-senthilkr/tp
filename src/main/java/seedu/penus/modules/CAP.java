@@ -3,16 +3,16 @@ package seedu.penus.modules;
 import seedu.penus.api.ModuleRetriever;
 import seedu.penus.exceptions.InvalidGradeException;
 
-import java.text.DecimalFormat;
 import java.util.List;
 
 public class CAP {
     /**
      * For every module taken, calculate weighted score = number of MC * grade
      * Sum up weighted score for all mods and divide by total MCs taken thus far
-     *
+     * S/U grades are not calculated for in Overall CAP
      * @param moduleList the list containing all modules taken
-     * @return the total CAP for all mods taken thus far
+     * @return total CAP for all mods taken thus far
+     * @throws InvalidGradeException if there exists an unidentified Grade type
      */
     public static double calculateOverallCAP(List<Module> moduleList) throws InvalidGradeException {
         ModuleRetriever moduleRetriever = new ModuleRetriever();
@@ -20,14 +20,29 @@ public class CAP {
         Double totalMC = 0.0;
         String numberOfMCs;
         for (Module module : moduleList) {
-            moduleRetriever.getData(module.moduleCode);
-            numberOfMCs = (String) ModuleRetriever.moduleInfo.get("moduleCredit");
-            double weightedScore = Double.parseDouble(numberOfMCs) * module.getGradePoint();
-            totalScore += weightedScore;
-            totalMC += Double.parseDouble(numberOfMCs);
+            if (!module.getGrade().matches("S|U")) {
+                moduleRetriever.getData(module.moduleCode);
+                numberOfMCs = (String) ModuleRetriever.moduleInfo.get("moduleCredit");
+                double weightedScore = Double.parseDouble(numberOfMCs) * module.getGradePoint();
+                totalScore += weightedScore;
+                totalMC += Double.parseDouble(numberOfMCs);
+            }
         }
-        return (totalScore/totalMC);
+        if ((totalScore == 0.0) || (totalMC == 0.0)) {
+            return 0.0;
+        } else {
+            return (totalScore / totalMC);
+        }
     }
+
+    /**
+     * For every module taken in a semester, calculate weighted score = number of MC * grade
+     * Sum up weighted score for all mods and divide by total MCs taken in the semester
+     * S/U grades are not calculated for in Semester CAP
+     * @param semArray list of String array containing moduleCode and moduleGrade
+     * @return total CAP for a particular semester
+     * @throws InvalidGradeException if there exists an unidentified Grade type
+     */
     public static double calculateSemCAP(List<String[]> semArray) throws InvalidGradeException {
         ModuleRetriever moduleRetriever = new ModuleRetriever();
         Double totalScore = 0.0;
@@ -36,29 +51,48 @@ public class CAP {
         for (String[] module : semArray) {
             String moduleCode = module[0];
             String moduleGrade = module[1];
-            moduleRetriever.getData(moduleCode);
-            numberOfMCs = (String) ModuleRetriever.moduleInfo.get("moduleCredit");
-            double weightedScore = Double.parseDouble(numberOfMCs) * Grade.getGradePoint(moduleGrade);
-            totalScore += weightedScore;
-            totalMC += Double.parseDouble(numberOfMCs);
+            if (!moduleGrade.matches("S|U")) {
+                moduleRetriever.getData(moduleCode);
+                numberOfMCs = (String) ModuleRetriever.moduleInfo.get("moduleCredit");
+                double weightedScore = Double.parseDouble(numberOfMCs) * Grade.getGradePoint(moduleGrade);
+                totalScore += weightedScore;
+                totalMC += Double.parseDouble(numberOfMCs);
+            }
         }
-        return (totalScore/totalMC);
+        if ((totalScore == 0.0) || (totalMC == 0.0)) {
+            return 0.0;
+        } else {
+            return (totalScore / totalMC);
+        }
     }
+
+    /**
+     * Calls CAP.calculateOverallCAP and prints the overall CAP to 2 decimal places
+     * @param moduleList the list containing all modules taken
+     * @throws InvalidGradeException if there exists an unidentified Grade
+     */
     public static void printOverallCAP(List<Module> moduleList) throws InvalidGradeException {
         if (moduleList.isEmpty()) {
             System.out.println("\nOverall CAP : 0.00\n");
         } else {
+            Double overallCAP = CAP.calculateOverallCAP(moduleList);
             System.out.println("\nOverall CAP : " +
-                    new DecimalFormat("#.##").format(CAP.calculateOverallCAP(moduleList)) + '\n');
+                    String.format("%.2f", overallCAP) + '\n');
         }
     }
 
+    /**
+     * Calls CAP.calculateSemCAP and prints the semester CAP to 2 decimal places
+     * @param semArray list of String array containing moduleCode and moduleGrade
+     * @throws InvalidGradeException if there exists an unidentified Grade
+     */
     public static void printSemCAP(List<String[]> semArray) throws InvalidGradeException {
         if (semArray.isEmpty()) {
             System.out.println("\nSemester CAP : 0.00\n");
         } else {
+            Double SemCAP = CAP.calculateSemCAP(semArray);
             System.out.println("\nSemester CAP : " +
-                    new DecimalFormat("#.##").format(CAP.calculateSemCAP(semArray)) + '\n');
+                    String.format("%.2f", SemCAP) + '\n');
         }
     }
 }
