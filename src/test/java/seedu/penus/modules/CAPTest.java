@@ -10,13 +10,12 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class CAPTest {
     private ModuleList moduleList;
     private List<String[]> semArray;
-    //private Module module;
 
     @BeforeEach
     public void setUp() {
@@ -24,9 +23,8 @@ class CAPTest {
         semArray = new ArrayList<>();
     }
 
-    //public Module(String moduleCode, Integer year, Integer semester)
     @Test
-    void CalculateOverallCAP_moduleList_success() throws
+    void calculateOverallCAP_moduleList_success() throws
             DuplicateModuleException, InvalidGradeException {
         moduleList.addModule(new Module("CS1010", 1, 1, "B+"));
         moduleList.addModule(new Module("CS2113", 2, 2, "A+"));
