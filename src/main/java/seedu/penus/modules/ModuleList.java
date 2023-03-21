@@ -22,7 +22,7 @@ import seedu.penus.user.User;
 
 public class ModuleList {
     private final List<Module> modules;
-    private User user;
+    private User user = new User();
     private ResourceManager resource;
     private List<String[]> moduleDetails;
 
@@ -33,7 +33,6 @@ public class ModuleList {
         this.modules = new ArrayList<>();
         this.resource = new ResourceManager();
         this.moduleDetails = resource.getAllModuleDetails();
-        this.user = new User();
     }
 
     /**
