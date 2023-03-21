@@ -11,11 +11,11 @@ import seedu.penus.exceptions.InvalidModuleException;
 import seedu.penus.exceptions.InvalidSemesterException;
 import seedu.penus.exceptions.CourseIndexOutOfBoundsException;
 import seedu.penus.exceptions.InvalidCourseIndexException;
+
 import seedu.penus.modules.Module;
 import seedu.penus.modules.ModuleList;
 import seedu.penus.storage.FileManager;
 import seedu.penus.modules.Grade;
-
 public class CommandParser {
     private static final String LIST = "list";
     private static final String STATUS = "status";
