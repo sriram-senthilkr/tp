@@ -45,10 +45,20 @@ public class CAP {
         return (totalScore/totalMC);
     }
     public static void printOverallCAP(List<Module> moduleList) throws InvalidGradeException {
-        System.out.println("Overall CAP : " + new DecimalFormat("#.##").format(CAP.calculateOverallCAP(moduleList)));
+        if (moduleList.isEmpty()) {
+            System.out.println("\nOverall CAP : 0.00\n");
+        } else {
+            System.out.println("\nOverall CAP : " +
+                    new DecimalFormat("#.##").format(CAP.calculateOverallCAP(moduleList)) + '\n');
+        }
     }
 
     public static void printSemCAP(List<String[]> semArray) throws InvalidGradeException {
-        System.out.println("Semester CAP : " + new DecimalFormat("#.##").format(CAP.calculateSemCAP(semArray)));
+        if (semArray.isEmpty()) {
+            System.out.println("\nSemester CAP : 0.00\n");
+        } else {
+            System.out.println("\nSemester CAP : " +
+                    new DecimalFormat("#.##").format(CAP.calculateSemCAP(semArray)) + '\n');
+        }
     }
 }
