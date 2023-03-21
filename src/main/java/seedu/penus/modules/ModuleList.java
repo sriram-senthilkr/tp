@@ -2,7 +2,11 @@ package seedu.penus.modules;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+//import javax.naming.PartialResultException;
 import java.util.Scanner;
 
 
@@ -125,7 +129,11 @@ public class ModuleList {
      */
     public String printSize() {
 
-        return "\tYou have " + this.modules.size() + " modules in your planner.";
+        if (this.modules.size() == 1) {
+            return "\tYou have " + this.modules.size() + " module in your planner.";
+        } else {
+            return "\tYou have " + this.modules.size() + " modules in your planner.";
+        }
     }
 
     /**
@@ -169,140 +177,33 @@ public class ModuleList {
         Ui.printMessage(messagePacket);
     }
 
-    // TODO: change list structure
-    // public void printModules() {
-    // String[] messagePacket = new String[this.modules.size() + 1];
-    // messagePacket[0] = "\tListing all modules:";
-    // int messageCount = 1;
-    //
-    // for (int i = 0; i < this.modules.size(); i++) {
-    // String line = "\t" + (i + 1) + ". " + this.modules.get(i);
-    // messagePacket[messageCount++] = line;
-    // }
-    // Ui.printMessage(messagePacket);
-    // }
 
-    public void printModules() throws InvalidGradeException {
-        List<String[]> y1s1 = new ArrayList<>();
-        List<String[]> y1s2 = new ArrayList<>();
-        List<String[]> y2s1 = new ArrayList<>();
-        List<String[]> y2s2 = new ArrayList<>();
-        List<String[]> y3s1 = new ArrayList<>();
-        List<String[]> y3s2 = new ArrayList<>();
-        List<String[]> y4s1 = new ArrayList<>();
-        List<String[]> y4s2 = new ArrayList<>();
-
+    public void printModules() {
+        Map<Integer, Map<Integer, List<String[]>>> modulesByYearAndSemester = new HashMap<>();
         for (Module m : modules) {
-            if (m.getYear() == 1) {
-                if (m.getSem() == 1) {
-                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
-                    y1s1.add(moduleArray);
-                } else {
-                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
-                    y1s2.add(moduleArray);
-                }
-            } else if (m.getYear() == 2) {
-                if (m.getSem() == 1) {
-                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
-                    y2s1.add(moduleArray);
-                } else {
-                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
-                    y2s2.add(moduleArray);
-                }
-            } else if (m.getYear() == 3) {
-                if (m.getSem() == 1) {
-                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
-                    y3s1.add(moduleArray);
-                } else {
-                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
-                    y3s2.add(moduleArray);
-                }
-            } else if (m.getYear() == 4) {
-                if (m.getSem() == 1) {
-                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
-                    y4s1.add(moduleArray);
-                } else {
-                    String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
-                    y4s2.add(moduleArray);
-                }
-            }
+            int year = m.getYear();
+            int sem = m.getSem();
+            String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
+
+            modulesByYearAndSemester.computeIfAbsent(year, k -> new HashMap<>())
+                    .computeIfAbsent(sem, k -> new ArrayList<>())
+                    .add(moduleArray);
         }
+
         Ui.printDivider();
         for (int year = 1; year < 5; year++) {
             for (int semester = 1; semester <= 2; semester++) {
                 System.out.println("- Year " + year + " Semester " + semester + " -");
-                if (year == 1) {
-                    if (semester == 1) {
-                        if (y1s1.isEmpty()) {
-                            System.out.println("\tNo modules taken/added.");
-                        }
-                        for (String[] s : y1s1) {
 
-                            System.out.println(s[0] + " " + s[1]);
-                        }
-                        CAP.printSemCAP(y1s1);
-                    } else {
-                        if (y1s2.isEmpty()) {
-                            System.out.println("\tNo modules taken/added.");
-                        }
-                        for (String[] s : y1s2) {
-                            System.out.println(s[0] + " " + s[1]);
-                        }
-                        CAP.printSemCAP(y1s2);
-                    }
-                } else if (year == 2) {
-                    if (semester == 1) {
-                        if (y2s1.isEmpty()) {
-                            System.out.println("\tNo modules taken/added.");
-                        }
-                        for (String[] s : y2s1) {
-                            System.out.println(s[0] + " " + s[1]);
-                        }
-                        CAP.printSemCAP(y2s1);
-                    } else {
-                        if (y2s2.isEmpty()) {
-                            System.out.println("\tNo modules taken/added.");
-                        }
-                        for (String[] s : y2s2) {
-                            System.out.println(s[0] + " " + s[1]);
-                        }
-                        CAP.printSemCAP(y2s2);
-                    }
-                } else if (year == 3) {
-                    if (semester == 1) {
-                        if (y3s1.isEmpty()) {
-                            System.out.println("\tNo modules taken/added.");
-                        }
-                        for (String[] s : y3s1) {
-                            System.out.println(s[0] + " " + s[1]);
-                        }
-                        CAP.printSemCAP(y3s1);
-                    } else {
-                        if (y3s2.isEmpty()) {
-                            System.out.println("\tNo modules taken/added.");
-                        }
-                        for (String[] s : y3s2) {
-                            System.out.println(s[0] + " " + s[1]);
-                        }
-                        CAP.printSemCAP(y3s2);
-                    }
+
+                List<String[]> modules = modulesByYearAndSemester.getOrDefault(year, new HashMap<>())
+                        .getOrDefault(semester, new ArrayList<>());
+
+                if (modules.isEmpty()) {
+                    System.out.println("\tNo modules taken/added.");
                 } else {
-                    if (semester == 1) {
-                        if (y4s1.isEmpty()) {
-                            System.out.println("\tNo modules taken/added.");
-                        }
-                        for (String[] s : y4s1) {
-                            System.out.println(s[0] + " " + s[1]);
-                        }
-                        CAP.printSemCAP(y4s1);
-                    } else {
-                        if (y4s2.isEmpty()) {
-                            System.out.println("\tNo modules taken/added.");
-                        }
-                        for (String[] s : y4s2) {
-                            System.out.println(s[0] + " " + s[1]);
-                        }
-                        CAP.printSemCAP(y4s2);
+                    for (String[] s : modules) {
+                        System.out.println(s[0] + " " + s[1]);
                     }
                 }
             }
@@ -430,5 +331,22 @@ public class ModuleList {
         user.setCourse(inputCourse);
         System.out.println("\t Course Confirmed: " + user.course);
         System.out.println("\t Initialization Completed. Please type help for list of commands");
+    }
+
+    public static void printHelp() {
+        Ui.printDivider();
+        System.out.println("\texit" + "\t\t\t\t\t\t\t\tExits the program");
+        System.out.println("\tlist mods [FILTER]" + "\t\t\t\t\t\tDisplays a list of all modules taken or planned."
+                + "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tIf [FILTER] is not specified, then all modules will shown.");
+        System.out.println("\tmark [MODULE CODE] g/[GRADE]"
+                + "\t\t\t\t\tMarks the module that has been cleared, while updating its grades");
+        System.out.println(
+                "\tplan [MODULE CODE] y/[YEAR] s/[SEMESTER]"
+                        + "\t\t\tAdds a module to the planner as an untaken module");
+        System.out.println("\tremove [MODULECODE]" + "\t\t\t\t\t\tRemoves a module from the planner");
+        System.out.println("\tstatus" + "\t\t\t\t\t\t\t\tDisplays the status of Core Modules and MCs taken");
+        System.out.println("\ttaken [MODULE CODE] y/[YEAR] s/[SEMESTER] g/[GRADE]"
+                + "\t\tAdds a module to the planner as a module you have already taken");
+        Ui.printDivider();
     }
 }

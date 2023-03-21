@@ -30,6 +30,7 @@ public class CommandParser {
     private static final String DESCRIPTION = "description";
     private static final String TITLE = "title";
     private static final String MODULECREDIT = "modulecredit";
+    private static final String HELP = "help";
 
     private static final String INITIALIZATION = "init";
 
@@ -50,6 +51,7 @@ public class CommandParser {
         case INITIALIZATION:
             moduleList.initialize();
             break;
+            
         case PLAN:
         case TAKEN:
             if (inputArray.length == 1) {
@@ -128,7 +130,11 @@ public class CommandParser {
             ModuleRetriever.getData(moduleCode);
             ModuleRetriever.printModuleCredit();
             break;
-            
+
+        case HELP:
+            ModuleList.printHelp();
+            break;
+
         default:
             throw new InvalidCommandException();
         }
