@@ -165,7 +165,42 @@ Step 5: Lastly, the printStatus() method calls `numberOfMcs()`, retrieves each m
 class and returns the totals number of MCs. The printStatus() method then prints the total number of MCs / 160.
 
 ### Get module details
-(TBA)
+The details feature is facilitated by `ModuleRetriever`. It retrieves the module’s title, description, pre-requisites, modular credits, and if the module is SU-able. Additionally, it implements the following operations:
+`retrieveTitle()` - Retrieves the module’s Title.
+- `retrieveDescription()` - Retrieves the module’s Description.
+- `retrievePrerequisite()` - Retrieves the module’s Pre-Requisites.
+- `retrieveModuleCredits()` - Retrieves the module’s total Modular Credits.
+- `retrieveSUstatus()` - Retrieves if the module can be SU-ed.
+
+These operations are exposed in the `ModuleRetriever` class as `retrieveTitle()`, `retrieveDescription()`, `retrievePrerequisite()`, `retrieveModuleCredits()` and `retrieveSUstatus()` respectively. 
+
+**Step 1:** The user launches the application for the first time. The API will not be called.
+
+**Step 2:** The user executes `details cs2113` command to retrieve the details about CS2113 module. The details command calls `printDetails(moduleCode)`, passing the module code as the parameter.
+
+**Step 3:** The `printDetails` method calls a few methods – `retrieveTitle(module)`, `retrieveDescription(module)`, `retrievePrerequisite(module)`, `retrieveModuleCredit(module)`, and `retrieveSUstatus(module)`. 
+Each of these methods (e.g. `retrieveTitle(module)`) will make call the `getData()` method, passing the module code as the parameter.
+
+  **Step 3a.** The `getData()` method will create a `HttpURLConnection` to NUS API MODS website, redirecting to the particular module’s data. It will then create a “GET” request, and parse the JSON in the API into a `JSONObject` and `JSONArray`. 
+  The retrieved information will be stored as `moduleInfo` `JSONObject` in the `ModuleRetriever` class.
+
+- _Note:_ If a “GET” request fails, it will stop the Connection, and return the HTTP Response Code.
+
+- _Note:_ (Proposed) If an incorrect module was entered, the program will return an error, and ask the user to input the correct module code.
+
+**Step 3b.** Each retrieve method (e.g. `retrieveTitle()`) will retrieve the respective information from the retrieved `JSONObject`, and return it as a `String`.
+
+**Step 4:** The `printDetails()` method will then store each retrieved information in a `String`, and format them for display standards. It will then store each separated `String` into a `messagePacket` array, and pass it into the `Ui.printMessage()` function to be printed in the CLI.
+
+_Design considerations:_
+
+**Aspect: How detail executes:**
+- **Alternative 1 (current choice):** Retrieves module details from the NUS API.
+  - Pros: Access to all the modules’ information
+  - Cons: Not usable when the device is offline.
+- **Alternative 2:** Store all the module details on an offline .txt file, then retrieve it from there.
+  - Pros: Can be used offline.
+  - Cons: It is a tedious task to store all the modules’ details on a .txt file, and the file size will be very big.
 
 ### Initialise user
 (TBA)
