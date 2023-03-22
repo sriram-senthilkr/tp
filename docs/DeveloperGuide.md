@@ -66,9 +66,12 @@ Step 4. The new `Module` object is then returned to the `CommandParser` where it
 
 Step 5. It first checks if the module already exists in the list by iterating through the current list and checking for the same `moduleCode`. If so, `DuplicateModuleException` is thrown. If the module does not exist, it is added to the `ModuleList` by calling the `add()` method of the class. 
 
-Step 6. A confirmation message is prited to indicate the success of the module addition. This is called using the `printMessage()` method from `Ui` which accpets an array of strings as message lines.
+Step 6. A confirmation message is printed to indicate the success of the module addition. This is called using the `printMessage()` method from `Ui` which accpets an array of strings as message lines.
 
-**When a taken module is added:**
+The following sequence diagram shows how the `plan` command works:
+![AddModuleSequenceDiagram](uml/AddModSequence.png)
+
+**Similarly, for when a taken module is added:**
 Step 1. The user launches the application for the first time. The ModuleList will be initialised with the initial module list state if provided in `penus.txt`.
 
 Step 2. The user executes the `taken CS2113 y/1 s/2 g/A+` command to plan the module CS2113 for year 1 and semester 2 to be added into the list. The `plan` command is executed within the switch case of the `parseCommand()` method of `CommandParser`.
@@ -87,7 +90,35 @@ Step 4 - 6. Identical to that of a `plan` command as mentioned above.
 (TBA)
 
 ### Display status
-(TBA)
+The Display Status feature `status` lists all the core modules in the user's course, and indicates which ones the user has or has
+not taken. The feature also displays the total number of MCs the user has taken.
+
+Given below is an example of how `status` is called at each step.
+
+Step 1: The user executes the `status` command to check his current graduation status. The `status` command is executed
+within the switch case of the `parseCommand()` method of the `CommandParser`. The Command Parser will then call
+`printStatus()` of the `ModuleList` class.
+
+Step 2: When `printStatus()` is first executed, the method calls `getTakenCoreModsList()` and `getUntakenCoreModsList()`
+to return a list of string of core module codes that the user has taken/not taken respectively. `getTakenCoreModList()` and
+`getUntakenCoreModsList()` work by first retrieving the list of all core mods from the Resource Manager class through the`getCoreMods()`
+method, which returns a hashmap with the course as the key and list of string of core module codes. In order to get
+the core module codes of the user's course, the user's course is retrieved from the `User` class, at which the
+attribute `course` is given by the user on initialization. An exception is thus triggered if the user calls `status()`
+without initialising. By giving the key as the user's course, the list of core modules is retrieved. For
+`getTakenCoreModsList()`, the list of core module
+codes is then compared with the all the modules taken by the user in `modules` to return the list of core modules codes that the
+user has/ has not taken.
+
+Step 3: In order to get the status of GE modules, the printStatus() method then calls 3 methods, `getGESS()`, `getGEN()` and
+`getGEC()` , which loops through the user's `modules` and check if the user has taken those modules and returns the module code
+if taken.
+
+Step 4: The printStatus() then prints the list of taken/ untaken by calling the `printStatusFunction()`. The `printStatusFunction()` method
+takes in each module's code retrieves the title and MCs through `ModuleRetriever` class, then prints it out.
+
+Step 5: Lastly, the printStatus() method calls `numberOfMcs()`, retrieves each module's MC through the `Module Retriever`
+class and returns the totals number of MCs. The printStatus() method then prints the total number of MCs / 160.
 
 ### Get module details
 (TBA)
