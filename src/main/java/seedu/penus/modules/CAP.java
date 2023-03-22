@@ -20,8 +20,8 @@ public class CAP {
         String numberOfMCs;
         for (Module module : moduleList) {
             if (!module.getGrade().matches("[SU]") && module.getStatus().equals("Taken")) {
-                ModuleRetriever.getData(module.moduleCode);
-                numberOfMCs = (String) ModuleRetriever.moduleInfo.get("moduleCredit");
+                ModuleRetriever.getData2223(module.moduleCode);
+                numberOfMCs = (String) ModuleRetriever.moduleInfo2223.get("moduleCredit");
                 double weightedScore = Double.parseDouble(numberOfMCs) * module.getGradePoint();
                 totalScore += weightedScore;
                 totalMC += Double.parseDouble(numberOfMCs);
@@ -50,8 +50,7 @@ public class CAP {
             String moduleCode = module[0];
             String moduleGrade = module[1];
             if (!moduleGrade.matches("[SU]") && !moduleGrade.equals("")) {
-                ModuleRetriever.getData(moduleCode);
-                numberOfMCs = (String) ModuleRetriever.moduleInfo.get("moduleCredit");
+                numberOfMCs = ModuleRetriever.retrieveModuleCredit(moduleCode);
                 double weightedScore = Double.parseDouble(numberOfMCs) * Grade.getGradePoint(moduleGrade);
                 totalScore += weightedScore;
                 totalMC += Double.parseDouble(numberOfMCs);
