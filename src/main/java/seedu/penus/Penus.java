@@ -10,8 +10,9 @@ public class Penus {
      * Main entry-point for the java.penus.Penus application.
      */
     public static void main(String[] args) {
+
         FileManager fileManager = new FileManager();
-        ModuleList moduleList = new ModuleList(fileManager.retrieve());
+        ModuleList moduleList = new ModuleList(fileManager.retrieveUser(),fileManager.retrieveMods());
         CommandParser parser = new CommandParser(moduleList);
         Ui.printWelcome();
         parser.getInput(fileManager);

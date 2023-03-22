@@ -12,12 +12,12 @@
 	 \__|__/  \______/\___/  \_____/  \__________/  \_________/
 
 	Welcome to PENUS!
-	What can I do for you?
+	Enter help for a list of commands or init to start
 	____________________________________
 	____________________________________
 	Module has been added:
 	  Plan CS2113 year 1 semester 2 
-	You have 1 modules in your planner.
+	You have 1 module in your planner.
 	____________________________________
 	____________________________________
 	Bye see you again!

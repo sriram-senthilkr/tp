@@ -9,11 +9,12 @@ import seedu.penus.exceptions.InvalidFormatException;
 import seedu.penus.exceptions.InvalidGradeException;
 import seedu.penus.exceptions.InvalidModuleException;
 import seedu.penus.exceptions.InvalidSemesterException;
-import seedu.penus.exceptions.CourseIndexOutOfBoundsException;
-import seedu.penus.exceptions.InvalidCourseIndexException;
+import seedu.penus.exceptions.InvalidIndexException;
+
 import seedu.penus.modules.Module;
 import seedu.penus.modules.ModuleList;
 import seedu.penus.storage.FileManager;
+import seedu.penus.ui.Ui;
 import seedu.penus.modules.Grade;
 
 public class CommandParser {
@@ -25,10 +26,11 @@ public class CommandParser {
     private static final String PLAN = "plan";
     private static final String TAKEN = "taken";
     private static final String PREREQUISITE = "prerequisite";
-    private static final String PRECLUSION = "preclusion";
     private static final String DESCRIPTION = "description";
     private static final String TITLE = "title";
     private static final String MODULECREDIT = "modulecredit";
+    private static final String DETAILS = "details";
+    private static final String HELP = "help";
 
     private static final String INITIALIZATION = "init";
 
@@ -41,7 +43,7 @@ public class CommandParser {
     public void parseCommand(String[] inputArray)
             throws InvalidCommandException, InvalidModuleException, InvalidFormatException,
             InvalidGradeException, DuplicateModuleException,
-            InvalidSemesterException, InvalidCourseIndexException, CourseIndexOutOfBoundsException {
+            InvalidSemesterException, InvalidIndexException {
         String command = inputArray[0];
         String moduleCode;
 
@@ -49,6 +51,7 @@ public class CommandParser {
         case INITIALIZATION:
             moduleList.initialize();
             break;
+            
         case PLAN:
         case TAKEN:
             if (inputArray.length == 1) {
@@ -87,17 +90,7 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printPrerequisite();
-            break;
-
-        case PRECLUSION:
-            if (inputArray.length == 1 || inputArray.length > 2) {
-                throw new InvalidModuleException(command);
-            }
-            moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printPreclusion();
+            ModuleRetriever.printPrerequisite(moduleCode);
             break;
 
         case DESCRIPTION:
@@ -105,8 +98,7 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printDescription();
+            ModuleRetriever.printDescription(moduleCode);
             break;
 
         case TITLE:
@@ -114,8 +106,7 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printTitle();
+            ModuleRetriever.printTitle(moduleCode);
             break;
 
         case MODULECREDIT:
@@ -123,10 +114,21 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printModuleCredit();
+            ModuleRetriever.printModuleCredit(moduleCode);
             break;
-            
+
+        case DETAILS:
+            if (inputArray.length == 1 || inputArray.length > 2) {
+                throw new InvalidModuleException(command);
+            }
+            moduleCode = inputArray[1];
+            ModuleRetriever.printDetails(moduleCode);
+            break;
+
+        case HELP:
+            Ui.printHelp();
+            break;
+
         default:
             throw new InvalidCommandException();
         }
@@ -146,8 +148,8 @@ public class CommandParser {
                     parseCommand(inputArray);
 
                 } catch (InvalidModuleException | InvalidCommandException | InvalidGradeException |
-                         InvalidFormatException | DuplicateModuleException | InvalidCourseIndexException |
-                         CourseIndexOutOfBoundsException | InvalidSemesterException e) {
+                         InvalidFormatException | DuplicateModuleException | InvalidIndexException |
+                         InvalidSemesterException e) {
                     System.out.println(e.getMessage());
                 }
             }

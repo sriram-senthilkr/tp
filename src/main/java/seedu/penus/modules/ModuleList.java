@@ -1,23 +1,28 @@
 package seedu.penus.modules;
 
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import seedu.penus.api.ModuleRetriever;
-import seedu.penus.exceptions.CourseIndexOutOfBoundsException;
+
 import seedu.penus.exceptions.DuplicateModuleException;
 import seedu.penus.exceptions.InvalidCommandException;
-import seedu.penus.exceptions.InvalidCourseIndexException;
+import seedu.penus.exceptions.InvalidGradeException;
+import seedu.penus.exceptions.InvalidIndexException;
 import seedu.penus.storage.ResourceManager;
 import seedu.penus.ui.Ui;
 import seedu.penus.user.User;
 
 public class ModuleList {
     private final List<Module> modules;
-    //private User user;
-    private ResourceManager resource;
-    private List<String[]> moduleDetails;
+    private final User user;
+    private final ResourceManager resource;
+    private final List<String[]> moduleDetails;
+
 
     private User user = new User();
 
@@ -36,10 +41,11 @@ public class ModuleList {
      *
      * @param mods List of mods to be included in ModuleLIst after creation.
      */
-    public ModuleList(List<Module> mods) {
+    public ModuleList(User user, List<Module> mods) {
         this.modules = mods;
         this.resource = new ResourceManager();
         this.moduleDetails = resource.getAllModuleDetails();
+        this.user = user;
     }
 
     /**
@@ -68,6 +74,10 @@ public class ModuleList {
      */
     public Module getModule(int index) {
         return modules.get(index);
+    }
+
+    public User getUser() {
+        return this.user;
     }
 
     /**
@@ -124,7 +134,11 @@ public class ModuleList {
      */
     public String printSize() {
 
-        return "\tYou have " + this.modules.size() + " modules in your planner.";
+        if (this.modules.size() == 1) {
+            return "\tYou have " + this.modules.size() + " module in your planner.";
+        } else {
+            return "\tYou have " + this.modules.size() + " modules in your planner.";
+        }
     }
 
     /**
@@ -168,136 +182,41 @@ public class ModuleList {
         Ui.printMessage(messagePacket);
     }
 
-    // TODO: change list structure
-    // public void printModules() {
-    // String[] messagePacket = new String[this.modules.size() + 1];
-    // messagePacket[0] = "\tListing all modules:";
-    // int messageCount = 1;
-    //
-    // for (int i = 0; i < this.modules.size(); i++) {
-    // String line = "\t" + (i + 1) + ". " + this.modules.get(i);
-    // messagePacket[messageCount++] = line;
-    // }
-    // Ui.printMessage(messagePacket);
-    // }
 
-    public void printModules() {
-        List<String[]> y1s1 = new ArrayList<>();
-        List<String[]> y1s2 = new ArrayList<>();
-        List<String[]> y2s1 = new ArrayList<>();
-        List<String[]> y2s2 = new ArrayList<>();
-        List<String[]> y3s1 = new ArrayList<>();
-        List<String[]> y3s2 = new ArrayList<>();
-        List<String[]> y4s1 = new ArrayList<>();
-        List<String[]> y4s2 = new ArrayList<>();
-
+    public void printModules() throws InvalidGradeException {
+        Map<Integer, Map<Integer, List<String[]>>> modulesByYearAndSemester = new HashMap<>();
         for (Module m : modules) {
-            if (m.getYear() == 1) {
-                if (m.getSem() == 1) {
-                    String[] moduleArray = new String[]{m.getCode(), m.getGrade()};
-                    y1s1.add(moduleArray);
-                } else {
-                    String[] moduleArray = new String[]{m.getCode(), m.getGrade()};
-                    y1s2.add(moduleArray);
-                }
-            } else if (m.getYear() == 2) {
-                if (m.getSem() == 1) {
-                    String[] moduleArray = new String[]{m.getCode(), m.getGrade()};
-                    y2s1.add(moduleArray);
-                } else {
-                    String[] moduleArray = new String[]{m.getCode(), m.getGrade()};
-                    y2s2.add(moduleArray);
-                }
-            } else if (m.getYear() == 3) {
-                if (m.getSem() == 1) {
-                    String[] moduleArray = new String[]{m.getCode(), m.getGrade()};
-                    y3s1.add(moduleArray);
-                } else {
-                    String[] moduleArray = new String[]{m.getCode(), m.getGrade()};
-                    y3s2.add(moduleArray);
-                }
-            } else if (m.getYear() == 4) {
-                if (m.getSem() == 1) {
-                    String[] moduleArray = new String[]{m.getCode(), m.getGrade()};
-                    y4s1.add(moduleArray);
-                } else {
-                    String[] moduleArray = new String[]{m.getCode(), m.getGrade()};
-                    y4s2.add(moduleArray);
-                }
-            }
+
+            int year = m.getYear();
+            int sem = m.getSem();
+            String[] moduleArray = new String[] { m.getCode(), m.getGrade() };
+
+            modulesByYearAndSemester.computeIfAbsent(year, k -> new HashMap<>())
+                    .computeIfAbsent(sem, k -> new ArrayList<>())
+                    .add(moduleArray);
+
         }
+
         Ui.printDivider();
         for (int year = 1; year < 5; year++) {
             for (int semester = 1; semester <= 2; semester++) {
                 System.out.println("- Year " + year + " Semester " + semester + " -");
-                if (year == 1) {
-                    if (semester == 1) {
-                        if (y1s1.isEmpty()) {
-                            System.out.println("\tNo modules taken/added.");
-                        }
-                        for (String[] s : y1s1) {
 
-                            System.out.println(s[0] + " " + s[1]);
-                        }
-                    } else {
-                        if (y1s2.isEmpty()) {
-                            System.out.println("\tNo modules taken/added.");
-                        }
-                        for (String[] s : y1s2) {
-                            System.out.println(s[0] + " " + s[1]);
-                        }
-                    }
-                } else if (year == 2) {
-                    if (semester == 1) {
-                        if (y2s1.isEmpty()) {
-                            System.out.println("\tNo modules taken/added.");
-                        }
-                        for (String[] s : y2s1) {
-                            System.out.println(s[0] + " " + s[1]);
-                        }
-                    } else {
-                        if (y2s2.isEmpty()) {
-                            System.out.println("\tNo modules taken/added.");
-                        }
-                        for (String[] s : y2s2) {
-                            System.out.println(s[0] + " " + s[1]);
-                        }
-                    }
-                } else if (year == 3) {
-                    if (semester == 1) {
-                        if (y3s1.isEmpty()) {
-                            System.out.println("\tNo modules taken/added.");
-                        }
-                        for (String[] s : y3s1) {
-                            System.out.println(s[0] + " " + s[1]);
-                        }
-                    } else {
-                        if (y3s2.isEmpty()) {
-                            System.out.println("\tNo modules taken/added.");
-                        }
-                        for (String[] s : y3s2) {
-                            System.out.println(s[0] + " " + s[1]);
-                        }
-                    }
+
+                List<String[]> modules = modulesByYearAndSemester.getOrDefault(year, new HashMap<>())
+                        .getOrDefault(semester, new ArrayList<>());
+
+                if (modules.isEmpty()) {
+                    System.out.println("\tNo modules taken/added.");
                 } else {
-                    if (semester == 1) {
-                        if (y4s1.isEmpty()) {
-                            System.out.println("\tNo modules taken/added.");
-                        }
-                        for (String[] s : y4s1) {
-                            System.out.println(s[0] + " " + s[1]);
-                        }
-                    } else {
-                        if (y4s2.isEmpty()) {
-                            System.out.println("\tNo modules taken/added.");
-                        }
-                        for (String[] s : y4s2) {
-                            System.out.println(s[0] + " " + s[1]);
-                        }
+                    for (String[] s : modules) {
+                        System.out.println(s[0] + " " + s[1]);
                     }
                 }
+                CAP.printSemCAP(modules);
             }
         }
+        CAP.printOverallCAP(modules);
     }
 
     public int numberOfMcsTaken() {
@@ -365,17 +284,16 @@ public class ModuleList {
         List<String> untakenCoreMods = new ArrayList<>();
         for (String coreMod : coreMods) {
             boolean isCoreModTaken = false;
-            String currentCoreModCode = coreMod;
             for (Module module : modules) {
                 String currentUserModuleCode = module.moduleCode;
                 boolean isCurrentUserModuleTaken = module.isTaken;
-                if (currentCoreModCode.equals(currentUserModuleCode) && isCurrentUserModuleTaken) {
+                if (coreMod.equals(currentUserModuleCode) && isCurrentUserModuleTaken) {
                     isCoreModTaken = true;
                     break;
                 }
             }
             if (!isCoreModTaken) {
-                untakenCoreMods.add(currentCoreModCode);
+                untakenCoreMods.add(coreMod);
             }
         }
         return untakenCoreMods;
@@ -420,14 +338,20 @@ public class ModuleList {
         Ui.printDivider();
     }
 
-    public void initialize() throws InvalidCourseIndexException, CourseIndexOutOfBoundsException {
+    public void initialize() throws InvalidIndexException {
         Scanner input = new Scanner(System.in);
-        String inputCourse = "";
+        String inputCourse;
         int inputCourseIndex;
-        System.out.println("\t What is your name?");
+        Ui.printDivider();
+        System.out.println("\tWhat is your name?");
+        Ui.printDivider();
         String inputName = input.nextLine();
+        if (inputName.equals("")) {
+            throw new InvalidIndexException("Name cannot be empty. Please init again");
+        }
         user.setName(inputName);
-        System.out.println("\t Name confirmed: " + user.name );
+        Ui.printDivider();
+        System.out.println("\t Name confirmed: " + user.name + "\n");
         System.out.println("\t Now, please enter the index of your corresponding course");
         System.out.println("\t 1. Biomedical Engineering \n" +
                            "\t 2. Chemical Engineering \n" +
@@ -436,11 +360,12 @@ public class ModuleList {
                            "\t 5. Electrical Engineering \n" +
                            "\t 6. Environmental Engineering \n" +
                            "\t 7. Industrial and Systems Engineering \n" +
-                           "\t 8. Mechanical Engineering \n ");
+                           "\t 8. Mechanical Engineering");
+        Ui.printDivider();
         try {
             inputCourseIndex = Integer.parseInt(input.nextLine());
         } catch (NumberFormatException e) {
-            throw new InvalidCourseIndexException("The index must be an integer. Please initialize again.");
+            throw new InvalidIndexException("The index must be an integer. Please initialize again.");
         }
         switch(inputCourseIndex) {
         case 1: inputCourse = "Biomedical Engineering";
@@ -459,10 +384,13 @@ public class ModuleList {
                 break;
         case 8: inputCourse = "Mechanical Engineering";
                 break;
-        default: throw new CourseIndexOutOfBoundsException("Enter within the index. Please initialize again");
+        default: throw new InvalidIndexException("Enter within the index. Please initialize again");
         }
         user.setCourse(inputCourse);
+        Ui.printDivider();
         System.out.println("\t Course Confirmed: " + user.course);
         System.out.println("\t Initialization Completed. Please type help for list of commands");
+        Ui.printDivider();
     }
+
 }
