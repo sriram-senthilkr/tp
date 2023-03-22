@@ -26,10 +26,10 @@ public class CommandParser {
     private static final String PLAN = "plan";
     private static final String TAKEN = "taken";
     private static final String PREREQUISITE = "prerequisite";
-    private static final String PRECLUSION = "preclusion";
     private static final String DESCRIPTION = "description";
     private static final String TITLE = "title";
     private static final String MODULECREDIT = "modulecredit";
+    private static final String DETAILS = "details";
     private static final String HELP = "help";
 
     private static final String INITIALIZATION = "init";
@@ -90,17 +90,7 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printPrerequisite();
-            break;
-
-        case PRECLUSION:
-            if (inputArray.length == 1 || inputArray.length > 2) {
-                throw new InvalidModuleException(command);
-            }
-            moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printPreclusion();
+            ModuleRetriever.printPrerequisite(moduleCode);
             break;
 
         case DESCRIPTION:
@@ -108,8 +98,7 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printDescription();
+            ModuleRetriever.printDescription(moduleCode);
             break;
 
         case TITLE:
@@ -117,8 +106,7 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printTitle();
+            ModuleRetriever.printTitle(moduleCode);
             break;
 
         case MODULECREDIT:
@@ -126,8 +114,15 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printModuleCredit();
+            ModuleRetriever.printModuleCredit(moduleCode);
+            break;
+
+        case DETAILS:
+            if (inputArray.length == 1 || inputArray.length > 2) {
+                throw new InvalidModuleException(command);
+            }
+            moduleCode = inputArray[1];
+            ModuleRetriever.printDetails(moduleCode);
             break;
 
         case HELP:
