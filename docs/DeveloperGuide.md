@@ -66,9 +66,12 @@ Step 4. The new `Module` object is then returned to the `CommandParser` where it
 
 Step 5. It first checks if the module already exists in the list by iterating through the current list and checking for the same `moduleCode`. If so, `DuplicateModuleException` is thrown. If the module does not exist, it is added to the `ModuleList` by calling the `add()` method of the class. 
 
-Step 6. A confirmation message is prited to indicate the success of the module addition. This is called using the `printMessage()` method from `Ui` which accpets an array of strings as message lines.
+Step 6. A confirmation message is printed to indicate the success of the module addition. This is called using the `printMessage()` method from `Ui` which accpets an array of strings as message lines.
 
-**When a taken module is added:**
+The following sequence diagram shows how the `plan` command works:
+![AddModuleSequenceDiagram](uml/AddModSequence.png)
+
+**Similarly, for when a taken module is added:**
 Step 1. The user launches the application for the first time. The ModuleList will be initialised with the initial module list state if provided in `penus.txt`.
 
 Step 2. The user executes the `taken CS2113 y/1 s/2 g/A+` command to plan the module CS2113 for year 1 and semester 2 to be added into the list. The `plan` command is executed within the switch case of the `parseCommand()` method of `CommandParser`.
