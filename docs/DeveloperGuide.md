@@ -96,7 +96,32 @@ Step 4 - 6. Identical to that of a `plan` command as mentioned above.
 (TBA)
 
 ### Calculate CAP
-(TBA)
+Under the list of modules taken/planned is the Semester CAP, and Overall CAP for the whole course of study.
+This is implemented by the following methods:
+<ul> 
+<li>printSemCAP(): calls calculateSemCAP() and prints output to 2 decimal points </li>
+<li>calculateSemCAP(): calculates the CAP for the semester to be calculated for </li>
+<li>printOverallCAP(): calls calculateOverallCAP() and prints output to 2 decimal points </li>
+<li>calculateOverallCAP(): calculates the overall CAP for all completed semesters </li>  
+</ul>
+
+Below is the sequence of steps which utilises the CAP mechanism:
+
+Step 1: 
+You already initialised yourself as a new user.
+The user adds 3 module as taken 'CG2023 y/1 s/2 g/A+' and 'CG2111A y/1 s/2 g/B+' 
+and 'CG1111A y/1 s/1 g/A+'.
+Currently, there are three taken modules in his planner.
+
+Step 2:
+User enters 'list' which calls 'moduleList.printModules()'.
+For y1s1, user would see a printed CAP of 5.00.
+For y1s2, user would see a printed CAP of 4.50.
+The overall CAP printed is 4.67.
+
+Class Diagram:
+
+
 
 ### Save planner to local drive
 (TBA)
