@@ -87,7 +87,51 @@ Step 4 - 6. Identical to that of a `plan` command as mentioned above.
 (TBA)
 
 ### List modules
-(TBA)
+The List modules feature allows users to view their added modules, in a specified range using the command `list`. There are 3 ways of modules listing :
+1. List all modules in the planner
+2. List all modules in the planner for a specific year
+3. List all modules in the planner for a specific year and semester
+
+Given below is an example usage scenario for each type, and how the list modules mechanism behaves at each step.
+
+**When the year and semester are not specified:**
+Step 1. The user executes the command `list`, without any specified year or semester range, to list all modules in the planner. The `list` command is executed within the switch case of the `parseCommand()` method of `CommandParser`.
+
+Step 2. If a valid command is entered, the `printModule` method of `ModuleList` will be executed with the inputs of -1 for both the year and semester.
+
+Step 3. In `printModule` of `ModuleList`, a `Map<Integer, Map<Integer, List<String[]>>>` Hashmap is iniitialised, and all the modules stored in the `modules` container is added to the Hashmap.
+
+Step 4. The year and semester have values of -1, which then `printModules` recognises as printing all modules in the Hashmap. A `L`ist<String[]> modules` is initialised with all the modules in the Hashmap.
+
+Step 5. If `modules` is not empty, the modules for that year and semester are printed sequentially. For modules with available grade information, the grade will be printed beside the module code.
+
+**When the year is specified:**
+
+Step 1. The user executes the command `list y/1`, with the year specified, but not the semester, to print the modules for both semesters in Year 1. The `list` command is executed within the switch case of the `parseCommand()` method of `CommandParser`.
+
+Step 2. If a valid command is entered, the `printModule` method of `ModuleList` will be executed. The string `inputArray` is then split into parts separated by the flags `y/` and `s/` into a `rangeToPrint` array.
+
+Step 3. If the year entered is valid, the integer `yearSpecified` is assigned parsed from the String that the user entered. The integer `semesterSpecified` is assigned to 0. The `printModule` method of `ModuleList` is called with the `yearSpecified` and `semesterSpecified` as inputs, and `semesterSpecified` is valued at -1.
+
+Step 3. In `printModule` of `ModuleList`, a `Map<Integer, Map<Integer, List<String[]>>>` Hashmap is initialised, and all the modules stored in the `modules` container is added to the Hashmap.
+
+Step 4. A `List<String[]> modules` is initialised with all the modules in the Hashmap.
+
+Step 5. If `modules` is not empty, the modules for that year and both its semesters are printed sequentially. For modules with available grade information, the grade will be printed beside the module code.
+
+**When the year and semester are specified:**
+
+Step 1. The user executes the command `list y/1 s/2`, with the year and semester specified, to print the modules for Year 1 Semester 2. The `list` command is executed within the switch case of the `parseCommand()` method of `CommandParser`.
+
+Step 2. If a valid command is entered, the `printModule` method of `ModuleList` will be executed. The string `inputArray` is then split into parts separated by the flags `y/` and `s/` into a rangeToPrint array.
+
+Step 3. If the year entered is valid, the integer `yearSpecified` and `semesterSpecified` is parsed from the String that the user entered. The `printModule` method of `ModuleList` is called with the `yearSpecified` and `semesterSpecified` as inputs.
+
+Step 3. In `printModule` of `ModuleList`, a `Map<Integer, Map<Integer, List<String[]>>>` Hashmap is iniitialised, and all the modules stored in the `modules` container is added to the Hashmap.
+
+Step 4. A `List<String[]> modules` is initialised with all the modules in the Hashmap.
+
+Step 5. If `modules` is not empty, the modules for that specified year and semester are printed sequentially. For modules with available grade information, the grade will be printed beside the module code.
 
 ### Display status
 The Display Status feature `status` lists all the core modules in the user's course, and indicates which ones the user has or has
@@ -162,7 +206,33 @@ _Design considerations:_
 (TBA)
 
 ### Calculate CAP
-(TBA)
+Under the list of modules taken/planned is the Semester CAP, and Overall CAP for the whole course of study.
+This is implemented by the following methods:
+<ul> 
+<li>printSemCAP(): calls calculateSemCAP() and prints output to 2 decimal points </li>
+<li>calculateSemCAP(): calculates the CAP for the semester to be calculated for </li>
+<li>printOverallCAP(): calls calculateOverallCAP() and prints output to 2 decimal points </li>
+<li>calculateOverallCAP(): calculates the overall CAP for all completed semesters </li>  
+</ul>
+
+Below is the sequence of steps which utilises the CAP mechanism:
+
+Step 1: 
+You already initialised yourself as a new user.
+The user adds 3 module as taken `CG2023 y/1 s/2 g/A+` and `CG2111A y/1 s/2 g/B+` 
+and `CG1111A y/1 s/1 g/A+`.
+Currently, there are three taken modules in his planner.
+
+Step 2:
+User enters 'list' which calls `moduleList.printModules()`.
+For y1s1, under the mods listed, user would see a printed CAP of 5.00.
+For y1s2, under the mods listed, user would see a printed CAP of 4.50.
+The overall CAP printed is 4.67.
+
+Class Diagram:
+![CAP uml diagram](uml/CAP.png)
+
+
 
 ### Save planner to local drive
 (TBA)
