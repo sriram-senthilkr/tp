@@ -4,14 +4,14 @@ import seedu.penus.exceptions.InvalidCommandException;
 import seedu.penus.exceptions.InvalidFormatException;
 import seedu.penus.exceptions.InvalidGradeException;
 import seedu.penus.exceptions.InvalidSemesterException;
-
+import seedu.penus.exceptions.InvalidYearException;
 import seedu.penus.modules.Module;
 import seedu.penus.modules.Grade;
 
 public class ModuleParser {
     public static Module getModuleFromCommand(String[] inputArray)
             throws InvalidFormatException, InvalidCommandException,
-            InvalidGradeException, InvalidSemesterException {
+            InvalidGradeException, InvalidSemesterException, InvalidYearException {
         Module module;
         String command = inputArray[0];
 
@@ -24,9 +24,12 @@ public class ModuleParser {
             if (planDetails.length != 3 || planDetails[1].length() == 0 || planDetails[2].length() == 0) {
                 throw new InvalidFormatException("Try again in the format: PLAN CODE y/YEAR s/SEM");
             }
-            
+
             String moduleCode = planDetails[0].toUpperCase();
             Integer year = Integer.parseInt(planDetails[1]);
+            if (year != 1 && year != 2 && year != 3 && year != 4) {
+                throw new InvalidYearException("Year must be 1 to 4. Please try again.");
+            }
             int semester = Integer.parseInt(planDetails[2]);
             if (semester != 1 && semester != 2) {
                 throw new InvalidSemesterException("Semester must be 1 or 2!");

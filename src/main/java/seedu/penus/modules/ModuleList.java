@@ -1,5 +1,6 @@
 package seedu.penus.modules;
 
+import java.nio.file.attribute.UserPrincipalLookupService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Map;
 //import javax.naming.PartialResultException;
 import java.util.Scanner;
 
+import seedu.penus.api.ModuleRetriever;
 import seedu.penus.exceptions.CourseIndexOutOfBoundsException;
 import seedu.penus.exceptions.DuplicateModuleException;
 import seedu.penus.exceptions.InvalidCommandException;
@@ -173,7 +175,13 @@ public class ModuleList {
         Ui.printMessage(messagePacket);
     }
 
-    public void printModules() {
+    /**
+     * Lists out the modules in the user specified range.
+     * 
+     * @param userSemester
+     * @param userYear
+     */
+    public void printModules(int userYear, int userSemester) {
         Map<Integer, Map<Integer, List<String[]>>> modulesByYearAndSemester = new HashMap<>();
 
         for (Module m : modules) {
@@ -187,11 +195,28 @@ public class ModuleList {
         }
 
         Ui.printDivider();
-        for (int year = 1; year < 5; year++) {
-            for (int semester = 1; semester <= 2; semester++) {
-                System.out.println("- Year " + year + " Semester " + semester + " -");
+        if (userYear == -1 && userSemester == -1) { // List all modules
+            for (int year = 1; year < 5; year++) {
+                for (int semester = 1; semester <= 2; semester++) {
+                    System.out.println("- Year " + year + " Semester " + semester + " -");
 
-                List<String[]> modules = modulesByYearAndSemester.getOrDefault(year, new HashMap<>())
+                    List<String[]> modules = modulesByYearAndSemester.getOrDefault(year, new HashMap<>())
+                            .getOrDefault(semester, new ArrayList<>());
+
+                    if (modules.isEmpty()) {
+                        System.out.println("\tNo modules taken/added.");
+                    } else {
+                        for (String[] s : modules) {
+                            System.out.println(s[0] + " " + s[1]);
+                        }
+                    }
+                }
+            }
+        } else if (userYear != -1 && userSemester == -1) { // Year specified but not semester
+            for (int semester = 1; semester <= 2; semester++) {
+                System.out.println("- Year " + userYear + " Semester " + semester + " -");
+
+                List<String[]> modules = modulesByYearAndSemester.getOrDefault(userYear, new HashMap<>())
                         .getOrDefault(semester, new ArrayList<>());
 
                 if (modules.isEmpty()) {
@@ -202,9 +227,28 @@ public class ModuleList {
                     }
                 }
             }
+        } else if (userYear != -1 && userSemester != -1) { // both Sem and Year specified
+            System.out.println("- Year " + userYear + " Semester " + userSemester + " -");
+
+            List<String[]> modules = modulesByYearAndSemester.getOrDefault(userYear, new HashMap<>())
+                    .getOrDefault(userSemester, new ArrayList<>());
+
+            if (modules.isEmpty()) {
+                System.out.println("\tNo modules taken/added.");
+            } else {
+                for (String[] s : modules) {
+                    System.out.println(s[0] + " " + s[1]);
+                }
+            }
         }
     }
 
+    /**
+     * Calculates the total number of MCs that the user has completed
+     * 
+     * @param takenCoreModulesList the list of modules that have been taken
+     * @return Returns the number of MCs that the user has taken
+     */
     public int numberOfMcsTaken(List<String> takenCoreModulesList) {
         int numberOfMcs = 0;
         for (String currentUserModuleCode : takenCoreModulesList) {
@@ -219,6 +263,10 @@ public class ModuleList {
         return numberOfMcs;
     }
 
+    /**
+     * 
+     * @return
+     */
     public List<String> getTakenCoreModsList() {
         List<String> coreMods = resource.getCoreMods();
         List<String> takenCoreMods = new ArrayList<>();
@@ -235,6 +283,10 @@ public class ModuleList {
         return takenCoreMods;
     }
 
+    /**
+     * 
+     * @return
+     */
     public List<String> getUntakenCoreModsList() {
         List<String> coreMods = resource.getCoreMods();
         List<String> untakenCoreMods = new ArrayList<>();
@@ -256,6 +308,12 @@ public class ModuleList {
         return untakenCoreMods;
     }
 
+    /**
+     * Prints the status of the user's overall schooling progress.
+     * Shows taken and untaken modules on separate lines
+     * 
+     * @param moduleList the list of all modules taken
+     */
     public void statusPrintFunction(List<String> moduleList) {
         List<String[]> moduleDetails = resource.getAllModuleDetails();
         for (String s : moduleList) {
@@ -269,6 +327,9 @@ public class ModuleList {
         }
     }
 
+    /**
+     * Prints the status of the user's overall schooling progress.
+     */
     public void printStatus() {
         List<String> takenCoreModsList = getTakenCoreModsList();
         List<String> untakenCoreModsList = getUntakenCoreModsList();
@@ -281,6 +342,13 @@ public class ModuleList {
         Ui.printDivider();
     }
 
+    /**
+     * Initialises the user's profile in the program. Allows the user to choose
+     * their course, so as to get their core modules.
+     * 
+     * @throws InvalidCourseIndexException
+     * @throws CourseIndexOutOfBoundsException
+     */
     public void initialize() throws InvalidCourseIndexException, CourseIndexOutOfBoundsException {
         Scanner input = new Scanner(System.in);
         String inputCourse = "";
@@ -288,40 +356,49 @@ public class ModuleList {
         System.out.println("\t What is your name?");
         String inputName = input.nextLine();
         user.setName(inputName);
-        System.out.println("\t Name confirmed: " + user.name );
+        System.out.println("\t Name confirmed: " + user.name);
         System.out.println("\t Now, please enter the index of your corresponding course");
         System.out.println("\t 1. Biomedical Engineering \n" +
-                           "\t 2. Chemical Engineering \n" +
-                           "\t 3. Civil Engineering \n" +
-                           "\t 4. Computer Engineering \n" +
-                           "\t 5. Electrical Engineering \n" +
-                           "\t 6. Environmental Engineering \n" +
-                           "\t 7. Industrial and Systems Engineering \n" +
-                           "\t 8. Mechanical Engineering \n ");
+                "\t 2. Chemical Engineering \n" +
+                "\t 3. Civil Engineering \n" +
+                "\t 4. Computer Engineering \n" +
+                "\t 5. Electrical Engineering \n" +
+                "\t 6. Environmental Engineering \n" +
+                "\t 7. Industrial and Systems Engineering \n" +
+                "\t 8. Mechanical Engineering \n ");
         try {
             inputCourseIndex = Integer.parseInt(input.nextLine());
         } catch (NumberFormatException e) {
             throw new InvalidCourseIndexException("The index must be an integer. Please initialize again.");
         }
 
-        switch(inputCourseIndex) {
-        case 1: inputCourse = "Biomedical Engineering";
+        switch (inputCourseIndex) {
+            case 1:
+                inputCourse = "Biomedical Engineering";
                 break;
-        case 2: inputCourse = "Chemical Engineering";
+            case 2:
+                inputCourse = "Chemical Engineering";
                 break;
-        case 3: inputCourse = "Civil Engineering";
+            case 3:
+                inputCourse = "Civil Engineering";
                 break;
-        case 4: inputCourse = "Computer Engineering";
+            case 4:
+                inputCourse = "Computer Engineering";
                 break;
-        case 5: inputCourse = "Electrical Engineering";
+            case 5:
+                inputCourse = "Electrical Engineering";
                 break;
-        case 6: inputCourse = "Environmental Engineering";
+            case 6:
+                inputCourse = "Environmental Engineering";
                 break;
-        case 7: inputCourse = "Industrial and Systems Engineering";
+            case 7:
+                inputCourse = "Industrial and Systems Engineering";
                 break;
-        case 8: inputCourse = "Mechanical Engineering";
+            case 8:
+                inputCourse = "Mechanical Engineering";
                 break;
-        default: throw new CourseIndexOutOfBoundsException("Enter within the index. Please initialize again");
+            default:
+                throw new CourseIndexOutOfBoundsException("Enter within the index. Please initialize again");
         }
         user.setCourse(inputCourse);
         System.out.println("\t Course Confirmed: " + user.course);
@@ -329,12 +406,13 @@ public class ModuleList {
     }
 
     /**
-     * 
+     * Prints a user guide on accepted commands.
      */
     public static void printHelp() {
         Ui.printDivider();
         System.out.println("\texit" + "\t\t\t\t\t\t\t\tExits the program");
-        System.out.println("\tlist mods [FILTER]" + "\t\t\t\t\t\tDisplays a list of all modules taken or planned.\n"
+        System.out.println("\tlist [FILTER]"
+                + "\t\t\t\t\t\t\tDisplays a list of all modules taken or planned in the specified Year or Semester\n"
                 + "\t\t\t\t\t\t\t\t\tIf [FILTER] is not specified, then all modules will shown.");
         System.out.println("\tmark [MODULE CODE] g/[GRADE]"
                 + "\t\t\t\t\tMarks the module that has been cleared, while updating its grades");

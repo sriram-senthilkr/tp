@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 public class ModuleRetriever {
     public static JSONObject moduleInfo;
+    
 
     public static void getData(String module) {
         try {
@@ -62,7 +63,7 @@ public class ModuleRetriever {
                 .replace("( ", "\\n(")
                 .replace(" )", ")\\n");
 
-        String[] messagePacket = {prereq};
+        String[] messagePacket = { prereq };
         Ui.printMessage(messagePacket);
     }
 
@@ -77,36 +78,35 @@ public class ModuleRetriever {
                 .replace("( ", "\\n(")
                 .replace(" )", ")\\n");
 
-        String[] messagePacket = {preclusion};
+        String[] messagePacket = { preclusion };
         Ui.printMessage(messagePacket);
     }
 
     public static void printDescription() {
         String description = "\t" + (String) moduleInfo.get("description");
 
-        String[] messagePacket = {description};
+        String[] messagePacket = { description };
         Ui.printMessage(messagePacket);
     }
 
     public static void printTitle() {
         String title = "\t" + (String) moduleInfo.get("title");
 
-        String[] messagePacket = {title};
+        String[] messagePacket = { title };
         Ui.printMessage(messagePacket);
     }
 
     public static void printModuleCredit() {
         String moduleCredit = "\t" + (String) moduleInfo.get("moduleCredit");
 
-        String[] messagePacket = {moduleCredit};
+        String[] messagePacket = { moduleCredit };
         Ui.printMessage(messagePacket);
     }
 
     public static void printPrereqRule() {
         String prereqRule = "\t" + (String) moduleInfo.get("prerequisiteRule");
 
-        String[] messagePacket = {prereqRule};
+        String[] messagePacket = { prereqRule };
         Ui.printMessage(messagePacket);
     }
-
 }
