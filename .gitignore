@@ -16,5 +16,3 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 
-/.vscode/
-text-ui-test/data/module-details.txt
