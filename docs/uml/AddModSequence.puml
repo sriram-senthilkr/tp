@@ -1,0 +1,32 @@
+@startuml
+participant User
+
+create CommandParser
+
+
+activate CommandParser
+User -> CommandParser: getInput() "plan CS2113 y/1 s/2"
+
+CommandParser -> ModuleParser: getModuleFromCommand(inputArray)
+
+activate ModuleParser
+ModuleParser -> Module: new Module()
+
+activate Module
+Module --> ModuleParser: returns module
+deactivate Module
+
+ModuleParser --> CommandParser: returns moduleToAdd
+deactivate ModuleParser
+
+create ModuleList
+CommandParser -> ModuleList: addModule(moduleToAdd)
+
+activate ModuleList
+ModuleList -> Ui: printMessage()
+
+activate Ui
+Ui -> User: added message
+deactivate Ui
+
+@enduml
