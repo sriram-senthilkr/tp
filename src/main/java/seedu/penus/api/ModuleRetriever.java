@@ -107,7 +107,7 @@ public class ModuleRetriever {
         return (String) moduleInfo2223.get("description");
     }
 
-    private static String retrieveTitle(String module) {
+    public static String retrieveTitle(String module) {
         getData2223(module);
         return (String) moduleInfo2223.get("title");
     }
@@ -148,32 +148,11 @@ public class ModuleRetriever {
         Ui.printMessage(messagePacket);
     }
 
-
-    public static String getTitle() {
-        String title = (String) moduleInfo.get("title");
-        return title;
-    }
-
-
-    public static void printModuleCredit() {
-        String moduleCredit = "\t" + (String) moduleInfo.get("moduleCredit");
-
     public static void printModuleCredit(String module) {
         String moduleCredit = "\t" + retrieveModuleCredit(module) + " MCs";
-
-
         String[] messagePacket = {moduleCredit};
         Ui.printMessage(messagePacket);
     }
-
-
-    public static String getModuleCredit() {
-        String moduleCredit = (String) moduleInfo.get("moduleCredit");
-        return moduleCredit;
-    }
-
-    public static void printPrereqRule() {
-        String prereqRule = "\t" + (String) moduleInfo.get("prerequisiteRule");
 
     public static void printSUstatus(String module) {
         Boolean SUstatus = retrieveSUstatus(module);

@@ -19,7 +19,6 @@ import seedu.penus.user.User;
 
 public class ModuleList {
     private final List<Module> modules;
-    private final User user;
     private final ResourceManager resource;
     private final List<String[]> moduleDetails;
 
@@ -223,8 +222,8 @@ public class ModuleList {
         int numberOfMcs = 0;
         for (Module currentUserModule : modules) {
             if (currentUserModule.isTaken) {
-                ModuleRetriever.getData(currentUserModule.moduleCode);
-                numberOfMcs = numberOfMcs + Integer.parseInt(ModuleRetriever.getModuleCredit());
+                numberOfMcs = numberOfMcs +
+                Integer.parseInt(ModuleRetriever.retrieveModuleCredit(currentUserModule.moduleCode));
             }
         }
         return numberOfMcs;
@@ -233,9 +232,9 @@ public class ModuleList {
     public String getGESS() {
         for (Module currentUserModule : modules)  {
             if (currentUserModule.moduleCode.substring(0,4).equals("GESS")) {
-                ModuleRetriever.getData(currentUserModule.moduleCode);
                 return "\t" + currentUserModule.moduleCode +
-                        " " + ModuleRetriever.getTitle() + " " + "MCs:" + ModuleRetriever.getModuleCredit();
+                        " " + ModuleRetriever.retrieveTitle(currentUserModule.moduleCode)
+                        + " " + "MCs:" + ModuleRetriever.retrieveModuleCredit(currentUserModule.moduleCode);
             }
         }
         return "";
@@ -244,9 +243,9 @@ public class ModuleList {
     public String getGEC() {
         for (Module currentUserModule : modules) {
             if (currentUserModule.moduleCode.substring(0, 3).equals("GEC")) {
-                ModuleRetriever.getData(currentUserModule.moduleCode);
                 return "\t" + currentUserModule.moduleCode +
-                        " " + ModuleRetriever.getTitle() + " " + "MCs:" + ModuleRetriever.getModuleCredit();
+                        " " + ModuleRetriever.retrieveTitle(currentUserModule.moduleCode)
+                        + " " + "MCs:" + ModuleRetriever.retrieveModuleCredit(currentUserModule.moduleCode);
             }
         }
         return "";
@@ -255,9 +254,9 @@ public class ModuleList {
     public String getGEN() {
         for (Module currentUserModule : modules)  {
             if (currentUserModule.moduleCode.substring(0,3).equals("GEN")) {
-                ModuleRetriever.getData(currentUserModule.moduleCode);
-                return "\t" + currentUserModule.moduleCode + " " + ModuleRetriever.getTitle() +
-                        " " + "MCs:" + ModuleRetriever.getModuleCredit();
+                return "\t" + currentUserModule.moduleCode +
+                        " " + ModuleRetriever.retrieveTitle(currentUserModule.moduleCode) +
+                        " " + "MCs:" + ModuleRetriever.retrieveModuleCredit(currentUserModule.moduleCode);
             }
         }
         return "";
@@ -301,9 +300,9 @@ public class ModuleList {
 
     public void statusPrintFunction(List<String> moduleList) {
         for (String s : moduleList) {
-            ModuleRetriever.getData(s);
             System.out.print("\t" + s);
-            System.out.print(" " + ModuleRetriever.getTitle() + " " + "MCs:" + ModuleRetriever.getModuleCredit());
+            System.out.print(" " + ModuleRetriever.retrieveTitle(s) + " " + "MCs:"
+                    + ModuleRetriever.retrieveModuleCredit(s));
             System.out.println();
         }
     }
