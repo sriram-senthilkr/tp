@@ -107,7 +107,7 @@ public class ModuleRetriever {
         return (String) moduleInfo2223.get("description");
     }
 
-    private static String retrieveTitle(String module) {
+    public static String retrieveTitle(String module) {
         getData2223(module);
         return (String) moduleInfo2223.get("title");
     }
@@ -150,7 +150,6 @@ public class ModuleRetriever {
 
     public static void printModuleCredit(String module) {
         String moduleCredit = "\t" + retrieveModuleCredit(module) + " MCs";
-
         String[] messagePacket = {moduleCredit};
         Ui.printMessage(messagePacket);
     }
@@ -163,6 +162,7 @@ public class ModuleRetriever {
         } else {
             SUstatusDescription = "\tModule cannot be SU-ed.";
         }
+
 
         String[] messagePacket = {SUstatusDescription};
         Ui.printMessage(messagePacket);

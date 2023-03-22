@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import java.util.HashMap;
+
 import java.util.Objects;
+
 
 /*
  * IMPORTANT NOTE: 
@@ -32,24 +36,35 @@ public class ResourceManager {
         this.modDetailsFile = "core-module-details.txt";
     }
 
-    public List<String> getCoreMods() {
-        BufferedReader reader;
-        List<String> coreModules = new ArrayList<>();
+    public HashMap<String, List<String>> getCoreMods() {
+        HashMap <String, List<String>> coreModHashMap = new HashMap<>();
+        String courseName = "";
+        BufferedReader reader = null;
+        List<String> coreModulesList = new ArrayList<>();
         try {
             InputStreamReader stream = new InputStreamReader(
-                    Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(coreModFile))
+                 getClass().getClassLoader().getResourceAsStream(coreModFile)
             );
             reader = new BufferedReader(stream);
             String line;
             while ((line = reader.readLine()) != null) {
-                coreModules.add(line);
+                if (line.startsWith("##")) {
+                    courseName = line.substring(2);
+                }
+                else if (line.equals("END")){
+                    List<String> coreModulesListCopy = new ArrayList<>(coreModulesList);
+                    coreModHashMap.put(courseName, coreModulesListCopy);
+                    coreModulesList.clear();
+                }
+                else {
+                    coreModulesList.add(line);
+                }
             }
             reader.close();
         } catch (IOException e) {
             System.out.println(e);
         }
-
-        return coreModules;
+        return coreModHashMap;
     }
 
     /**
