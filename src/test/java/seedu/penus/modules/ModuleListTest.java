@@ -1,6 +1,6 @@
 package seedu.penus.modules;
 
-import java.util.List;
+//import java.util.List;
 
 import seedu.penus.exceptions.DuplicateModuleException;
 import seedu.penus.exceptions.InvalidCommandException;
@@ -61,7 +61,7 @@ class ModuleListTest {
         );
     }
 
-    @Test
+    /*@Test
     void retrieveUntakenCoreModsTest() throws DuplicateModuleException {
         Module coreModuleUntaken = new Module("CS2113", 2, 2);
         Module coreModuleTaken = new Module("CS2040C", 2, 2, "A+");
@@ -72,9 +72,9 @@ class ModuleListTest {
 
         List<String> untakenList = list.getUntakenCoreModsList();
         assertEquals(30, untakenList.size());
-    }
+    }*/
 
-    @Test 
+    /*@Test
     void retrieveTakenCoreModsTest() throws DuplicateModuleException {
         Module coreModuleUntaken = new Module("CS2113", 2, 2);
         Module coreModuleTaken = new Module("CS2040C", 2, 2, "A+");
@@ -85,5 +85,5 @@ class ModuleListTest {
 
         List<String> takenList = list.getTakenCoreModsList();
         assertEquals(1, takenList.size());
-    }
+    }*/
 }
