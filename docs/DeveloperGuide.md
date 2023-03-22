@@ -93,6 +93,7 @@ The List modules feature allows users to view their added modules, in a specifie
 3. List all modules in the planner for a specific year and semester
 
 Given below is an example usage scenario for each type, and how the list modules mechanism behaves at each step.
+
 **When the year and semester are not specified:**
 Step 1. The user executes the command `list`, without any specified year or semester range, to list all modules in the planner. The `list` command is executed within the switch case of the `parseCommand()` method of `CommandParser`.
 
@@ -105,6 +106,7 @@ Step 4. The year and semester have values of -1, which then `printModules` recog
 Step 5. If `modules` is not empty, the modules for that year and semester are printed sequentially. For modules with available grade information, the grade will be printed beside the module code.
 
 **When the year is specified:**
+
 Step 1. The user executes the command `list y/1`, with the year specified, but not the semester, to print the modules for both semesters in Year 1. The `list` command is executed within the switch case of the `parseCommand()` method of `CommandParser`.
 
 Step 2. If a valid command is entered, the `printModule` method of `ModuleList` will be executed. The string `inputArray` is then split into parts separated by the flags `y/` and `s/` into a `rangeToPrint` array.
@@ -118,6 +120,7 @@ Step 4. A `List<String[]> modules` is initialised with all the modules in the Ha
 Step 5. If `modules` is not empty, the modules for that year and both its semesters are printed sequentially. For modules with available grade information, the grade will be printed beside the module code.
 
 **When the year and semester are specified:**
+
 Step 1. The user executes the command `list y/1 s/2`, with the year and semester specified, to print the modules for Year 1 Semester 2. The `list` command is executed within the switch case of the `parseCommand()` method of `CommandParser`.
 
 Step 2. If a valid command is entered, the `printModule` method of `ModuleList` will be executed. The string `inputArray` is then split into parts separated by the flags `y/` and `s/` into a rangeToPrint array.
