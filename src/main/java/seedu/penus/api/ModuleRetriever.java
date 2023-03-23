@@ -121,13 +121,9 @@ public class ModuleRetriever {
     private static Boolean retrieveSUstatus(String module) {
         getData2223(module);
         JSONObject attributes = (JSONObject) moduleInfo2223.get("attributes");
-        Boolean SUstatus = (Boolean) attributes.get("su");
+        Boolean suStatus = (Boolean) attributes.get("su");
 
-        if (SUstatus == null) {
-            return true;
-        } else {
-            return false;
-        }
+        return suStatus == null;
     }
 
     public static void printPrerequisite(String module) {
@@ -156,16 +152,16 @@ public class ModuleRetriever {
     }
 
     public static void printSUstatus(String module) {
-        Boolean SUstatus = retrieveSUstatus(module);
-        String SUstatusDescription;
-        if (SUstatus) {
-            SUstatusDescription = "\tModule can be SU-ed.";
+        Boolean suStatus = retrieveSUstatus(module);
+        String suStatusDescription;
+        if (suStatus) {
+            suStatusDescription = "\tModule can be SU-ed.";
         } else {
-            SUstatusDescription = "\tModule cannot be SU-ed.";
+            suStatusDescription = "\tModule cannot be SU-ed.";
         }
 
 
-        String[] messagePacket = {SUstatusDescription};
+        String[] messagePacket = {suStatusDescription};
         Ui.printMessage(messagePacket);
     }
 
@@ -175,15 +171,15 @@ public class ModuleRetriever {
         String modulePrereqs = "\tPre-Requisites: " + retrievePrerequisite(module);
         String moduleCredits = "\tMCs: " + retrieveModuleCredit(module);
 
-        boolean SUstatus = retrieveSUstatus(module);
-        String SUstatusDescription;
-        if (SUstatus) {
-            SUstatusDescription = "\tModule can be SU-ed.";
+        boolean suStatus = retrieveSUstatus(module);
+        String suStatusDescription;
+        if (suStatus) {
+            suStatusDescription = "\tModule can be SU-ed.";
         } else {
-            SUstatusDescription = "\tModule cannot be SU-ed.";
+            suStatusDescription = "\tModule cannot be SU-ed.";
         }
 
-        String[] messagePacket = {moduleTitle, moduleDescription, modulePrereqs, moduleCredits, SUstatusDescription};
+        String[] messagePacket = {moduleTitle, moduleDescription, modulePrereqs, moduleCredits, suStatusDescription};
         Ui.printMessage(messagePacket);
     }
 }
