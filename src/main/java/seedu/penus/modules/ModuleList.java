@@ -376,32 +376,32 @@ public class ModuleList {
         }
 
         switch (inputCourseIndex) {
-            case 1:
-                inputCourse = "Biomedical Engineering";
-                break;
-            case 2:
-                inputCourse = "Chemical Engineering";
-                break;
-            case 3:
-                inputCourse = "Civil Engineering";
-                break;
-            case 4:
-                inputCourse = "Computer Engineering";
-                break;
-            case 5:
-                inputCourse = "Electrical Engineering";
-                break;
-            case 6:
-                inputCourse = "Environmental Engineering";
-                break;
-            case 7:
-                inputCourse = "Industrial and Systems Engineering";
-                break;
-            case 8:
-                inputCourse = "Mechanical Engineering";
-                break;
-            default:
-                throw new CourseIndexOutOfBoundsException("Enter within the index. Please initialize again");
+        case 1:
+            inputCourse = "Biomedical Engineering";
+            break;
+        case 2:
+            inputCourse = "Chemical Engineering";
+            break;
+        case 3:
+            inputCourse = "Civil Engineering";
+            break;
+        case 4:
+            inputCourse = "Computer Engineering";
+            break;
+        case 5:
+            inputCourse = "Electrical Engineering";
+            break;
+        case 6:
+            inputCourse = "Environmental Engineering";
+            break;
+        case 7:
+            inputCourse = "Industrial and Systems Engineering";
+            break;
+        case 8:
+            inputCourse = "Mechanical Engineering";
+            break;
+        default:
+            throw new CourseIndexOutOfBoundsException("Enter within the index. Please initialize again");
         }
         user.setCourse(inputCourse);
         System.out.println("\t Course Confirmed: " + user.course);
