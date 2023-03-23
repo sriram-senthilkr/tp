@@ -12,7 +12,7 @@ public class Penus {
     public static void main(String[] args) {
 
         FileManager fileManager = new FileManager();
-        ModuleList moduleList = new ModuleList(fileManager.retrieve());
+        ModuleList moduleList = new ModuleList(fileManager.retrieveUser(),fileManager.retrieveMods());
         CommandParser parser = new CommandParser(moduleList);
         Ui.printWelcome();
         parser.getInput(fileManager);

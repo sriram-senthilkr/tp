@@ -6,6 +6,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import java.util.HashMap;
+
+import java.util.Objects;
+
+
 /*
  * IMPORTANT NOTE: 
  * in IntelliJ: right click /resources folder -> Mark Directory as -> Resources root
@@ -16,7 +21,7 @@ import java.io.InputStreamReader;
             "path": "src/main/resources"
         }
     ]
- * then in VScode Explorer Tab -> Java Projects -> ... -> Clean Workspace
+ * then in VSCode Explorer Tab -> Java Projects -> ... -> Clean Workspace
  * 
  * returns "jar:file:/C:/path/to/project/build/resources/main/.txt"
  * returns "file:/C:/path/to/project/src/main/resources/.txt"
@@ -31,24 +36,35 @@ public class ResourceManager {
         this.modDetailsFile = "core-module-details.txt";
     }
 
-    public List<String> getCoreMods() {
+    public HashMap<String, List<String>> getCoreMods() {
+        HashMap <String, List<String>> coreModHashMap = new HashMap<>();
+        String courseName = "";
         BufferedReader reader = null;
-        List<String> coreModules = new ArrayList<>();
+        List<String> coreModulesList = new ArrayList<>();
         try {
             InputStreamReader stream = new InputStreamReader(
-                    getClass().getClassLoader().getResourceAsStream(coreModFile)
+                 getClass().getClassLoader().getResourceAsStream(coreModFile)
             );
             reader = new BufferedReader(stream);
-            String line = null;
+            String line;
             while ((line = reader.readLine()) != null) {
-                coreModules.add(line);
+                if (line.startsWith("##")) {
+                    courseName = line.substring(2);
+                }
+                else if (line.equals("END")){
+                    List<String> coreModulesListCopy = new ArrayList<>(coreModulesList);
+                    coreModHashMap.put(courseName, coreModulesListCopy);
+                    coreModulesList.clear();
+                }
+                else {
+                    coreModulesList.add(line);
+                }
             }
             reader.close();
         } catch (IOException e) {
             System.out.println(e);
         }
-
-        return coreModules;
+        return coreModHashMap;
     }
 
     /**
@@ -58,14 +74,14 @@ public class ResourceManager {
      * @return the List containing all the decoded modules.
      */
     public List<String[]> getAllModuleDetails() {
-        BufferedReader reader = null;
+        BufferedReader reader;
         List<String[]> moduleDetailsList = new ArrayList<>();
         try {
             InputStreamReader stream = new InputStreamReader(
-                    getClass().getClassLoader().getResourceAsStream(modDetailsFile)
+                    Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(modDetailsFile))
             );
             reader = new BufferedReader(stream);
-            String line = null;
+            String line;
             while ((line = reader.readLine()) != null) {
                 String[] decodedModule = decodeModule(line);
                 moduleDetailsList.add(decodedModule);

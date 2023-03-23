@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 
 import seedu.penus.modules.Module;
 import seedu.penus.modules.ModuleList;
+import seedu.penus.user.User;
 
 public class FileManager {
     public File file;
@@ -48,6 +49,10 @@ public class FileManager {
     public void save(ModuleList moduleList) {
         try {
             FileWriter writer = new FileWriter(this.filePath);
+            User user = moduleList.getUser();
+            if (!user.getName().equals("") && !user.getCourse().equals("")) {
+                writer.write(user.encode() + "\n");
+            }
             for (Module module : moduleList.getModuleList()) {
                 writer.write(module.encode() + "\n");
             }
@@ -65,22 +70,51 @@ public class FileManager {
      *
      * @return moduleList the moduleList containing all the user's modules saved in storage
      */
-    public List<Module> retrieve() {
+    public List<Module> retrieveMods() {
         Scanner scanner = null;
         List<Module> moduleList = new ArrayList<>();
         try {
             scanner = new Scanner(this.file);
             while (scanner.hasNextLine()) {
                 String encoded = scanner.nextLine();
+                if (encoded.contains("User")) {
+                    continue;
+                }
                 moduleList.add(this.decodemodule(encoded));
             }
         } catch (FileNotFoundException e) {
             System.out.println(e);
         } finally {
-            scanner.close();
+            if (scanner != null) {
+                scanner.close();
+            }
         }
         
         return moduleList;
+    }
+
+    public User retrieveUser() {
+        Scanner scanner = null;
+        User user = new User();
+        try {
+            scanner = new Scanner(this.file);
+            if (scanner.hasNextLine()) {
+                String userLine = scanner.nextLine();
+                if (userLine.contains("User")) {
+                    String[] components = userLine.split(" ### ");
+                    user.setName(components[1]);
+                    user.setCourse(components[2]);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
+        }
+
+        return user;
     }
 
     /**
