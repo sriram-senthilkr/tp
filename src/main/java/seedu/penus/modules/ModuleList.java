@@ -184,8 +184,9 @@ public class ModuleList {
      * 
      * @param userSemester
      * @param userYear
+     * @throws InvalidGradeException
      */
-    public void printModules(int userYear, int userSemester) {
+    public void printModules(int userYear, int userSemester) throws InvalidGradeException {
         Map<Integer, Map<Integer, List<String[]>>> modulesByYearAndSemester = new HashMap<>();
         for (Module m : modules) {
 
