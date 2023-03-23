@@ -13,7 +13,7 @@ CS211312
 	 \__|__/  \______/\___/  \_____/  \__________/  \_________/
 
 	Welcome to PENUS!
-	What can I do for you?
+	Enter help for a list of commands or init to start
 	____________________________________
 	Error: This module has already been added to the list. Please try again
 	____________________________________
