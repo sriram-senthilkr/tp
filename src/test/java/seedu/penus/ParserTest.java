@@ -3,7 +3,6 @@ package seedu.penus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.penus.exceptions.CourseIndexOutOfBoundsException;
 import seedu.penus.exceptions.DuplicateModuleException;
 import seedu.penus.exceptions.InvalidCommandException;
 import seedu.penus.exceptions.InvalidFormatException;
