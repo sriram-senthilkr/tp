@@ -1,6 +1,5 @@
 package seedu.penus.modules;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +7,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 import seedu.penus.api.ModuleRetriever;
-
 import seedu.penus.exceptions.DuplicateModuleException;
 import seedu.penus.exceptions.InvalidCommandException;
 import seedu.penus.exceptions.InvalidGradeException;
@@ -181,8 +179,14 @@ public class ModuleList {
         Ui.printMessage(messagePacket);
     }
 
-
-    public void printModules() throws InvalidGradeException {
+    /**
+     * Lists out the modules in the user specified range.
+     * 
+     * @param userSemester
+     * @param userYear
+     * @throws InvalidGradeException
+     */
+    public void printModules(int userYear, int userSemester) throws InvalidGradeException {
         Map<Integer, Map<Integer, List<String[]>>> modulesByYearAndSemester = new HashMap<>();
         for (Module m : modules) {
 
@@ -197,13 +201,29 @@ public class ModuleList {
         }
 
         Ui.printDivider();
-        for (int year = 1; year < 5; year++) {
+        if (userYear == -1 && userSemester == -1) { // List all modules
+            for (int year = 1; year < 5; year++) {
+                for (int semester = 1; semester <= 2; semester++) {
+                    System.out.println("- Year " + year + " Semester " + semester + " -");
+
+                    List<String[]> modules = modulesByYearAndSemester.getOrDefault(year, new HashMap<>())
+                            .getOrDefault(semester, new ArrayList<>());
+
+                    if (modules.isEmpty()) {
+                        System.out.println("\tNo modules taken/added.");
+                    } else {
+                        for (String[] s : modules) {
+                            System.out.println(s[0] + " " + s[1]);
+                        }
+                    }
+                }
+            }
+        } else if (userYear != -1 && userSemester == -1) { // Year specified but not semester
             for (int semester = 1; semester <= 2; semester++) {
-                System.out.println("- Year " + year + " Semester " + semester + " -");
-
-
-                List<String[]> modules = modulesByYearAndSemester.getOrDefault(year, new HashMap<>())
-                        .getOrDefault(semester, new ArrayList<>());
+                System.out.println("- Year " + userYear + " Semester " + semester + " -");
+           
+                List<String[]> modules = modulesByYearAndSemester.getOrDefault(userYear, new HashMap<>())
+                    .getOrDefault(semester, new ArrayList<>());
 
                 if (modules.isEmpty()) {
                     System.out.println("\tNo modules taken/added.");
@@ -214,10 +234,28 @@ public class ModuleList {
                 }
                 CAP.printSemCAP(modules);
             }
+        } else if (userYear != -1 && userSemester != -1) { // both Sem and Year specified
+            System.out.println("- Year " + userYear + " Semester " + userSemester + " -");
+
+            List<String[]> modules = modulesByYearAndSemester.getOrDefault(userYear, new HashMap<>())
+                    .getOrDefault(userSemester, new ArrayList<>());
+
+            if (modules.isEmpty()) {
+                System.out.println("\tNo modules taken/added.");
+            } else {
+                for (String[] s : modules) {
+                    System.out.println(s[0] + " " + s[1]);
+                }
+            }
         }
         CAP.printOverallCAP(modules);
     }
 
+    /**
+     * Calculates the total number of MCs that the user has completed
+     *
+     * @return Returns the number of MCs that the user has taken
+     */
     public int numberOfMcsTaken() {
         int numberOfMcs = 0;
         for (Module currentUserModule : modules) {
@@ -228,7 +266,7 @@ public class ModuleList {
         }
         return numberOfMcs;
     }
-
+    
     public String getGESS() {
         for (Module currentUserModule : modules)  {
             if (currentUserModule.moduleCode.substring(0,4).equals("GESS")) {
@@ -278,6 +316,9 @@ public class ModuleList {
         return takenCoreMods;
     }
 
+    /**
+     * @return
+     */
     public List<String> getUntakenCoreModsList() {
         List<String> coreMods = resource.getCoreMods().get(user.course);
         List<String> untakenCoreMods = new ArrayList<>();
@@ -298,6 +339,12 @@ public class ModuleList {
         return untakenCoreMods;
     }
 
+    /**
+     * Prints the status of the user's overall schooling progress.
+     * Shows taken and untaken modules on separate lines
+     * 
+     * @param moduleList the list of all modules taken
+     */
     public void statusPrintFunction(List<String> moduleList) {
         for (String s : moduleList) {
             System.out.print("\t" + s);
@@ -307,6 +354,9 @@ public class ModuleList {
         }
     }
 
+    /**
+     * Prints the status of the user's overall schooling progress.
+     */
     public void printStatus() {
         List<String> takenCoreModsList = getTakenCoreModsList();
         List<String> untakenCoreModsList = getUntakenCoreModsList();
@@ -337,6 +387,12 @@ public class ModuleList {
         Ui.printDivider();
     }
 
+    /**
+     * Initialises the user's profile in the program. Allows the user to choose
+     * their course, so as to get their core modules.
+     * 
+     * @throws InvalidIndexException
+     */
     public void initialize() throws InvalidIndexException {
         Scanner input = new Scanner(System.in);
         String inputCourse;
@@ -389,6 +445,26 @@ public class ModuleList {
         Ui.printDivider();
         System.out.println("\t Course Confirmed: " + user.course);
         System.out.println("\t Initialization Completed. Please type help for list of commands");
+    }
+
+    /**
+     * Prints a user guide on accepted commands.
+     */
+    public static void printHelp() {
+        Ui.printDivider();
+        System.out.println("\texit" + "\t\t\t\t\t\t\t\tExits the program");
+        System.out.println("\tlist [FILTER]"
+                + "\t\t\t\t\t\t\tDisplays a list of all modules taken or planned in the specified Year or Semester\n"
+                + "\t\t\t\t\t\t\t\t\tIf [FILTER] is not specified, then all modules will shown.");
+        System.out.println("\tmark [MODULE CODE] g/[GRADE]"
+                + "\t\t\t\t\tMarks the module that has been cleared, while updating its grades");
+        System.out.println(
+                "\tplan [MODULE CODE] y/[YEAR] s/[SEMESTER]"
+                        + "\t\t\tAdds a module to the planner as an untaken module");
+        System.out.println("\tremove [MODULECODE]" + "\t\t\t\t\t\tRemoves a module from the planner");
+        System.out.println("\tstatus" + "\t\t\t\t\t\t\t\tDisplays the status of Core Modules and MCs taken");
+        System.out.println("\ttaken [MODULE CODE] y/[YEAR] s/[SEMESTER] g/[GRADE]"
+                + "\t\tAdds a module to the planner as a module you have already taken");
         Ui.printDivider();
     }
 

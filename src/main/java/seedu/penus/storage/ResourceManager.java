@@ -50,13 +50,11 @@ public class ResourceManager {
             while ((line = reader.readLine()) != null) {
                 if (line.startsWith("##")) {
                     courseName = line.substring(2);
-                }
-                else if (line.equals("END")){
+                } else if (line.equals("END")){
                     List<String> coreModulesListCopy = new ArrayList<>(coreModulesList);
                     coreModHashMap.put(courseName, coreModulesListCopy);
                     coreModulesList.clear();
-                }
-                else {
+                } else {
                     coreModulesList.add(line);
                 }
             }
