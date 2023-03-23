@@ -223,7 +223,7 @@ public class ModuleList {
                 System.out.println("- Year " + userYear + " Semester " + semester + " -");
            
                 List<String[]> modules = modulesByYearAndSemester.getOrDefault(userYear, new HashMap<>())
-                .getOrDefault(semester, new ArrayList<>());
+                    .getOrDefault(semester, new ArrayList<>());
 
                 if (modules.isEmpty()) {
                     System.out.println("\tNo modules taken/added.");
@@ -253,8 +253,7 @@ public class ModuleList {
 
     /**
      * Calculates the total number of MCs that the user has completed
-     * 
-     * @param takenCoreModulesList the list of modules that have been taken
+     *
      * @return Returns the number of MCs that the user has taken
      */
     public int numberOfMcsTaken() {
