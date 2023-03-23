@@ -9,7 +9,13 @@ import seedu.penus.exceptions.InvalidFormatException;
 import seedu.penus.exceptions.InvalidGradeException;
 import seedu.penus.exceptions.InvalidModuleException;
 import seedu.penus.exceptions.InvalidSemesterException;
+<<<<<<< HEAD
 import seedu.penus.exceptions.CourseIndexOutOfBoundsException;
+=======
+import seedu.penus.exceptions.InvalidYearException;
+import seedu.penus.exceptions.InvalidIndexException;
+
+>>>>>>> ad3d62fd00c02e7fef4e95aa9e3e3d8c4b597461
 import seedu.penus.modules.ModuleList;
 import seedu.penus.parser.CommandParser;
 
@@ -31,7 +37,12 @@ class ParserTest {
     @Test
     void parseTaken_expectCodeYearSemAndGrade()
             throws InvalidCommandException, InvalidModuleException, InvalidFormatException,
+<<<<<<< HEAD
             InvalidGradeException, DuplicateModuleException, InvalidSemesterException, CourseIndexOutOfBoundsException {
+=======
+            InvalidGradeException, DuplicateModuleException, InvalidSemesterException, 
+            InvalidIndexException, InvalidYearException {
+>>>>>>> ad3d62fd00c02e7fef4e95aa9e3e3d8c4b597461
         String inputString = "taken CS2113 y/1 s/1 g/A+";
         String[] input = inputString.split(" ", 2);
         parser.parseCommand(input);
@@ -51,7 +62,13 @@ class ParserTest {
     @Test
     void parsePlan_expectCodeYearAndSem()
             throws InvalidCommandException, InvalidModuleException, InvalidFormatException,
+<<<<<<< HEAD
             InvalidGradeException, DuplicateModuleException, InvalidSemesterException, CourseIndexOutOfBoundsException {
+=======
+            InvalidGradeException, DuplicateModuleException, InvalidSemesterException, 
+            InvalidIndexException, InvalidYearException {
+
+>>>>>>> ad3d62fd00c02e7fef4e95aa9e3e3d8c4b597461
         String inputString = "plan CS2113 y/4 s/2";
         String[] input = inputString.split(" ", 2);
         parser.parseCommand(input);
@@ -68,7 +85,13 @@ class ParserTest {
     @Test
     void parseRemove_moduleFound_expectTrue()
             throws InvalidCommandException, InvalidModuleException, InvalidFormatException,
+<<<<<<< HEAD
             InvalidGradeException, DuplicateModuleException, InvalidSemesterException, CourseIndexOutOfBoundsException {
+=======
+            InvalidGradeException, DuplicateModuleException, InvalidSemesterException, 
+            InvalidIndexException, InvalidYearException {
+            
+>>>>>>> ad3d62fd00c02e7fef4e95aa9e3e3d8c4b597461
         //add a module to the list and removes it, checks if module list is empty
         String inputString = "plan CS2113 y/4 s/2";
         String[] input = inputString.split(" ", 2);

@@ -10,8 +10,8 @@ import seedu.penus.exceptions.InvalidGradeException;
 import seedu.penus.exceptions.InvalidModuleException;
 import seedu.penus.exceptions.InvalidSemesterException;
 import seedu.penus.exceptions.InvalidYearException;
-import seedu.penus.exceptions.CourseIndexOutOfBoundsException;
-import seedu.penus.exceptions.InvalidCourseIndexException;
+import seedu.penus.exceptions.InvalidIndexException;
+
 import seedu.penus.modules.Module;
 import seedu.penus.modules.ModuleList;
 import seedu.penus.storage.FileManager;
@@ -42,8 +42,8 @@ public class CommandParser {
     public void parseCommand(String[] inputArray)
             throws InvalidCommandException, InvalidModuleException, InvalidFormatException,
             InvalidGradeException, DuplicateModuleException,
-            InvalidSemesterException, InvalidCourseIndexException, CourseIndexOutOfBoundsException,
-            InvalidYearException {
+            InvalidSemesterException, InvalidIndexException, InvalidYearException {
+
         String command = inputArray[0];
         String moduleCode;
 
@@ -138,17 +138,7 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printPrerequisite();
-            break;
-
-        case PRECLUSION:
-            if (inputArray.length == 1 || inputArray.length > 2) {
-                throw new InvalidModuleException(command);
-            }
-            moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printPreclusion();
+            ModuleRetriever.printPrerequisite(moduleCode);
             break;
 
         case DESCRIPTION:
@@ -156,8 +146,7 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printDescription();
+            ModuleRetriever.printDescription(moduleCode);
             break;
 
         case TITLE:
@@ -165,8 +154,7 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printTitle();
+            ModuleRetriever.printTitle(moduleCode);
             break;
 
         case MODULECREDIT:
@@ -174,12 +162,19 @@ public class CommandParser {
                 throw new InvalidModuleException(command);
             }
             moduleCode = inputArray[1];
-            ModuleRetriever.getData(moduleCode);
-            ModuleRetriever.printModuleCredit();
+            ModuleRetriever.printModuleCredit(moduleCode);
+            break;
+
+        case DETAILS:
+            if (inputArray.length == 1 || inputArray.length > 2) {
+                throw new InvalidModuleException(command);
+            }
+            moduleCode = inputArray[1];
+            ModuleRetriever.printDetails(moduleCode);
             break;
 
         case HELP:
-            ModuleList.printHelp();
+            Ui.printHelp();
             break;
 
         default:
@@ -199,10 +194,9 @@ public class CommandParser {
             } else {
                 try {
                     parseCommand(inputArray);
-
-                } catch (InvalidModuleException | InvalidCommandException | InvalidGradeException
-                        | InvalidFormatException | DuplicateModuleException | InvalidCourseIndexException
-                        | CourseIndexOutOfBoundsException | InvalidSemesterException | InvalidYearException e) {
+                } catch (InvalidModuleException | InvalidCommandException | InvalidGradeException |
+                         InvalidFormatException | DuplicateModuleException | InvalidIndexException |
+                         InvalidSemesterException | InvalidYearException e) {
                     System.out.println(e.getMessage());
                 }
             }
