@@ -212,6 +212,7 @@ public class ModuleList {
                     }
                 }
             }
+            Ui.printDivider();
         } else if (userYear != -1 && userSemester == -1) { // Year specified but not semester
             for (int semester = 1; semester <= 2; semester++) {
                 System.out.println("- Year " + userYear + " Semester " + semester + " -");
@@ -227,6 +228,7 @@ public class ModuleList {
                     }
                 }
             }
+            Ui.printDivider();
         } else if (userYear != -1 && userSemester != -1) { // both Sem and Year specified
             System.out.println("- Year " + userYear + " Semester " + userSemester + " -");
 
@@ -240,6 +242,7 @@ public class ModuleList {
                     System.out.println(s[0] + " " + s[1]);
                 }
             }
+            Ui.printDivider();
         }
     }
 
