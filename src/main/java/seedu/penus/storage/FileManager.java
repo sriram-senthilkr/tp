@@ -138,12 +138,10 @@ public class FileManager {
         case "Taken":
             String grade = components[4];
             decoded = new Module(moduleCode, year, semester, grade);
-            System.out.println(moduleCode + year + semester + grade);
             break;
 
         case "Plan":
             decoded = new Module(moduleCode, year, semester);
-            System.out.println(moduleCode + year + semester);
             break;
 
         default:
