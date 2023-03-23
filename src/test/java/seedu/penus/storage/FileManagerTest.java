@@ -6,11 +6,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class FileManagerTest {
-    FileManager fileManager;
+    FileStorage fileManager;
 
     @BeforeEach
     public void setUp() {
-        fileManager = new FileManager();
+        fileManager = new FileStorage();
     }
     //test that file exists and path is correct
     @Test

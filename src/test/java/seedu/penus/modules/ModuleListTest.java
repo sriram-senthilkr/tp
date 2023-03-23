@@ -1,10 +1,9 @@
 package seedu.penus.modules;
 
-//import java.util.List;
-
-import seedu.penus.exceptions.DuplicateModuleException;
-import seedu.penus.exceptions.InvalidCommandException;
-
+import seedu.penus.common.exceptions.DuplicateModuleException;
+import seedu.penus.common.exceptions.InvalidCommandException;
+import seedu.penus.model.Module;
+import seedu.penus.model.ModuleList;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

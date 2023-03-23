@@ -2,19 +2,16 @@ package seedu.penus;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import seedu.penus.exceptions.DuplicateModuleException;
-import seedu.penus.exceptions.InvalidCommandException;
-import seedu.penus.exceptions.InvalidFormatException;
-import seedu.penus.exceptions.InvalidGradeException;
-import seedu.penus.exceptions.InvalidModuleException;
-import seedu.penus.exceptions.InvalidSemesterException;
-import seedu.penus.exceptions.InvalidYearException;
-import seedu.penus.exceptions.InvalidIndexException;
-
-import seedu.penus.modules.ModuleList;
-import seedu.penus.parser.CommandParser;
-
+import seedu.penus.common.exceptions.DuplicateModuleException;
+import seedu.penus.common.exceptions.InvalidCommandException;
+import seedu.penus.common.exceptions.InvalidFormatException;
+import seedu.penus.common.exceptions.InvalidGradeException;
+import seedu.penus.common.exceptions.InvalidIndexException;
+import seedu.penus.common.exceptions.InvalidModuleException;
+import seedu.penus.common.exceptions.InvalidSemesterException;
+import seedu.penus.common.exceptions.InvalidYearException;
+import seedu.penus.logic.parser.CommandParser;
+import seedu.penus.model.ModuleList;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

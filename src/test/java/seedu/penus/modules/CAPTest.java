@@ -2,10 +2,10 @@ package seedu.penus.modules;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
-import seedu.penus.exceptions.DuplicateModuleException;
-import seedu.penus.exceptions.InvalidGradeException;
-
-
+import seedu.penus.common.exceptions.DuplicateModuleException;
+import seedu.penus.common.exceptions.InvalidGradeException;
+import seedu.penus.model.Module;
+import seedu.penus.model.ModuleList;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ class CAPTest {
         moduleList.addModule(new Module("CS1010", 1, 1, "B+"));
         moduleList.addModule(new Module("CS2113", 2, 2, "A+"));
         double cap = Double.parseDouble(new DecimalFormat("#.##").
-                format(seedu.penus.modules.CAP.calculateOverallCAP(moduleList.getModuleList())));
+                format(seedu.penus.logic.utils.CAP.calculateOverallCAP(moduleList.getModuleList())));
         assertEquals(cap, 4.50);
     }
 
@@ -42,7 +42,7 @@ class CAPTest {
         semArray.add(new String[] { module2.getCode(), module2.getGrade()});
         semArray.add(new String[] { module3.getCode(), module3.getGrade()});
         double cap = Double.parseDouble(new DecimalFormat("#.##").
-                format(seedu.penus.modules.CAP.calculateSemCAP(semArray)));
+                format(seedu.penus.logic.utils.CAP.calculateSemCAP(semArray)));
         assertEquals(cap, 4.67);
     }
 }

@@ -8,11 +8,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class ResourceManagerTest {
-    ResourceManager resource;
+    ResourceStorage resource;
 
     @BeforeEach
     public void setUp() {
-        resource = new ResourceManager();
+        resource = new ResourceStorage();
     }
 
     //test that file exists and path is correct
