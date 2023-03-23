@@ -1,3 +1,4 @@
+CS211312
 	____________________________________
 
 	 ___  _____        ______    ___  ___     ___   _________
@@ -14,11 +15,7 @@
 	Welcome to PENUS!
 	What can I do for you?
 	____________________________________
-	____________________________________
-	Module has been added:
-	  Plan CS2113 year 1 semester 2 
-	You have 1 module in your planner.
-	____________________________________
+	Error: This module has already been added to the list. Please try again
 	____________________________________
 	Bye see you again!
 	____________________________________

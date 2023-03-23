@@ -1,6 +1,6 @@
 package seedu.penus.modules;
 
-import java.nio.file.attribute.UserPrincipalLookupService;
+//import java.nio.file.attribute.UserPrincipalLookupService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.Map;
 //import javax.naming.PartialResultException;
 import java.util.Scanner;
 
-import seedu.penus.api.ModuleRetriever;
+//import seedu.penus.api.ModuleRetriever;
 import seedu.penus.exceptions.CourseIndexOutOfBoundsException;
 import seedu.penus.exceptions.DuplicateModuleException;
 import seedu.penus.exceptions.InvalidCommandException;
@@ -264,7 +264,6 @@ public class ModuleList {
     }
 
     /**
-     * 
      * @return
      */
     public List<String> getTakenCoreModsList() {
@@ -284,7 +283,6 @@ public class ModuleList {
     }
 
     /**
-     * 
      * @return
      */
     public List<String> getUntakenCoreModsList() {
@@ -373,32 +371,32 @@ public class ModuleList {
         }
 
         switch (inputCourseIndex) {
-            case 1:
-                inputCourse = "Biomedical Engineering";
-                break;
-            case 2:
-                inputCourse = "Chemical Engineering";
-                break;
-            case 3:
-                inputCourse = "Civil Engineering";
-                break;
-            case 4:
-                inputCourse = "Computer Engineering";
-                break;
-            case 5:
-                inputCourse = "Electrical Engineering";
-                break;
-            case 6:
-                inputCourse = "Environmental Engineering";
-                break;
-            case 7:
-                inputCourse = "Industrial and Systems Engineering";
-                break;
-            case 8:
-                inputCourse = "Mechanical Engineering";
-                break;
-            default:
-                throw new CourseIndexOutOfBoundsException("Enter within the index. Please initialize again");
+        case 1:
+            inputCourse = "Biomedical Engineering";
+            break;
+        case 2:
+            inputCourse = "Chemical Engineering";
+            break;
+        case 3:
+            inputCourse = "Civil Engineering";
+            break;
+        case 4:
+            inputCourse = "Computer Engineering";
+            break;
+        case 5:
+            inputCourse = "Electrical Engineering";
+            break;
+        case 6:
+            inputCourse = "Environmental Engineering";
+            break;
+        case 7:
+            inputCourse = "Industrial and Systems Engineering";
+            break;
+        case 8:
+            inputCourse = "Mechanical Engineering";
+            break;
+        default:
+            throw new CourseIndexOutOfBoundsException("Enter within the index. Please initialize again");
         }
         user.setCourse(inputCourse);
         System.out.println("\t Course Confirmed: " + user.course);
