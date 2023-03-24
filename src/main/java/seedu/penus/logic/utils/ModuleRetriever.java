@@ -8,7 +8,6 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class ModuleRetriever {
-
     public static JSONObject moduleInfo2223;
     public static JSONObject moduleInfo2122;
 
@@ -126,7 +125,7 @@ public class ModuleRetriever {
     }
 
     public static String getDetails(String module) {
-        String title = "\t" + getTitle(module);
+        String title = getTitle(module);
         String description = "\t" + getDescription(module);
         String prereqs = "\tPre-Requisites: " + getPrerequisite(module);
         String credits = "\tMCs: " + getModuleCredit(module);
@@ -139,63 +138,6 @@ public class ModuleRetriever {
             suStatusDescription = "\tModule cannot be SU-ed.";
         }
 
-        return title + description + prereqs + credits + suStatusDescription;
+        return title + "\n" + description + "\n" + prereqs + "\n" + credits + "\n" + suStatusDescription;
     }
-
-    // public static void printPrerequisite(String module) {
-    //     String[] messagePacket = {retrievePrerequisite(module)};
-    //     Ui.printMessage(messagePacket);
-    // }
-
-    // public static void printDescription(String module) {
-    //     String description = "\t" + retrieveDescription(module);
-
-    //     String[] messagePacket = { description };
-    //     Ui.printMessage(messagePacket);
-    // }
-
-    // public static void printTitle(String module) {
-    //     String title = "\t" + retrieveTitle(module);
-
-    //     String[] messagePacket = { title };
-    //     Ui.printMessage(messagePacket);
-    // }
-
-    // public static void printModuleCredit(String module) {
-    //     String moduleCredit = "\t" + retrieveModuleCredit(module) + " MCs";
-    //     String[] messagePacket = {moduleCredit};
-    //     Ui.printMessage(messagePacket);
-    // }
-
-    // public static void printSUstatus(String module) {
-    //     Boolean suStatus = retrieveSUstatus(module);
-    //     String suStatusDescription;
-    //     if (suStatus) {
-    //         suStatusDescription = "\tModule can be SU-ed.";
-    //     } else {
-    //         suStatusDescription = "\tModule cannot be SU-ed.";
-    //     }
-
-
-    //     String[] messagePacket = {suStatusDescription};
-    //     Ui.printMessage(messagePacket);
-    // }
-
-    // public static void printDetails(String module) {
-    //     String moduleTitle = "\t" + retrieveTitle(module);
-    //     String moduleDescription = "\t" + retrieveDescription(module);
-    //     String modulePrereqs = "\tPre-Requisites: " + retrievePrerequisite(module);
-    //     String moduleCredits = "\tMCs: " + retrieveModuleCredit(module);
-
-    //     boolean suStatus = retrieveSUstatus(module);
-    //     String suStatusDescription;
-    //     if (suStatus) {
-    //         suStatusDescription = "\tModule can be SU-ed.";
-    //     } else {
-    //         suStatusDescription = "\tModule cannot be SU-ed.";
-    //     }
-
-    //     String[] messagePacket = {moduleTitle, moduleDescription, modulePrereqs, moduleCredits, suStatusDescription};
-    //     Ui.printMessage(messagePacket);
-    // }
 }

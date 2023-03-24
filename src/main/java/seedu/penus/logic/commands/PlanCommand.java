@@ -7,8 +7,9 @@ import seedu.penus.model.Module;
 public class PlanCommand extends Command {
     public static final String COMMAND_WORD = "plan";
     public static final String MESSAGE = 
-            "\tModule has been added:\n" 
-            + "\t  %s";
+            "Module has been added:\n" 
+            + "\t  %s\n"
+            + "\tYou have %s module(s) in your planner";
 
     private final Module plan;
 
@@ -24,7 +25,7 @@ public class PlanCommand extends Command {
 
         model.addModule(plan);
 
-        return new CommandResult(String.format(MESSAGE, plan));
+        return new CommandResult(String.format(MESSAGE, plan, model.getSize()));
     }
 }
 

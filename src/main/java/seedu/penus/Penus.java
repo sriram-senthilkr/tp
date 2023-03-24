@@ -30,33 +30,54 @@ public class Penus {
     private void start() {
         this.ui = new Ui();
         this.storage = new StorageManager();
-        this.model = new ModelManager(storage.loadUser(),storage.loadStorage());
+        this.model = new ModelManager(
+            storage.loadUser(),
+            storage.loadStorage(),
+            storage.loadCoreDetails(),
+            storage.loadCoreModList()
+        );
         this.logic = new LogicManager(model, storage);
         ui.printWelcome();
     }
 
     private void runCommandLoopUntilExitCommand() {
-        Command command;
+        Command command = null;
+        CommandResult result = null;
         do {
             String userCommandText = ui.getUserCommand();
-            command = logic.getCommand(userCommandText);
-            CommandResult result = executeCommand(command);
-            ui.printResult(result);
+            command = getCommand(userCommandText);
+            if (command != null) {
+                result = executeCommand(command);
+            }
+            if (result != null) {
+                ui.printResult(result);
+            }
+            
         } while (!ExitCommand.isExit(command));
     }
 
     private CommandResult executeCommand(Command command) {
+        CommandResult result = null;
         try {
-            CommandResult result = logic.execute(command);
-            return result;
+            result = logic.execute(command);
+            
         } catch (Exception e) {
             ui.printMessage(e.getMessage());
-            throw new RuntimeException(e);
         }
+        return result;
+    }
+
+    private Command getCommand(String commandText) {
+        Command command = null;
+        try {
+            command = logic.getCommand(commandText);
+        } catch (Exception e) {
+            ui.printMessage(e.getMessage());
+        }
+        return command;
     }
 
     private void exit() {
-        ui.printExit();
         System.exit(0);
     }
 }

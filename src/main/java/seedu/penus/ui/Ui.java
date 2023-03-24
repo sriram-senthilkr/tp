@@ -3,6 +3,7 @@ package seedu.penus.ui;
 import static seedu.penus.common.Messages.MESSAGE_GOODBYE;
 import static seedu.penus.common.Messages.MESSAGE_WELCOME;
 import static seedu.penus.common.Messages.LOGO;
+import static java.util.Objects.requireNonNull;
 
 import seedu.penus.logic.commands.CommandResult;
 
@@ -11,7 +12,7 @@ import java.io.PrintStream;
 import java.io.InputStream;
 
 public class Ui {
-    private static final String DIVIDER = "\t____________________________________";
+    private static final String DIVIDER = "\t___________________________________________________________";
 
     private final Scanner in;
     private final PrintStream out;
@@ -33,6 +34,7 @@ public class Ui {
     }
 
     public void printMessage(String... messages) {
+        out.println();
         out.println(DIVIDER);
         for (String m : messages) {
             out.println("\t" + m);
@@ -41,10 +43,9 @@ public class Ui {
     }
 
     public void printResult(CommandResult result) {
+        requireNonNull(result);
         printMessage(result.feedbackToUser);
     }
-
-    //TODO: String parsing for complicated results
 
     public void printWelcome() {
         printMessage(

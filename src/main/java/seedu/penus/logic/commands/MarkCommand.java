@@ -2,12 +2,13 @@ package seedu.penus.logic.commands;
 
 import seedu.penus.common.exceptions.InvalidCommandException;
 import seedu.penus.model.ModelManager;
+import seedu.penus.model.Module;
 import seedu.penus.model.ModuleList;
 
 public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
     public static final String MESSAGE = 
-            "\tModule has been taken:\n" 
+            "Module has been taken:\n" 
             + "\t  %s";
 
     private final String moduleCode;
@@ -30,8 +31,10 @@ public class MarkCommand extends Command {
         if (index == -1) {
             throw new InvalidCommandException("No such module exists!");
         }
+  
         model.markModule(index, this.grade);
+        Module markedModule = model.getModule(index);
 
-        return new CommandResult(String.format(MESSAGE, this.moduleCode));
+        return new CommandResult(String.format(MESSAGE, markedModule));
     }
 }

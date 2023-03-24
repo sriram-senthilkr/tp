@@ -15,6 +15,6 @@ public class DetailsCommand extends Command {
     public CommandResult execute(ModelManager model) {
         String result = ModuleRetriever.getDetails(this.moduleCode);
 
-        return new CommandResult(result);
+        return new CommandResult(moduleCode + " " + result);
     }
 }

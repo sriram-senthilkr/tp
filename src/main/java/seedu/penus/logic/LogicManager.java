@@ -4,6 +4,7 @@ import seedu.penus.model.ModelManager;
 import seedu.penus.storage.StorageManager;
 import seedu.penus.logic.parser.Parser;
 import seedu.penus.logic.commands.CommandResult;
+import seedu.penus.common.exceptions.PenusException;
 import seedu.penus.logic.commands.Command;
 
 public class LogicManager {
@@ -17,20 +18,14 @@ public class LogicManager {
         this.parser = new Parser();
     }
 
-    public CommandResult execute(Command command) {
-
+    public CommandResult execute(Command command) throws PenusException {
         CommandResult commandResult = command.execute(model);
-
-        try {
-            storage.saveStorage(model.getModuleList(), model.getUser());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }
+        storage.saveStorage(model.getModuleList(), model.getUser());
 
         return commandResult;
     }
 
-    public Command getCommand(String commandText) {
+    public Command getCommand(String commandText) throws PenusException {
         Command command = parser.parseCommand(commandText);
 
         return command;

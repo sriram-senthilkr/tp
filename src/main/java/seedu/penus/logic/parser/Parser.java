@@ -7,17 +7,18 @@ import static seedu.penus.logic.parser.CliSyntax.MARK;
 import static seedu.penus.logic.parser.CliSyntax.REMOVE;
 import static seedu.penus.logic.parser.CliSyntax.PLAN;
 import static seedu.penus.logic.parser.CliSyntax.TAKEN;
-import seedu.penus.common.exceptions.DuplicateModuleException;
-import seedu.penus.common.exceptions.InvalidCommandException;
-import seedu.penus.common.exceptions.InvalidFormatException;
-import seedu.penus.common.exceptions.InvalidGradeException;
-import seedu.penus.common.exceptions.InvalidIndexException;
-import seedu.penus.common.exceptions.InvalidModuleException;
-import seedu.penus.common.exceptions.InvalidSemesterException;
-import seedu.penus.common.exceptions.InvalidYearException;
 import static seedu.penus.logic.parser.CliSyntax.DETAILS;
 import static seedu.penus.logic.parser.CliSyntax.HELP;
 import static seedu.penus.logic.parser.CliSyntax.INIT;
+
+import seedu.penus.common.exceptions.InvalidCommandException;
+import seedu.penus.common.exceptions.InvalidFormatException;
+import seedu.penus.common.exceptions.InvalidGradeException;
+import seedu.penus.common.exceptions.InvalidModuleException;
+import seedu.penus.common.exceptions.InvalidSemesterException;
+import seedu.penus.common.exceptions.InvalidYearException;
+import seedu.penus.common.exceptions.PenusException;
+
 import seedu.penus.logic.utils.Grade;
 import seedu.penus.logic.commands.Command;
 import seedu.penus.logic.commands.PlanCommand;
@@ -31,18 +32,15 @@ import seedu.penus.logic.commands.MarkCommand;
 import seedu.penus.logic.commands.StatusCommand;
 import seedu.penus.logic.commands.HelpCommand;
 
-
-
 public class Parser {
-    public Command parseCommand(String userInput)
-            throws InvalidCommandException, InvalidModuleException, InvalidFormatException,
-            InvalidGradeException, DuplicateModuleException,
-            InvalidSemesterException, InvalidIndexException, InvalidYearException {
+    public Command parseCommand(String userInput) throws PenusException {
 
         String[] inputArray = userInput.split(" ", 2);
         String command = inputArray[0];
-        String arguments = inputArray[1];
-
+        String arguments = "";
+        if (inputArray.length > 1) {
+            arguments = inputArray[1];
+        }
         switch (command) {
         case INIT:
             return new InitCommand();
@@ -51,25 +49,25 @@ public class Parser {
             return new HelpCommand();
 
         case PLAN:
-            PlanParser(arguments);
+            return planParser(arguments);
 
         case TAKEN:
-            TakenParser(arguments);
+            return takenParser(arguments);
 
         case MARK:
-            MarkParser(arguments);
+            return markParser(arguments);
 
         case LIST:
-            ListParser(arguments);
+            return listParser(arguments);
 
         case STATUS:
             return new StatusCommand();
 
         case REMOVE:
-            RemoveParser(arguments);
+            return removeParser(arguments);
 
         case DETAILS:
-            DetailsParser(arguments);
+            return detailsParser(arguments);
 
         case EXIT:
             return new ExitCommand();
@@ -79,7 +77,7 @@ public class Parser {
         }
     }
 
-    public Command PlanParser(String args) {
+    public Command planParser(String args) throws PenusException {
         if (args.contains("g/")) {
             throw new InvalidFormatException("Grade should not be included!");
         }
@@ -89,7 +87,7 @@ public class Parser {
         }
 
         String moduleCode = planDetails[0].toUpperCase();
-        Integer year = Integer.parseInt(planDetails[1]);
+        int year = Integer.parseInt(planDetails[1]);
 
         if (year != 1 && year != 2 && year != 3 && year != 4) {
             throw new InvalidYearException("Year must be 1 to 4. Please try again.");
@@ -99,11 +97,10 @@ public class Parser {
         if (semester != 1 && semester != 2) {
             throw new InvalidSemesterException("Semester must be 1 or 2!");
         }
-
         return new PlanCommand(moduleCode, year, semester);
     }
 
-    public Command TakenParser(String args) {
+    public Command takenParser(String args) throws PenusException {
         String[] takenDetails = args.split(" y/| s/| g/", 4);
         if (takenDetails.length != 4) {
             throw new InvalidFormatException("Try again in the format: PLAN CODE y/YEAR s/SEM g/GRADE");
@@ -114,7 +111,7 @@ public class Parser {
         String moduleCode = takenDetails[0].toUpperCase();
         int year = Integer.parseInt(takenDetails[1]);
         int semester = Integer.parseInt(takenDetails[2]);
-        String grade = takenDetails[3];
+        String grade = takenDetails[3].toUpperCase();
         if (!Grade.isValid(grade)) {
             throw new InvalidGradeException();
         }
@@ -125,7 +122,7 @@ public class Parser {
         return new TakenCommand(moduleCode, year, semester, grade);
     }
 
-    public Command MarkParser(String args) {
+    public Command markParser(String args) throws PenusException {
         if (!args.contains("g/")) {
             throw new InvalidFormatException("g/");
         }
@@ -133,33 +130,36 @@ public class Parser {
         if (!Grade.isValid(details[1])) {
             throw new InvalidGradeException();
         }
-        String moduleCode = details[0];
+        String moduleCode = details[0].toUpperCase();
         String grade = details[1].toUpperCase();
 
         return new MarkCommand(moduleCode, grade);
     }
 
-    public Command ListParser(String args) {
+    public Command listParser(String args) {
         return new ListCommand();
     }   
 
-    public Command RemoveParser(String args) {
+    public Command removeParser(String args) throws PenusException {
         String[] details = args.split(" ");
         if (args.equals("") || details.length >= 2) {
             throw new InvalidModuleException(args);
         }
+        if (args.equals(" ")) {
+            throw new InvalidModuleException("Please specify a module");
+        }
 
-        String moduleCode = args;
+        String moduleCode = args.toUpperCase();
 
         return new RemoveCommand(moduleCode);
     }
 
-    public Command DetailsParser(String args) {
+    public Command detailsParser(String args) throws PenusException {
         String[] details = args.split(" ");
         if (args.equals("") || details.length >= 2) {
             throw new InvalidModuleException(args);
         }
-        String moduleCode = args;
+        String moduleCode = args.toUpperCase();
 
         return new DetailsCommand(moduleCode);
     }
