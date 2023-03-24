@@ -118,7 +118,7 @@
 //                         moduleList.printModules(yearSpecified, semesterSpecified);
 //                     }
 //                 } else {
-//                     throw new InvalidFormatException("Format is wrong. Type \"help\" for a list of accepted commands");
+//                     throw new InvalidFormatException("Format is wrong.Type \"help\"for a list of accepted commands");
 //                 }
 //             }
 //             break;

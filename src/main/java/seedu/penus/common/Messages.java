@@ -2,7 +2,8 @@ package seedu.penus.common;
 
 public class Messages {
     public static final String MESSAGE_GOODBYE = "Bye see you again!";
-    public static final String MESSAGE_WELCOME = "Welcome to PENUS!\n \tEnter help for a list of commands or init to start";
+    public static final String MESSAGE_WELCOME = 
+            "Welcome to PENUS!\n \tEnter help for a list of commands or init to start";
     public static final String LOGO = "\n"
             + "\t ___  _____        ______    ___  ___     ___   _________\n"
             + "\t/   \\/      \\     /      \\  /   \\/   \\   /   \\ /         \\ \n"

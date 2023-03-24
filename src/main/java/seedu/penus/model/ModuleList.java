@@ -75,7 +75,7 @@ public class ModuleList {
     /**
      * Deletes the module identified by its code from the ModuleList
      *
-     * @param deleteCode The module code corresponding to the module to be deleted.
+     * @param index The index corresponding to the module to be deleted.
      */
     public void removeModule(int index) {
         this.modules.remove(index);
@@ -88,20 +88,6 @@ public class ModuleList {
      */
     public int size() {
         return modules.size();
-    }
-
-    /**
-     * Gets the number of modules in the list as a message.
-     *
-     * @return sizeMessage The message indicating how many modules are in the list.
-     */
-    public String getSizeMessage() {
-
-        if (this.modules.size() == 1) {
-            return "\tYou have " + this.modules.size() + " module in your planner.";
-        } else {
-            return "\tYou have " + this.modules.size() + " modules in your planner.";
-        }
     }
 
     // /**
@@ -314,11 +300,11 @@ public class ModuleList {
 
     // /**
     //  * Initialises the user's profile in the program. Allows the user to choose
-    //  * their course, so as to get their core modules.
+    //  * their course, to get their core modules.
     //  * 
     //  * @throws InvalidIndexException
     //  */
-    // public void initialize() throws InvalidIndexException {
+    // public void initialise() throws InvalidIndexException {
     //     Scanner input = new Scanner(System.in);
     //     String inputCourse;
     //     int inputCourseIndex;

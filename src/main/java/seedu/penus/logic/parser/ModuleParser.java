@@ -26,7 +26,7 @@ public class ModuleParser {
             }
 
             String moduleCode = planDetails[0].toUpperCase();
-            Integer year = Integer.parseInt(planDetails[1]);
+            int year = Integer.parseInt(planDetails[1]);
             if (year != 1 && year != 2 && year != 3 && year != 4) {
                 throw new InvalidYearException("Year must be 1 to 4. Please try again.");
             }

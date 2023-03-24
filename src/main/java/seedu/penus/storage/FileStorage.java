@@ -47,7 +47,7 @@ public class FileStorage {
      */
     public void save(ModuleList moduleList, User user) {
         try {
-            FileWriter writer = new FileWriter(this.filePath);;
+            FileWriter writer = new FileWriter(this.filePath);
             if (!user.getName().equals("") && !user.getCourse().equals("")) {
                 writer.write(user.encode() + "\n");
             }

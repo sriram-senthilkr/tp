@@ -28,9 +28,8 @@ public class Ui {
 
     public String getUserCommand() {
         out.print("Enter command: ");
-        String fullInputLine = in.nextLine();
 
-        return fullInputLine;
+        return in.nextLine();
     }
 
     public void printMessage(String... messages) {

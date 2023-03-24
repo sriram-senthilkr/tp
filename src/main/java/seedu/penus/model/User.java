@@ -33,8 +33,7 @@ public class User {
     }
 
     public String encode() {
-        String encoded = String.format("User ### %s ### %s",this.name, this.course);
-        return encoded;
+        return String.format("User ### %s ### %s", this.name, this.course);
     }
 }
 

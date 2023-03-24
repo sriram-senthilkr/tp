@@ -39,7 +39,7 @@ public class ResourceStorage {
     public HashMap<String, List<String>> getCoreMods() {
         HashMap <String, List<String>> coreModHashMap = new HashMap<>();
         String courseName = "";
-        BufferedReader reader = null;
+        BufferedReader reader;
         List<String> coreModulesList = new ArrayList<>();
         try {
             InputStreamReader stream = new InputStreamReader(
@@ -104,7 +104,6 @@ public class ResourceStorage {
      * @return decoded String array
      */
     public String[] decodeModule(String module) {
-        String[] components = module.split(" ### ");
-        return components;
+        return module.split(" ### ");
     }
 }

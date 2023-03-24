@@ -11,14 +11,17 @@ public class ModelManager {
     private final HashMap<String, List<String>> coreModList;
 
 
-    public ModelManager(User user, List<Module> list, List<String[]> coreDetails, HashMap<String, List<String>> coreModList) {
+    public ModelManager(User user,
+                        List<Module> list,
+                        List<String[]> coreDetails,
+                        HashMap<String, List<String>> coreModList) {
         this.user = user;
         this.moduleList = new ModuleList(list);
         this.coreDetails = coreDetails;
         this.coreModList = coreModList;
     }
 
-//=============================== Module List ===================================
+    //=============================== Module List ===================================
     public ModuleList getModuleList() {
         return this.moduleList;
     }
@@ -51,7 +54,7 @@ public class ModelManager {
     }
 
 
-//=============================== User ==========================================
+    //=============================== User ==========================================
     public User getUser() {
         return user;
     }
@@ -72,7 +75,7 @@ public class ModelManager {
         user.setCourse(course);
     }
 
-//==============================Core mods =======================================
+    //==============================Core mods =======================================
     public List<String[]> getCoreDetails() {
         return coreDetails;
     }

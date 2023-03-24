@@ -26,8 +26,6 @@ public class LogicManager {
     }
 
     public Command getCommand(String commandText) throws PenusException {
-        Command command = parser.parseCommand(commandText);
-
-        return command;
+        return parser.parseCommand(commandText);
     }
 }

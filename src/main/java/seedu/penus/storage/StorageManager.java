@@ -15,7 +15,7 @@ public class StorageManager {
         this.resource = new ResourceStorage();
     }
 
-//=======================file storage ==========================
+    //=======================file storage ==========================
     public List<Module> loadStorage() {
         return storage.retrieveMods();
     }
@@ -28,7 +28,7 @@ public class StorageManager {
         storage.save(list, user);
     }
 
-//========================resource getter =============================
+    //========================resource getter =============================
     public List<String[]> loadCoreDetails() {
         return resource.getAllModuleDetails();
     }
