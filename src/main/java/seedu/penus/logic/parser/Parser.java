@@ -34,7 +34,6 @@ import seedu.penus.logic.commands.HelpCommand;
 
 public class Parser {
     public Command parseCommand(String userInput) throws PenusException {
-
         String[] inputArray = userInput.split(" ", 2);
         String command = inputArray[0];
         String arguments = "";
@@ -43,7 +42,7 @@ public class Parser {
         }
         switch (command) {
         case INIT:
-            return new InitCommand();
+            return initParser(arguments);
 
         case HELP:
             return new HelpCommand();
@@ -162,6 +161,25 @@ public class Parser {
         String moduleCode = args.toUpperCase();
 
         return new DetailsCommand(moduleCode);
+    }
+
+    public Command initParser (String args) throws PenusException, NumberFormatException {
+        int courseCode;
+        String [] initDetails = args.split ("n/| c/");
+        if (initDetails.length != 3) {
+            throw new InvalidFormatException("Try again in the format: init n/NAME c/COURSE CODE");
+        }
+        if (initDetails[1].length() == 0 || initDetails[2].length() == 0) {
+            throw new InvalidFormatException("Try again, n/ c/ cannot be empty");
+        }
+        String name = initDetails[1];
+        try {
+            courseCode = Integer.parseInt(initDetails[2]);
+        } catch (NumberFormatException e){
+            throw new NumberFormatException("c/ must be an integer");
+        }
+        return new InitCommand(name, courseCode);
+
     }
 
 
