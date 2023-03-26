@@ -1,11 +1,73 @@
 package seedu.penus.logic.commands;
 
+import seedu.penus.logic.utils.MCsTaken;
+import seedu.penus.logic.utils.ModuleRetriever;
 import seedu.penus.model.ModelManager;
+import seedu.penus.model.ModuleList;
+import seedu.penus.ui.Ui;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StatusCommand extends Command {
     public static final String COMMAND_WORD = "status";
 
     public static final String MESSAGE = "Status of";
+
+    //this may go under ModelManager
+    public List<String> getTakenCoreModsList(ModelManager model) {
+        List<String> coreMods = model.getCoreModList().get(model.getUserCourse());
+        List<String> takenCoreMods = new ArrayList<>();
+        ModuleList moduleList = model.getModuleList();
+        if (model.getGEC() != ""){
+            takenCoreMods.add(model.getGEC());
+        }
+        if (model.getGESS() != ""){
+            takenCoreMods.add(model.getGESS());
+        }
+        if (model.getGEN() != ""){
+            takenCoreMods.add(model.getGEN());
+        }
+        for (String coreModCode : coreMods) {
+            for (int i = 0; i < moduleList.size(); i++) {
+                String moduleCode = moduleList.getModule(i).getCode();
+                boolean isCurrentUserModuleTaken = moduleList.getModule(i).getStatus().equals("Taken");
+                if (coreModCode.equals(moduleCode) && isCurrentUserModuleTaken) {
+                    takenCoreMods.add(moduleCode);
+                    break;
+                }
+            }
+        }
+        return takenCoreMods;
+    }
+
+    public List<String> getUntakenCoreModsList(ModelManager model) {
+        List<String> coreMods = model.getCoreModList().get(model.getUserCourse());
+        List<String> untakenCoreMods = new ArrayList<>();
+        ModuleList moduleList = model.getModuleList();
+        for (String coreModCode : coreMods) {
+            boolean isCoreModTaken = false;
+            for (int i = 0; i < moduleList.size(); i++) {
+                String moduleCode = moduleList.getModule(i).getCode();
+                boolean isCurrentUserModuleTaken = moduleList.getModule(i).getStatus().equals("Taken");
+                if (coreModCode.equals(moduleCode) && isCurrentUserModuleTaken) {
+                    isCoreModTaken = true;
+                    break;
+                }
+            }
+            if (!isCoreModTaken) {
+                untakenCoreMods.add(coreModCode);
+            }
+        }
+        //for (String s : untakenCoreMods){ System.out.println(s);}
+        return untakenCoreMods;
+    }
+
+    public String moduleCodeToString(String moduleCode) {
+        return moduleCode + " "+ ModuleRetriever.getTitle(moduleCode)
+                    + " MCs: " + ModuleRetriever.getModuleCredit(moduleCode);
+    }
+
 
     @Override
     public CommandResult execute(ModelManager model) {
@@ -30,6 +92,30 @@ public class StatusCommand extends Command {
           lines separated by /n
           useful to use String.format with "%s"
         */
+        ModuleList moduleList = model.getModuleList();
+        List<String> takenCoreModsList = getTakenCoreModsList(model) ;
+        List<String> untakenCoreModsList = getUntakenCoreModsList(model);
+        List<String> statusList = new ArrayList<>();
+        statusList.add("--------- Taken ---------");
+        for (String s : takenCoreModsList){
+            statusList.add(moduleCodeToString(s));
+        }
+        statusList.add("--------- Not Taken ---------");
+        if (model.getGEC() == ""){
+            statusList.add("GECXXXX");
+        }
+        if (model.getGESS() == ""){
+            statusList.add("GESSXXXX");
+        }
+        if (model.getGEN() == ""){
+            statusList.add("GENXXXX");
+        }
+        for (String s : untakenCoreModsList){
+            statusList.add(moduleCodeToString(s));
+        }
+        statusList.add("MCs Taken: " + Integer.toString(MCsTaken.numberOfMcsTaken(model.getModuleList().modules))
+                        + "/160");
+        Ui.printStatus(statusList);
         return new CommandResult(MESSAGE);
     }
 }

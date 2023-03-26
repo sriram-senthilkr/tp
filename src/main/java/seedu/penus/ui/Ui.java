@@ -7,6 +7,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.penus.logic.commands.CommandResult;
 
+import java.util.List;
 import java.util.Scanner;
 import java.io.PrintStream;
 import java.io.InputStream;
@@ -57,5 +58,11 @@ public class Ui {
         printMessage(
             MESSAGE_GOODBYE
         );
+    }
+    public static void printStatus(List<String> statusList){
+        for (String s : statusList){
+            System.out.println(s);
+            System.out.println();
+        }
     }
 }
