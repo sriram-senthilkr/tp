@@ -34,11 +34,16 @@
 
 ### Architecture
 
+![ArchitectureDiagram](uml/diagrams/Architecture.png)
+
 ### UI Component
+![UIClassDiagram](uml/diagrams/UiClass.png)
 
 ### Logic Component
+![LogicClassDiagram](uml/diagrams/LogicClass.png)
 
 ### Model Component
+![ModelClassDiagram](uml/diagrams/ModelClass.png)
 
 ### Storage Component
 
@@ -48,7 +53,7 @@ Classes used by multiple components are in the `seedu.penus.commons` package.
 <!----------------------------Implementation----------------------------------------->
 ## Implementation
 ### Add module
-The Add Module features allows users to add two types of modules (taken or planning) to the ModuleList using the commands `plan` or `taken`. The two types of modules are differentiated by its `Module()` overloaded constructor, accepting different type signatures. It is facilitated by `LogicManager` and extends the abstract class `Command`.
+The Add Module feature allows users to add two types of modules (taken or planning) to the ModuleList using the commands `plan` or `taken`. The two types of modules are differentiated by its `Module()` overloaded constructor, accepting different type signatures. It is facilitated by `LogicManager` and extends the abstract class `Command`.
 
 Given below is an example usage scenario of the 2 types of modules and how the add module mechanism behaves at each step.
 
@@ -64,7 +69,7 @@ Step 4. Upon successful execution of all of the above, it is then passed back to
 Step 5. The `CommandResult` object is passed to the `Ui` component with a `printMessage()` method which prints the formatted message to the Command Line Interface.
 
 The following sequence diagram shows how the `plan` command works:
-![AddModuleSequenceDiagram](uml/AddModSequence.png)
+![AddModuleSequenceDiagram](uml/diagrams/AddModSequence.png)
 
 **Similarly, for when a taken module is added:**
 Step 1. The user launches the application for the first time. The ModuleList will be initialised with the initial module list state if provided in `penus.txt`.
@@ -73,11 +78,50 @@ Step 2. The user executes the `taken CS2113 y/1 s/2 g/A+` command to plan the mo
 
 Step 3 - 6. Identical to that of a `plan` command as mentioned above.
 
+_Design considerations:_
+**Aspect: How plan/taken executes:**
+- **Alternative 1 (current choice):** Have an overloaded Module() constructor which accepts both types of modules. The difference being the isTaken parameter.
+  - Pros: Easy to implement
+  - Cons: Less readability and harder to differentiate the two.
+- **Alternative 2:** Have two classes, TakenModule and PlanModule, for the 2 types.
+  - Pros: More readability and easier differentiation.
+  - Cons: More complex. 2 classes inherited + checking the class type in queries
+
 ### Remove module
-(TBA)
+The Remove Module feature allows users to remove a module from the ModuleList using the command `remove`. It is facilitated by `LogicManager` and extends the abstract class `Command`. The module code is given as the argument to remove that specific module.
+
+Given below is an example scenario of the remove command and how it behaves at each step.
+
+Step 1. The user executes the `remove CS2113` command, given that a module `CS2113` exists within the `ModuleList`, to remove the module. The `remove` command is parsed through `Parser` which returns a `RemoveCommand()` object if a valid command is provided. The `RemoveCommand()` stores the string `moduleCode` as its attribute.
+
+Step 2. The `RemoveCommand` is then executed by the `LogicManager` calling `execute()`. Then, the `ModuleList`, which is retrieved from the `ModelManager` through `getModuleList()`, is iterated through to find the index of a `Module` with the same corresponding `moduleCode` through `getModule().getCode()`. This index is assigned to a variable.
+
+Step 3. It is then passed to the `ModelManager`, along with the index, and executes the `removeModule()` method on the `ModuleList` object. The `ModuleList` subsequently executes the `remove(index)` method to remove the module from the list.
+
+Step 4. Upon successful execution of the above, it is then passed back to `RemoveCommand` where  `CommandResult()` is constructed with the message to be printed to the user.
+
+Step 5. The `CommandResult` object is passed to the `Ui` component with a `printMessage()` method which prints the formatted message to the Command Line Interface.
+
+The following sequence diagram shows how the `remove` command works:
+![RemoveModuleSequenceDiagram](uml/diagrams/RemoveModSequence.png)
 
 ### Mark module as taken
-(TBA)
+The Mark Module feature allows user to mark a plan module as a taken module, adding the grade using the command `mark`. It is facilitated by `LogicManager` and extends the abstract class `Command`. The module code and grade is given as the argument to convert that specific planned module to a taken module and add a grade.
+
+Given below is an example scenario of the mark command and how it behaves at each step.
+
+Step 1. The user executes the `mark CS2113 g/A+` command, given that a plan module `CS2113` exists within the `ModuleList`, to mark the module. The `mark` command is parsed through `Parser` which returns a `MarkCommand()` object if a valid command is provided. The `MarkCommand()` stores the string `moduleCode` and `grade` as its attributes.
+
+Step 2. The `MarkCommand` is then executed by the `LogicManager` calling `execute()`. Then, the  `ModuleList`, which is retrieved from the `ModelManager` through `getModuleList()`, is iterated through to find the index of a `Module` with the same corresponding `moduleCode` through `getModule().getCode()`. This index is assigned to a variable.
+
+Step 3. It is then passed to the `ModelManager`, along with the index and grade, and executes the `markModule()` method. It retrieves the `Module` object from the `ModuleList` through the `getModule(index)` method. The `markTaken()` method is then called on this `Module` which sets the `isTaken` attribute as true and saves the grade. 
+
+Step 4. Upon successful execution of the above, it is then passed back to `MarkCommand` where  `CommandResult()` is constructed with the message to be printed to the user.
+
+Step 5. The `CommandResult` object is passed to the `Ui` component with a `printMessage()` method which prints the formatted message to the Command Line Interface.
+
+The following sequence diagram shows how the `mark` command works:
+![MarkModuleSequenceDiagram](uml/diagrams/MarkModSequence.png)
 
 ### List modules
 The List modules feature allows users to view their added modules, in a specified range using the command `list`. There are 3 ways of modules listing :

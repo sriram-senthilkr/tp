@@ -1,10 +1,9 @@
 @startuml
 participant User
 
-create Ui
 activate Ui
 User -> Ui: getUserCommand() "plan CS2113 y/1 s/2"
-
+box "Logic" #LightBlue
 Ui -> LogicManager: getCommand()
 activate LogicManager
 
@@ -27,7 +26,10 @@ deactivate Parser
 
 LogicManager -> PlanCommand: execute()
 activate PlanCommand
-
+participant CommandResult
+end box
+    
+box "Model" #LightPink
 PlanCommand -> ModelManager: addModule()
 activate ModelManager
 
@@ -42,7 +44,14 @@ deactivate ModuleList
 ModelManager --> PlanCommand
 deactivate ModelManager
 
-PlanCommand --> LogicManager: CommandResult()
+create CommandResult
+PlanCommand -> CommandResult
+activate CommandResult
+CommandResult --> PlanCommand
+deactivate CommandResult
+
+
+PlanCommand --> LogicManager: result
 deactivate PlanCommand
 
 LogicManager --> Ui: printResult()
