@@ -42,5 +42,4 @@ public class SampleDataTest {
     public void testGetCoreModsListFromUserCourseSuccess() {
         assertEquals("CS2040", model.getCoreModList().get(model.getUserCourse()).get(0));
     }
-
 }
