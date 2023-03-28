@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModuleList {
-    private final List<Module> modules;
+    public final List<Module> modules;
     //private final ResourceStorage resource;
     //private final List<String[]> moduleDetails;
 
@@ -88,6 +88,48 @@ public class ModuleList {
      */
     public int size() {
         return modules.size();
+    }
+
+    /**
+     * Returns the module code of GESS module if exist, "" if does not exist
+     *
+     * @return the module code of GESS module if exist, "" if does not exist
+     */
+    public String getGESS() {
+        for (Module module : modules) {
+            if (module.moduleCode.substring(0, 4).equals("GESS")) {
+                return module.moduleCode;
+            }
+        }
+        return "";
+    }
+
+    /**
+     * Returns the module code of GEC module if exist, "" if does not exist
+     *
+     * @return the module code of GEC module if exist, "" if does not exist
+     */
+    public String getGEC() {
+        for (Module module : modules) {
+            if (module.moduleCode.substring(0, 3).equals("GEC")) {
+                return module.moduleCode;
+            }
+        }
+        return "";
+    }
+
+    /**
+     * Returns the module code of GEN module if exist, "" if does not exist
+     *
+     * @return the module code of GEN module if exist, "" if does not exist
+     */
+    public String getGEN() {
+        for (Module module : modules) {
+            if (module.moduleCode.substring(0, 3).equals("GEN")) {
+                return module.moduleCode;
+            }
+        }
+        return "";
     }
 
     // /**
