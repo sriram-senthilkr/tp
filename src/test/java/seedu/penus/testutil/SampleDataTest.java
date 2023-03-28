@@ -15,6 +15,7 @@ public class SampleDataTest {
     public void setUp() {
         model = SampleData.getSampleModel();
     }
+
     @Test
     public void testSampleUserSuccess() {
         assertEquals("bentohset", model.getUserName());
@@ -34,5 +35,12 @@ public class SampleDataTest {
         assertEquals("GESS1004", model.getModule(2).getCode());
         assertEquals("Taken", model.getModule(2).getStatus());
         assertEquals("Plan", model.getModule(3).getStatus());
+        assertEquals("CS2040", model.getModuleList().getModule(0).getCode());
     }
+
+    @Test
+    public void testGetCoreModsListFromUserCourseSuccess() {
+        assertEquals("CS2040", model.getCoreModList().get(model.getUserCourse()).get(0));
+    }
+
 }
