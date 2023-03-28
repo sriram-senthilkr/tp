@@ -43,3 +43,5 @@ public class SampleDataTest {
         assertEquals("CS2040C", model.getCoreModList().get(model.getUserCourse()).get(0));
     }
 }
+
+
