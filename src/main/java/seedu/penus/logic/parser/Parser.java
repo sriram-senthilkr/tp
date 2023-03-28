@@ -163,7 +163,7 @@ public class Parser {
         return new DetailsCommand(moduleCode);
     }
 
-    public Command initParser (String args) throws PenusException, NumberFormatException {
+    public Command initParser (String args) throws PenusException {
         int courseCode;
         String [] initDetails = args.split ("n/| c/");
         if (initDetails.length != 3) {
@@ -176,7 +176,7 @@ public class Parser {
         try {
             courseCode = Integer.parseInt(initDetails[2]);
         } catch (NumberFormatException e){
-            throw new NumberFormatException("c/ must be an integer");
+            throw new InvalidFormatException("c/ must be an integer");
         }
         return new InitCommand(name, courseCode);
 

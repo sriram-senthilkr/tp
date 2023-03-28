@@ -8,9 +8,9 @@ public class InitCommand extends Command {  //set user name and course, command:
 
     public static final String MESSAGE = "Initialization Complete";
 
-    private final String name;
+    public final String name;
 
-    private final Integer courseCode;
+    public final Integer courseCode;
 
     public InitCommand (String name,  int courseCode ) {
         this.name = name;
