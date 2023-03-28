@@ -4,7 +4,6 @@ import seedu.penus.logic.utils.MCsTaken;
 import seedu.penus.logic.utils.ModuleRetriever;
 import seedu.penus.model.ModelManager;
 import seedu.penus.model.ModuleList;
-import seedu.penus.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +11,6 @@ import java.util.List;
 public class StatusCommand extends Command {
     public static final String COMMAND_WORD = "status";
 
-    public static final String MESSAGE = "Status of";
-
-    //this may go under ModelManager
     public List<String> getTakenCoreModsList(ModelManager model) {
         List<String> coreMods = model.getCoreModList().get(model.getUserCourse());
         List<String> takenCoreMods = new ArrayList<>();
@@ -59,7 +55,6 @@ public class StatusCommand extends Command {
                 untakenCoreMods.add(coreModCode);
             }
         }
-        //for (String s : untakenCoreMods){ System.out.println(s);}
         return untakenCoreMods;
     }
 
@@ -92,6 +87,7 @@ public class StatusCommand extends Command {
           lines separated by /n
           useful to use String.format with "%s"
         */
+        StringBuilder sb = new StringBuilder();
         ModuleList moduleList = model.getModuleList();
         List<String> takenCoreModsList = getTakenCoreModsList(model) ;
         List<String> untakenCoreModsList = getUntakenCoreModsList(model);
@@ -115,7 +111,10 @@ public class StatusCommand extends Command {
         }
         statusList.add("MCs Taken: " + Integer.toString(MCsTaken.numberOfMcsTaken(model.getModuleList().modules))
                         + "/160");
-        Ui.printStatus(statusList);
-        return new CommandResult(MESSAGE);
+        for (String s : statusList){
+            sb.append(s).append("\n");
+        }
+        String message = sb.toString();
+        return new CommandResult(message);
     }
 }
