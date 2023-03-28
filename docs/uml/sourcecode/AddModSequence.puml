@@ -1,0 +1,63 @@
+@startuml
+participant User
+
+activate Ui
+User -> Ui: getUserCommand() "plan CS2113 y/1 s/2"
+box "Logic" #LightBlue
+Ui -> LogicManager: getCommand()
+activate LogicManager
+
+
+LogicManager -> Parser: parseCommand()
+activate Parser
+
+
+create PlanCommand
+Parser -> PlanCommand
+activate PlanCommand
+
+PlanCommand --> Parser: PlanCommand()
+deactivate PlanCommand
+
+
+Parser --> LogicManager: Command()
+deactivate Parser
+
+
+LogicManager -> PlanCommand: execute()
+activate PlanCommand
+participant CommandResult
+end box
+    
+box "Model" #LightPink
+PlanCommand -> ModelManager: addModule()
+activate ModelManager
+
+ModelManager -> ModuleList: addModule()
+activate ModuleList
+
+ModuleList -> ModuleList: add()
+
+ModuleList --> ModelManager: 
+deactivate ModuleList
+
+ModelManager --> PlanCommand
+deactivate ModelManager
+
+create CommandResult
+PlanCommand -> CommandResult
+activate CommandResult
+CommandResult --> PlanCommand
+deactivate CommandResult
+
+
+PlanCommand --> LogicManager: result
+deactivate PlanCommand
+
+LogicManager --> Ui: printResult()
+deactivate LogicManager
+
+Ui --> User
+deactivate Ui
+
+@enduml

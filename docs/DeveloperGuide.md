@@ -4,11 +4,10 @@
 - [Design](#design)
   - [Architecture](#architecture)
   - [UI Component](#ui-component)
-  - [Parser Component](#parser-component)
+  - [Logic Component](#logic-component)
+  - [Model Component](#model-component)
   - [Storage Component](#storage-component)
-  - [Resource Component](#resource-component)
-  - [Module Retriever Component](#module-retriever-component)
-  - [Module Component](#module-component)
+  - [Common classes](#common-classes)
 - [Implementation](#implementation)
   - [Add Module](#add-module)
   - [Remove Module](#remove-module)
@@ -33,58 +32,96 @@
 <!----------------------------Design----------------------------------------->
 ## Design
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 ### Architecture
 
-### UI Component
+![ArchitectureDiagram](uml/diagrams/Architecture.png)
 
-### Parser Component
+### UI Component
+![UIClassDiagram](uml/diagrams/UiClass.png)
+
+### Logic Component
+![LogicClassDiagram](uml/diagrams/LogicClass.png)
+
+### Model Component
+![ModelClassDiagram](uml/diagrams/ModelClass.png)
 
 ### Storage Component
 
-### Resource Component
-
-### Module Retriever Component
-
-### Module Component
+### Common classes
+Classes used by multiple components are in the `seedu.penus.commons` package.
 
 <!----------------------------Implementation----------------------------------------->
 ## Implementation
 ### Add module
-The Add Module features allows users to add two types of modules (taken or planning) to the ModuleList using the commands `plan` or `taken`. The two types of modules are differentiated by its `Module()` overloaded constructor, accepting different type signatures. It is facilitated by `ModuleList`.
+The Add Module feature allows users to add two types of modules (taken or planning) to the ModuleList using the commands `plan` or `taken`. The two types of modules are differentiated by its `Module()` overloaded constructor, accepting different type signatures. It is facilitated by `LogicManager` and extends the abstract class `Command`.
 
 Given below is an example usage scenario of the 2 types of modules and how the add module mechanism behaves at each step.
 
 **When a planned module is added:**
 Step 1. The user launches the application for the first time. The ModuleList will be initialised with the initial module list state if provided in `penus.txt`.
 
-Step 2. The user executes the `plan CS2113 y/1 s/2` command to plan the module CS2113 for year 1 and semester 2 to be added into the list. The `plan` command is executed within the switch case of the `parseCommand()` method of `CommandParser`.
+Step 2. The user executes the `plan CS2113 y/1 s/2` command to plan the module CS2113 for year 1 and semester 2 to be added into the list. The `plan` command is parsed through `Parser` which returns a `PlanCommand()` object if a valid command is provided. The `PlanCommand()` constructs a `Module()` object with the overloaded constructor `Module()`. It is instantiated with the respective arguments which sets the `isTaken` parameter `false`, `moduleCode`, `year` and `semester`.
 
-Step 3. If a valid command is provided, a new `Module` will be instantiated within `ModuleParser` where another switch case is executed. The `ModuleParser` is extracted away from the `CommandParser` for more readability. The string is then split into parts separated by the flags `y/` and `s/` into a `planDetails` array. An overloaded constructor `Module()` is instantiated with the arguments corresponding to the array which sets the `isTaken` parameter `false`. The arguments are `moduleCode`, `year` and `semester`.
+Step 3. This is then executed by the `LogicManager` calling `execute()` and passes it to the `ModelManager` through the `addModule()` method. In `ModelManager`, the `Module()` object is passed to the `ModuleList()` where the module is added to the list.
 
-Step 4. The new `Module` object is then returned to the `CommandParser` where it is assigned and added to the `ModuleList`. The `addModule()` method is then executed in `ModuleList`. 
+Step 4. Upon successful execution of all of the above, it is then passed back to `PlanCommand` where  `CommandResult()` is constructed with the message to be printed to the user.
 
-Step 5. It first checks if the module already exists in the list by iterating through the current list and checking for the same `moduleCode`. If so, `DuplicateModuleException` is thrown. If the module does not exist, it is added to the `ModuleList` by calling the `add()` method of the class. 
-
-Step 6. A confirmation message is printed to indicate the success of the module addition. This is called using the `printMessage()` method from `Ui` which accpets an array of strings as message lines.
+Step 5. The `CommandResult` object is passed to the `Ui` component with a `printMessage()` method which prints the formatted message to the Command Line Interface.
 
 The following sequence diagram shows how the `plan` command works:
-![AddModuleSequenceDiagram](uml/AddModSequence.png)
+![AddModuleSequenceDiagram](uml/diagrams/AddModSequence.png)
 
 **Similarly, for when a taken module is added:**
 Step 1. The user launches the application for the first time. The ModuleList will be initialised with the initial module list state if provided in `penus.txt`.
 
-Step 2. The user executes the `taken CS2113 y/1 s/2 g/A+` command to plan the module CS2113 for year 1 and semester 2 to be added into the list. The `plan` command is executed within the switch case of the `parseCommand()` method of `CommandParser`.
+Step 2. The user executes the `taken CS2113 y/1 s/2 g/A+` command to plan the module CS2113 for year 1 and semester 2 to be added into the list. The `taken` command is parsed through `Parser` which returns a `TakenCommand()` object if a valid command is provided. The `PlanCommand()` constructs a `Module()` object with the overloaded constructor `Module()`. It is instantiated with the respective arguments which sets the `isTaken` parameter `true`, `moduleCode`, `year`, `semester` and `grade`.
 
-Step 3. If a valid command is provided, a new `Module` will be instantiated within `ModuleParser` where another switch case is executed. The `ModuleParser` is extracted away from the `CommandParser` for more readability. The string is then split into parts separated by the flags `y/`, `s/` and `g/` into a `takenDetails` array. An overloaded constructor `Module()` is instantiated with the arguments corresponding to the array which sets the `isTaken` parameter `true`. The arguments are `moduleCode`, `year`, `semester` and `grade`.
+Step 3 - 6. Identical to that of a `plan` command as mentioned above.
 
-Step 4 - 6. Identical to that of a `plan` command as mentioned above.
+_Design considerations:_
+**Aspect: How plan/taken executes:**
+- **Alternative 1 (current choice):** Have an overloaded Module() constructor which accepts both types of modules. The difference being the isTaken parameter.
+  - Pros: Easy to implement
+  - Cons: Less readability and harder to differentiate the two.
+- **Alternative 2:** Have two classes, TakenModule and PlanModule, for the 2 types.
+  - Pros: More readability and easier differentiation.
+  - Cons: More complex. 2 classes inherited + checking the class type in queries
 
 ### Remove module
-(TBA)
+The Remove Module feature allows users to remove a module from the ModuleList using the command `remove`. It is facilitated by `LogicManager` and extends the abstract class `Command`. The module code is given as the argument to remove that specific module.
+
+Given below is an example scenario of the remove command and how it behaves at each step.
+
+Step 1. The user executes the `remove CS2113` command, given that a module `CS2113` exists within the `ModuleList`, to remove the module. The `remove` command is parsed through `Parser` which returns a `RemoveCommand()` object if a valid command is provided. The `RemoveCommand()` stores the string `moduleCode` as its attribute.
+
+Step 2. The `RemoveCommand` is then executed by the `LogicManager` calling `execute()`. Then, the `ModuleList`, which is retrieved from the `ModelManager` through `getModuleList()`, is iterated through to find the index of a `Module` with the same corresponding `moduleCode` through `getModule().getCode()`. This index is assigned to a variable.
+
+Step 3. It is then passed to the `ModelManager`, along with the index, and executes the `removeModule()` method on the `ModuleList` object. The `ModuleList` subsequently executes the `remove(index)` method to remove the module from the list.
+
+Step 4. Upon successful execution of the above, it is then passed back to `RemoveCommand` where  `CommandResult()` is constructed with the message to be printed to the user.
+
+Step 5. The `CommandResult` object is passed to the `Ui` component with a `printMessage()` method which prints the formatted message to the Command Line Interface.
+
+The following sequence diagram shows how the `remove` command works:
+![RemoveModuleSequenceDiagram](uml/diagrams/RemoveModSequence.png)
 
 ### Mark module as taken
-(TBA)
+The Mark Module feature allows user to mark a plan module as a taken module, adding the grade using the command `mark`. It is facilitated by `LogicManager` and extends the abstract class `Command`. The module code and grade is given as the argument to convert that specific planned module to a taken module and add a grade.
+
+Given below is an example scenario of the mark command and how it behaves at each step.
+
+Step 1. The user executes the `mark CS2113 g/A+` command, given that a plan module `CS2113` exists within the `ModuleList`, to mark the module. The `mark` command is parsed through `Parser` which returns a `MarkCommand()` object if a valid command is provided. The `MarkCommand()` stores the string `moduleCode` and `grade` as its attributes.
+
+Step 2. The `MarkCommand` is then executed by the `LogicManager` calling `execute()`. Then, the  `ModuleList`, which is retrieved from the `ModelManager` through `getModuleList()`, is iterated through to find the index of a `Module` with the same corresponding `moduleCode` through `getModule().getCode()`. This index is assigned to a variable.
+
+Step 3. It is then passed to the `ModelManager`, along with the index and grade, and executes the `markModule()` method. It retrieves the `Module` object from the `ModuleList` through the `getModule(index)` method. The `markTaken()` method is then called on this `Module` which sets the `isTaken` attribute as true and saves the grade. 
+
+Step 4. Upon successful execution of the above, it is then passed back to `MarkCommand` where  `CommandResult()` is constructed with the message to be printed to the user.
+
+Step 5. The `CommandResult` object is passed to the `Ui` component with a `printMessage()` method which prints the formatted message to the Command Line Interface.
+
+The following sequence diagram shows how the `mark` command works:
+![MarkModuleSequenceDiagram](uml/diagrams/MarkModSequence.png)
 
 ### List modules
 The List modules feature allows users to view their added modules, in a specified range using the command `list`. There are 3 ways of modules listing :
