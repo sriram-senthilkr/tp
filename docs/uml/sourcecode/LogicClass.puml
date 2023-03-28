@@ -1,0 +1,31 @@
+@startuml
+hide empty members
+hide circle
+
+package Logic {
+    class LogicManager
+    class XYZCommand
+    class Parser
+    class "{abstract}\nCommand" as Command
+    class CommandResult
+}
+
+package Storage {}
+
+package Model {}
+
+class Main #FFFFFF
+
+Main ..> LogicManager
+LogicManager -right-> Model
+LogicManager -right-> Storage
+
+LogicManager .right.> Command : executes >
+LogicManager -left->"1" Parser
+Parser ..> XYZCommand : creates >
+Command .up.> CommandResult : produces >
+LogicManager .down.> CommandResult
+XYZCommand -up-|> Command
+note right of XYZCommand: XYZCommand = PlanCommand, \nRemoveCommand, etc
+
+@enduml

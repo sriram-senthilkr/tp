@@ -1,0 +1,20 @@
+@startuml
+hide empty members
+hide circle
+
+package Model{
+    class ModelManager
+    class ModuleList
+    class User
+    class Module
+}
+
+Class Storage #FFFFFF
+Storage ..> ModelManager: core module details
+
+ModelManager -> "1" ModuleList: planner
+ModelManager --> "1" User: user prefs
+ModuleList --> "*" Module: modules
+
+
+@enduml

@@ -1,0 +1,73 @@
+@startuml
+participant User
+
+activate Ui
+User -> Ui: getUserCommand() "remove CS2113"
+box "Logic" #LightBlue
+Ui -> LogicManager: getCommand()
+activate LogicManager
+
+
+LogicManager -> Parser: parseCommand()
+activate Parser
+
+
+create RemoveCommand
+Parser -> RemoveCommand
+activate RemoveCommand
+
+RemoveCommand --> Parser:
+deactivate RemoveCommand
+
+
+Parser --> LogicManager: Command()
+deactivate Parser
+
+
+LogicManager -> RemoveCommand: execute()
+participant CommandResult
+end box
+
+box "Model" #LightPink
+activate RemoveCommand
+
+RemoveCommand -> ModelManager: getModuleList()
+activate ModelManager
+ModelManager --> RemoveCommand: index
+deactivate ModelManager
+
+RemoveCommand -> ModelManager: removeModule(i)
+
+activate ModelManager
+
+ModelManager -> ModuleList: removeModule(i)
+activate ModuleList
+
+ModuleList -> ModuleList: remove(i)
+
+ModuleList --> ModelManager: 
+deactivate ModuleList
+
+ModelManager --> RemoveCommand
+deactivate ModelManager
+
+create CommandResult
+
+RemoveCommand -> CommandResult
+activate CommandResult
+CommandResult --> RemoveCommand
+deactivate CommandResult
+
+RemoveCommand --> LogicManager: result
+deactivate RemoveCommand
+
+LogicManager --> Ui: printResult()
+deactivate LogicManager
+
+Ui --> User
+deactivate Ui
+
+
+
+
+@enduml
