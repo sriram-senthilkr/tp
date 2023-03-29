@@ -41,6 +41,6 @@ public class MarkCommand extends Command {
         model.markModule(index, this.grade);
         Module markedModule = model.getModule(index);
 
-        return new CommandResult(String.format(MESSAGE, markedModule));
+        return new CommandResult(String.format(MESSAGE, markedModule), false);
     }
 }

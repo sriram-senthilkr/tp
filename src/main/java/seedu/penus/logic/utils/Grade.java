@@ -147,10 +147,10 @@ public class Grade {
     public static String getOverallCAP(List<Module> moduleList) throws InvalidGradeException {
         String capMessage;
         if (moduleList.isEmpty()) {
-            capMessage = "\nOverall CAP : 0.00\n";
+            capMessage = "Overall CAP : 0.00\n";
         } else {
             Double overallCAP = calculateOverallCAP(moduleList);
-            capMessage = String.format("\nOverall CAP : %.2f\n", overallCAP);
+            capMessage = String.format("Overall CAP : %.2f\n", overallCAP);
         }
         return capMessage;
     }
@@ -164,10 +164,10 @@ public class Grade {
     public static String getSemCAP(List<String[]> semArray) throws InvalidGradeException {
         String semCapMessage;
         if (semArray.isEmpty()) {
-            semCapMessage = "\nSemester CAP : 0.00\n";
+            semCapMessage = "Semester CAP : 0.00\n";
         } else {
             Double semCAP = calculateSemCAP(semArray);
-            semCapMessage = String.format("\nSemester CAP : %.2f\n", semCAP);       
+            semCapMessage = String.format("Semester CAP : %.2f\n", semCAP);       
         }
         return semCapMessage;
     }

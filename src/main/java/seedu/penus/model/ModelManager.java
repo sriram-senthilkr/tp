@@ -26,6 +26,10 @@ public class ModelManager {
         return this.moduleList;
     }
 
+    public List<Module> getModuleListObj() {
+        return moduleList.getModuleList();
+    }
+
     /**
      * Checks if the moduleList contains the specified Module
      */

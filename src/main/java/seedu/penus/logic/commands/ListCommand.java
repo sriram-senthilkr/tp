@@ -1,34 +1,106 @@
 package seedu.penus.logic.commands;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import seedu.penus.common.exceptions.PenusException;
+import seedu.penus.logic.utils.Grade;
 import seedu.penus.model.ModelManager;
+import seedu.penus.model.Module;
 
 public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE = "List of";
 
+    private final int year;
+    private final int semester;
+
+    public ListCommand() {
+        this.year = 0;
+        this.semester = 0;
+    }
+
+    //Overloaded constructor for filter
+    public ListCommand(int year, int semester) {
+        this.year = year;
+        this.semester = semester;
+    }
+    
     @Override
-    public CommandResult execute(ModelManager model) {
-        /*
-          TODO: implement list
-          HOW:
-          use or add methods to modelManager to get list of mods
+    public CommandResult execute(ModelManager model) throws PenusException {
+        List<String> messageArray = new ArrayList<>();
+        Map<Integer, Map<Integer, List<String[]>>> modules = new HashMap<>();
+        List<Module> moduleList = model.getModuleListObj();
+        for (Module currMod : moduleList) {
+            int currYear = currMod.getYear();
+            int currSem = currMod.getSem();
+            String[] arr = new String[] { currMod.getCode(), currMod.getGrade() };
+            modules.computeIfAbsent(currYear, k -> new HashMap<>())
+                    .computeIfAbsent(currSem,k -> new ArrayList<>())
+                    .add(arr);
+        }
 
-          NOTE:
-          ONLY ALGORITHM/ DATA MANIPULATION IMPLEMENTED HERE + relevant Exceptions
-          parsing + formatting exceptions: add in Parser.java, under listParser(args)
-          modelManager should only have simple commands to manipulate the moduleList
+        //list all modules
+        if (this.year == 0 && this.semester == 0) {
+            for (int y = 1; y < 5; y++) {
+                for (int s = 1; s <= 2; s++) {
+                    messageArray.add("- Year " + y + " Semester " + s + " -");
 
-          additional helper functions: create in utils
+                    List<String[]> modulesInYearSem = modules.getOrDefault(y, new HashMap<>())
+                            .getOrDefault(s, new ArrayList<>());
+                    
+                    if (modulesInYearSem.isEmpty()) {
+                        messageArray.add("No modules taken/added.");
+                    } else {
+                        for (String[] string : modulesInYearSem) {
+                            messageArray.add(string[0] + " " + string[1]);
+                        }
+                    }
+                    messageArray.add("");
+                }
+            }
+        }
 
-          printing stuff: edit the MESSAGE, (refer to other commands for example)
-          if need more, add a new command to Ui.java
+        //list for year only
+        if (this.year != 0 && this.semester == 0) {
+            for (int s = 1; s <= 2; s++) {
+                messageArray.add("- Year" + this.year + " Semester " + s + " -");
 
-          TO RETURN:
-          one string of module list in year and sem with CAP
-          lines separated by /n
-          useful to use String.format with "%s"
-        */
-        return new CommandResult(MESSAGE);
+                List<String[]> modulesInYear = modules.getOrDefault(this.year, new HashMap<>())
+                        .getOrDefault(s, new ArrayList<>());
+
+                if (modulesInYear.isEmpty()) {
+                    messageArray.add("No modules taken/added");
+                } else {
+                    for (String[] string : modulesInYear) {
+                        messageArray.add(string[0] + " " + string[1]);
+                    }
+                }
+                messageArray.add(Grade.getSemCAP(modulesInYear));
+                messageArray.add("");
+            }
+        }
+
+        //list year and sem specific
+        if (this.year != 0 && this.semester != 0) {
+            messageArray.add("- Year " + this.year + " Semester " + this.semester + " -");
+
+            List<String[]> modulesInYearAndSem = modules.getOrDefault(this.year, new HashMap<>())
+                    .getOrDefault(this.semester, new ArrayList<>());
+
+            if (modulesInYearAndSem.isEmpty()) {
+                messageArray.add("No modules taken/added");
+            } else {
+                for (String[] string : modulesInYearAndSem)  {
+                    messageArray.add(string[0] + " " + string[1]);
+                }
+            }
+        }
+        messageArray.add("");
+        messageArray.add(Grade.getOverallCAP(moduleList));
+
+        return new CommandResult(messageArray, true);
     }
 }
