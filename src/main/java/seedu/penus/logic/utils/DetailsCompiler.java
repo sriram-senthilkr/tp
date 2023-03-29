@@ -1,7 +1,7 @@
 package seedu.penus.logic.utils;
 
 public class DetailsCompiler extends ModuleRetriever{
-    protected String ModuleCode;
+    protected String moduleCode;
 
     public static String getDetails(String module) {
         try {
