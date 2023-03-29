@@ -9,9 +9,9 @@ class DetailsCompilerTest {
     private DetailsCompiler details;
     @Test
     void getDetailsForCS2113() {
-        String moduleCode = "CS2113";
-        String cS2113Details = details.getDetails(moduleCode);
-        String expectedOutput = "Software Engineering & Object-Oriented Programming\n\tThis module introduces the " +
+        String ModuleCode = "CS2113";
+        String ActualOutput = details.getDetails(ModuleCode);
+        String ExpectedOutput = "Software Engineering & Object-Oriented Programming\n\tThis module introduces the " +
                 "necessary skills for systematic and rigorous development of software systems. It covers " +
                 "requirements, design, implementation, quality assurance, and project management aspects of " +
                 "small-to-medium size multi-person software projects. The module uses the Object Oriented Programming" +
@@ -20,6 +20,23 @@ class DetailsCompilerTest {
                 "covered.\n\tPre-Requisites: CS2040C or ((CS2030 or its equivalent) and CS2040/S)\n\tMCs: 4\n\tModule" +
                 " can be SU-ed.";
 
-        assertEquals(expectedOutput, cS2113Details);
+        assertEquals(ExpectedOutput, ActualOutput);
+    }
+    @Test
+    void getDetailsForInvalidModule() {
+        String ModuleCode = "INVALID MODULE";
+        String ActualOutput = details.getDetails(ModuleCode);
+        String ExpectedOutput = "This information is not available";
+
+        assertEquals(ExpectedOutput, ActualOutput);
+    }
+
+    @Test
+    void getDetailsForNull() {
+        String ModuleCode = null;
+        String ActualOutput = details.getDetails(ModuleCode);
+        String ExpectedOutput = "This information is not available";
+
+        assertEquals(ExpectedOutput, ActualOutput);
     }
 }
