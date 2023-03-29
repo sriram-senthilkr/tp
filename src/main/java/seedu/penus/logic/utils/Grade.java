@@ -7,10 +7,10 @@ import seedu.penus.model.Module;
 
 public class Grade {
     /**
-     * Converts a {@code String} grade into its associated {@double} gradepoint
-     * @param grade
-     * @return {@double} corresponding value of the grade
-     * @throws InvalidGradeException
+     * Converts a {@code String} grade into its associated gradepoint
+     * @param grade string
+     * @return {@code double} corresponding value of the grade
+     * @throws InvalidGradeException invalid grade
      */
     public static double getGradePoint(String grade) throws InvalidGradeException {
         double gradePoint;
@@ -65,7 +65,7 @@ public class Grade {
 
     /**
      * Checks if a grade {@code String} is valid and within expected inputs
-     * @param grade
+     * @param grade string
      * @return Boolean true if grade is valid
      */
     public static Boolean isValid(String grade) {

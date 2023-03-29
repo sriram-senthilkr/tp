@@ -65,11 +65,17 @@ public class ModelManager {
         return moduleList.getModule(index);
     }
 
-    public String getGESS() { return moduleList.getGESS(); }
+    public String getGESS() {
+        return moduleList.getGESS();
+    }
 
-    public String getGEC() { return moduleList.getGEC(); }
+    public String getGEC() {
+        return moduleList.getGEC();
+    }
 
-    public String getGEN() { return moduleList.getGEN(); }
+    public String getGEN() {
+        return moduleList.getGEN();
+    }
 
     //=============================== User ==========================================
     public User getUser() {

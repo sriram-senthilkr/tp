@@ -9,6 +9,7 @@ public class DetailsCommand extends Command {
 
     /**
      * Creates a DetailsCommand with the moduleCode for querying during execution
+     * @param moduleCode string
      */
     public DetailsCommand(String moduleCode) {
         this.moduleCode = moduleCode;

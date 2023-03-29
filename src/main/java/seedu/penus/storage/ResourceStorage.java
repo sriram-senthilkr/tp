@@ -43,7 +43,7 @@ public class ResourceStorage {
      * Key: courseName String
      * Value: coreModulesList Array
      * 
-     * @return HashMap<String, List<String>>
+     * @return HashMap
      */
     public HashMap<String, List<String>> getCoreMods() {
         HashMap <String, List<String>> coreModHashMap = new HashMap<>();
