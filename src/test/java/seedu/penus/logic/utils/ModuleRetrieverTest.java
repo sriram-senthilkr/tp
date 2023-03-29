@@ -1,18 +1,25 @@
 package seedu.penus.logic.utils;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ModuleRetrieverTest {
 
     @Test
     void testGetDescription() {
         String module = "CS2103T";
-        String expectedDescription = "This module introduces the necessary conceptual and analytical tools for " +
-                "systematic and rigorous development of software systems. It covers four main areas of software development, " +
-                "namely object-oriented system analysis, object-oriented system modelling and design, implementation, and testing, " +
-                "with emphasis on system modelling and design and implementation of software modules that work cooperatively to " +
-                "fulfill the requirements of the system. Tools and techniques for software development, such as Unified Modelling Language (UML)," +
-                " program specification, and testing methods, will be taught. Major software engineering issues such as modularisation criteria, " +
+        String expectedDescription =
+                "This module introduces the necessary conceptual and analytical tools for " +
+                "systematic and rigorous development of software systems." +
+                " It covers four main areas of software development, " +
+                "namely object-oriented system analysis, object-oriented system" +
+                " modelling and design, implementation, and testing, " +
+                "with emphasis on system modelling and design and implementation of " +
+                "software modules that work cooperatively to " +
+                "fulfill the requirements of the system. Tools and techniques for software development," +
+                " such as Unified Modelling Language (UML)," +
+                " program specification, and testing methods, will be taught." +
+                " Major software engineering issues such as modularisation criteria, " +
                 "program correctness, and software quality will also be covered.";
 
         assertEquals(expectedDescription, ModuleRetriever.getDescription(module));
@@ -21,7 +28,8 @@ public class ModuleRetrieverTest {
     @Test
     void testGetPrerequisite() {
         String module = "CS2103T";
-        String expectedPrerequisite = "For SoC students only. (CS1020 or its equivalent) or CS2020 or ((CS2030 or its equivalent) and (CS2040 or its equivalent))";
+        String expectedPrerequisite = "For SoC students only. (CS1020 or its equivalent) or CS2020 or" +
+                " ((CS2030 or its equivalent) and (CS2040 or its equivalent))";
 
         assertEquals(expectedPrerequisite, ModuleRetriever.getPrerequisite(module));
     }

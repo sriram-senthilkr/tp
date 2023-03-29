@@ -7,7 +7,7 @@ public class MCsTaken {
     /**
      * Iterates throught he moduleList and adds the number of MCs of each taken module to the sum
      * The MCs are retreieved from the ModuleRetriever API from NUSMods.
-     * @param moduleList
+     * @param moduleList list of modules
      * @return int total number of MCs of the taken modules in the list
      */
     public static int numberOfMcsTaken(List<Module> moduleList) {

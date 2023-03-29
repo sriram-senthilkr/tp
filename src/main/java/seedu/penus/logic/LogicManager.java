@@ -20,9 +20,9 @@ public class LogicManager {
 
     /**
      * Executes the command of a Command object and saves the moduleList and user to the storage file
-     * @param command
+     * @param command command
      * @return CommandResult from the execution of the command
-     * @throws PenusException
+     * @throws PenusException exception
      */
     public CommandResult execute(Command command) throws PenusException {
         CommandResult commandResult = command.execute(model);
@@ -33,9 +33,9 @@ public class LogicManager {
     
     /**
      * Directs the commandText string to the Parser object for parsing commands
-     * @param commandText
+     * @param commandText string
      * @return Command object
-     * @throws PenusException
+     * @throws PenusException exception
      */
     public Command getCommand(String commandText) throws PenusException {
         return parser.parseCommand(commandText);
