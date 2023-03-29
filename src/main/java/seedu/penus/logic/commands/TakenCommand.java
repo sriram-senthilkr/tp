@@ -13,7 +13,7 @@ public class TakenCommand extends Command {
             "Module has been added:\n" 
             + "\t  %s\n"
             + "\tYou have %s module(s) in your planner";
-    private final Module taken;
+    public final Module taken;
 
     /**
      * Creates a TakenCommand to add the specified {@code Module} 
