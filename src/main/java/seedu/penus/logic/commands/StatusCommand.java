@@ -66,6 +66,7 @@ public class StatusCommand extends Command {
 
     @Override
     public CommandResult execute(ModelManager model) {
+        StringBuilder sb = new StringBuilder();
         List<String> takenCoreModsList = getTakenCoreModsList(model) ;
         List<String> untakenCoreModsList = getUntakenCoreModsList(model);
         List<String> messageArray = new ArrayList<>();
@@ -89,6 +90,7 @@ public class StatusCommand extends Command {
         messageArray.add("MCs Taken: " + Integer.toString(MCsTaken.numberOfMcsTaken(model.getModuleList().modules))
                         + "/160");
 
-        return new CommandResult(messageArray, true);
+        String message = sb.toString();
+        return new CommandResult(message, false);
     }
 }
