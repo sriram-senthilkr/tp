@@ -281,8 +281,8 @@ For y1s1, under the mods listed, user would see a printed CAP of 5.00.
 For y1s2, under the mods listed, user would see a printed CAP of 4.50.
 The overall CAP printed is 4.67.
 
-Class Diagram:
-![CAP uml diagram](uml/CAP.png)
+Class Diagram (with unnecessary details ommitted):
+![Grade Class Diagram](uml/diagrams/GradeClass.png)
 
 <br>
 
