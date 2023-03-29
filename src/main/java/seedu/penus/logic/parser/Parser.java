@@ -164,16 +164,22 @@ public class Parser {
             //list command with all modules
             return new ListCommand();
         }
+
         //year must be specified
-        if (!args.contains("y/")) {
-            throw new InvalidFormatException("Try again in the format: list y/YEAR s/SEM or list y/YEAR or list");
+        // if (!args.contains("y/")) {
+        //     throw new InvalidFormatException("Try again in the format: list y/YEAR s/SEM or list y/YEAR or list");
+        // }
+        if (args.contains("s/") && !args.contains("y/")) { // Semester specified but year not specified
+            throw new InvalidFormatException(
+                    "\tTry again, y/ must not be empty if s/ is not empty. " +
+                            "To show modules for that semester, please specify the year of study.");
         }
-        String[] details = args.split(" y/| s/",2);
-        int year;
-        int semester;
+
+        String[] details = args.split("y/| s/",3);
+        int year = 0;
+        int semester = 0;
         try {
-            year = Integer.parseInt(details[0]);
-            semester = Integer.parseInt(details[1]);
+            year = Integer.parseInt(details[1]);
         } catch (NumberFormatException e) {
             throw new InvalidFormatException("Must be specified as an integer!");
         }
@@ -181,8 +187,23 @@ public class Parser {
             throw new InvalidFormatException("Year must be within 1 to 4");
         }
 
-        
-        return new ListCommand(year, semester);
+        if (details.length == 2) {
+            return new ListCommand(year,0);
+        } else if (details.length == 3) {
+            if (args.contains("s/")) {
+                try {
+                semester = Integer.parseInt(details[2]);
+                } catch (NumberFormatException e) {
+                    throw new InvalidFormatException("Semester must be specified as an integer!");
+                }
+            }
+            if (semester != 1 && semester != 2) {
+                throw new InvalidFormatException("Semester must be 1 or 2!");
+            }
+            return new ListCommand(year, semester);
+        } else {
+            throw new InvalidFormatException("Try again in the format: list y/YEAR s/SEM or list y/YEAR or list");
+        }
     }   
 
     /**
