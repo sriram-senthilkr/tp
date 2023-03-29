@@ -1,0 +1,38 @@
+@startuml
+hide empty members
+
+class FileStorage {
+    #file: File
+    #dataDirectory: String
+    #filePath: String
+    -decodeModule(module: String): Module
+    +save(moduleList: ModuleList, user: User)
+    +retrieveMods(): List<Module>
+    +retrieveUser(): User
+}
+
+class StorageManager {
+    #storage: FileStorage
+    +loadStorage(): List<Module>
+    +loadUser(): User
+    +saveStorage(moduleList: ModuleList, user: User)
+}
+
+class Penus {
+    #storage: StorageManager
+    #model: ModelManager
+    -start()
+    -runCommandLoopUntilExitCommand()
+    -executeCommand(command: Command): CommandResult
+    +main(args: String[])
+    +run()
+}
+
+class ModelManager {}
+
+StorageManager -right-> "1" FileStorage: file storage
+Penus <-down-> "1" StorageManager: retrieves and saves data
+Penus -right-> "1" ModelManager: moduleList and user
+
+
+@enduml

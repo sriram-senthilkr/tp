@@ -4,6 +4,9 @@ import seedu.penus.common.exceptions.DuplicateModuleException;
 import seedu.penus.model.ModelManager;
 import seedu.penus.model.Module;
 
+/**
+ * Adds a Plan module to the list
+ */
 public class PlanCommand extends Command {
     public static final String COMMAND_WORD = "plan";
     public static final String MESSAGE = 
@@ -13,6 +16,10 @@ public class PlanCommand extends Command {
 
     private final Module plan;
 
+    /**
+     * Creates a PlanCommand to add the specified {@code Module} 
+     * by constructing a new Module object with the given parameters
+     */
     public PlanCommand(String moduleCode, int year, int semester) {
         this.plan = new Module(moduleCode, year, semester);
     }
@@ -25,7 +32,7 @@ public class PlanCommand extends Command {
 
         model.addModule(plan);
 
-        return new CommandResult(String.format(MESSAGE, plan, model.getSize()));
+        return new CommandResult(String.format(MESSAGE, plan, model.getSize()), false);
     }
 }
 

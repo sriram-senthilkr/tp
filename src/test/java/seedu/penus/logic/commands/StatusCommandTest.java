@@ -52,4 +52,3 @@ public class StatusCommandTest {
         assertEquals(expectedString, result.feedbackToUser);
     }
 }
-

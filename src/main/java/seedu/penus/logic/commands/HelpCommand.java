@@ -22,7 +22,8 @@ public class HelpCommand extends Command {
             "\tstatus" 
                 + "\t\t\t\t\t\t\t\tDisplays the status of Core Modules and MCs taken\n" +
             "\ttaken [MODULE CODE] y/[YEAR] s/[SEMESTER] g/[GRADE]"
-                + "\t\tAdds a module to the planner as a module you have already taken"
+                + "\t\tAdds a module to the planner as a module you have already taken", 
+            false
         );
     }
 }

@@ -1,0 +1,28 @@
+@startuml
+hide empty members
+
+class Grade {
+    +getGradePoint(grade: String): double
+    +isValid(grade: String): Boolean
+    +calculateOverallCAP(moduleList: List<Module>): double
+    +calculateSemCAP(semArray: List<String[]>): double
+    +getOverallCAP(moduleList: List<Module>): String
+    +getSemCAP(semArray: List<String[]>): String
+}
+
+class ListCommand {
+    +execute(model: ModelManager): CommandResult
+}
+
+class ModelManager{
+    #moduleList: ModuleList
+}
+
+class ModuleRetriever {
+    +getModuleCredit(module: String): String
+}
+
+Grade <-right- ListCommand: uses <
+Grade -down-> ModuleRetriever: uses >
+ListCommand -down-> ModelManager: refers to >
+@enduml

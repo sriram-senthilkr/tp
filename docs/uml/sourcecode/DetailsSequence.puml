@@ -1,0 +1,84 @@
+@startuml
+participant User
+
+activate Ui
+User -> Ui: getUserCommand() "details CS2113"
+box "Logic" #LightBlue
+Ui -> LogicManager: getCommand()
+activate LogicManager
+
+LogicManager -> Parser: parseCommand()
+activate Parser
+
+create DetailsCommand
+Parser -> DetailsCommand
+activate DetailsCommand
+
+DetailsCommand --> Parser:
+deactivate DetailsCommand
+
+Parser --> LogicManager: Command()
+deactivate Parser
+
+
+LogicManager -> DetailsCommand: execute()
+activate DetailsCommand
+
+end box
+
+
+box "Model" #LightPink
+
+DetailsCommand -> DetailsCompiler: getDetails('CS2113')
+activate DetailsCompiler
+
+DetailsCompiler -> ModuleRetriever: getTitle2223('CS2113')
+activate ModuleRetriever
+ModuleRetriever -> ModuleRetriever: getData2223('CS2113')
+ModuleRetriever --> DetailsCompiler: title
+deactivate ModuleRetriever
+
+DetailsCompiler -> ModuleRetriever: getDescription('CS2113')
+activate ModuleRetriever
+ModuleRetriever -> ModuleRetriever: getData2223('CS2113')
+ModuleRetriever --> DetailsCompiler: description
+deactivate ModuleRetriever
+
+
+DetailsCompiler -> ModuleRetriever: getPrerequisite('CS2113')
+activate ModuleRetriever
+ModuleRetriever -> ModuleRetriever: getData2223('CS2113')
+ModuleRetriever --> DetailsCompiler: prereqs
+deactivate ModuleRetriever
+
+
+DetailsCompiler -> ModuleRetriever: getModuleCredit2223('CS2113')
+activate ModuleRetriever
+ModuleRetriever -> ModuleRetriever: getData2223('CS2113')
+ModuleRetriever --> DetailsCompiler: credits
+deactivate ModuleRetriever
+
+DetailsCompiler -> ModuleRetriever: getSUstatus('CS2113')
+activate ModuleRetriever
+ModuleRetriever -> ModuleRetriever: getData2223('CS2113')
+ModuleRetriever --> DetailsCompiler: suStatus
+deactivate ModuleRetriever
+
+DetailsCompiler -> DetailsCommand: result
+deactivate DetailsCompiler
+
+DetailsCommand -> CommandResult
+activate CommandResult
+CommandResult --> DetailsCommand
+deactivate CommandResult
+
+DetailsCommand --> LogicManager: result
+deactivate DetailsCommand
+
+LogicManager --> Ui: printResult()
+deactivate LogicManager
+
+Ui --> User
+deactivate Ui
+
+@enduml

@@ -26,20 +26,36 @@ public class ModelManager {
         return this.moduleList;
     }
 
+    public List<Module> getModuleListObj() {
+        return moduleList.getModuleList();
+    }
+
+    /**
+     * Checks if the moduleList contains the specified Module
+     */
     public boolean hasModule(Module module) {
         requireNonNull(module);
         return moduleList.hasModule(module);
     }
 
+    /**
+     * Adds the specificed Module to the moduleList
+     */
     public void addModule(Module module) {
         requireNonNull(module);
         moduleList.addModule(module);
     }
 
+    /**
+     * removes the specified module by its index from the moduleList
+     */
     public void removeModule(int index) {
         moduleList.removeModule(index);
     }
 
+    /**
+     * Marks the specified module by getting the Module from the moduleList by its index
+     */
     public void markModule(int index, String grade) {
         Module module = moduleList.getModule(index);
         module.markTaken(grade);
@@ -53,11 +69,17 @@ public class ModelManager {
         return moduleList.getModule(index);
     }
 
-    public String getGESS() { return moduleList.getGESS(); }
+    public String getGESS() {
+        return moduleList.getGESS();
+    }
 
-    public String getGEC() { return moduleList.getGEC(); }
+    public String getGEC() {
+        return moduleList.getGEC();
+    }
 
-    public String getGEN() { return moduleList.getGEN(); }
+    public String getGEN() {
+        return moduleList.getGEN();
+    }
 
     //=============================== User ==========================================
     public User getUser() {

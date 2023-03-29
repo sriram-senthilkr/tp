@@ -6,12 +6,15 @@ import org.json.simple.parser.JSONParser;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
+import seedu.penus.common.exceptions.InvalidModuleAPIException;
 
+
+// test comment
 public class ModuleRetriever {
     public static JSONObject moduleInfo2223;
     public static JSONObject moduleInfo2122;
 
-    public static void getData2223(String module) {
+    public static void getData2223(String module) throws InvalidModuleAPIException{
         try {
             // Public API:
             // https://api.nusmods.com/v2/2022-2023/modules/<module_code>.json
@@ -29,7 +32,8 @@ public class ModuleRetriever {
 
             // 200 OK
             if (responseCode != 200) {
-                throw new RuntimeException("HttpResponseCode: " + responseCode + " NO SUCH MODULE WAS FOUND");
+                throw new InvalidModuleAPIException();
+                //throw new RuntimeException("HttpResponseCode: " + responseCode + " NO SUCH MODULE WAS FOUND");
             } else {
                 Scanner scanner = new Scanner(url.openStream());
                 String informationString = scanner.nextLine();
@@ -47,11 +51,12 @@ public class ModuleRetriever {
                 moduleInfo2223 = (JSONObject) dataObject.get(0);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            //System.out.println("Unable to retrieve module");
+            moduleInfo2122 = null;
         }
     }
 
-    public static void getData2122(String module) {
+    public static void getData2122(String module) throws InvalidModuleAPIException {
         try {
             // Public API:
             // https://api.nusmods.com/v2/2021-2022/modules/<module_code>.json
@@ -69,7 +74,8 @@ public class ModuleRetriever {
 
             // 200 OK
             if (responseCode != 200) {
-                throw new RuntimeException("HttpResponseCode: " + responseCode + " NO SUCH MODULE WAS FOUND");
+                throw new InvalidModuleAPIException();
+                //throw new RuntimeException("HttpResponseCode: " + responseCode + " NO SUCH MODULE WAS FOUND");
             } else {
                 Scanner scanner = new Scanner(url.openStream());
                 String informationString = scanner.nextLine();
@@ -87,57 +93,86 @@ public class ModuleRetriever {
                 moduleInfo2122 = (JSONObject) dataObject.get(0);
 
                 //test code
-
-
-
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            //System.out.println("Unable to retrieve module");
+            moduleInfo2122 = null;
         }
     }
 
-    private static String getPrerequisite(String module) {
-        getData2122(module);
-        return (String) moduleInfo2122.get("prerequisite");
+    public static String getPrerequisite(String module) {
+        try {
+            getData2122(module);
+            return (String) moduleInfo2122.get("prerequisite");
+        } catch (InvalidModuleAPIException e) {
+            //e.printStackTrace();
+            return null;
+        }
     }
 
-    private static String getDescription(String module) {
-        getData2223(module);
-        return (String) moduleInfo2223.get("description");
+    public static String getDescription(String module) {
+        try {
+            getData2223(module);
+            return (String) moduleInfo2223.get("description");
+        } catch (InvalidModuleAPIException e) {
+            //e.printStackTrace();
+            return null;
+        }
     }
 
-    public static String getTitle(String module) {
-        getData2223(module);
-        return (String) moduleInfo2223.get("title");
+    public static String getTitle2223(String module) {
+        try {
+            getData2223(module);
+            return (String) moduleInfo2223.get("title");
+        } catch (InvalidModuleAPIException e) {
+            //e.printStackTrace();
+            return null;
+        }
+
     }
 
-    public static String getModuleCredit(String module) {
-        getData2223(module);
-        return (String) moduleInfo2223.get("moduleCredit");
+    public static String getModuleCredit2223(String module) {
+        try {
+            getData2223(module);
+            return (String) moduleInfo2223.get("moduleCredit");
+        } catch (InvalidModuleAPIException e) {
+            //e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String getTitle2122(String module) {
+        try {
+            getData2122(module);
+            return (String) moduleInfo2223.get("title");
+        } catch (InvalidModuleAPIException e) {
+            //e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static String getModuleCredit2122(String module) {
+        try {
+            getData2122(module);
+            return (String) moduleInfo2223.get("moduleCredit");
+        } catch (InvalidModuleAPIException e) {
+            //e.printStackTrace();
+            return null;
+        }
     }
 
     public static Boolean getSUstatus(String module) {
-        getData2223(module);
-        JSONObject attributes = (JSONObject) moduleInfo2223.get("attributes");
-        Boolean suStatus = (Boolean) attributes.get("su");
+        try {
+            getData2223(module);
+            JSONObject attributes = (JSONObject) moduleInfo2223.get("attributes");
+            Boolean suStatus = (Boolean) attributes.get("su");
 
-        return suStatus == null;
-    }
-
-    public static String getDetails(String module) {
-        String title = getTitle(module);
-        String description = "\t" + getDescription(module);
-        String prereqs = "\tPre-Requisites: " + getPrerequisite(module);
-        String credits = "\tMCs: " + getModuleCredit(module);
-
-        boolean suStatus = getSUstatus(module);
-        String suStatusDescription;
-        if (suStatus) {
-            suStatusDescription = "\tModule can be SU-ed.";
-        } else {
-            suStatusDescription = "\tModule cannot be SU-ed.";
+            return suStatus == null;
+        } catch (InvalidModuleAPIException e) {
+            //e.printStackTrace();
+            return null;
         }
-
-        return title + "\n" + description + "\n" + prereqs + "\n" + credits + "\n" + suStatusDescription;
     }
+
 }

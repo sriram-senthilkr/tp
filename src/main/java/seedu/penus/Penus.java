@@ -14,19 +14,21 @@ public class Penus {
     private StorageManager storage;
     private ModelManager model;
     private LogicManager logic;
-    /**
-     * Main entry-point for the java.penus.Penus application.
-     */
+
     public static void main(String[] args) {
         new Penus().run();
     }
 
+    /** Run program till termination */
     public void run() {
         start();
         runCommandLoopUntilExitCommand();
         exit();
     }
 
+    /**
+     * Sets up required objects, loads data from file and prints welcome message
+     */
     private void start() {
         this.ui = new Ui();
         this.storage = new StorageManager();
@@ -40,22 +42,33 @@ public class Penus {
         ui.printWelcome();
     }
 
+    /**
+     * Reads the user command and executes it until user issues exit command
+     */
     private void runCommandLoopUntilExitCommand() {
         Command command;
-        CommandResult result = null;
         do {
+            CommandResult result = null;
             String userCommandText = ui.getUserCommand();
             command = getCommand(userCommandText);
             if (command != null) {
                 result = executeCommand(command);
             }
-            if (result != null) {
-                ui.printResult(result);
+            if (result != null && result.isArray) {
+                ui.printResultArray(result);
+            }
+            if (result != null && !result.isArray) {
+                ui.printResultString(result);
             }
             
         } while (!ExitCommand.isExit(command));
     }
 
+    /**
+     * Executes the command and returns the result
+     * @param command user command
+     * @return CommandResult
+     */
     private CommandResult executeCommand(Command command) {
         CommandResult result = null;
         try {
@@ -67,6 +80,11 @@ public class Penus {
         return result;
     }
 
+    /**
+     * Directs the command input to the LogicManager to retrieve the Command object
+     * @param commandText
+     * @return Command object relating to the commandText
+     */
     private Command getCommand(String commandText) {
         Command command = null;
         try {
@@ -77,6 +95,7 @@ public class Penus {
         return command;
     }
 
+    /** Exits */
     private void exit() {
         System.exit(0);
     }
