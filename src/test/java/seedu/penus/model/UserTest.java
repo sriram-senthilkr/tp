@@ -20,8 +20,9 @@ class UserTest {
 
     @Test
     public void testOverloadedConstructor() {
+        User user = new User("John Doe", "Computer Engineering");
         String name = "John Doe";
-        String course = "MA1508E";
+        String course = "Computer Engineering";
         assertEquals(name, user.getName());
         assertEquals(course, user.getCourse());
     }
@@ -35,7 +36,7 @@ class UserTest {
 
     @Test
     public void testSetCourse() {
-        String course = "MA1508E";
+        String course = "Computer Engineering";
         user.setCourse(course);
         assertEquals(course, user.getCourse());
     }
@@ -43,7 +44,7 @@ class UserTest {
     @Test
     public void testEncode() {
         String name = "John Doe";
-        String course = "MA1508E";
+        String course = "Computer Engineering";
         user = new User(name, course);
         String expected = String.format("User ### %s ### %s", name, course);
         assertEquals(expected, user.encode());
