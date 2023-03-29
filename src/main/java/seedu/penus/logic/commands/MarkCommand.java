@@ -14,11 +14,17 @@ public class MarkCommand extends Command {
     private final String moduleCode;
     private final String grade;
 
+    /**
+     * Creates a PlanCommand with the moduleCode and grade
+     */
     public MarkCommand(String moduleCode, String grade) {
         this.moduleCode = moduleCode;
         this.grade = grade;
     }
 
+    /*
+     * Searches for the index of the moduleCode in the list and passes it to ModelManager to mark the module by index
+     */
     @Override
     public CommandResult execute(ModelManager model) throws InvalidCommandException {
         int index = -1;

@@ -33,6 +33,12 @@ import seedu.penus.logic.commands.StatusCommand;
 import seedu.penus.logic.commands.HelpCommand;
 
 public class Parser {
+    /**
+     * Parses user input into a Command object for execution.
+     * @param userInput
+     * @return Command object if no arguments needed, xYZParser(arguments) if arguments needed
+     * @throws PenusException
+     */
     public Command parseCommand(String userInput) throws PenusException {
         String[] inputArray = userInput.split(" ", 2);
         String command = inputArray[0];
@@ -76,6 +82,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the PlanCommand
+     * and returns an PlanCommand object for execution.
+     * @throws PenusException if the user input does not conform the expected format
+     */
     public Command planParser(String args) throws PenusException {
         if (args.contains("g/")) {
             throw new InvalidFormatException("Grade should not be included!");
@@ -99,6 +110,11 @@ public class Parser {
         return new PlanCommand(moduleCode, year, semester);
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the TakenCommand
+     * and returns an TakenCommand object for execution.
+     * @throws PenusException if the user input does not conform the expected format
+     */
     public Command takenParser(String args) throws PenusException {
         String[] takenDetails = args.split(" y/| s/| g/", 4);
         if (takenDetails.length != 4) {
@@ -121,6 +137,11 @@ public class Parser {
         return new TakenCommand(moduleCode, year, semester, grade);
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the MarkCommand
+     * and returns an MarkCommand object for execution.
+     * @throws PenusException if the user input does not conform the expected format
+     */
     public Command markParser(String args) throws PenusException {
         if (!args.contains("g/")) {
             throw new InvalidFormatException("g/");
@@ -139,6 +160,11 @@ public class Parser {
         return new ListCommand();
     }   
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the RemoveCommand
+     * and returns an RemoveCommand object for execution.
+     * @throws PenusException if the user input does not conform the expected format
+     */
     public Command removeParser(String args) throws PenusException {
         String[] details = args.split(" ");
         if (args.equals("") || details.length >= 2) {
@@ -153,6 +179,11 @@ public class Parser {
         return new RemoveCommand(moduleCode);
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the DetailsCommand
+     * and returns an DetailsCommand object for execution.
+     * @throws PenusException if the user input does not conform the expected format
+     */
     public Command detailsParser(String args) throws PenusException {
         String[] details = args.split(" ");
         if (args.equals("") || details.length >= 2) {
@@ -163,6 +194,11 @@ public class Parser {
         return new DetailsCommand(moduleCode);
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the InitCommand
+     * and returns an InitCommand object for execution.
+     * @throws PenusException if the user input does not conform the expected format
+     */
     public Command initParser (String args) throws PenusException {
         int courseCode;
         String [] initDetails = args.split ("n/| c/");

@@ -14,10 +14,16 @@ public class RemoveCommand extends Command {
 
     private final String moduleCode;
 
+    /**
+     * Creates a PlanCommand to with the moduleCode attribute
+     */
     public RemoveCommand(String moduleCode) {
         this.moduleCode = moduleCode;
     }
 
+    /**
+     * Searches for the index of the moduleCode in the list and passes it to ModelManager to remove the module by index
+     */
     @Override
     public CommandResult execute(ModelManager model) throws InvalidCommandException {
         int index = -1;

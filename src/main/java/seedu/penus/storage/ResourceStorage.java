@@ -36,6 +36,15 @@ public class ResourceStorage {
         this.modDetailsFile = "core-module-details.txt";
     }
 
+    /**
+     * Retrieves all module details in /resource/core-modules.txt
+     * <p>
+     * Parses the content of core-modules.txt into a Hashmap
+     * Key: courseName String
+     * Value: coreModulesList Array
+     * 
+     * @return HashMap<String, List<String>>
+     */
     public HashMap<String, List<String>> getCoreMods() {
         HashMap <String, List<String>> coreModHashMap = new HashMap<>();
         String courseName = "";
@@ -66,7 +75,7 @@ public class ResourceStorage {
     }
 
     /**
-     * Retrieves all module details in /data/module-details.txt
+     * Retrieves all module details in /resource/module-details.txt
      * <p>
      * Parses the content of module-details.txt into a List of decoded modules.
      * @return the List containing all the decoded modules.
