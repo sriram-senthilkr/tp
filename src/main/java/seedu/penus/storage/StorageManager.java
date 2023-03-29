@@ -7,8 +7,8 @@ import seedu.penus.model.User;
 import seedu.penus.model.ModuleList;
 
 public class StorageManager {
-    FileStorage storage;
-    ResourceStorage resource;
+    protected FileStorage storage;
+    protected ResourceStorage resource;
 
     public StorageManager() {
         this.storage = new FileStorage();
