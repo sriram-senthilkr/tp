@@ -94,8 +94,9 @@ public class Grade {
         String numberOfMCs;
         for (Module module : moduleList) {
             if (!module.getGrade().matches("[SU]") && module.getStatus().equals("Taken")) {
-                ModuleRetriever.getData2223(module.getCode());
-                numberOfMCs = (String) ModuleRetriever.moduleInfo2223.get("moduleCredit");
+//                ModuleRetriever.getData2223(module.getCode());
+//                numberOfMCs = (String) ModuleRetriever.moduleInfo2223.get("moduleCredit");
+                numberOfMCs = ModuleRetriever.getModuleCredit2122(module.getCode());
                 double weightedScore = Double.parseDouble(numberOfMCs) * module.getGradePoint();
                 totalScore += weightedScore;
                 totalMC += Double.parseDouble(numberOfMCs);
@@ -124,7 +125,7 @@ public class Grade {
             String moduleCode = module[0];
             String moduleGrade = module[1];
             if (!moduleGrade.matches("[SU]") && !moduleGrade.equals("")) {
-                numberOfMCs = ModuleRetriever.getModuleCredit(moduleCode);
+                numberOfMCs = ModuleRetriever.getModuleCredit2223(moduleCode);
                 double weightedScore = Double.parseDouble(numberOfMCs) * Grade.getGradePoint(moduleGrade);
                 totalScore += weightedScore;
                 totalMC += Double.parseDouble(numberOfMCs);
@@ -146,10 +147,10 @@ public class Grade {
     public static String getOverallCAP(List<Module> moduleList) throws InvalidGradeException {
         String capMessage;
         if (moduleList.isEmpty()) {
-            capMessage = "\nOverall CAP : 0.00\n";
+            capMessage = "Overall CAP : 0.00\n";
         } else {
             Double overallCAP = calculateOverallCAP(moduleList);
-            capMessage = String.format("\nOverall CAP : %.2f\n", overallCAP);
+            capMessage = String.format("Overall CAP : %.2f\n", overallCAP);
         }
         return capMessage;
     }
@@ -163,10 +164,10 @@ public class Grade {
     public static String getSemCAP(List<String[]> semArray) throws InvalidGradeException {
         String semCapMessage;
         if (semArray.isEmpty()) {
-            semCapMessage = "\nSemester CAP : 0.00\n";
+            semCapMessage = "Semester CAP : 0.00\n";
         } else {
             Double semCAP = calculateSemCAP(semArray);
-            semCapMessage = String.format("\nSemester CAP : %.2f\n", semCAP);       
+            semCapMessage = String.format("Semester CAP : %.2f\n", semCAP);       
         }
         return semCapMessage;
     }

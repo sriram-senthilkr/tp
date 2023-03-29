@@ -14,7 +14,7 @@ public class MCsTaken {
         int numberOfMcs = 0;
         for (Module module : moduleList) {
             if (module.getStatus().equals("Taken")) {
-                numberOfMcs = numberOfMcs + Integer.parseInt(ModuleRetriever.getModuleCredit(module.getCode()));
+                numberOfMcs = numberOfMcs + Integer.parseInt(ModuleRetriever.getModuleCredit2223(module.getCode()));
             }
         }
         return numberOfMcs;

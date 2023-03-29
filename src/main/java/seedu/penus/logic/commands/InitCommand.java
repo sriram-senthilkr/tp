@@ -3,7 +3,7 @@ package seedu.penus.logic.commands;
 import seedu.penus.common.exceptions.InvalidCommandException;
 import seedu.penus.model.ModelManager;
 
-public class InitCommand extends Command {  //set user name and course, command: init n/Jiun Yuan c/1
+public class InitCommand extends Command {  //set username and course, command: init n/Jiun Yuan c/1
     public static final String COMMAND_WORD = "init";
 
     public static final String MESSAGE = "Initialization Complete";
@@ -41,6 +41,6 @@ public class InitCommand extends Command {  //set user name and course, command:
         default: throw new InvalidCommandException("Enter within the index. Please initialize again");
         }
         model.setUserCourse(course);
-        return new CommandResult(MESSAGE);
+        return new CommandResult(MESSAGE, false);
     }
 }

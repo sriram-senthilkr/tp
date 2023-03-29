@@ -31,6 +31,6 @@ public class TakenCommand extends Command {
 
         model.addModule(taken);
 
-        return new CommandResult(String.format(MESSAGE, taken, model.getSize()));
+        return new CommandResult(String.format(MESSAGE, taken, model.getSize()), false);
     }
 }
