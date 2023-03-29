@@ -90,6 +90,10 @@ public class StatusCommand extends Command {
         messageArray.add("MCs Taken: " + Integer.toString(MCsTaken.numberOfMcsTaken(model.getModuleList().modules))
                         + "/160");
 
+        for (String s : messageArray){
+            sb.append(s).append("\n");
+        }
+
         String message = sb.toString();
         return new CommandResult(message, false);
     }
