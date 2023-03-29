@@ -1,0 +1,75 @@
+@startuml
+participant User
+
+activate Ui
+User -> Ui: getUserCommand() "mark CS2113 g/A+"
+box "Logic" #LightBlue
+Ui -> LogicManager: getCommand()
+activate LogicManager
+
+LogicManager -> Parser: parseCommand()
+activate Parser
+
+create MarkCommand
+Parser -> MarkCommand
+activate MarkCommand
+
+MarkCommand --> Parser:
+deactivate MarkCommand
+
+
+Parser --> LogicManager: Command()
+deactivate Parser
+
+
+LogicManager -> MarkCommand: execute()
+activate MarkCommand
+participant CommandResult
+
+end box
+
+
+box "Model" #LightPink
+
+MarkCommand -> ModelManager: getModuleList()
+activate ModelManager
+ModelManager --> MarkCommand: index
+deactivate ModelManager
+
+MarkCommand -> ModelManager: markModule(i)
+activate ModelManager
+
+ModelManager -> ModuleList: getModule(i)
+activate ModuleList
+
+ModuleList --> ModelManager: module
+deactivate ModuleList
+
+ModelManager -> Module: markModule(i, grade)
+activate Module
+Module -> Module: Mark()
+
+Module --> ModelManager
+deactivate Module
+
+ModelManager --> MarkCommand
+deactivate ModelManager
+
+create CommandResult
+
+
+MarkCommand -> CommandResult
+activate CommandResult
+CommandResult --> MarkCommand
+deactivate CommandResult
+
+MarkCommand --> LogicManager: result
+deactivate MarkCommand
+
+LogicManager --> Ui: printResult()
+deactivate LogicManager
+
+Ui --> User
+deactivate Ui
+
+@enduml

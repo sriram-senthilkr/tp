@@ -1,0 +1,39 @@
+@startuml
+
+class Ui {
+    #in: Scanner
+    #out: PrintStream
+    #DIVIDER: String
+    +getUserCommand(): String
+    +printMessage(message: String...)
+    +printResult(result: CommandResult)
+    +printWelcome()
+    +printExit()
+}
+
+class Penus {
+    #ui: Ui
+    #storage: StorageManager
+    #model: ModelManager
+    #logic: LogicManager
+    -start()
+    -runCommandLoopUntilExitCommand()
+    -executeCommand(command: Command): CommandResult
+    -getCommand(commandText: String): Command
+    -exit()
+    +main(args: String[])
+    +run()
+}
+
+class Scanner {
+    +nextLine()
+}
+class PrintStream {
+    +println()
+}
+
+Penus --> "1" Ui: ui
+Ui .. Scanner: gets input from >
+Ui .. PrintStream: prints to >
+
+@enduml

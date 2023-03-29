@@ -27,18 +27,24 @@
 - [Appendix B: Instructions for manual testing](#appendix-b--instructions-for-manual-testing)
 <!----------------------------Acknowledgements----------------------------------------->
 ## Acknowledgements
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+References made from [AddressBook 2](https://github.com/se-edu/addressbook-level2) and [AddressBook 3](https://github.com/se-edu/addressbook-level3).
+
 
 <!----------------------------Design----------------------------------------->
 ## Design
 
 ### Architecture
 
+![ArchitectureDiagram](uml/diagrams/Architecture.png)
+
 ### UI Component
+![UIClassDiagram](uml/diagrams/UiClass.png)
 
 ### Logic Component
+![LogicObjDiagram](uml/diagrams/LogicClass.png)
 
 ### Model Component
+![ModelObjDiagram](uml/diagrams/ModelClass.png)
 
 ### Storage Component
 
@@ -48,7 +54,7 @@ Classes used by multiple components are in the `seedu.penus.commons` package.
 <!----------------------------Implementation----------------------------------------->
 ## Implementation
 ### Add module
-The Add Module features allows users to add two types of modules (taken or planning) to the ModuleList using the commands `plan` or `taken`. The two types of modules are differentiated by its `Module()` overloaded constructor, accepting different type signatures. It is facilitated by `LogicManager` and extends the abstract class `Command`.
+The Add Module feature allows users to add two types of modules (taken or planning) to the ModuleList using the commands `plan` or `taken`. The two types of modules are differentiated by its `Module()` overloaded constructor, accepting different type signatures. It is facilitated by `LogicManager` and extends the abstract class `Command`.
 
 Given below is an example usage scenario of the 2 types of modules and how the add module mechanism behaves at each step.
 
@@ -64,7 +70,7 @@ Step 4. Upon successful execution of all of the above, it is then passed back to
 Step 5. The `CommandResult` object is passed to the `Ui` component with a `printMessage()` method which prints the formatted message to the Command Line Interface.
 
 The following sequence diagram shows how the `plan` command works:
-![AddModuleSequenceDiagram](uml/AddModSequence.png)
+![AddModuleSequenceDiagram](uml/diagrams/AddModSequence.png)
 
 **Similarly, for when a taken module is added:**
 Step 1. The user launches the application for the first time. The ModuleList will be initialised with the initial module list state if provided in `penus.txt`.
@@ -73,11 +79,56 @@ Step 2. The user executes the `taken CS2113 y/1 s/2 g/A+` command to plan the mo
 
 Step 3 - 6. Identical to that of a `plan` command as mentioned above.
 
+_Design considerations:_
+**Aspect: How plan/taken executes:**
+- **Alternative 1 (current choice):** Have an overloaded Module() constructor which accepts both types of modules. The difference being the isTaken parameter.
+  - Pros: Easy to implement
+  - Cons: Less readability and harder to differentiate the two.
+- **Alternative 2:** Have two classes, TakenModule and PlanModule, for the 2 types.
+  - Pros: More readability and easier differentiation.
+  - Cons: More complex. 2 classes inherited + checking the class type in queries
+
+<br>
+
 ### Remove module
-(TBA)
+The Remove Module feature allows users to remove a module from the ModuleList using the command `remove`. It is facilitated by `LogicManager` and extends the abstract class `Command`. The module code is given as the argument to remove that specific module.
+
+Given below is an example scenario of the remove command and how it behaves at each step.
+
+Step 1. The user executes the `remove CS2113` command, given that a module `CS2113` exists within the `ModuleList`, to remove the module. The `remove` command is parsed through `Parser` which returns a `RemoveCommand()` object if a valid command is provided. The `RemoveCommand()` stores the string `moduleCode` as its attribute.
+
+Step 2. The `RemoveCommand` is then executed by the `LogicManager` calling `execute()`. Then, the `ModuleList`, which is retrieved from the `ModelManager` through `getModuleList()`, is iterated through to find the index of a `Module` with the same corresponding `moduleCode` through `getModule().getCode()`. This index is assigned to a variable.
+
+Step 3. It is then passed to the `ModelManager`, along with the index, and executes the `removeModule()` method on the `ModuleList` object. The `ModuleList` subsequently executes the `remove(index)` method to remove the module from the list.
+
+Step 4. Upon successful execution of the above, it is then passed back to `RemoveCommand` where  `CommandResult()` is constructed with the message to be printed to the user.
+
+Step 5. The `CommandResult` object is passed to the `Ui` component with a `printMessage()` method which prints the formatted message to the Command Line Interface.
+
+The following sequence diagram shows how the `remove` command works:
+![RemoveModuleSequenceDiagram](uml/diagrams/RemoveModSequence.png)
+
+<br>
 
 ### Mark module as taken
-(TBA)
+The Mark Module feature allows user to mark a plan module as a taken module, adding the grade using the command `mark`. It is facilitated by `LogicManager` and extends the abstract class `Command`. The module code and grade is given as the argument to convert that specific planned module to a taken module and add a grade.
+
+Given below is an example scenario of the mark command and how it behaves at each step.
+
+Step 1. The user executes the `mark CS2113 g/A+` command, given that a plan module `CS2113` exists within the `ModuleList`, to mark the module. The `mark` command is parsed through `Parser` which returns a `MarkCommand()` object if a valid command is provided. The `MarkCommand()` stores the string `moduleCode` and `grade` as its attributes.
+
+Step 2. The `MarkCommand` is then executed by the `LogicManager` calling `execute()`. Then, the  `ModuleList`, which is retrieved from the `ModelManager` through `getModuleList()`, is iterated through to find the index of a `Module` with the same corresponding `moduleCode` through `getModule().getCode()`. This index is assigned to a variable.
+
+Step 3. It is then passed to the `ModelManager`, along with the index and grade, and executes the `markModule()` method. It retrieves the `Module` object from the `ModuleList` through the `getModule(index)` method. The `markTaken()` method is then called on this `Module` which sets the `isTaken` attribute as true and saves the grade. 
+
+Step 4. Upon successful execution of the above, it is then passed back to `MarkCommand` where  `CommandResult()` is constructed with the message to be printed to the user.
+
+Step 5. The `CommandResult` object is passed to the `Ui` component with a `printMessage()` method which prints the formatted message to the Command Line Interface.
+
+The following sequence diagram shows how the `mark` command works:
+![MarkModuleSequenceDiagram](uml/diagrams/MarkModSequence.png)
+
+<br>
 
 ### List modules
 The List modules feature allows users to view their added modules, in a specified range using the command `list`. There are 3 ways of modules listing :
@@ -126,6 +177,8 @@ Step 4. A `List<String[]> modules` is initialised with all the modules in the Ha
 
 Step 5. If `modules` is not empty, the modules for that specified year and semester are printed sequentially. For modules with available grade information, the grade will be printed beside the module code.
 
+<br>
+
 ### Display status
 The Display Status feature `status` lists all the core modules in the user's course, and indicates which ones the user has or has
 not taken. The feature also displays the total number of MCs the user has taken.
@@ -156,6 +209,8 @@ takes in each module's code retrieves the title and MCs through `ModuleRetriever
 
 Step 5: Lastly, the printStatus() method calls `numberOfMcs()`, retrieves each module's MC through the `Module Retriever`
 class and returns the totals number of MCs. The printStatus() method then prints the total number of MCs / 160.
+
+<br>
 
 ### Get module details
 The details feature is facilitated by `ModuleRetriever`. It retrieves the module’s title, description, pre-requisites, modular credits, and if the module is SU-able. Additionally, it implements the following operations:
@@ -195,8 +250,12 @@ _Design considerations:_
   - Pros: Can be used offline.
   - Cons: It is a tedious task to store all the modules’ details on a .txt file, and the file size will be very big.
 
+<br>
+
 ### Initialise user
 (TBA)
+
+<br>
 
 ### Calculate CAP
 Under the list of modules taken/planned is the Semester CAP, and Overall CAP for the whole course of study.
@@ -222,13 +281,48 @@ For y1s1, under the mods listed, user would see a printed CAP of 5.00.
 For y1s2, under the mods listed, user would see a printed CAP of 4.50.
 The overall CAP printed is 4.67.
 
-Class Diagram:
-![CAP uml diagram](uml/CAP.png)
+Class Diagram (with unnecessary details ommitted):
+![Grade Class Diagram](uml/diagrams/GradeClass.png)
 
-
+<br>
 
 ### Save planner to local drive
-(TBA)
+The Save to local drive feature allows user to save the `ModuleList` and `User` details to a `penus.txt` file. It is facilitated by FileStorage and is executed after the `execute()` of a command by `LogicManager`. 
+
+Given below is an example of how the saving mechanism behaves at each step.
+
+Step 1. The application is started for the first time which creates a `/data` directory and an empty text file `penus.txt` in that directory for file saving. The user inputs a valid command and is successfully executed, returning a `CommandResult` to `LogicManager`. When this is returned, the `StorageManager` executes the method `saveStorage()` acccepting the `ModuleList` and `User` objects as its arguments.
+
+Step 2. In `StorageManager` the `saveStorage()` method calls the `save()` method and passes the `ModuleList` and `User` objects to the `FileStorage`. 
+
+Step 3. A `FileWriter` object is instantiated with the filepath `/data/penus.txt` and writes to the text file. If the `User` object has valid attributes of `name` and `course`, the first line written would be the User's name and course in the format "User ### <USERNAME> ### <COURSE>". 
+
+_Example:_
+```
+User ### Albert ### Computer Engineering
+```
+Step 4. The next few lines of the file would then be written with the modules in the `ModuleList`. The list is iterated through and the `FileWriter` writes an encoded format of the module to the file with the `encode()` method of a `Module`. The `encode()` method formats the attributes of a `Module` into the format of : "<STATUS> ### <MODULECODE> ### <YEAR> ### <SEMESTER> (### <GRADE> if module is `Taken`)
+
+_Example:_
+```
+Taken ### CS2113 ### 2 ### 1 ### A+
+Plan ### CS2105 ### 3 ### 1
+```
+
+Step 5. The `FileWriter` is closed and the command flow continues as usual. 
+
+The next time a user starts the program with a saved `penus.txt`:
+
+Step 6. Upon starting the program, the `start()` method of `Penus` is executed where the `StorageManager` would execute `loadStorage()` and `loadUser()` respectively into the `ModelManager` constructor. These methods call the `retrieveMods()` and `retrieveUser()` methods of the `FileStorage` respectively.
+
+Step 7a. In `retrieveMods()`, a `Scanner` and a `ArrayList` is instantiated. It takes in the lines of the `penus.txt` file which does not contain the keyword `User` and decodes it with `decodeModule()` method to return a `Module`. This `Module` is then added to the list. This process loops until there is no next line (aka the end of the file). This `ArrayList` is then passed back to the `ModelManager` constructor.
+
+Step 7b. In `retrieveUser()`, a `Scanner` and a `User` object is instantiated. The `Scanner` takes in the first line of the `penus.txt` file. If the keyword `User` is found, the line is decoded and sets the attribute `name` and `course` of the `User` object. This `User` is then passed back to the `ModelManager` constructor.
+
+Step 8. The `ModelManager` constructs the `ModuleList` and `User` object with the received objects respectively from the `StorageManager`. The user's saved state can then be continued on.
+
+Below is a class diagram of the classes pertaining to the save feature (some details omitted for simplicity):
+![SaveFeatureClassDiagram](uml/diagrams/SaveFeatureClass.png)
 
 <!----------------------------Documentation----------------------------------------->
 ## Documentation, logging, testing, configuration, dev-ops

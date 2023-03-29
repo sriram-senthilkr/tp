@@ -1,0 +1,50 @@
+@startuml
+!include <office/Concepts/globe_internet>
+!include <office/Concepts/documents>
+!include <office/Users/user>
+
+skinparam classAttributeIconSize 0
+hide empty members
+hide circle
+
+class "<$user>" as User 
+
+class "<$globe_internet>" as Web
+
+class "<$documents>" as Harddisk
+
+package PENUS <<rectangle>> {
+    class UI #LightGreen {
+    
+    }
+    class Logic #LightBlue {
+
+    }
+    class Model #LightPink {
+
+    }
+    class Main {
+
+    } 
+    class Storage #LightYellow {
+
+    }
+    class Commons #LightCyan {
+
+    }
+}
+
+User ..> UI
+UI --> Logic
+UI --> Model
+Logic --> Model
+Logic --> Storage
+Main -> Storage
+Main -> UI
+Main -> Logic
+Main -> Model
+Web --> Commons
+Storage ..> Model
+Storage ..> Harddisk
+
+@enduml
