@@ -54,8 +54,11 @@ public class Penus {
             if (command != null) {
                 result = executeCommand(command);
             }
-            if (result != null) {
-                ui.printResult(result);
+            if (result != null && result.isArray) {
+                ui.printResultArray(result);
+            }
+            if (result != null && !result.isArray) {
+                ui.printResultString(result);
             }
             
         } while (!ExitCommand.isExit(command));

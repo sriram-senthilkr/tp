@@ -42,9 +42,20 @@ public class Ui {
         out.println(DIVIDER);
     }
 
-    public void printResult(CommandResult result) {
+    public void printResultString(CommandResult result) {
         requireNonNull(result);
         printMessage(result.feedbackToUser);
+    }
+
+    public void printResultArray(CommandResult result) {
+        List<String> feedbackArray = result.feedbackArray;
+        out.println();
+        out.println(DIVIDER);
+        for (String s : feedbackArray) {
+            out.println("\t" + s);
+        }
+        out.println(DIVIDER);
+
     }
 
     public void printWelcome() {
