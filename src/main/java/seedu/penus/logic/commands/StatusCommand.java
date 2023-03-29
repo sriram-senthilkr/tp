@@ -59,8 +59,8 @@ public class StatusCommand extends Command {
     }
 
     public String moduleCodeToString(String moduleCode) {
-        return moduleCode + " "+ ModuleRetriever.getTitle(moduleCode)
-                    + " MCs: " + ModuleRetriever.getModuleCredit(moduleCode);
+        return moduleCode + " "+ ModuleRetriever.getTitle2223(moduleCode)
+                    + " MCs: " + ModuleRetriever.getModuleCredit2223(moduleCode);
     }
 
 

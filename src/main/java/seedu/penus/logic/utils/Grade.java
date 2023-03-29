@@ -83,8 +83,9 @@ public class Grade {
         String numberOfMCs;
         for (Module module : moduleList) {
             if (!module.getGrade().matches("[SU]") && module.getStatus().equals("Taken")) {
-                ModuleRetriever.getData2223(module.getCode());
-                numberOfMCs = (String) ModuleRetriever.moduleInfo2223.get("moduleCredit");
+//                ModuleRetriever.getData2223(module.getCode());
+//                numberOfMCs = (String) ModuleRetriever.moduleInfo2223.get("moduleCredit");
+                numberOfMCs = ModuleRetriever.getModuleCredit2122(module.getCode());
                 double weightedScore = Double.parseDouble(numberOfMCs) * module.getGradePoint();
                 totalScore += weightedScore;
                 totalMC += Double.parseDouble(numberOfMCs);
@@ -113,7 +114,7 @@ public class Grade {
             String moduleCode = module[0];
             String moduleGrade = module[1];
             if (!moduleGrade.matches("[SU]") && !moduleGrade.equals("")) {
-                numberOfMCs = ModuleRetriever.getModuleCredit(moduleCode);
+                numberOfMCs = ModuleRetriever.getModuleCredit2223(moduleCode);
                 double weightedScore = Double.parseDouble(numberOfMCs) * Grade.getGradePoint(moduleGrade);
                 totalScore += weightedScore;
                 totalMC += Double.parseDouble(numberOfMCs);
