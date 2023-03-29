@@ -19,15 +19,6 @@ public class InitCommand extends Command {  //set user name and course, command:
 
     @Override
     public CommandResult execute(ModelManager model) throws InvalidCommandException {
-        /*
-          TODO: implement init
-          HOW:
-          use model.setUserName() and setUserCourse() to set user prefs
-          printing stuff edit the MESSAGE,
-
-          if need more, add a new command to Ui.java
-          Alternative: change command to init [NAME] [COURSE]
-        */
         String course = "";
         model.setUserName(name);
         switch(courseCode) {
