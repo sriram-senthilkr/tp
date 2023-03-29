@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class FileStorageTest {
 
     FileStorage fileStorage;
+
     @BeforeEach
     public void setUp() {
         fileStorage = new FileStorage();
@@ -26,9 +27,9 @@ class FileStorageTest {
 
     @Test
     public void testConstructor() {
-                assertEquals("./data/penus.txt", fileStorage.filePath);
-                assertEquals("./data/", fileStorage.dataDirectory);
-                assertEquals(new File("./data/penus.txt"), fileStorage.file);
+        assertEquals("./data/penus.txt", fileStorage.filePath);
+        assertEquals("./data/", fileStorage.dataDirectory);
+        assertEquals(new File("./data/penus.txt"), fileStorage.file);
     }
 
     @Test
