@@ -19,9 +19,9 @@ public class FileStorage {
     /**
      * Constructor for the File Manager object.
      * <p>
-     * Creates a File object according to the relative path /data/duke.txt to store the data
+     * Creates a File object according to the relative path /data/penus.txt to store the data
      * <p>
-     * Initializes a /data/ folder and duke.txt if it does not exist
+     * Initializes a /data/ folder and penus.txt if it does not exist
      */
     public FileStorage() {
         this.dataDirectory = "./data/";
@@ -41,9 +41,10 @@ public class FileStorage {
     }
 
     /**
-     * Saves the current moduleList accumulated over the program's life and stores it in /data/duke.txt
+     * Saves the current moduleList accumulated over the program's life and stores it in /data/penus.txt
      *
      * @param moduleList the moduleList containing all the user's modules
+     * @param user the user containing the user preferences
      */
     public void save(ModuleList moduleList, User user) {
         try {
@@ -61,10 +62,9 @@ public class FileStorage {
     }
 
     /**
-     * Retrieves any modules saved in /data/duke.txt if the directory exists.
+     * Retrieves any modules saved in /data/penus.txt if the directory exists.
      * <p>
-     * Decodes the contents of duke.txt into a moduleList object. 
-     * Called upon initialisation of Duke.java
+     * Decodes the contents of penus.txt into a moduleList object. 
      *
      * @return moduleList the moduleList containing all the user's modules saved in storage
      */
@@ -91,6 +91,13 @@ public class FileStorage {
         return moduleList;
     }
 
+    /**
+     * Retrieves any User saved in /data/penus.txt if the directory exists.
+     * <p>
+     * Decodes the contents of penus.txt into a User object. 
+     *
+     * @return user the User containing the user details saved in storage
+     */
     public User retrieveUser() {
         Scanner scanner = null;
         User user = new User();
@@ -116,12 +123,11 @@ public class FileStorage {
     }
 
     /**
-     * Decoder method to read a line of module-details.txt storage and splits the string
+     * Decoder method to read a lines in storage and splits the string
      * into a string array
-     * Format: moduleCode ### moduleName ### numberOfMcs ### preRequisites ### coRequisites ###
-     * preclusions ### semOfferedIn ### canSU
-     * @param module the string corresponding to the lines of module-details.txt
-     * @return decoded String array
+     * Format: Taken/Plan ### moduleCode ### year ### semester (### grade for taken)
+     * @param module String
+     * @return decoded Module object
      */
     private Module decodemodule(String module) {
         String[] components = module.split(" ### ");

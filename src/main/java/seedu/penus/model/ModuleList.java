@@ -91,13 +91,13 @@ public class ModuleList {
     }
 
     /**
-     * Returns the module code of GESS module if exist, "" if does not exist
+     * Returns the module code of GESS module if exist and taken, "" if does not exist
      *
-     * @return the module code of GESS module if exist, "" if does not exist
+     * @return the module code of GESS module if exist and taken, "" if does not exist
      */
     public String getGESS() {
         for (Module module : modules) {
-            if (module.moduleCode.substring(0, 4).equals("GESS")) {
+            if (module.moduleCode.substring(0, 4).equals("GESS") && module.isTaken) {
                 return module.moduleCode;
             }
         }
@@ -105,13 +105,13 @@ public class ModuleList {
     }
 
     /**
-     * Returns the module code of GEC module if exist, "" if does not exist
+     * Returns the module code of GEC module if exist and taken, "" if does not exist
      *
-     * @return the module code of GEC module if exist, "" if does not exist
+     * @return the module code of GEC module if exist and taken, "" if does not exist
      */
     public String getGEC() {
         for (Module module : modules) {
-            if (module.moduleCode.substring(0, 3).equals("GEC")) {
+            if (module.moduleCode.substring(0, 3).equals("GEC") && module.isTaken) {
                 return module.moduleCode;
             }
         }
@@ -119,13 +119,13 @@ public class ModuleList {
     }
 
     /**
-     * Returns the module code of GEN module if exist, "" if does not exist
+     * Returns the module code of GEN module if exist and taken, "" if does not exist
      *
-     * @return the module code of GEN module if exist, "" if does not exist
+     * @return the module code of GEN module if exist and taken, "" if does not exist
      */
     public String getGEN() {
         for (Module module : modules) {
-            if (module.moduleCode.substring(0, 3).equals("GEN")) {
+            if (module.moduleCode.substring(0, 3).equals("GEN") && module.isTaken) {
                 return module.moduleCode;
             }
         }
