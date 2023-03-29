@@ -24,4 +24,5 @@ public class DetailsCompiler extends ModuleRetriever{
             return "This information is not available";
         }
     }
+
 }
