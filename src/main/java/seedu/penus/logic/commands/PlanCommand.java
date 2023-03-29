@@ -32,7 +32,7 @@ public class PlanCommand extends Command {
 
         model.addModule(plan);
 
-        return new CommandResult(String.format(MESSAGE, plan, model.getSize()));
+        return new CommandResult(String.format(MESSAGE, plan, model.getSize()), false);
     }
 }
 

@@ -47,8 +47,8 @@ public class Penus {
      */
     private void runCommandLoopUntilExitCommand() {
         Command command;
-        CommandResult result = null;
         do {
+            CommandResult result = null;
             String userCommandText = ui.getUserCommand();
             command = getCommand(userCommandText);
             if (command != null) {

@@ -15,13 +15,13 @@ public class StatusCommand extends Command {
         List<String> coreMods = model.getCoreModList().get(model.getUserCourse());
         List<String> takenCoreMods = new ArrayList<>();
         ModuleList moduleList = model.getModuleList();
-        if (model.getGEC() != ""){
+        if (!model.getGEC().equals("")){
             takenCoreMods.add(model.getGEC());
         }
-        if (model.getGESS() != ""){
+        if (!model.getGESS().equals("")){
             takenCoreMods.add(model.getGESS());
         }
-        if (model.getGEN() != ""){
+        if (!model.getGEN().equals("")){
             takenCoreMods.add(model.getGEN());
         }
         for (String coreModCode : coreMods) {
@@ -66,34 +66,29 @@ public class StatusCommand extends Command {
 
     @Override
     public CommandResult execute(ModelManager model) {
-        StringBuilder sb = new StringBuilder();
-        ModuleList moduleList = model.getModuleList();
         List<String> takenCoreModsList = getTakenCoreModsList(model) ;
         List<String> untakenCoreModsList = getUntakenCoreModsList(model);
-        List<String> statusList = new ArrayList<>();
-        statusList.add("--------- Taken ---------");
+        List<String> messageArray = new ArrayList<>();
+        messageArray.add("--------- Taken ---------");
         for (String s : takenCoreModsList){
-            statusList.add(moduleCodeToString(s));
+            messageArray.add(moduleCodeToString(s));
         }
-        statusList.add("--------- Not Taken ---------");
-        if (model.getGEC() == ""){
-            statusList.add("GECXXXX");
+        messageArray.add("--------- Not Taken ---------");
+        if (model.getGEC().equals("")){
+            messageArray.add("GECXXXX");
         }
-        if (model.getGESS() == ""){
-            statusList.add("GESSXXXX");
+        if (model.getGESS().equals("")){
+            messageArray.add("GESSXXXX");
         }
-        if (model.getGEN() == ""){
-            statusList.add("GENXXXX");
+        if (model.getGEN().equals("")){
+            messageArray.add("GENXXXX");
         }
         for (String s : untakenCoreModsList){
-            statusList.add(moduleCodeToString(s));
+            messageArray.add(moduleCodeToString(s));
         }
-        statusList.add("MCs Taken: " + Integer.toString(MCsTaken.numberOfMcsTaken(model.getModuleList().modules))
+        messageArray.add("MCs Taken: " + Integer.toString(MCsTaken.numberOfMcsTaken(model.getModuleList().modules))
                         + "/160");
-        for (String s : statusList){
-            sb.append(s).append("\n");
-        }
-        String message = sb.toString();
-        return new CommandResult(message);
+
+        return new CommandResult(messageArray, true);
     }
 }
