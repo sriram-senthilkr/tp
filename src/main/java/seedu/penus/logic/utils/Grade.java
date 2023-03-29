@@ -95,8 +95,6 @@ public class Grade {
         String numberOfMCs;
         for (Module module : moduleList) {
             if (!module.getGrade().matches("[SU]") && module.getStatus().equals("Taken")) {
-//                ModuleRetriever.getData2223(module.getCode());
-//                numberOfMCs = (String) ModuleRetriever.moduleInfo2223.get("moduleCredit");
                 numberOfMCs = ModuleRetriever.getModuleCredit2122(module.getCode());
                 double weightedScore = Double.parseDouble(numberOfMCs) * module.getGradePoint();
                 totalScore += weightedScore;
