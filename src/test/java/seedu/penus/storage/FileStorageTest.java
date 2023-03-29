@@ -1,5 +1,6 @@
 package seedu.penus.storage;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import seedu.penus.model.Module;
 import seedu.penus.model.ModuleList;
@@ -16,9 +17,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FileStorageTest {
 
+    FileStorage fileStorage;
+    @BeforeEach
+    public void setUp() {
+        fileStorage = new FileStorage();
+    }
+
+
     @Test
     public void testConstructor() {
-        FileStorage fileStorage = new FileStorage();
                 assertEquals("./data/penus.txt", fileStorage.filePath);
                 assertEquals("./data/", fileStorage.dataDirectory);
                 assertEquals(new File("./data/penus.txt"), fileStorage.file);
@@ -26,7 +33,6 @@ class FileStorageTest {
 
     @Test
     void testSave_inputModuleListAndUser_writeSuccess() throws IOException {
-        FileStorage fileStorage = new FileStorage();
         ModuleList moduleList = new ModuleList();
         moduleList.addModule(new Module("CS1010", 1, 1, "A+"));
         User user = new User("John", "Electrical Engineering");
@@ -41,7 +47,6 @@ class FileStorageTest {
 
     @Test
     void testRetrieveMods_returnsModuleListSuccess() throws IOException {
-        FileStorage fileStorage = new FileStorage();
         FileWriter writer = new FileWriter("./data/penus.txt");
         writer.write("User ### John ### Electrical Engineering\n" +
                 "Taken ### CS1010 ### 1 ### 1 ### A+\n" +
@@ -58,7 +63,6 @@ class FileStorageTest {
 
     @Test
     void testRetrieveUser_returnsUserSuccess() throws IOException {
-        FileStorage fileStorage = new FileStorage();
         FileWriter writer = new FileWriter("./data/penus.txt");
         writer.write("User ### John ### Electrical Engineering\n" +
                 "Taken ### CS1010 ### 1 ### 1 ### A+\n" +

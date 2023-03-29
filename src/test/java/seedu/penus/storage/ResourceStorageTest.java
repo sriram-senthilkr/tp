@@ -1,6 +1,7 @@
 package seedu.penus.storage;
 
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -11,19 +12,37 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 class ResourceStorageTest {
+
+    public ResourceStorage storage;
+    @BeforeEach
+    public void setUp() {
+        storage = new ResourceStorage();
+    }
+
+    @Test
+    public void testGetCoreModsSuccess() {
+        HashMap<String, List<String>> coreMods = storage.getCoreMods();
+        assertNotNull(coreMods);
+        assertTrue(coreMods.containsKey("Electrical Engineering"));
+        assertEquals(27, coreMods.get("Mechanical Engineering").size());
+        assertTrue(coreMods.containsKey("Environmental Engineering"));
+        assertEquals(25, coreMods.get("Environmental Engineering").size());
+        assertEquals("EG2501", coreMods.get("Civil Engineering").get(7));
+    }
+
     @Test
     public void testConstructor() {
-        ResourceStorage resourceStorage = new ResourceStorage();
-        assertEquals("core-modules.txt", resourceStorage.coreModFile);
-        assertEquals("core-module-details.txt", resourceStorage.modDetailsFile);
+        assertEquals("core-modules.txt", storage.coreModFile);
+        assertEquals("core-module-details.txt", storage.modDetailsFile);
     }
+
     @Test
     public void testGetCoreMods() {
-        ResourceStorage resourceStorage = new ResourceStorage();
-        HashMap<String, List<String>> coreHashMap =  resourceStorage.getCoreMods();
+        HashMap<String, List<String>> coreHashMap = storage.getCoreMods();
         List<String> courseNameList = new ArrayList<>(Arrays.asList("Computer Engineering",
                 "Electrical Engineering", "Biomedical Engineering", "Chemical Engineering",
                 "Civil Engineering", "Environmental Engineering",
@@ -44,32 +63,17 @@ class ResourceStorageTest {
 
     @Test
     public void testGetAllModuleDetails() {
-        ResourceStorage resourceStorage = new ResourceStorage();
-        List<String[]> moduleDetailsList = resourceStorage.getAllModuleDetails();
+        List<String[]> moduleDetailsList = storage.getAllModuleDetails();
         String[] moduleDetails = moduleDetailsList.get(0);
         List<String> compareList = new ArrayList<>(Arrays.asList("CG1111A",
                 "Engineering Principles and Practice I", "4", "0", "0",
                 "BN2111, EE1111A, EE1111B, EE2111A", "Sem 1", "1"));
         for (int i = 0; i < 8; ++i) {
-        assert (moduleDetails[i].equals(compareList.get(i)));
+            assert (moduleDetails[i].equals(compareList.get(i)));
         }
     }
 
-    public ResourceStorage storage;
 
-    @BeforeEach
-    public void setUp() {
-        storage = new ResourceStorage();
-    }
 
-    @Test
-    public void testGetCoreModsSuccess() {
-        HashMap<String, List<String>> coreMods = storage.getCoreMods();
-        assertNotNull(coreMods);
-        assertTrue(coreMods.containsKey("Electrical Engineering"));
-        assertEquals(27, coreMods.get("Mechanical Engineering").size());
-        assertTrue(coreMods.containsKey("Environmental Engineering"));
-        assertEquals(25, coreMods.get("Environmental Engineering").size());
-        assertEquals("EG2501", coreMods.get("Civil Engineering").get(7));
-    }
+
 }
