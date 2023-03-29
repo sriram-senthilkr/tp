@@ -9,6 +9,7 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute(ModelManager model) {
+      return new CommandResult(MESSAGE);
         /*
           TODO: implement list
           HOW:
@@ -29,6 +30,6 @@ public class ListCommand extends Command {
           lines separated by /n
           useful to use String.format with "%s"
         */
-        return new CommandResult(MESSAGE);
-    }
+        
+        }
 }
