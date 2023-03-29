@@ -39,6 +39,6 @@ public class RemoveCommand extends Command {
         Module removedModule = model.getModule(index);
         model.removeModule(index);
 
-        return new CommandResult(String.format(MESSAGE, removedModule, model.getSize()));
+        return new CommandResult(String.format(MESSAGE, removedModule, model.getSize()), false);
     }
 }

@@ -1,9 +1,7 @@
 package seedu.penus.logic.utils;
-import seedu.penus.common.exceptions.InvalidModuleAPIException;
-import seedu.penus.common.exceptions.PenusException;
 
 public class DetailsCompiler extends ModuleRetriever{
-    protected String ModuleCode;
+    protected String moduleCode;
 
     public static String getDetails(String module) {
         try {

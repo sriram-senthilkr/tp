@@ -19,6 +19,6 @@ public class DetailsCommand extends Command {
     public CommandResult execute(ModelManager model) {
         String result = DetailsCompiler.getDetails(this.moduleCode);
 
-        return new CommandResult(moduleCode + " " + result);
+        return new CommandResult(moduleCode + " " + result, false);
     }
 }

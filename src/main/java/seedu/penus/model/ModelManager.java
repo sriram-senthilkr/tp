@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class ModelManager {
-    private final ModuleList moduleList;
+    private ModuleList moduleList;
     private final User user;
     private final List<String[]> coreDetails;
     private final HashMap<String, List<String>> coreModList;
@@ -24,6 +24,10 @@ public class ModelManager {
     //=============================== Module List ===================================
     public ModuleList getModuleList() {
         return this.moduleList;
+    }
+
+    public List<Module> getModuleListObj() {
+        return moduleList.getModuleList();
     }
 
     /**
@@ -75,6 +79,10 @@ public class ModelManager {
 
     public String getGEN() {
         return moduleList.getGEN();
+    }
+
+    public void setModuleList(List<Module> moduleList) {
+        this.moduleList = new ModuleList(moduleList);
     }
 
     //=============================== User ==========================================

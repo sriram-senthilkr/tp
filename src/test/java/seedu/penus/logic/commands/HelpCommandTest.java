@@ -1,13 +1,22 @@
 package seedu.penus.logic.commands;
 
+import org.junit.jupiter.api.Test;
 import seedu.penus.model.ModelManager;
+import seedu.penus.model.User;
 
-public class HelpCommand extends Command {
-    public static final String COMMAND_WORD = "help";
+import java.util.ArrayList;
+import java.util.HashMap;
 
-    @Override
-    public CommandResult execute(ModelManager model) {
-        return new CommandResult(
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class HelpCommandTest {
+
+    @Test
+    public void execute() {
+        final ModelManager model = new ModelManager(new User(), new ArrayList<>(),
+                                                         new ArrayList<>(), new HashMap<>());
+
+        CommandResult expected = new CommandResult(
             "exit" 
                 + "\t\t\t\t\t\t\t\tExits the program\n" +
             "\tlist [FILTER]" 
@@ -25,5 +34,7 @@ public class HelpCommand extends Command {
                 + "\t\tAdds a module to the planner as a module you have already taken", 
             false
         );
+        CommandResult actual = new HelpCommand().execute(model);
+        assertEquals(expected.feedbackToUser, actual.feedbackToUser);
     }
 }

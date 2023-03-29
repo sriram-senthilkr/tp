@@ -14,7 +14,7 @@ public class PlanCommand extends Command {
             + "\t  %s\n"
             + "\tYou have %s module(s) in your planner";
 
-    private final Module plan;
+    public final Module plan;
 
     /**
      * Creates a PlanCommand to add the specified {@code Module} 
@@ -32,7 +32,7 @@ public class PlanCommand extends Command {
 
         model.addModule(plan);
 
-        return new CommandResult(String.format(MESSAGE, plan, model.getSize()));
+        return new CommandResult(String.format(MESSAGE, plan, model.getSize()), false);
     }
 }
 

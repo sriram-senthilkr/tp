@@ -1,6 +1,8 @@
 package seedu.penus.logic.commands;
 
 import seedu.penus.common.exceptions.DuplicateModuleException;
+import seedu.penus.common.exceptions.InvalidCommandException;
+import seedu.penus.logic.utils.ModuleRetriever;
 import seedu.penus.model.ModelManager;
 import seedu.penus.model.Module;
 
@@ -13,7 +15,7 @@ public class TakenCommand extends Command {
             "Module has been added:\n" 
             + "\t  %s\n"
             + "\tYou have %s module(s) in your planner";
-    private final Module taken;
+    public final Module taken;
 
     /**
      * Creates a TakenCommand to add the specified {@code Module} 
@@ -24,13 +26,18 @@ public class TakenCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ModelManager model) throws DuplicateModuleException {
+    public CommandResult execute(ModelManager model) throws DuplicateModuleException, InvalidCommandException {
+        if (taken.getGrade().equals("U") || taken.getGrade().equals("S")) {
+            if (ModuleRetriever.getSUstatus(taken.getCode())){
+                throw new InvalidCommandException("The module cannot be SU-ed");
+            }
+        }
         if (model.hasModule(taken)) {
             throw new DuplicateModuleException();
         }
 
         model.addModule(taken);
 
-        return new CommandResult(String.format(MESSAGE, taken, model.getSize()));
+        return new CommandResult(String.format(MESSAGE, taken, model.getSize()), false);
     }
 }
