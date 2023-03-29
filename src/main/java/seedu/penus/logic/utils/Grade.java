@@ -69,6 +69,7 @@ public class Grade {
         return validGrades.contains(grade.toUpperCase());
     }
 
+
     /**
      * For every module taken, calculate weighted score = number of MC * grade
      * Sum up weighted score for all mods and divide by total MCs taken thus far

@@ -1,6 +1,8 @@
 package seedu.penus.logic.commands;
 
 import seedu.penus.common.exceptions.DuplicateModuleException;
+import seedu.penus.common.exceptions.InvalidCommandException;
+import seedu.penus.logic.utils.ModuleRetriever;
 import seedu.penus.model.ModelManager;
 import seedu.penus.model.Module;
 
@@ -17,7 +19,12 @@ public class TakenCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ModelManager model) throws DuplicateModuleException {
+    public CommandResult execute(ModelManager model) throws DuplicateModuleException, InvalidCommandException {
+        if (taken.getGrade().equals("U") || taken.getGrade().equals("S")) {
+            if (ModuleRetriever.getSUstatus(taken.getCode())){
+                throw new InvalidCommandException("The module cannot be SU-ed");
+            }
+        }
         if (model.hasModule(taken)) {
             throw new DuplicateModuleException();
         }

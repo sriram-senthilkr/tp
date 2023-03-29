@@ -116,7 +116,7 @@ public class ModuleRetriever {
         return (String) moduleInfo2223.get("moduleCredit");
     }
 
-    private static Boolean getSUstatus(String module) {
+    public static Boolean getSUstatus(String module) {
         getData2223(module);
         JSONObject attributes = (JSONObject) moduleInfo2223.get("attributes");
         Boolean suStatus = (Boolean) attributes.get("su");
