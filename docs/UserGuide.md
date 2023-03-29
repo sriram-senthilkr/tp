@@ -1,5 +1,18 @@
 # 📜 PENUS User Guide
 
+<pre>
+ ___  _____        ______    ___  ___     ___   _________
+/   \/      \     /      \  /   \/   \   /   \ /         \ 
+|      __    \    |       \/    ||   |  |     ||    _     |
+|     |__|    |   |        |    ||   |  |     ||     \    |
+\            /    |    |   |    ||   |  |     |\      \_ /
+/        ___/___  |    |   |    ||   |  |     | \_      \
+|       | /     \ |    |   |    ||   |  |     |/  \      \
+|_______|/   <> _\|    |   |    ||   \__/     ||   \_     |
+\       /|   \____|    / \      |\            /|          |
+ \__|__/  \______/\___/  \_____/  \__________/  \_________/
+</pre>
+
 ## Introduction
 
 Planning Engineering with NUS (PENUS) is a desktop app that helps engineering students oversee and plan their modules in their university life! It is optimised for use via a Command Line Interface (CLI). For students that can type fast, PENUS can help them plan and track their modules for all four years of their time in university more efficiently.
