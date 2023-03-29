@@ -2,3 +2,5 @@ User ### jy ### Biomedical Engineering
 Taken ### EG1311 ### 2 ### 2 ### A
 Plan ### EE2211 ### 3 ### 1
 Taken ### GESS1004 ### 1 ### 1 ### A
+Plan ### CS2113 ### 1 ### 2
+Plan ### CS2040 ### 1 ### 1
