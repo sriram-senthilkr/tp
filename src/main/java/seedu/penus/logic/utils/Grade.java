@@ -6,6 +6,12 @@ import seedu.penus.common.exceptions.InvalidGradeException;
 import seedu.penus.model.Module;
 
 public class Grade {
+    /**
+     * Converts a {@code String} grade into its associated {@double} gradepoint
+     * @param grade
+     * @return {@double} corresponding value of the grade
+     * @throws InvalidGradeException
+     */
     public static double getGradePoint(String grade) throws InvalidGradeException {
         double gradePoint;
         switch(grade.toUpperCase()) {
@@ -57,6 +63,11 @@ public class Grade {
         return gradePoint;
     }
 
+    /**
+     * Checks if a grade {@code String} is valid and within expected inputs
+     * @param grade
+     * @return Boolean true if grade is valid
+     */
     public static Boolean isValid(String grade) {
         List<String> validGrades = Arrays.asList(
             "A+", "A", "A-", 
@@ -127,33 +138,37 @@ public class Grade {
     }
 
     /**
-     * Calls CAP.calculateOverallCAP and prints the overall CAP to 2 decimal places
+     * Calls calculateOverallCAP and prints the overall CAP to 2 decimal places
      * @param moduleList the list containing all modules taken
+     * @return capMessage String
      * @throws InvalidGradeException if there exists an unidentified Grade
      */
-    public static void printOverallCAP(List<Module> moduleList) throws InvalidGradeException {
+    public static String getOverallCAP(List<Module> moduleList) throws InvalidGradeException {
+        String capMessage;
         if (moduleList.isEmpty()) {
-            System.out.println("\nOverall CAP : 0.00\n");
+            capMessage = "\nOverall CAP : 0.00\n";
         } else {
             Double overallCAP = calculateOverallCAP(moduleList);
-            System.out.println("\nOverall CAP : " +
-                    String.format("%.2f", overallCAP) + '\n');
+            capMessage = String.format("\nOverall CAP : %.2f\n", overallCAP);
         }
+        return capMessage;
     }
 
     /**
-     * Calls CAP.calculateSemCAP and prints the semester CAP to 2 decimal places
+     * Calls calculateSemCAP and prints the semester CAP to 2 decimal places
      * @param semArray list of String array containing moduleCode and moduleGrade
+     * @return semCapMessage String
      * @throws InvalidGradeException if there exists an unidentified Grade
      */
-    public static void printSemCAP(List<String[]> semArray) throws InvalidGradeException {
+    public static String getSemCAP(List<String[]> semArray) throws InvalidGradeException {
+        String semCapMessage;
         if (semArray.isEmpty()) {
-            System.out.println("\nSemester CAP : 0.00\n");
+            semCapMessage = "\nSemester CAP : 0.00\n";
         } else {
             Double semCAP = calculateSemCAP(semArray);
-            System.out.println("\nSemester CAP : " +
-                    String.format("%.2f", semCAP) + '\n');
+            semCapMessage = String.format("\nSemester CAP : %.2f\n", semCAP);       
         }
+        return semCapMessage;
     }
 }
 
