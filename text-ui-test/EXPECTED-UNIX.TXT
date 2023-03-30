@@ -1,0 +1,72 @@
+
+	___________________________________________________________
+	
+	 ___  _____        ______    ___  ___     ___   _________
+	/   \/      \     /      \  /   \/   \   /   \ /         \ 
+	|      __    \    |       \/    ||   |  |     ||    _     |
+	|     |__|    |   |        |    ||   |  |     ||     \    |
+	\            /    |    |   |    ||   |  |     |\      \_ /
+	/        ___/___  |    |   |    ||   |  |     | \_      \
+	|       | /     \ |    |   |    ||   |  |     |/  \      \
+	|_______|/   <> _\|    |   |    ||   \__/     ||   \_     |
+	\       /|   \____|    / \      |\            /|          |
+	 \__|__/  \______/\___/  \_____/  \__________/  \_________/
+
+	Welcome to PENUS!
+ 	Enter help for a list of commands or init to start
+	___________________________________________________________
+Enter command: 
+	___________________________________________________________
+	Module has been added:
+	  Plan CS2113 year 1 semester 2 
+	You have 1 module(s) in your planner
+	___________________________________________________________
+Enter command: 
+	___________________________________________________________
+	Module has been added:
+	  Taken CS2040C year 2 semester 1 A
+	You have 2 module(s) in your planner
+	___________________________________________________________
+Enter command: 
+	___________________________________________________________
+	Module has been taken:
+	  Taken CS2113 year 1 semester 2 A+
+	___________________________________________________________
+Enter command: 
+	___________________________________________________________
+	Module has been removed:
+	  Taken CS2113 year 1 semester 2 A+
+	You have 1 module(s) in your planner
+	___________________________________________________________
+Enter command: 
+	___________________________________________________________
+	Module has been removed:
+	  Taken CS2040C year 2 semester 1 A
+	You have 0 module(s) in your planner
+	___________________________________________________________
+Enter command: 
+	___________________________________________________________
+	exit								                    Exits the program
+	list [FILTER]							                Displays a list of all modules taken or planned in the specified Year or Semester
+									                        If [FILTER] is not specified, then all modules will shown.
+	mark [MODULE CODE] g/[GRADE]					        Marks the module that has been cleared, while updating its grades
+	plan [MODULE CODE] y/[YEAR] s/[SEMESTER]			    Adds a module to the planner as an untaken module
+	remove [MODULECODE]						                Removes a module from the planner
+	status								                    Displays the status of Core Modules and MCs taken
+	details [MODULECODE]									Displays the details of given module, including Title, Description, Prerequisites, Module Credits
+    													    and if it can be SU-ed.
+	taken [MODULE CODE] y/[YEAR] s/[SEMESTER] g/[GRADE]		Adds a module to the planner as a module you have already taken
+	___________________________________________________________
+Enter command: 
+	___________________________________________________________
+	CS2113 Software Engineering & Object-Oriented Programming
+	This module introduces the necessary skills for systematic and rigorous development of software systems. It covers requirements, design, implementation, quality assurance, and project management aspects of small-to-medium size multi-person software projects. The module uses the Object Oriented Programming paradigm. Students of this module will receive hands-on practice of tools commonly used in the industry, such as test automation tools, build automation tools, and code revisioning tools will be covered.
+	Pre-Requisites: CS2040C or ((CS2030 or its equivalent) and CS2040/S)
+	MCs: 4
+	Module cannot be SU-ed.
+	___________________________________________________________
+Enter command: 
+	___________________________________________________________
+	Exiting PENUS ...
+	Bye see you again!
+	___________________________________________________________
