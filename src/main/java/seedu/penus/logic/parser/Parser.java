@@ -85,6 +85,8 @@ public class Parser {
     /**
      * Parses the given {@code String} of arguments in the context of the PlanCommand
      * and returns an PlanCommand object for execution.
+     * @param args aguments
+     * @return Command object
      * @throws PenusException if the user input does not conform the expected format
      */
     public Command planParser(String args) throws PenusException {
@@ -113,6 +115,8 @@ public class Parser {
     /**
      * Parses the given {@code String} of arguments in the context of the TakenCommand
      * and returns an TakenCommand object for execution.
+     * @param args arguments
+     * @return Command object
      * @throws PenusException if the user input does not conform the expected format
      */
     public Command takenParser(String args) throws PenusException {
@@ -140,6 +144,8 @@ public class Parser {
     /**
      * Parses the given {@code String} of arguments in the context of the MarkCommand
      * and returns an MarkCommand object for execution.
+     * @param args string
+     * @return command object
      * @throws PenusException if the user input does not conform the expected format
      */
     public Command markParser(String args) throws PenusException {
@@ -156,9 +162,6 @@ public class Parser {
         return new MarkCommand(moduleCode, grade);
     }
 
-    //can specify year or year+semester
-    //but not semester only
-    //handle empty
     public Command listParser(String args) throws PenusException {
         if (args.equals("") || args.equals(" ")) {
             //list command with all modules
@@ -192,7 +195,7 @@ public class Parser {
         } else if (details.length == 3) {
             if (args.contains("s/")) {
                 try {
-                semester = Integer.parseInt(details[2]);
+                    semester = Integer.parseInt(details[2]);
                 } catch (NumberFormatException e) {
                     throw new InvalidFormatException("Semester must be specified as an integer!");
                 }
@@ -209,6 +212,8 @@ public class Parser {
     /**
      * Parses the given {@code String} of arguments in the context of the RemoveCommand
      * and returns an RemoveCommand object for execution.
+     * @param args arguments
+     * @return command object
      * @throws PenusException if the user input does not conform the expected format
      */
     public Command removeParser(String args) throws PenusException {
@@ -228,6 +233,8 @@ public class Parser {
     /**
      * Parses the given {@code String} of arguments in the context of the DetailsCommand
      * and returns an DetailsCommand object for execution.
+     * @param args arguments
+     * @return command object
      * @throws PenusException if the user input does not conform the expected format
      */
     public Command detailsParser(String args) throws PenusException {
@@ -243,6 +250,8 @@ public class Parser {
     /**
      * Parses the given {@code String} of arguments in the context of the InitCommand
      * and returns an InitCommand object for execution.
+     * @param args arguments
+     * @return command object
      * @throws PenusException if the user input does not conform the expected format
      */
     public Command initParser (String args) throws PenusException {

@@ -28,7 +28,7 @@ public class TakenCommandTest {
     }
 
     @Test
-    public void execute_duplicateModule_throwsDuplicateModuleException() throws DuplicateModuleException {
+    public void execute_duplicateModule_throwsDuplicateModuleException() throws PenusException {
         TakenCommand command1 = new TakenCommand("CS2113", 2, 2, "A+");
         TakenCommand command2 = new TakenCommand("CS2113", 2, 2, "B+");
 

@@ -1,5 +1,7 @@
 package seedu.penus.logic.commands;
 
+import seedu.penus.common.exceptions.InvalidCommandException;
+import seedu.penus.common.exceptions.PenusException;
 import seedu.penus.logic.utils.MCsTaken;
 import seedu.penus.logic.utils.ModuleRetriever;
 import seedu.penus.model.ModelManager;
@@ -25,7 +27,7 @@ public class StatusCommand extends Command {
             takenCoreMods.add(model.getGEN());
         }
         for (String coreModCode : coreMods) {
-            for (int i = 0; i < moduleList.size(); i++) {
+            for (int i = 0; i < moduleList.size(); i++) {  
                 String moduleCode = moduleList.getModule(i).getCode();
                 boolean isCurrentUserModuleTaken = moduleList.getModule(i).getStatus().equals("Taken");
                 if (coreModCode.equals(moduleCode) && isCurrentUserModuleTaken) {
@@ -65,10 +67,16 @@ public class StatusCommand extends Command {
 
 
     @Override
-    public CommandResult execute(ModelManager model) {
+    public CommandResult execute(ModelManager model) throws PenusException {
+        if (model.getUserName().equals("")) {
+            throw new InvalidCommandException(
+                "Please initialise first with the init command!"
+            );
+        }
         StringBuilder sb = new StringBuilder();
-        List<String> takenCoreModsList = getTakenCoreModsList(model) ;
+        List<String> takenCoreModsList = getTakenCoreModsList(model);
         List<String> untakenCoreModsList = getUntakenCoreModsList(model);
+        
         List<String> messageArray = new ArrayList<>();
         messageArray.add("--------- Taken ---------");
         for (String s : takenCoreModsList){
@@ -93,7 +101,7 @@ public class StatusCommand extends Command {
         for (String s : messageArray){
             sb.append(s).append("\n");
         }
-
+        
         String message = sb.toString();
         return new CommandResult(message, false);
     }

@@ -19,6 +19,9 @@ public class PlanCommand extends Command {
     /**
      * Creates a PlanCommand to add the specified {@code Module} 
      * by constructing a new Module object with the given parameters
+     * @param moduleCode string
+     * @param semester int
+     * @param year int
      */
     public PlanCommand(String moduleCode, int year, int semester) {
         this.plan = new Module(moduleCode, year, semester);
