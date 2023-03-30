@@ -258,28 +258,35 @@ _Design considerations:_
 <br>
 
 ### Calculate CAP
-Under the list of modules taken/planned is the Semester CAP, and Overall CAP for the whole course of study.
+The CAP calculator feature is facilitated by `Grade`. It calculates the User's
+CAP by Semester and by Overall for all `taken` modules.
 This is implemented by the following methods:
-<ul> 
-<li>printSemCAP(): calls calculateSemCAP() and prints output to 2 decimal points </li>
-<li>calculateSemCAP(): calculates the CAP for the semester to be calculated for </li>
-<li>printOverallCAP(): calls calculateOverallCAP() and prints output to 2 decimal points </li>
-<li>calculateOverallCAP(): calculates the overall CAP for all completed semesters </li>  
-</ul>
+`calculateSemCAP()`
+,`calculateOverallCAP()`
+,`getSemCAP()`
+,`getOverallCAP()`.  
+
 
 Below is the sequence of steps which utilises the CAP mechanism:
 
 Step 1: 
 You already initialised yourself as a new user.
 The user adds 3 module as taken `CG2023 y/1 s/2 g/A+` and `CG2111A y/1 s/2 g/B+` 
-and `CG1111A y/1 s/1 g/A+`.
-Currently, there are three taken modules in his planner.
+and `CG1111A y/1 s/1 g/A+`. 
 
 Step 2:
-User enters 'list' which calls `moduleList.printModules()`.
-For y1s1, under the mods listed, user would see a printed CAP of 5.00.
-For y1s2, under the mods listed, user would see a printed CAP of 4.50.
-The overall CAP printed is 4.67.
+User enters a list command which comprises all three ways of module listing as stated in 
+the List Modules feature. `ListCommand` refers to `ModelManager` to obtain the list of 
+modules planned or taken by the User. This is facilitated by `getModuleListObj()` method
+under `ModelManager` class.
+
+Step 3: 
+As such, when the `execute` method under `ListCommand` is called, it obtains the parameter
+provided by `ModelManager`. The methods `getSemCAP()` and `getOverallCAP()` is executed to calculate CAP by Overall and by Semester from all modules. the CAP which is returned as a String is added into 
+a messageArray for printing to Command Line Interface.
+
+
+The following is the Class Diagram describing when the CAP calculator is used.
 
 Class Diagram (with unnecessary details ommitted):
 ![Grade Class Diagram](uml/diagrams/GradeClass.png)
