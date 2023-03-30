@@ -2,7 +2,9 @@
 
 ## Introduction
 
-{Give a product intro}
+**Planning Everyday with NUS (PENUS)** is a desktop app for managing and planning your modules in your university life!
+Users are able to add modules that they have taken, plan for future modules and access useful features such as checking their graduation criteria and calculating their CAP. By using NUSmods API, users can retrieve important module details with a stroke of the keyboard.
+It is optimised for use via a Command Line Interface (CLI).
 
 ## Table of Contents 📔
 - [Quick Start](#quick-start-⚙️)
@@ -27,50 +29,159 @@
 {Give steps to get started quickly}
 
 1. Ensure that you have Java 11 or above installed.
-1. Download the latest version of `PENUS` from [here](http://link.to/duke).
+2. Download the latest version of `PENUS` from [here](http://link.to/duke).
+3. Copy the file to the folder you want to use as the home folder for your `PENUS`.
+4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar penus.jar command to run the application.
 
 ## Features 👾
 
 ### Initialisation: `init`
+On startup, there will be a prompt for first time users to type `init` to start the initialisation process. 
+<br>
+<br>
+Format:`init n/[Name] c/[COURSE NUMBER]` 
+<br>
+<br>
 
+| Course Number | Course                              |
+|---------------|-------------------------------------|
+| 1             | Biomedical Engineering              |
+| 2             | Chemical Engineering                |
+| 3             | Civil Engineering                   |
+| 4             | Computer Engineering                |
+| 5             | Electrical Engineering              |
+| 6             | Environmental Engineering           |
+| 7             | Industrial and Systems Engineering  |
+| 8             | Mechanical Engineering              |
+
+Example:
+- `init n/John Doe c/1` Initiates a user with the name `John` and course `Biomedical Engineering`.
+
+<br>
 
 ### Help: `help`
+Shows a message with the format and functionality of all features. 
+<br>
+<br>
+Format:`help`
 
+<br>
 
 ### Add taken modules: `taken`
+Adds a module to the planner as a taken module.
+<br>
+<br>
+Format:`taken [MODCODE] y/[YEAR] s/[SEMESTER] g/[GRADE]`
+<br>
+<br>
+Example:
+- `taken CG1111A y/1 s/1 g/A+` means that you have `taken` and cleared the `CG1111A` module in `Year 1` `Semester 1`, and got an `A+` grade for it
 
+<br>
 
 ### Plan untaken modules: `plan`
+Adds a module to the planner as an untaken module.
+<br>
+<br>
+Format:`plan [MODULE] y/[YEAR] s/[SEMESTER]`
+<br>
+<br>
+Example:
+- `plan CG2111A y/1 s/2` means that you `plan` on taking `CG2111A` in `Year 1` `Semester 2`.
 
+<br>
 
 ### Remove a module: `remove`
+Removes a mod from the planner.
+<br>
+<br>
+Format:`remove [MODULECODE]`
+<br>
+<br>
+Example:
+-   `remove CS2113`
 
+<br>
 
 ### Mark module as taken: `mark`
+Marks the mod that has been cleared and upgrade its grade.
+<br>
+<br>
+Format:`[MODULE CODE] g/[GRADE]`
+<br>
+<br>
+Example:
+- `mark CG2111A g/A+`
 
+<br>
 
 ### View modules: `list`
+Displays a list of all modules taken or planned.
 
+Format:`list [FILTER]`
+
+| Filter                | Action                                 | Example         |
+|-----------------------|----------------------------------------|-----------------|
+| [empty]               | Lists all modules in the planner       | `list`          |
+| y/[YEAR]              | Lists modules in the specific year     | `list y/1`      |
+| y/[YEAR] s/[SEMESTER] | Lists modules in the specific semester | `list y/1 s/1`  |
+
+Example: 
+- `list` Display all modules taken.
+<br>
+  ![list example](./ugmedia/list1.png)
+- `list y/2` Displays modules taken in Year 2.
+  ![list example](./ugmedia/list2.png)
+- `list y/2 s/1` Displays modules taken in Year 2 Semester 1.
+
+<br>
 
 ### View graduation status: `status`
+Displays the status of core modules* and MCs taken. 
+<br>
+<font size ="1">**Core modules are based on AY21/22*</font>
+<br>
+<br>
+Format:`status`
+<br>
+<br>
+Example: `status` *(course: Computer Engineering)*
+![details example](./ugmedia/status1.png)
 
+<br>
 
 ### View module details: `details`
+Display the module title, description, pre-requisites, MCs and SU option. 
+<br>
+<br>
+Format: `details [MODULECODE]`
+<br>
+<br>
+Example:
+- `details CS1010`
+![details example](./ugmedia/details1.png)
 
+<br>
 
 ### Exit the program: `exit`
+Exits the program.
+<br>
+<br>
+Format: `exit`
 
+<br>
 
 ### Saving the data
 PENUS's data are saved in the hard disk automatically after exiting the program. 
 There is no need to save manually.
 
+<br>
 
 ### Editing the data file
 PENUS's data are saved as a .txt file in `[JAR file location]/data/penus.txt`. 
 Edits must be made according to the formatting of the data.
 
-
+<br>
 
 ## FAQ 💻
 
@@ -78,12 +189,13 @@ Edits must be made according to the formatting of the data.
 
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file in `/data/penus.txt` that contains the data of your previous PENUS application.
 
+<br>
 
 ## Command Summary 🔑
 
 | Command      | Format                                        |
 |--------------|-----------------------------------------------|
-| **init**     | `init`                                        |
+| **init**     | `init n/NAME c/COURSE NUMBER`                 |
 | **help**     | `help`                                        |
 | **taken**    | `taken MODULE_CODE y/YEAR s/SEMESTER g/GRADE` |
 | **plan**     | `plan MODULE_CODE y/YEAR s/SEMESTER`          |
