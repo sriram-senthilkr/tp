@@ -256,7 +256,7 @@ class and returns the totals number of MCs. The printStatus() method then prints
 
 <br>
 
-### Get module details
+### Get Module Details
 The details feature is facilitated by `ModuleRetriever`. It retrieves the module’s title, description, pre-requisites, modular credits, and if the module is SU-able. Additionally, it implements the following operations:
 `retrieveTitle()` - Retrieves the module’s Title.
 - `retrieveDescription()` - Retrieves the module’s Description.
@@ -283,6 +283,9 @@ Each of these methods (e.g. `retrieveTitle(module)`) will make call the `getData
 **Step 3b.** Each retrieve method (e.g. `retrieveTitle()`) will retrieve the respective information from the retrieved `JSONObject`, and return it as a `String`.
 
 **Step 4:** The `printDetails()` method will then store each retrieved information in a `String`, and format them for display standards. It will then store each separated `String` into a `messagePacket` array, and pass it into the `Ui.printMessage()` function to be printed in the CLI.
+
+The following sequence diagram shows how the `details` command works:
+![DetailsSequenceDiagram](uml/diagrams/DetailsSequence.png)
 
 _Design considerations:_
 
