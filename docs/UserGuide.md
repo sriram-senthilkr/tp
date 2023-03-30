@@ -16,7 +16,7 @@
 ## Introduction
 
 
-**Planning Everyday with NUS (PENUS)** is a desktop app for managing and planning your modules in your university life!
+**Planning Engineering with NUS (PENUS)** is a desktop app for managing and planning your modules in your university life!
 Users are able to add modules that they have taken, plan for future modules and access useful features such as checking their graduation criteria and calculating their CAP. By using NUSmods API, users can retrieve important module details with a stroke of the keyboard.
 It is optimised for use via a Command Line Interface (CLI).
 For students that can type fast, PENUS can help them plan and track their modules for all four years of their time in university more efficiently.
