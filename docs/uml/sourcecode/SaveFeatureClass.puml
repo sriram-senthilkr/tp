@@ -1,5 +1,7 @@
 @startuml
 hide empty members
+hide circle
+skinparam classAttributeIconSize 0
 
 class FileStorage {
     #file: File
@@ -30,9 +32,9 @@ class Penus {
 
 class ModelManager {}
 
-StorageManager -right-> "1" FileStorage: file storage
+StorageManager -right-> "1" FileStorage
 Penus <-down-> "1" StorageManager: retrieves and saves data
-Penus -right-> "1" ModelManager: moduleList and user
+Penus -right-> "1" ModelManager: updates model
 
 
 @enduml

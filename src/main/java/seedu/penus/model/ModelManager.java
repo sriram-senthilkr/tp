@@ -32,6 +32,8 @@ public class ModelManager {
 
     /**
      * Checks if the moduleList contains the specified Module
+     * @param module module
+     * @return boolean true if module exists
      */
     public boolean hasModule(Module module) {
         requireNonNull(module);
@@ -40,6 +42,7 @@ public class ModelManager {
 
     /**
      * Adds the specificed Module to the moduleList
+     * @param module Module
      */
     public void addModule(Module module) {
         requireNonNull(module);
@@ -48,6 +51,7 @@ public class ModelManager {
 
     /**
      * removes the specified module by its index from the moduleList
+     * @param index int
      */
     public void removeModule(int index) {
         moduleList.removeModule(index);
@@ -55,6 +59,8 @@ public class ModelManager {
 
     /**
      * Marks the specified module by getting the Module from the moduleList by its index
+     * @param index int
+     * @param grade string
      */
     public void markModule(int index, String grade) {
         Module module = moduleList.getModule(index);

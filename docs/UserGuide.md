@@ -1,10 +1,26 @@
 # 📜 PENUS User Guide
 
+<pre>
+ ___  _____        ______    ___  ___     ___   _________
+/   \/      \     /      \  /   \/   \   /   \ /         \ 
+|      __    \    |       \/    ||   |  |     ||    _     |
+|     |__|    |   |        |    ||   |  |     ||     \    |
+\            /    |    |   |    ||   |  |     |\      \_ /
+/        ___/___  |    |   |    ||   |  |     | \_      \
+|       | /     \ |    |   |    ||   |  |     |/  \      \
+|_______|/   <> _\|    |   |    ||   \__/     ||   \_     |
+\       /|   \____|    / \      |\            /|          |
+ \__|__/  \______/\___/  \_____/  \__________/  \_________/
+</pre>
+
 ## Introduction
+
 
 **Planning Everyday with NUS (PENUS)** is a desktop app for managing and planning your modules in your university life!
 Users are able to add modules that they have taken, plan for future modules and access useful features such as checking their graduation criteria and calculating their CAP. By using NUSmods API, users can retrieve important module details with a stroke of the keyboard.
 It is optimised for use via a Command Line Interface (CLI).
+For students that can type fast, PENUS can help them plan and track their modules for all four years of their time in university more efficiently.
+
 
 ## Table of Contents 📔
 - [Quick Start](#quick-start-⚙️)
@@ -29,9 +45,19 @@ It is optimised for use via a Command Line Interface (CLI).
 {Give steps to get started quickly}
 
 1. Ensure that you have Java 11 or above installed.
-2. Download the latest version of `PENUS` from [here](http://link.to/duke).
-3. Copy the file to the folder you want to use as the home folder for your `PENUS`.
-4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar penus.jar command to run the application.
+2. Download the latest version of PENUS from [here](https://github.com/AY2223S2-CS2113-T11-2/tp/releases/download/v2.0/penus.jar).
+3. Copy the file to the folder you want to use as the home folder for your PENUS.
+4. Open a command terminal, cd into the folder you put the jar file in, and use the `java -jar penus.jar` command to run the application.
+5. Type the command in the Command Line Interface and press Enter to execute it.
+_Some example commands you can try:_
+    - `init`:
+    - `taken CS2113 y/2 s/2 g/A+`: Adds CS2113 to Year 2 Semester 2 with grade A+.
+    - `plan CS2040C y/1 s/2`: Adds CS2040C to Year 1 Semester 2 as untaken
+    - `list`: list all modules in the planner with overall CAP
+    - `remove CS2113`: Deletes the module CS2113
+    - `status`: gets the status of core modules and MCs taken.
+    - `exit`: exits the application.
+6. Refer to features below for details of each command
 
 ## Features 👾
 
@@ -77,6 +103,7 @@ Format:`taken [MODCODE] y/[YEAR] s/[SEMESTER] g/[GRADE]`
 Example:
 - `taken CG1111A y/1 s/1 g/A+` means that you have `taken` and cleared the `CG1111A` module in `Year 1` `Semester 1`, and got an `A+` grade for it
 
+
 <br>
 
 ### Plan untaken modules: `plan`
@@ -92,6 +119,7 @@ Example:
 <br>
 
 ### Remove a module: `remove`
+
 Removes a mod from the planner.
 <br>
 <br>
@@ -118,7 +146,9 @@ Example:
 ### View modules: `list`
 Displays a list of all modules taken or planned.
 
+
 Format:`list [FILTER]`
+
 
 | Filter                | Action                                 | Example         |
 |-----------------------|----------------------------------------|-----------------|
@@ -171,6 +201,7 @@ Format: `exit`
 
 <br>
 
+
 ### Saving the data
 PENUS's data are saved in the hard disk automatically after exiting the program. 
 There is no need to save manually.
@@ -201,7 +232,7 @@ Edits must be made according to the formatting of the data.
 | **plan**     | `plan MODULE_CODE y/YEAR s/SEMESTER`          |
 | **remove**   | `remove MODULE_CODE`                          |
 | **mark**     | `mark MODULE_CODE`                            |
-| **list**     | `list`                                        |
+| **list**     | `list (FILTER)`                                        |
 | **status**   | `status`                                      |
 | **details**  | `details MODULE_CODE`                         |
 | **exit**     | `exit`                                        |

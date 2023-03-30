@@ -1,9 +1,23 @@
 @startuml
 participant User
+participant ":Ui" as Ui
+
+box "Logic" #LightBlue
+participant ":LogicManager" as LogicManager
+participant ":Parser" as Parser
+participant "command:RemoveCommand" as RemoveCommand
+participant "result:CommandResult" as CommandResult
+end box
+
+box "Model" #LightPink
+participant ":ModelManager" as ModelManager
+participant ":ModuleList" as ModuleList
+end box
+
+
+User -> Ui: getUserCommand() "remove CS2113"
 
 activate Ui
-User -> Ui: getUserCommand() "remove CS2113"
-box "Logic" #LightBlue
 Ui -> LogicManager: getCommand()
 activate LogicManager
 
@@ -11,24 +25,19 @@ activate LogicManager
 LogicManager -> Parser: parseCommand()
 activate Parser
 
-
 create RemoveCommand
 Parser -> RemoveCommand
 activate RemoveCommand
 
-RemoveCommand --> Parser:
+RemoveCommand --> Parser: command
 deactivate RemoveCommand
 
 
-Parser --> LogicManager: Command()
+Parser --> LogicManager: command
 deactivate Parser
 
-
 LogicManager -> RemoveCommand: execute()
-participant CommandResult
-end box
 
-box "Model" #LightPink
 activate RemoveCommand
 
 RemoveCommand -> ModelManager: getModuleList()

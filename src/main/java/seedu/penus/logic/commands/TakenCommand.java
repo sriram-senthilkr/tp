@@ -20,6 +20,10 @@ public class TakenCommand extends Command {
     /**
      * Creates a TakenCommand to add the specified {@code Module} 
      * by constructing a new Module object with the given parameters
+     * @param moduleCode string
+     * @param year int
+     * @param semester int
+     * @param grade string
      */
     public TakenCommand(String moduleCode, int year, int semester, String grade) {
         this.taken = new Module(moduleCode, year, semester, grade);

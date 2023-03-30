@@ -15,9 +15,8 @@ public class MarkCommand extends Command {
     private final String moduleCode;
     private final String grade;
 
-    /**
-     * Creates a PlanCommand with the moduleCode and grade
-     */
+
+    // Creates a PlanCommand with the moduleCode and grade
     public MarkCommand(String moduleCode, String grade) {
         this.moduleCode = moduleCode;
         this.grade = grade;
