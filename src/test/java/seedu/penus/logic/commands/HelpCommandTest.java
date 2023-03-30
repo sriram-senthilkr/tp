@@ -20,7 +20,8 @@ public class HelpCommandTest {
             "exit"
                 + "\t\t\t\t\t\t\t\t\t\t\t\t\tExits the program\n" +
             "\tlist [FILTER]"
-                + "\t\t\t\t\t\t\t\t\t\t\tDisplays a list of all modules taken or planned in the specified Year or Semester\n"
+                + "\t\t\t\t\t\t\t\t\t\t\tDisplays a list of all modules taken or planned in the specified " +
+                    "Year or Semester\n"
                 + "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tIf [FILTER] is not specified, then all modules will shown.\n" +
             "\tmark [MODULE CODE] g/[GRADE]"
                 + "\t\t\t\t\t\t\tMarks the module that has been cleared, while updating its grades\n" +
