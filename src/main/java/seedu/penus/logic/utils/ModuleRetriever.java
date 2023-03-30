@@ -145,7 +145,7 @@ public class ModuleRetriever {
     public static String getTitle2122(String module) {
         try {
             getData2122(module);
-            return (String) moduleInfo2223.get("title");
+            return (String) moduleInfo2122.get("title");
         } catch (InvalidModuleAPIException e) {
             //e.printStackTrace();
             return null;
@@ -155,7 +155,7 @@ public class ModuleRetriever {
     public static String getModuleCredit2122(String module) {
         try {
             getData2122(module);
-            return (String) moduleInfo2223.get("moduleCredit");
+            return (String) moduleInfo2122.get("moduleCredit");
         } catch (InvalidModuleAPIException e) {
             //e.printStackTrace();
             return null;
@@ -168,11 +168,10 @@ public class ModuleRetriever {
             JSONObject attributes = (JSONObject) moduleInfo2223.get("attributes");
             Boolean suStatus = (Boolean) attributes.get("su");
 
-            return suStatus == null;
+            return suStatus != null;
         } catch (InvalidModuleAPIException e) {
             //e.printStackTrace();
             return null;
         }
     }
-
 }

@@ -15,11 +15,15 @@ public class TakenCommand extends Command {
             "Module has been added:\n" 
             + "\t  %s\n"
             + "\tYou have %s module(s) in your planner";
-    private final Module taken;
+    public final Module taken;
 
     /**
      * Creates a TakenCommand to add the specified {@code Module} 
      * by constructing a new Module object with the given parameters
+     * @param moduleCode string
+     * @param year int
+     * @param semester int
+     * @param grade string
      */
     public TakenCommand(String moduleCode, int year, int semester, String grade) {
         this.taken = new Module(moduleCode, year, semester, grade);

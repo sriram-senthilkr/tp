@@ -1,4 +1,7 @@
 @startuml
+hide circle
+skinparam classAttributeIconSize 0
+hide empty members
 
 class Ui {
     #in: Scanner
@@ -32,7 +35,7 @@ class PrintStream {
     +println()
 }
 
-Penus --> "1" Ui: ui
+Penus --> "1" Ui
 Ui .. Scanner: gets input from >
 Ui .. PrintStream: prints to >
 

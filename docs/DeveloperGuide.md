@@ -132,50 +132,47 @@ The following sequence diagram shows how the `mark` command works:
 
 ### List modules
 The List modules feature allows users to view their added modules, in a specified range using the command `list`. There are 3 ways of modules listing :
-1. List all modules in the planner
-2. List all modules in the planner for a specific year
-3. List all modules in the planner for a specific year and semester
+  1. List all modules in the planner
+  2. List all modules in the planner for a specific year
+  3. List all modules in the planner for a specific year and semester
 
 Given below is an example usage scenario for each type, and how the list modules mechanism behaves at each step.
+**When a the year and semester are not specified:**
+Step 1. The user executes the command `list`, without any specified year or semester range, to list all modules in the planner. The `list` command is executed within the switch case of the `parseCommand()` method of `CommandParser`. 
 
-**When the year and semester are not specified:**
-Step 1. The user executes the command `list`, without any specified year or semester range, to list all modules in the planner. The `list` command is executed within the switch case of the `parseCommand()` method of `CommandParser`.
+Step 2. If a valid command is entered, the `printModule` method of `ModuleList` will be executed with the inputs of -1 for both the year and semester. 
 
-Step 2. If a valid command is entered, the `printModule` method of `ModuleList` will be executed with the inputs of -1 for both the year and semester.
+Step 3. In `printModule` of `ModuleList`, a `Map<Integer, Map<Integer, List<String[]>>>` Hashmap is iniitialised, and all the modules stored in the `modules` container is added to the Hashmap. 
 
-Step 3. In `printModule` of `ModuleList`, a `Map<Integer, Map<Integer, List<String[]>>>` Hashmap is iniitialised, and all the modules stored in the `modules` container is added to the Hashmap.
+Step 4. The year and semester have values of -1, which then `printModules` recognises as printing all modules in the Hashmap. A `List<String[]> modules` is initialised with all the modules in the Hashmap. 
 
-Step 4. The year and semester have values of -1, which then `printModules` recognises as printing all modules in the Hashmap. A `L`ist<String[]> modules` is initialised with all the modules in the Hashmap.
+Step 5. If `modules` is not empty, the modules for that year and semester are printed sequentially. For modules with available grade information, the grade will be printed beside the module code. 
 
-Step 5. If `modules` is not empty, the modules for that year and semester are printed sequentially. For modules with available grade information, the grade will be printed beside the module code.
+**When a the year is specified:**
+Step 1. The user executes the command `list y/1`, with the year specified, but not the semester, to print the modules for both semesters in Year 1. The `list` command is executed within the switch case of the `parseCommand()` method of `CommandParser`. 
 
-**When the year is specified:**
-
-Step 1. The user executes the command `list y/1`, with the year specified, but not the semester, to print the modules for both semesters in Year 1. The `list` command is executed within the switch case of the `parseCommand()` method of `CommandParser`.
-
-Step 2. If a valid command is entered, the `printModule` method of `ModuleList` will be executed. The string `inputArray` is then split into parts separated by the flags `y/` and `s/` into a `rangeToPrint` array.
+Step 2. If a valid command is entered, the `printModule` method of `ModuleList` will be executed. The string `inputArray` is then split into parts separated by the flags `y/` and `s/` into a `rangeToPrint` array. 
 
 Step 3. If the year entered is valid, the integer `yearSpecified` is assigned parsed from the String that the user entered. The integer `semesterSpecified` is assigned to 0. The `printModule` method of `ModuleList` is called with the `yearSpecified` and `semesterSpecified` as inputs, and `semesterSpecified` is valued at -1.
 
-Step 3. In `printModule` of `ModuleList`, a `Map<Integer, Map<Integer, List<String[]>>>` Hashmap is initialised, and all the modules stored in the `modules` container is added to the Hashmap.
+Step 3. In `printModule` of `ModuleList`, a `Map<Integer, Map<Integer, List<String[]>>>` Hashmap is iniitialised, and all the modules stored in the `modules` container is added to the Hashmap. 
 
-Step 4. A `List<String[]> modules` is initialised with all the modules in the Hashmap.
+Step 4. A `List<String[]> modules` is initialised with all the modules in the Hashmap. 
 
-Step 5. If `modules` is not empty, the modules for that year and both its semesters are printed sequentially. For modules with available grade information, the grade will be printed beside the module code.
+Step 5. If `modules` is not empty, the modules for that year and both its semesters are printed sequentially. For modules with available grade information, the grade will be printed beside the module code. 
 
-**When the year and semester are specified:**
+**When a the year and semester are specified:**
+Step 1. The user executes the command `list y/1 s/2`, with the year and semester specified, to print the modules for Year 1 Semester 2. The `list` command is executed within the switch case of the `parseCommand()` method of `CommandParser`. 
 
-Step 1. The user executes the command `list y/1 s/2`, with the year and semester specified, to print the modules for Year 1 Semester 2. The `list` command is executed within the switch case of the `parseCommand()` method of `CommandParser`.
-
-Step 2. If a valid command is entered, the `printModule` method of `ModuleList` will be executed. The string `inputArray` is then split into parts separated by the flags `y/` and `s/` into a rangeToPrint array.
+Step 2. If a valid command is entered, the `printModule` method of `ModuleList` will be executed. The string `inputArray` is then split into parts separated by the flags `y/` and `s/` into a `rangeToPrint` array. 
 
 Step 3. If the year entered is valid, the integer `yearSpecified` and `semesterSpecified` is parsed from the String that the user entered. The `printModule` method of `ModuleList` is called with the `yearSpecified` and `semesterSpecified` as inputs.
 
-Step 3. In `printModule` of `ModuleList`, a `Map<Integer, Map<Integer, List<String[]>>>` Hashmap is iniitialised, and all the modules stored in the `modules` container is added to the Hashmap.
+Step 3. In `printModule` of `ModuleList`, a `Map<Integer, Map<Integer, List<String[]>>>` Hashmap is iniitialised, and all the modules stored in the `modules` container is added to the Hashmap. 
 
-Step 4. A `List<String[]> modules` is initialised with all the modules in the Hashmap.
+Step 4. A `List<String[]> modules` is initialised with all the modules in the Hashmap. 
 
-Step 5. If `modules` is not empty, the modules for that specified year and semester are printed sequentially. For modules with available grade information, the grade will be printed beside the module code.
+Step 5. If `modules` is not empty, the modules for that specified year and semester are printed sequentially. For modules with available grade information, the grade will be printed beside the module code. 
 
 <br>
 
@@ -240,6 +237,8 @@ Each of these methods (e.g. `retrieveTitle(module)`) will make call the `getData
 
 **Step 4:** The `printDetails()` method will then store each retrieved information in a `String`, and format them for display standards. It will then store each separated `String` into a `messagePacket` array, and pass it into the `Ui.printMessage()` function to be printed in the CLI.
 
+The following sequence diagram shows how the mechanism works:
+![Details Sequence Diagram](uml/diagrams/DetailsSequence.png)
 _Design considerations:_
 
 **Aspect: How detail executes:**
@@ -249,6 +248,7 @@ _Design considerations:_
 - **Alternative 2:** Store all the module details on an offline .txt file, then retrieve it from there.
   - Pros: Can be used offline.
   - Cons: It is a tedious task to store all the modules’ details on a .txt file, and the file size will be very big.
+
 
 <br>
 

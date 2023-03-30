@@ -51,8 +51,10 @@ checkstyle {
     toolVersion = '10.2'
 }
 
-run{
+run {
     standardInput = System.in
     enableAssertions = true
 }
-
+jar {
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+}

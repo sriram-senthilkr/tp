@@ -85,6 +85,8 @@ public class Parser {
     /**
      * Parses the given {@code String} of arguments in the context of the PlanCommand
      * and returns an PlanCommand object for execution.
+     * @param args aguments
+     * @return Command object
      * @throws PenusException if the user input does not conform the expected format
      */
     public Command planParser(String args) throws PenusException {
@@ -113,6 +115,8 @@ public class Parser {
     /**
      * Parses the given {@code String} of arguments in the context of the TakenCommand
      * and returns an TakenCommand object for execution.
+     * @param args arguments
+     * @return Command object
      * @throws PenusException if the user input does not conform the expected format
      */
     public Command takenParser(String args) throws PenusException {
@@ -140,6 +144,8 @@ public class Parser {
     /**
      * Parses the given {@code String} of arguments in the context of the MarkCommand
      * and returns an MarkCommand object for execution.
+     * @param args string
+     * @return command object
      * @throws PenusException if the user input does not conform the expected format
      */
     public Command markParser(String args) throws PenusException {
@@ -156,24 +162,27 @@ public class Parser {
         return new MarkCommand(moduleCode, grade);
     }
 
-    //can specify year or year+semester
-    //but not semester only
-    //handle empty
     public Command listParser(String args) throws PenusException {
         if (args.equals("") || args.equals(" ")) {
             //list command with all modules
             return new ListCommand();
         }
+
         //year must be specified
-        if (!args.contains("y/")) {
-            throw new InvalidFormatException("Try again in the format: list y/YEAR s/SEM or list y/YEAR or list");
+        // if (!args.contains("y/")) {
+        //     throw new InvalidFormatException("Try again in the format: list y/YEAR s/SEM or list y/YEAR or list");
+        // }
+        if (args.contains("s/") && !args.contains("y/")) { // Semester specified but year not specified
+            throw new InvalidFormatException(
+                    "\tTry again, y/ must not be empty if s/ is not empty. " +
+                            "To show modules for that semester, please specify the year of study.");
         }
-        String[] details = args.split(" y/| s/",2);
-        int year;
-        int semester;
+
+        String[] details = args.split("y/| s/",3);
+        int year = 0;
+        int semester = 0;
         try {
-            year = Integer.parseInt(details[0]);
-            semester = Integer.parseInt(details[1]);
+            year = Integer.parseInt(details[1]);
         } catch (NumberFormatException e) {
             throw new InvalidFormatException("Must be specified as an integer!");
         }
@@ -181,13 +190,30 @@ public class Parser {
             throw new InvalidFormatException("Year must be within 1 to 4");
         }
 
-        
-        return new ListCommand(year, semester);
+        if (details.length == 2) {
+            return new ListCommand(year,0);
+        } else if (details.length == 3) {
+            if (args.contains("s/")) {
+                try {
+                    semester = Integer.parseInt(details[2]);
+                } catch (NumberFormatException e) {
+                    throw new InvalidFormatException("Semester must be specified as an integer!");
+                }
+            }
+            if (semester != 1 && semester != 2) {
+                throw new InvalidFormatException("Semester must be 1 or 2!");
+            }
+            return new ListCommand(year, semester);
+        } else {
+            throw new InvalidFormatException("Try again in the format: list y/YEAR s/SEM or list y/YEAR or list");
+        }
     }   
 
     /**
      * Parses the given {@code String} of arguments in the context of the RemoveCommand
      * and returns an RemoveCommand object for execution.
+     * @param args arguments
+     * @return command object
      * @throws PenusException if the user input does not conform the expected format
      */
     public Command removeParser(String args) throws PenusException {
@@ -207,6 +233,8 @@ public class Parser {
     /**
      * Parses the given {@code String} of arguments in the context of the DetailsCommand
      * and returns an DetailsCommand object for execution.
+     * @param args arguments
+     * @return command object
      * @throws PenusException if the user input does not conform the expected format
      */
     public Command detailsParser(String args) throws PenusException {
@@ -222,6 +250,8 @@ public class Parser {
     /**
      * Parses the given {@code String} of arguments in the context of the InitCommand
      * and returns an InitCommand object for execution.
+     * @param args arguments
+     * @return command object
      * @throws PenusException if the user input does not conform the expected format
      */
     public Command initParser (String args) throws PenusException {

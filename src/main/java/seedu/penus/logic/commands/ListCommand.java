@@ -66,7 +66,7 @@ public class ListCommand extends Command {
         //list for year only
         if (this.year != 0 && this.semester == 0) {
             for (int s = 1; s <= 2; s++) {
-                messageArray.add("- Year" + this.year + " Semester " + s + " -");
+                messageArray.add("- Year " + this.year + " Semester " + s + " -");
 
                 List<String[]> modulesInYear = modules.getOrDefault(this.year, new HashMap<>())
                         .getOrDefault(s, new ArrayList<>());
@@ -97,7 +97,9 @@ public class ListCommand extends Command {
                     messageArray.add(string[0] + " " + string[1]);
                 }
             }
+            messageArray.add(Grade.getSemCAP(modulesInYearAndSem));
         }
+
         messageArray.add("");
         messageArray.add(Grade.getOverallCAP(moduleList));
 

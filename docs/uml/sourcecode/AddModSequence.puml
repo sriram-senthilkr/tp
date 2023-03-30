@@ -1,9 +1,22 @@
 @startuml
 participant User
+participant ":Ui" as Ui
 
-activate Ui
-User -> Ui: getUserCommand() "plan CS2113 y/1 s/2"
 box "Logic" #LightBlue
+participant ":LogicManager" as LogicManager
+participant ":Parser" as Parser
+participant "command:PlanCommand" as PlanCommand
+participant "result: CommandResult" as CommandResult
+end box
+
+box "Model" #LightPink
+participant ":ModelManager" as ModelManager
+participant ":ModuleList" as ModuleList
+end box
+
+
+User -> Ui: getUserCommand() "plan CS2113 y/1 s/2"
+activate Ui
 Ui -> LogicManager: getCommand()
 activate LogicManager
 
@@ -16,20 +29,19 @@ create PlanCommand
 Parser -> PlanCommand
 activate PlanCommand
 
-PlanCommand --> Parser: PlanCommand()
+PlanCommand --> Parser: command
 deactivate PlanCommand
 
 
-Parser --> LogicManager: Command()
+Parser --> LogicManager: command
 deactivate Parser
 
 
 LogicManager -> PlanCommand: execute()
 activate PlanCommand
-participant CommandResult
-end box
+
     
-box "Model" #LightPink
+
 PlanCommand -> ModelManager: addModule()
 activate ModelManager
 

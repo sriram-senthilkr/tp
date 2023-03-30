@@ -16,6 +16,7 @@ public class RemoveCommand extends Command {
 
     /**
      * Creates a PlanCommand to with the moduleCode attribute
+     * @param moduleCode string
      */
     public RemoveCommand(String moduleCode) {
         this.moduleCode = moduleCode;

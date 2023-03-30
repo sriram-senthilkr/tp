@@ -2,6 +2,7 @@ package seedu.penus.logic.commands;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.penus.common.exceptions.PenusException;
 import seedu.penus.model.ModelManager;
 import seedu.penus.testutils.SampleData;
 
@@ -37,7 +38,7 @@ public class StatusCommandTest {
     }
 
     @Test
-    public void testStatusCommandSuccess() {
+    public void testStatusCommandSuccess() throws PenusException {
         CommandResult result = statusCommand.execute(model);
         String expectedString = "--------- Taken ---------\n" +
                 "GESS1004 Singapore and India: Emerging Relations MCs: 4\n" +

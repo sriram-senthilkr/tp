@@ -1,7 +1,7 @@
 package seedu.penus.logic.utils;
 
 public class DetailsCompiler extends ModuleRetriever{
-    protected String ModuleCode;
+    protected String moduleCode;
 
     public static String getDetails(String module) {
         try {
@@ -22,4 +22,5 @@ public class DetailsCompiler extends ModuleRetriever{
             return "This information is not available";
         }
     }
+
 }
