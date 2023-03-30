@@ -46,15 +46,15 @@ Enter command:
 	___________________________________________________________
 Enter command: 
 	___________________________________________________________
-	exit								                    Exits the program
-	list [FILTER]							                Displays a list of all modules taken or planned in the specified Year or Semester
-									                        If [FILTER] is not specified, then all modules will shown.
-	mark [MODULE CODE] g/[GRADE]					        Marks the module that has been cleared, while updating its grades
-	plan [MODULE CODE] y/[YEAR] s/[SEMESTER]			    Adds a module to the planner as an untaken module
-	remove [MODULECODE]						                Removes a module from the planner
-	status								                    Displays the status of Core Modules and MCs taken
+	exit													Exits the program
+	list [FILTER]											Displays a list of all modules taken or planned in the specified Year or Semester
+															If [FILTER] is not specified, then all modules will shown.
+	mark [MODULE CODE] g/[GRADE]							Marks the module that has been cleared, while updating its grades
+	plan [MODULE CODE] y/[YEAR] s/[SEMESTER]				Adds a module to the planner as an untaken module
+	remove [MODULECODE]										Removes a module from the planner
+	status													Displays the status of Core Modules and MCs taken
 	details [MODULECODE]									Displays the details of given module, including Title, Description, Prerequisites, Module Credits
-    													    and if it can be SU-ed.
+															and if it can be SU-ed.
 	taken [MODULE CODE] y/[YEAR] s/[SEMESTER] g/[GRADE]		Adds a module to the planner as a module you have already taken
 	___________________________________________________________
 Enter command: 
