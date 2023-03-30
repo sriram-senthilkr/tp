@@ -1,9 +1,26 @@
 @startuml
 participant User
+participant ":Ui" as Ui
 
-activate Ui
-User -> Ui: getUserCommand() "details CS2113"
 box "Logic" #LightBlue
+participant ":LogicManager" as LogicManager
+participant ":Parser" as Parser
+participant "command: DetailsCommand" as DetailsCommand
+box "Commons"
+participant ":DetailsCompiler" as DetailsCompiler
+participant ":ModuleRetriever" as ModuleRetriever
+end box
+participant "result: CommandResult" as CommandResult
+end box
+
+box "Model" #LightPink
+
+end box
+
+
+User -> Ui: getUserCommand() "details CS2113"
+activate Ui
+
 Ui -> LogicManager: getCommand()
 activate LogicManager
 
@@ -14,20 +31,20 @@ create DetailsCommand
 Parser -> DetailsCommand
 activate DetailsCommand
 
-DetailsCommand --> Parser:
+DetailsCommand --> Parser: command
 deactivate DetailsCommand
 
-Parser --> LogicManager: Command()
+Parser --> LogicManager: command
 deactivate Parser
 
 
 LogicManager -> DetailsCommand: execute()
 activate DetailsCommand
 
-end box
 
 
-box "Model" #LightPink
+
+
 
 DetailsCommand -> DetailsCompiler: getDetails('CS2113')
 activate DetailsCompiler
@@ -67,6 +84,7 @@ deactivate ModuleRetriever
 DetailsCompiler -> DetailsCommand: result
 deactivate DetailsCompiler
 
+create CommandResult
 DetailsCommand -> CommandResult
 activate CommandResult
 CommandResult --> DetailsCommand

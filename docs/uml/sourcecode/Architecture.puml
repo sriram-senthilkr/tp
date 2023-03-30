@@ -44,7 +44,10 @@ Main -> UI
 Main -> Logic
 Main -> Model
 Web --> Commons
+
 Storage ..> Model
 Storage ..> Harddisk
+Commons <.right. Logic
+
 
 @enduml

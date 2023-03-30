@@ -1,9 +1,24 @@
 @startuml
 participant User
+participant ":Ui" as Ui
 
-activate Ui
-User -> Ui: getUserCommand() "mark CS2113 g/A+"
 box "Logic" #LightBlue
+participant ":LogicManager" as LogicManager
+participant ":Parser" as Parser
+participant "command:MarkCommand" as MarkCommand
+participant "result:CommandResult" as CommandResult
+end box
+
+box "Model" #LightPink
+participant ":ModelManager" as ModelManager
+participant ":ModuleList" as ModuleList
+participant "module:Module" as Module
+end box
+
+
+User -> Ui: getUserCommand() "mark CS2113 g/A+"
+activate Ui
+
 Ui -> LogicManager: getCommand()
 activate LogicManager
 
@@ -14,22 +29,17 @@ create MarkCommand
 Parser -> MarkCommand
 activate MarkCommand
 
-MarkCommand --> Parser:
+MarkCommand --> Parser: command
 deactivate MarkCommand
 
 
-Parser --> LogicManager: Command()
+Parser --> LogicManager: command
 deactivate Parser
 
 
 LogicManager -> MarkCommand: execute()
 activate MarkCommand
-participant CommandResult
 
-end box
-
-
-box "Model" #LightPink
 
 MarkCommand -> ModelManager: getModuleList()
 activate ModelManager
