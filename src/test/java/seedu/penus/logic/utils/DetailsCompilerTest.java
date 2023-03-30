@@ -18,7 +18,7 @@ class DetailsCompilerTest {
                 " paradigm. Students of this module will receive hands-on practice of tools commonly used in the " +
                 "industry, such as test automation tools, build automation tools, and code revisioning tools will be " +
                 "covered.\n\tPre-Requisites: CS2040C or ((CS2030 or its equivalent) and CS2040/S)\n\tMCs: 4\n\tModule" +
-                " can be SU-ed.";
+                " cannot be SU-ed.";
 
         assertEquals(ExpectedOutput, ActualOutput);
     }

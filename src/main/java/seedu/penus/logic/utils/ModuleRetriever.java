@@ -168,7 +168,7 @@ public class ModuleRetriever {
             JSONObject attributes = (JSONObject) moduleInfo2223.get("attributes");
             Boolean suStatus = (Boolean) attributes.get("su");
 
-            return suStatus;
+            return suStatus != null;
         } catch (InvalidModuleAPIException e) {
             //e.printStackTrace();
             return null;

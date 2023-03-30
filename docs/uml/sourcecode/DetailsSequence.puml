@@ -24,23 +24,15 @@ deactivate Parser
 LogicManager -> DetailsCommand: execute()
 activate DetailsCommand
 
-end box
-
-
-box "Model" #LightPink
-
 DetailsCommand -> DetailsCompiler: getDetails('CS2113')
 activate DetailsCompiler
 
 DetailsCompiler -> ModuleRetriever: getTitle2223('CS2113')
 activate ModuleRetriever
-ModuleRetriever -> ModuleRetriever: getData2223('CS2113')
-ModuleRetriever --> DetailsCompiler: title
-deactivate ModuleRetriever
 
-DetailsCompiler -> ModuleRetriever: getDescription('CS2113')
-activate ModuleRetriever
 ModuleRetriever -> ModuleRetriever: getData2223('CS2113')
+activate ModuleRetriever
+deactivate ModuleRetriever
 ModuleRetriever --> DetailsCompiler: description
 deactivate ModuleRetriever
 
@@ -48,6 +40,8 @@ deactivate ModuleRetriever
 DetailsCompiler -> ModuleRetriever: getPrerequisite('CS2113')
 activate ModuleRetriever
 ModuleRetriever -> ModuleRetriever: getData2223('CS2113')
+activate ModuleRetriever
+deactivate ModuleRetriever
 ModuleRetriever --> DetailsCompiler: prereqs
 deactivate ModuleRetriever
 
@@ -55,16 +49,20 @@ deactivate ModuleRetriever
 DetailsCompiler -> ModuleRetriever: getModuleCredit2223('CS2113')
 activate ModuleRetriever
 ModuleRetriever -> ModuleRetriever: getData2223('CS2113')
+activate ModuleRetriever
+deactivate ModuleRetriever
 ModuleRetriever --> DetailsCompiler: credits
 deactivate ModuleRetriever
 
 DetailsCompiler -> ModuleRetriever: getSUstatus('CS2113')
 activate ModuleRetriever
 ModuleRetriever -> ModuleRetriever: getData2223('CS2113')
+activate ModuleRetriever
+deactivate ModuleRetriever
 ModuleRetriever --> DetailsCompiler: suStatus
 deactivate ModuleRetriever
 
-DetailsCompiler -> DetailsCommand: result
+DetailsCompiler -> DetailsCommand: compiled details
 deactivate DetailsCompiler
 
 DetailsCommand -> CommandResult

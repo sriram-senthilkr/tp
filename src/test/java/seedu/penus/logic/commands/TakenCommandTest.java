@@ -1,6 +1,7 @@
 package seedu.penus.logic.commands;
 
 import seedu.penus.common.exceptions.DuplicateModuleException;
+import seedu.penus.common.exceptions.InvalidCommandException;
 import seedu.penus.common.exceptions.PenusException;
 import seedu.penus.model.ModelManager;
 import seedu.penus.model.User;
@@ -28,7 +29,7 @@ public class TakenCommandTest {
     }
 
     @Test
-    public void execute_duplicateModule_throwsDuplicateModuleException() throws DuplicateModuleException {
+    public void execute_duplicateModule_throwsDuplicateModuleException() throws DuplicateModuleException, InvalidCommandException {
         TakenCommand command1 = new TakenCommand("CS2113", 2, 2, "A+");
         TakenCommand command2 = new TakenCommand("CS2113", 2, 2, "B+");
 
