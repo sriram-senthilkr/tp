@@ -58,4 +58,3 @@ run {
 jar {
     duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
 }
-

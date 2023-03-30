@@ -9,7 +9,7 @@
 /        ___/___  |    |   |    ||   |  |     | \_      \
 |       | /     \ |    |   |    ||   |  |     |/  \      \
 |_______|/   <> _\|    |   |    ||   \__/     ||   \_     |
-\       /|   \____|    / \      |\            /|          |
+\       /|   \____|    /\       |\            /|          |
  \__|__/  \______/\___/  \_____/  \__________/  \_________/
 </pre>
 
@@ -161,6 +161,7 @@ Example:
 <br>
   ![list example](./ugmedia/list1.png)
 - `list y/2` Displays modules taken in Year 2.
+ 
   ![list example](./ugmedia/list2.png)
 - `list y/2 s/1` Displays modules taken in Year 2 Semester 1.
 
