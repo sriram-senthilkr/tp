@@ -148,6 +148,9 @@ Step 4. The year and semester have values of -1, which then `printModules` recog
 
 Step 5. If `modules` is not empty, the modules for that year and semester are printed sequentially. For modules with available grade information, the grade will be printed beside the module code. 
 
+Below is a sequence diagram of how the `list` command works:
+![ListSequenceDiagram](uml/diagrams/ListSequence.png)
+
 **When a the year is specified:**
 Step 1. The user executes the command `list y/1`, with the year specified, but not the semester, to print the modules for both semesters in Year 1. The `list` command is executed within the switch case of the `parseCommand()` method of `CommandParser`. 
 
