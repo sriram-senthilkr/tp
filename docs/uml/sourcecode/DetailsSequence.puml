@@ -52,12 +52,16 @@ activate DetailsCompiler
 DetailsCompiler -> ModuleRetriever: getTitle2223('CS2113')
 activate ModuleRetriever
 ModuleRetriever -> ModuleRetriever: getData2223('CS2113')
+activate ModuleRetriever
+deactivate ModuleRetriever
 ModuleRetriever --> DetailsCompiler: title
 deactivate ModuleRetriever
 
 DetailsCompiler -> ModuleRetriever: getDescription('CS2113')
 activate ModuleRetriever
 ModuleRetriever -> ModuleRetriever: getData2223('CS2113')
+activate ModuleRetriever
+deactivate ModuleRetriever
 ModuleRetriever --> DetailsCompiler: description
 deactivate ModuleRetriever
 
@@ -65,6 +69,8 @@ deactivate ModuleRetriever
 DetailsCompiler -> ModuleRetriever: getPrerequisite('CS2113')
 activate ModuleRetriever
 ModuleRetriever -> ModuleRetriever: getData2223('CS2113')
+activate ModuleRetriever
+deactivate ModuleRetriever
 ModuleRetriever --> DetailsCompiler: prereqs
 deactivate ModuleRetriever
 
@@ -72,12 +78,16 @@ deactivate ModuleRetriever
 DetailsCompiler -> ModuleRetriever: getModuleCredit2223('CS2113')
 activate ModuleRetriever
 ModuleRetriever -> ModuleRetriever: getData2223('CS2113')
+activate ModuleRetriever
+deactivate ModuleRetriever
 ModuleRetriever --> DetailsCompiler: credits
 deactivate ModuleRetriever
 
 DetailsCompiler -> ModuleRetriever: getSUstatus('CS2113')
 activate ModuleRetriever
 ModuleRetriever -> ModuleRetriever: getData2223('CS2113')
+activate ModuleRetriever
+deactivate ModuleRetriever
 ModuleRetriever --> DetailsCompiler: suStatus
 deactivate ModuleRetriever
 
