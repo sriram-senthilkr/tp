@@ -34,6 +34,7 @@ For students that can type fast, PENUS can help them plan and track their module
     + [View modules: `list`](#view-modules-list)
     + [View graduation status: `status`](#view-graduation-status-status)
     + [View module details: `details`](#view-module-details-details)
+    + [Clear modules: `clear`](#clear-modules-clear)
     + [Exit: `exit`](#exit-the-program-exit)
     + [Saving the data](#saving-the-data)
     + [Editing the data file](#editing-the-data-file)
@@ -55,6 +56,7 @@ _Some example commands you can try:_
     - `plan CS2040C y/1 s/2`: Adds CS2040C to Year 1 Semester 2 as untaken
     - `list`: list all modules in the planner with overall CAP
     - `remove CS2113`: Deletes the module CS2113
+    - `clear`: Deletes all modules in the planner
     - `status`: gets the status of core modules and MCs taken.
     - `exit`: exits the application.
 6. Refer to features below for details of each command
@@ -165,7 +167,7 @@ Example:
  
   ![list example](./ugmedia/list2.png)
 - `list y/2 s/1` Displays modules taken in Year 2 Semester 1.
-
+  ![list example](./ugmedia/list3.png)
 <br>
 
 ### View graduation status: `status`
