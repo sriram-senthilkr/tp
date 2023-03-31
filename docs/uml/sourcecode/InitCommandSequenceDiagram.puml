@@ -1,0 +1,70 @@
+@startuml
+participant user
+participant ":Ui" as Ui
+
+box "Logic" #LightBlue
+participant ":LogicManager" as LogicManager
+participant ":Parser" as Parser
+participant "command:InitCommand" as InitCommand
+participant "result:CommandResult" as CommandResult
+end box
+
+box "Model" #LightPink
+participant ":ModelManager" as ModelManager
+participant ":User" as User
+end box
+
+
+user -> Ui: getUserCommand() "init n/John c/4"
+activate Ui
+
+Ui -> LogicManager: getCommand()
+activate LogicManager
+
+LogicManager -> Parser: parseCommand()
+activate Parser
+
+create InitCommand
+Parser -> InitCommand
+activate InitCommand
+
+InitCommand --> Parser: command
+deactivate InitCommand
+
+
+Parser --> LogicManager: command
+deactivate Parser
+
+
+LogicManager -> InitCommand: execute()
+activate InitCommand
+
+InitCommand -> ModelManager: setUserName()
+activate ModelManager
+
+ModelManager -> User: setName()
+activate User
+
+InitCommand -> ModelManager: setUserCourse()
+
+ModelManager -> User: setCourse()
+deactivate User
+deactivate ModelManager
+
+create CommandResult
+"InitCommand" -> CommandResult
+activate CommandResult
+CommandResult --> "InitCommand"
+deactivate CommandResult
+destroy CommandResult
+
+"InitCommand" -> LogicManager: result
+deactivate "InitCommand"
+destroy "InitCommand"
+
+LogicManager -> Ui: printResult()
+deactivate "LogicManager"
+
+Ui -> user
+
+@enduml
