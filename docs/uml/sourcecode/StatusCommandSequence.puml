@@ -56,9 +56,11 @@ create CommandResult
 activate CommandResult
 CommandResult --> "StatusCommand"
 deactivate CommandResult
+destroy CommandResult
 
 "StatusCommand" -> LogicManager: result
 deactivate "StatusCommand"
+destroy "StatusCommand"
 
 LogicManager -> Ui: printResult()
 deactivate "LogicManager"
