@@ -15,6 +15,7 @@ public class CliSyntax {
     public static final String DETAILS = "details";
     public static final String HELP = "help";
     public static final String INIT = "init";
+    public static final String CLEAR = "clear";
 
     public static final String PREFIX_YEAR = "y/";
     public static final String PREFIX_SEMESTER = "s/";

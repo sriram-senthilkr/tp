@@ -144,7 +144,8 @@ Example:
 <br>
 
 ### View modules: `list`
-Displays a list of all modules taken or planned.
+Displays a list of all modules taken or planned in a specified Year and/or Semester.
+If Year/Semester is not specified, then all modules will be listed.
 
 
 Format:`list [FILTER]`
@@ -194,6 +195,30 @@ Example:
 
 <br>
 
+### Clear modules: `clear`
+Clears all modules in a specified Year and/or Semester.
+If Year/Semester is not specified, then all modules will be cleared.
+
+Format:`clear [FILTER]`
+
+
+| Filter                | Action                                 | Example         |
+|-----------------------|----------------------------------------|-----------------|
+| [empty]               | Clears all modules in the planner       | `clear`          |
+| y/[YEAR]              | Clears modules in the specific year     | `clear y/1`      |
+| y/[YEAR] s/[SEMESTER] | Clears modules in the specific semester | `clear y/1 s/1`  |
+
+Example: 
+- `clear` Clears all modules in the planner.
+<br>
+  ![list example](./ugmedia/clear1.png)
+- `clear y/1` Clears all modules planned/taken in Year 1.
+ 
+  ![list example](./ugmedia/clear2.png)
+- `clear y/2 s/1` Clears all modules planned/taken in Year 2 Semester 1.
+  ![list example](./ugmedia/clear3.png)
+<br>
+
 ### Exit the program: `exit`
 Exits the program.
 <br>
@@ -236,4 +261,5 @@ Edits must be made according to the formatting of the data.
 | **list**     | `list (FILTER)`                                        |
 | **status**   | `status`                                      |
 | **details**  | `details MODULE_CODE`                         |
+| **clear**  | `clear (FILTER)`                         |
 | **exit**     | `exit`                                        |
