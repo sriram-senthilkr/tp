@@ -17,19 +17,8 @@ public class HelpCommandTest {
                                                          new ArrayList<>(), new HashMap<>());
 
         CommandResult expected = new CommandResult(
-            "exit" 
+            "exit"
                 + "\t\t\t\t\t\t\t\tExits the program\n" +
-             "\tinit n/[NAME] c/[COURSE NUMBER]"
-                    + "\t\t\t\t\tInitialize User.\n" +
-                    "\t\t\t\t\t\t\t\t[COURSE NUMBER] -> [COURSE NAME]\n"+
-                    "\t\t\t\t\t\t\t\t1 -> Biomedical Engineering\n" +
-                    "\t\t\t\t\t\t\t\t2 -> Chemical Engineering\n" +
-                    "\t\t\t\t\t\t\t\t3 -> Civil Engineering\n" +
-                    "\t\t\t\t\t\t\t\t4 -> Chemical Engineering\n" +
-                    "\t\t\t\t\t\t\t\t5 -> Electrical Engineering\n" +
-                    "\t\t\t\t\t\t\t\t6 -> Environmental Engineering\n" +
-                    "\t\t\t\t\t\t\t\t7 -> Industrial and Systems Engineering\n" +
-                    "\t\t\t\t\t\t\t\t8 -> Mechanical Engineering\n" +
             "\tlist [FILTER]" 
                 + "\t\t\t\t\t\t\tDisplays a list of all modules taken or planned in the specified Year or Semester\n"
                 + "\t\t\t\t\t\t\t\t\tIf [FILTER] is not specified, then all modules will shown.\n" +
