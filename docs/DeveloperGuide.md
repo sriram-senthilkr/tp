@@ -255,7 +255,25 @@ _Design considerations:_
 <br>
 
 ### Initialise user
-(TBA)
+The initialisation feature `init` prompts the user to provide his/her `name` and `course`.
+Given below is an example of how `init` is called at each step.
+
+Step 1: The user types in `init n/John c/4`, which will be taken in by the `getUserCommand()` method of the `Ui` class. The input command
+will then be passed to the `LogicManager` class by `getCommand()` and calls `parseCommand()` which returns the main command, `InitCommand` with John as the `name` and 4 as the `courseCode`.
+The `LogicManager` then calls `execute()` on `InitCommand`, which runs the main logic behind this command.
+
+Step 2: When `execute()` is first called, the method calls `setUserName()` of the `ModelManager` class, which calls `setName()` of
+the `User` class and assigns "John" to the `name` attribute of `User`. 
+
+Step 3: Next, the `courseCode` is then put through a switch case to retrieve the `courseName` of the corresponding course. *Eg. `courseCode`: 4 -> `courseName`: Computer Engineering.*
+`setUserCourse()` of the `ModelManager` class is then called, which calls the `setCourse()` method of `User` and assigns "Computer Engineering" to the `course` attribute of `User`.
+
+Step 4: The return message is then passed to the `LogicManager` as a `CommandResult`. The `LogicalManager` then calls for `UI`'s `printResult()` to display the return message to
+the user.
+
+The following sequence diagram shows how the `init` command works:
+![Init Sequence Diagram](uml/diagrams/InitSequenceDiagram.png)
+
 
 <br>
 

@@ -51,6 +51,12 @@ activate MCsTaken
 MCsTaken -> "StatusCommand": number of MCs taken
 deactivate MCsTaken
 
+create CommandResult
+"StatusCommand" -> CommandResult
+activate CommandResult
+CommandResult --> "StatusCommand"
+deactivate CommandResult
+
 "StatusCommand" -> LogicManager: result
 deactivate "StatusCommand"
 
