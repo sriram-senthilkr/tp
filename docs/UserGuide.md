@@ -183,7 +183,7 @@ Example:
 
 ![list example](./ugmedia/list1.png)
 
-- `list y/2` Displays modules taken in Year 2.
+- `list y/1` Displays modules taken in Year 1.
 
 ![list example](./ugmedia/list2.png)
 
