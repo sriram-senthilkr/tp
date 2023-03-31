@@ -10,6 +10,7 @@ import static seedu.penus.logic.parser.CliSyntax.TAKEN;
 import static seedu.penus.logic.parser.CliSyntax.DETAILS;
 import static seedu.penus.logic.parser.CliSyntax.HELP;
 import static seedu.penus.logic.parser.CliSyntax.INIT;
+import static seedu.penus.logic.parser.CliSyntax.CLEAR;
 
 import seedu.penus.common.exceptions.InvalidCommandException;
 import seedu.penus.common.exceptions.InvalidFormatException;
@@ -20,6 +21,7 @@ import seedu.penus.common.exceptions.InvalidYearException;
 import seedu.penus.common.exceptions.PenusException;
 
 import seedu.penus.logic.utils.Grade;
+import seedu.penus.logic.commands.ClearCommand;
 import seedu.penus.logic.commands.Command;
 import seedu.penus.logic.commands.PlanCommand;
 import seedu.penus.logic.commands.TakenCommand;
@@ -73,6 +75,9 @@ public class Parser {
 
         case DETAILS:
             return detailsParser(arguments);
+
+        case CLEAR:
+            return clearParser(arguments);
 
         case EXIT:
             return new ExitCommand();
@@ -274,5 +279,62 @@ public class Parser {
     }
 
 
-    
+    /**
+     * Parses the given {@code String} of arguments in the context of the ClearCommand
+     * and returns an ClearCommand object for execution. 
+     * @param args arguments
+     * @return command object
+     * @throws PenusException if the user input does not conform the expected format
+     */
+    public Command clearParser(String args) throws PenusException{
+        if (args.equals("") || args.equals(" ")) {
+            //clear all modules
+            return new ClearCommand();
+        }
+
+        // Semester specified but year not specified
+        if (args.contains("s/") && !args.contains("y/")) { 
+            throw new InvalidFormatException(
+                    "\tTry again, y/ must not be empty if s/ is not empty. " +
+                            "To clear modules for that semester, please specify the year of study.");
+        }
+
+        String[] details = args.split("y/| s/",3);
+
+        //Default values
+        int year = 0;
+        int semester = 0;
+
+        try {
+            year = Integer.parseInt(details[1]);
+        } catch (NumberFormatException e) {
+            throw new InvalidFormatException("Must be specified as an integer!");
+        }
+        //Invalid year
+        if (year < 1 || year > 4) {
+            throw new InvalidFormatException("Year must be within 1 to 4");
+        }
+        
+        //Only year specified, semester = 0
+        if (details.length == 2) {
+            return new ClearCommand(year,semester);
+
+        } else if (details.length == 3) { //Year and Semester specified
+            if (args.contains("s/")) {
+                try {
+                    semester = Integer.parseInt(details[2]);
+                } catch (NumberFormatException e) {
+                    throw new InvalidFormatException("Semester must be specified as an integer!");
+                }
+            }
+
+            //Invalid semester
+            if (semester != 1 && semester != 2) {
+                throw new InvalidFormatException("Semester must be 1 or 2!");
+            }
+            return new ClearCommand(year, semester);
+        } else {
+            throw new InvalidFormatException("Try again in the format: clear y/YEAR s/SEM or clear y/YEAR or clear");
+        }
+    }
 }
