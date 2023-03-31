@@ -66,9 +66,11 @@ RemoveCommand -> CommandResult
 activate CommandResult
 CommandResult --> RemoveCommand
 deactivate CommandResult
+destroy CommandResult
 
 RemoveCommand --> LogicManager: result
 deactivate RemoveCommand
+destroy RemoveCommand
 
 LogicManager --> Ui: printResult()
 deactivate LogicManager

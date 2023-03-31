@@ -61,10 +61,12 @@ PlanCommand -> CommandResult
 activate CommandResult
 CommandResult --> PlanCommand
 deactivate CommandResult
+destroy CommandResult
 
 
 PlanCommand --> LogicManager: result
 deactivate PlanCommand
+destroy PlanCommand
 
 LogicManager --> Ui: printResult()
 deactivate LogicManager

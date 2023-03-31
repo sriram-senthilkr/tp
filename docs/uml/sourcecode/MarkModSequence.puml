@@ -72,9 +72,11 @@ MarkCommand -> CommandResult
 activate CommandResult
 CommandResult --> MarkCommand
 deactivate CommandResult
+destroy CommandResult
 
 MarkCommand --> LogicManager: result
 deactivate MarkCommand
+destroy MarkCommand
 
 LogicManager --> Ui: printResult()
 deactivate LogicManager
