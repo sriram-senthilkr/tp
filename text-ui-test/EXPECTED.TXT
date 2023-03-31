@@ -54,6 +54,19 @@ Enter command:
 	remove [MODULECODE]						Removes a module from the planner
 	status								Displays the status of Core Modules and MCs taken
 	taken [MODULE CODE] y/[YEAR] s/[SEMESTER] g/[GRADE]		Adds a module to the planner as a module you have already taken
+	details [MODULE CODE]						Displays the details of given module, including Title, Description, Prerequisites, Module Credits 
+									and if it can be SU-ed.
+	init n/[NAME] c/[COURSE NUMBER]					Initialize User.
+									 [COURSE NUMBER] -> [COURSE NAME]
+									 1 -> Biomedical Engineering
+									 2 -> Chemical Engineering
+									 3 -> Civil Engineering
+									 4 -> Chemical Engineering
+									 5 -> Electrical Engineering
+									 6 -> Environmental Engineering
+									 7 -> Industrial and Systems Engineering
+									 8 -> Mechanical Engineering
+
 	___________________________________________________________
 Enter command: 
 	___________________________________________________________
