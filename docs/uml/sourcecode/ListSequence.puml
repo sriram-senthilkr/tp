@@ -1,0 +1,76 @@
+@startuml
+participant User
+participant ":Ui" as Ui
+
+box "Logic" #LightBlue
+participant ":LogicManager" as LogicManager
+participant ":Parser" as Parser
+participant "command:ListCommand" as ListCommand
+participant ":Grade" as Grade
+participant "result:CommandResult" as CommandResult
+end box
+
+box "Model" #LightPink
+participant ":ModelManager" as ModelManager
+end box
+
+box "Common"
+
+end box
+
+
+User -> Ui: getUserCommand() "list"
+
+activate Ui
+Ui -> LogicManager: getCommand()
+activate LogicManager
+
+
+LogicManager -> Parser: parseCommand()
+activate Parser
+
+create ListCommand
+Parser -> ListCommand
+activate ListCommand
+
+ListCommand --> Parser: command
+deactivate ListCommand
+
+
+Parser --> LogicManager: command
+deactivate Parser
+
+LogicManager -> ListCommand: execute()
+
+activate ListCommand
+
+ListCommand -> ModelManager: getModuleListObj()
+activate ModelManager
+ModelManager --> ListCommand: moduleList
+deactivate ModelManager
+
+ListCommand -> Grade: getOverallCAP()
+Grade --> ListCommand: gradePoint
+
+create CommandResult
+
+ListCommand -> CommandResult
+activate CommandResult
+CommandResult --> ListCommand
+deactivate CommandResult
+destroy CommandResult
+
+ListCommand --> LogicManager: result
+deactivate ListCommand
+destroy ListCommand
+
+LogicManager --> Ui: printResult()
+deactivate LogicManager
+
+Ui --> User
+deactivate Ui
+
+
+
+
+@enduml
