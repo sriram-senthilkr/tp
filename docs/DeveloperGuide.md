@@ -182,30 +182,32 @@ not taken. The feature also displays the total number of MCs the user has taken.
 
 Given below is an example of how `status` is called at each step.
 
-Step 1: The user executes the `status` command to check his current graduation status. The `status` command is executed
-within the switch case of the `parseCommand()` method of the `CommandParser`. The Command Parser will then call
-`printStatus()` of the `ModuleList` class.
+Step 1: The user types in `status`, which will be taken in by the `getUserCommand()` method of the `Ui` class. The input command
+will then be passed to the `LogicManager` class by `getCommand()` and calls `parseCommand()` which returns the main command, `StatusCommand`. 
+The `LogicManager` then calls `execute()` on `StatusCommand`, which runs the main logic behind this command.
 
-Step 2: When `printStatus()` is first executed, the method calls `getTakenCoreModsList()` and `getUntakenCoreModsList()`
-to return a list of string of core module codes that the user has taken/not taken respectively. `getTakenCoreModList()` and
-`getUntakenCoreModsList()` work by first retrieving the list of all core mods from the Resource Manager class through the`getCoreMods()`
-method, which returns a hashmap with the course as the key and list of string of core module codes. In order to get
-the core module codes of the user's course, the user's course is retrieved from the `User` class, at which the
+Step 2: When `execute()` is first called, the methods calls `getTakenCoreModsList()`. `getTakenCoreModsList()` first calls the `ModelManager`'s `getCoreModsList()`  which returns a hashmap with the course as the key and list of string of core module codes. In order to get
+the core module codes of the user's course, the user's course is retrieved from by `ModelManager`'s `getUserCourse()`, at which the
 attribute `course` is given by the user on initialization. An exception is thus triggered if the user calls `status()`
-without initialising. By giving the key as the user's course, the list of core modules is retrieved. For
-`getTakenCoreModsList()`, the list of core module
-codes is then compared with the all the modules taken by the user in `modules` to return the list of core modules codes that the
-user has/ has not taken.
+without initialising. By giving the key as the user's course, the list of core modules is retrieved. The list of core modules is then compared against 
+the user's `ModuleList`, retrieved by `ModelManager`'s `getModuleList()` and taken core module codes will be added into `takenCoreMods` list. Lastly, it calls
+`getTakenGESS()`, `getTakenGEC()` and `getTakenGEN()` to check for the status of GE modules and adds their codes into `takenCoreMods` if taken. `takenCoreMods` is then returned.
 
-Step 3: In order to get the status of GE modules, the printStatus() method then calls 3 methods, `getGESS()`, `getGEN()` and
-`getGEC()` , which loops through the user's `modules` and check if the user has taken those modules and returns the module code
-if taken.
+Step 3: `getUntakenCoreModsList()` is called, which undergoes a same process  as `getTakenCoreModsList()` but with untaken core modules codes added into `untakenCoreMods` list.
 
-Step 4: The printStatus() then prints the list of taken/ untaken by calling the `printStatusFunction()`. The `printStatusFunction()` method
-takes in each module's code retrieves the title and MCs through `ModuleRetriever` class, then prints it out.
+Step 4: Each module code in `takenCoreMods` list and `untakenCoreMods` list is then passed into a method `moduleDetailsString()`, which returns 
+in the format of "`moduleCode` `moduleTitle` Mcs: `moduleMCs`" and added into the `message` string, formatted using `Stringbuilder`.
+The `moduleTitle` and `moduleMCs` of each module is retrieved by calling static methods `getModuleCredit2223()` and `getTitle2223()` of util's `ModuleRetriever` class.
 
-Step 5: Lastly, the printStatus() method calls `numberOfMcs()`, retrieves each module's MC through the `Module Retriever`
-class and returns the totals number of MCs. The printStatus() method then prints the total number of MCs / 160.
+Step 5: The static method `numberOfMcs()` is called, which retrieves each module's MC through the `Module Retriever`'s `getModuleCredit2223()`
+ and adds them together, returning the `numberOfMCs` taken by the user. The `numberOfMcs` is added into the message, with "/160" concatenated behind.
+
+Step 6: The message is then passed to the `LogicManager` as a `CommandResult`. The `LogicalManager` then calls for `UI`'s `printResult()` to display the status message to
+the user. 
+
+The following sequence diagram shows how the `status` command works:
+![Status Sequence Diagram](uml/diagrams/StatusSequenceDiagram.png)
+
 
 <br>
 
