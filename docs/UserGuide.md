@@ -65,9 +65,12 @@ _Some example commands you can try:_
 
 ### Initialisation: `init`
 On startup, there will be a prompt for first time users to type `init` to start the initialisation process. 
+
 <br>
 <br>
+
 Format:`init n/[Name] c/[COURSE NUMBER]` 
+
 <br>
 <br>
 
@@ -89,19 +92,25 @@ Example:
 
 ### Help: `help`
 Shows a message with the format and functionality of all features. 
+
 <br>
 <br>
+
 Format:`help`
 
 <br>
 
 ### Add taken modules: `taken`
 Adds a module to the planner as a taken module.
+
 <br>
 <br>
+
 Format:`taken [MODCODE] y/[YEAR] s/[SEMESTER] g/[GRADE]`
+
 <br>
 <br>
+
 Example:
 - `taken CG1111A y/1 s/1 g/A+` means that you have `taken` and cleared the `CG1111A` module in `Year 1` `Semester 1`, and got an `A+` grade for it
 
@@ -110,11 +119,13 @@ Example:
 
 ### Plan untaken modules: `plan`
 Adds a module to the planner as an untaken module.
+
 <br>
-<br>
+
 Format:`plan [MODULE] y/[YEAR] s/[SEMESTER]`
+
 <br>
-<br>
+
 Example:
 - `plan CG2111A y/1 s/2` means that you `plan` on taking `CG2111A` in `Year 1` `Semester 2`.
 
@@ -123,23 +134,31 @@ Example:
 ### Remove a module: `remove`
 
 Removes a mod from the planner.
+
 <br>
 <br>
+
 Format:`remove [MODULECODE]`
+
 <br>
 <br>
+
 Example:
--   `remove CS2113`
+- `remove CS2113`
 
 <br>
 
 ### Mark module as taken: `mark`
 Marks the mod that has been cleared and upgrade its grade.
+
 <br>
 <br>
+
 Format:`[MODULE CODE] g/[GRADE]`
+
 <br>
 <br>
+
 Example:
 - `mark CG2111A g/A+`
 
@@ -161,38 +180,52 @@ Format:`list [FILTER]`
 
 Example: 
 - `list` Display all modules taken.
-<br>
-  ![list example](./ugmedia/list1.png)
+
+![list example](./ugmedia/list1.png)
+
 - `list y/2` Displays modules taken in Year 2.
- 
-  ![list example](./ugmedia/list2.png)
+
+![list example](./ugmedia/list2.png)
+
 - `list y/2 s/1` Displays modules taken in Year 2 Semester 1.
-  ![list example](./ugmedia/list3.png)
+
+![list example](./ugmedia/list3.png)
+
 <br>
 
 ### View graduation status: `status`
 Displays the status of core modules* and MCs taken. 
-<br>
+
 <font size ="1">**Core modules are based on AY21/22*</font>
+
 <br>
 <br>
+
 Format:`status`
+
 <br>
 <br>
+
 Example: `status` *(course: Computer Engineering)*
+
 ![details example](./ugmedia/status1.png)
 
 <br>
 
 ### View module details: `details`
 Display the module title, description, pre-requisites, MCs and SU option. 
+
 <br>
 <br>
+
 Format: `details [MODULECODE]`
+
 <br>
 <br>
+
 Example:
 - `details CS1010`
+
 ![details example](./ugmedia/details1.png)
 
 <br>
@@ -206,25 +239,32 @@ Format:`clear [FILTER]`
 
 | Filter                | Action                                 | Example         |
 |-----------------------|----------------------------------------|-----------------|
-| [empty]               | Clears all modules in the planner       | `clear`          |
-| y/[YEAR]              | Clears modules in the specific year     | `clear y/1`      |
-| y/[YEAR] s/[SEMESTER] | Clears modules in the specific semester | `clear y/1 s/1`  |
+| `[empty]`               | Clears all modules in the planner       | `clear`          |
+| `y/[YEAR]`              | Clears modules in the specific year     | `clear y/1`      |
+| `y/[YEAR] s/[SEMESTER]` | Clears modules in the specific semester | `clear y/1 s/1`  |
 
 Example: 
 - `clear` Clears all modules in the planner.
+
 <br>
-  ![list example](./ugmedia/clear1.png)
+
+![list example](./ugmedia/clear1.png)
 - `clear y/1` Clears all modules planned/taken in Year 1.
  
-  ![list example](./ugmedia/clear2.png)
+![list example](./ugmedia/clear2.png)
+
 - `clear y/2 s/1` Clears all modules planned/taken in Year 2 Semester 1.
-  ![list example](./ugmedia/clear3.png)
+
+![list example](./ugmedia/clear3.png)
+
 <br>
 
 ### Exit the program: `exit`
 Exits the program.
+
 <br>
 <br>
+
 Format: `exit`
 
 <br>
