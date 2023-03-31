@@ -22,7 +22,23 @@ public class HelpCommand extends Command {
             "\tstatus" 
                 + "\t\t\t\t\t\t\t\tDisplays the status of Core Modules and MCs taken\n" +
             "\ttaken [MODULE CODE] y/[YEAR] s/[SEMESTER] g/[GRADE]"
-                + "\t\tAdds a module to the planner as a module you have already taken", 
+                + "\t\tAdds a module to the planner as a module you have already taken\n" +
+            "\tdetails [MODULE CODE]" 
+                + "\t\t\t\t\t\tDisplays the details of given module, including Title, Description, " 
+                + "Prerequisites, Module Credits \n"
+                +  "\t\t\t\t\t\t\t\t\tand if it can be SU-ed.\n" +
+            "\tinit n/[NAME] c/[COURSE NUMBER]"
+                + "\t\t\t\t\tInitialize User.\n" +
+                    "\t\t\t\t\t\t\t\t\t [COURSE NUMBER] -> [COURSE NAME]\n"+
+                    "\t\t\t\t\t\t\t\t\t 1 -> Biomedical Engineering\n" +
+                    "\t\t\t\t\t\t\t\t\t 2 -> Chemical Engineering\n" +
+                    "\t\t\t\t\t\t\t\t\t 3 -> Civil Engineering\n" +
+                    "\t\t\t\t\t\t\t\t\t 4 -> Chemical Engineering\n" +
+                    "\t\t\t\t\t\t\t\t\t 5 -> Electrical Engineering\n" +
+                    "\t\t\t\t\t\t\t\t\t 6 -> Environmental Engineering\n" +
+                    "\t\t\t\t\t\t\t\t\t 7 -> Industrial and Systems Engineering\n" +
+                    "\t\t\t\t\t\t\t\t\t 8 -> Mechanical Engineering\n"
+            , 
             false
         );
     }
