@@ -44,7 +44,7 @@ public class HelpCommandTest {
                 + "\t\t\t\t\t\t\t\t\t 1 -> Biomedical Engineering\n"
                 + "\t\t\t\t\t\t\t\t\t 2 -> Chemical Engineering\n"
                 + "\t\t\t\t\t\t\t\t\t 3 -> Civil Engineering\n" 
-                + "\t\t\t\t\t\t\t\t\t 4 -> Chemical Engineering\n" 
+                + "\t\t\t\t\t\t\t\t\t 4 -> Computer Engineering\n"
                 + "\t\t\t\t\t\t\t\t\t 5 -> Electrical Engineering\n" 
                 + "\t\t\t\t\t\t\t\t\t 6 -> Environmental Engineering\n" 
                 + "\t\t\t\t\t\t\t\t\t 7 -> Industrial and Systems Engineering\n" 
