@@ -89,7 +89,7 @@ Example:
 - `init n/John Doe c/1` Initiates a user with the name `John` and course `Biomedical Engineering`.
 
 Notes:
-- Each program is limited to 1 user, ie. re-initialisation will overwrite the current user `name` and `course` and not create a 
+- Each program is limited to 1 user, ie. Initialisation more than once will overwrite the current user `name` and `course` and not create a 
 separate profile
 
 <br>
@@ -294,7 +294,7 @@ Format:
 
 Example:
 
-![penus.txt exmaple](./ugmedia/penustxt.png)
+![penus.txt exmaple](./ugmedia/penustxt.png) 
 
 
 <br>

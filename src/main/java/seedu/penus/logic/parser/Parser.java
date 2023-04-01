@@ -269,6 +269,9 @@ public class Parser {
             throw new InvalidFormatException("Try again, n/ c/ cannot be empty");
         }
         String name = initDetails[1].trim();
+        if (!name.matches("[a-zA-Z ]+")){
+            throw new InvalidFormatException("Name must only include letters and spaces.");
+        }
         try {
             courseCode = Integer.parseInt(initDetails[2].trim());
         } catch (NumberFormatException e){
