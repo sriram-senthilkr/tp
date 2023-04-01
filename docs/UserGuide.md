@@ -69,7 +69,7 @@ On startup, there will be a prompt for first time users to type `init` to start 
 <br>
 <br>
 
-Format:`init n/[Name] c/[COURSE NUMBER]` 
+Format:`init n/[NAME] c/[COURSE NUMBER]` 
 
 <br>
 <br>
@@ -283,6 +283,19 @@ There is no need to save manually.
 ### Editing the data file
 PENUS's data are saved as a .txt file in `[JAR file location]/data/penus.txt`. 
 Edits must be made according to the formatting of the data.
+
+Format:
+
+| Line       | Description              | Format                                                                                      |
+|------------|--------------------------|---------------------------------------------------------------------------------------------|
+| 1          | User's Name and Course   | User ### NAME ### COURSE_NAME                                                               |
+| 2 to (n-1) | Taken or Planned Modules | Taken ### MODULE_CODE ### YEAR ### SEM ### GRADE <br> Plan ### MODULE_CODE ### YEAR ### SEM |
+| n          | Empty Line               |                                                                                             |
+
+Example:
+
+![penus.txt exmaple](./ugmedia/penustxt.png)
+
 
 <br>
 
