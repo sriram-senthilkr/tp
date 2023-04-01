@@ -247,7 +247,7 @@ public class Parser {
         if (args.equals("") || details.length >= 2) {
             throw new InvalidModuleException(args);
         }
-        String moduleCode = args.toUpperCase();
+        String moduleCode = args.toUpperCase().trim();
 
         return new DetailsCommand(moduleCode);
     }
@@ -268,9 +268,9 @@ public class Parser {
         if (initDetails[1].length() == 0 || initDetails[2].length() == 0) {
             throw new InvalidFormatException("Try again, n/ c/ cannot be empty");
         }
-        String name = initDetails[1];
+        String name = initDetails[1].trim();
         try {
-            courseCode = Integer.parseInt(initDetails[2]);
+            courseCode = Integer.parseInt(initDetails[2].trim());
         } catch (NumberFormatException e){
             throw new InvalidFormatException("c/ must be an integer");
         }

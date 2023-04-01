@@ -88,6 +88,10 @@ Format:`init n/[Name] c/[COURSE NUMBER]`
 Example:
 - `init n/John Doe c/1` Initiates a user with the name `John` and course `Biomedical Engineering`.
 
+Notes:
+- Each program is limited to 1 user, ie. re-initialisation will overwrite the current user `name` and `course` and not create a 
+separate profile
+
 <br>
 
 ### Help: `help`
