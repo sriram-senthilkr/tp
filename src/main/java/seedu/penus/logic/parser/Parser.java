@@ -155,7 +155,7 @@ public class Parser {
      */
     public Command markParser(String args) throws PenusException {
         if (!args.contains("g/")) {
-            throw new InvalidFormatException("g/");
+            throw new InvalidFormatException("Try again in the format: mark MODULECODE g/GRADE");
         }
         String[] details = args.split(" g/");
         if (!Grade.isValid(details[1])) {
