@@ -63,7 +63,7 @@ Enter command:
 									 1 -> Biomedical Engineering
 									 2 -> Chemical Engineering
 									 3 -> Civil Engineering
-									 4 -> Chemical Engineering
+									 4 -> Computer Engineering
 									 5 -> Electrical Engineering
 									 6 -> Environmental Engineering
 									 7 -> Industrial and Systems Engineering
