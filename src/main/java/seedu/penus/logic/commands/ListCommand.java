@@ -44,60 +44,20 @@ public class ListCommand extends Command {
 
         //list all modules
         if (this.year == 0 && this.semester == 0) {
-            for (int y = 1; y < 5; y++) {
-                for (int s = 1; s <= 2; s++) {
-                    messageArray.add("- Year " + y + " Semester " + s + " -");
-
-                    List<String[]> modulesInYearSem = modules.getOrDefault(y, new HashMap<>())
-                            .getOrDefault(s, new ArrayList<>());
-                    
-                    if (modulesInYearSem.isEmpty()) {
-                        messageArray.add("No modules taken/added.");
-                    } else {
-                        for (String[] string : modulesInYearSem) {
-                            messageArray.add(string[0] + " " + string[1]);
-                        }
-                    }
-                    messageArray.add("");
-                }
-            }
+            List<String> allModules = getAllMods(modules);
+            messageArray.addAll(allModules);
         }
 
         //list for year only
         if (this.year != 0 && this.semester == 0) {
-            for (int s = 1; s <= 2; s++) {
-                messageArray.add("- Year " + this.year + " Semester " + s + " -");
-
-                List<String[]> modulesInYear = modules.getOrDefault(this.year, new HashMap<>())
-                        .getOrDefault(s, new ArrayList<>());
-
-                if (modulesInYear.isEmpty()) {
-                    messageArray.add("No modules taken/added");
-                } else {
-                    for (String[] string : modulesInYear) {
-                        messageArray.add(string[0] + " " + string[1]);
-                    }
-                }
-                messageArray.add(Grade.getSemCAP(modulesInYear));
-                messageArray.add("");
-            }
+            List<String> yearModules = getYearMods(modules);
+            messageArray.addAll(yearModules);
         }
 
         //list year and sem specific
         if (this.year != 0 && this.semester != 0) {
-            messageArray.add("- Year " + this.year + " Semester " + this.semester + " -");
-
-            List<String[]> modulesInYearAndSem = modules.getOrDefault(this.year, new HashMap<>())
-                    .getOrDefault(this.semester, new ArrayList<>());
-
-            if (modulesInYearAndSem.isEmpty()) {
-                messageArray.add("No modules taken/added");
-            } else {
-                for (String[] string : modulesInYearAndSem)  {
-                    messageArray.add(string[0] + " " + string[1]);
-                }
-            }
-            messageArray.add(Grade.getSemCAP(modulesInYearAndSem));
+            List<String> semModules = getSemMods(modules);
+            messageArray.addAll(semModules);
         }
 
         messageArray.add("");
@@ -105,5 +65,67 @@ public class ListCommand extends Command {
 
         return new CommandResult(messageArray, true);
     }
-    
+
+    private List<String> getAllMods(Map<Integer, Map<Integer, List<String[]>>> modules) {
+        List<String> messageList = new ArrayList<>();
+        for (int y = 1; y < 5; y++) {
+            for (int s = 1; s <= 2; s++) {
+                messageList.add("- Year " + y + " Semester " + s + " -");
+
+                List<String[]> modulesInYearSem = modules.getOrDefault(y, new HashMap<>())
+                        .getOrDefault(s, new ArrayList<>());
+                
+                if (modulesInYearSem.isEmpty()) {
+                    messageList.add("No modules taken/added.");
+                } else {
+                    for (String[] string : modulesInYearSem) {
+                        messageList.add(string[0] + " " + string[1]);
+                    }
+                }
+                messageList.add("");
+            }
+        }
+        return messageList;
+    }
+
+    private List<String> getYearMods(Map<Integer, Map<Integer, List<String[]>>> modules) throws PenusException {
+        List<String> messageList = new ArrayList<>();
+        for (int s = 1; s <= 2; s++) {
+            messageList.add("- Year " + this.year + " Semester " + s + " -");
+
+            List<String[]> modulesInYear = modules.getOrDefault(this.year, new HashMap<>())
+                    .getOrDefault(s, new ArrayList<>());
+
+            if (modulesInYear.isEmpty()) {
+                messageList.add("No modules taken/added");
+            } else {
+                for (String[] string : modulesInYear) {
+                    messageList.add(string[0] + " " + string[1]);
+                }
+            }
+            messageList.add(Grade.getSemCAP(modulesInYear));
+            messageList.add("");
+        }
+
+        return messageList;
+    }
+
+    private List<String> getSemMods(Map<Integer, Map<Integer, List<String[]>>> modules) throws PenusException {
+        List<String> messageList = new ArrayList<>();
+        messageList.add("- Year " + this.year + " Semester " + this.semester + " -");
+
+        List<String[]> modulesInYearAndSem = modules.getOrDefault(this.year, new HashMap<>())
+                .getOrDefault(this.semester, new ArrayList<>());
+
+        if (modulesInYearAndSem.isEmpty()) {
+            messageList.add("No modules taken/added");
+        } else {
+            for (String[] string : modulesInYearAndSem)  {
+                messageList.add(string[0] + " " + string[1]);
+            }
+        }
+        messageList.add(Grade.getSemCAP(modulesInYearAndSem));
+
+        return messageList;
+    }
 }
