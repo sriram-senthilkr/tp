@@ -113,7 +113,7 @@ public class Parser {
             throw new InvalidFormatException("y/ or s/ Must be specified as an integer!");
         }
 
-        if (year != 1 && year != 2 && year != 3 && year != 4) {
+        if (year < 1 || year > 4) {
             throw new InvalidYearException("Year must be 1 to 4. Please try again.");
         }
 
@@ -151,6 +151,9 @@ public class Parser {
         String grade = takenDetails[3].toUpperCase().trim();
         if (!Grade.isValid(grade)) {
             throw new InvalidGradeException();
+        }
+        if (year < 1 || year > 4) {
+            throw new InvalidYearException("Year must be 1 to 4. Please try again.");
         }
         if (semester != 1 && semester != 2) {
             throw new InvalidFormatException("Semester must be 1 or 2!");
@@ -205,7 +208,7 @@ public class Parser {
             throw new InvalidFormatException("Must be specified as an integer!");
         }
         if (year < 1 || year > 4) {
-            throw new InvalidFormatException("Year must be within 1 to 4");
+            throw new InvalidFormatException("Year must be 1 to 4. Please try again.");
         }
 
         if (details.length == 2) {
