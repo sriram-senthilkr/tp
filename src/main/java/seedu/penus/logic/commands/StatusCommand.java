@@ -60,6 +60,16 @@ public class StatusCommand extends Command {
         return untakenCoreMods;
     }
 
+    public int getNumberOfCoreMCsTaken (ModelManager model) {
+        int numberOfElectiveMCs = 0;
+        List<String> takenCoreModsList = getTakenCoreModsList(model);
+        for (String moduleCode : takenCoreModsList) {
+            numberOfElectiveMCs = numberOfElectiveMCs +
+                                  Integer.parseInt(ModuleRetriever.getModuleCredit2223(moduleCode));
+        }
+        return numberOfElectiveMCs;
+    }
+
     public String moduleCodeToString(String moduleCode) {
         return moduleCode + " "+ ModuleRetriever.getTitle2223(moduleCode)
                     + " MCs: " + ModuleRetriever.getModuleCredit2223(moduleCode);
@@ -76,27 +86,34 @@ public class StatusCommand extends Command {
         StringBuilder sb = new StringBuilder();
         List<String> takenCoreModsList = getTakenCoreModsList(model);
         List<String> untakenCoreModsList = getUntakenCoreModsList(model);
-        
+        int totalMCsTaken = MCsTaken.numberOfMcsTaken(model.getModuleList().modules);
+        int coreMCsTaken = getNumberOfCoreMCsTaken(model);
+        int electiveMCsTaken = totalMCsTaken - coreMCsTaken;
         List<String> messageArray = new ArrayList<>();
-        messageArray.add("--------- Taken ---------");
+        messageArray.add("-------------------------- User --------------------------");
+        messageArray.add("\tUser: " + model.getUserName());
+        messageArray.add("\tCourse: " + model.getUserCourse());
+        messageArray.add("\t------------------- Core Modules Taken --------------------");
         for (String s : takenCoreModsList){
-            messageArray.add(moduleCodeToString(s));
+            messageArray.add("\t" + moduleCodeToString(s));
         }
-        messageArray.add("--------- Not Taken ---------");
+        messageArray.add("\t----------------- Core Modules Not Taken ------------------");
         if (model.getGEC().equals("")){
-            messageArray.add("GECXXXX");
+            messageArray.add("\tGECXXXX");
         }
         if (model.getGESS().equals("")){
-            messageArray.add("GESSXXXX");
+            messageArray.add("\tGESSXXXX");
         }
         if (model.getGEN().equals("")){
-            messageArray.add("GENXXXX");
+            messageArray.add("\tGENXXXX");
         }
         for (String s : untakenCoreModsList){
-            messageArray.add(moduleCodeToString(s));
+            messageArray.add("\t" + moduleCodeToString(s));
         }
-        messageArray.add("MCs Taken: " + Integer.toString(MCsTaken.numberOfMcsTaken(model.getModuleList().modules))
-                        + "/160");
+        messageArray.add("\t------------------------ MCs Status -----------------------");
+        messageArray.add("\tCore Modules MCs Taken: " + Integer.toString(coreMCsTaken));
+        messageArray.add("\tElective MCs Taken: " + Integer.toString(electiveMCsTaken));
+        messageArray.add("\tTotal MCs Taken: " + Integer.toString(totalMCsTaken) + "/160");
 
         for (String s : messageArray){
             sb.append(s).append("\n");

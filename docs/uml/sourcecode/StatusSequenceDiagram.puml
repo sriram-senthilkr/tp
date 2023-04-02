@@ -32,11 +32,26 @@ deactivate Parser
 LogicManager -> "StatusCommand" : execute()
 activate "StatusCommand"
 
-"StatusCommand" -> ModelManager: getTakenCoreMods()
+"StatusCommand" -> ModelManager: getUserName()
 activate ModelManager
+ModelManager -> "StatusCommand": name
+"StatusCommand" -> ModelManager: getUserCourse()
+ModelManager -> "StatusCommand": course
+"StatusCommand" -> ModelManager: getTakenCoreMods()
 ModelManager -> "StatusCommand": takenCoreMods
 "StatusCommand" -> ModelManager: getUntakenCoreMods()
 ModelManager -> "StatusCommand": untakenCoreMods
+deactivate ModelManager
+
+
+"StatusCommand" -> MCsTaken: getNumberOfMCsTaken()
+activate MCsTaken
+MCsTaken -> "StatusCommand": total MCs taken
+deactivate MCsTaken
+
+"StatusCommand" -> ModelManager: getNumberOfCoreMCsTaken()
+activate ModelManager
+ModelManager -> "StatusCommand": number of core module MCs taken
 deactivate ModelManager
 
 loop For each Module Code
@@ -46,10 +61,6 @@ loop For each Module Code
     deactivate ModuleRetriever
 end
 
-"StatusCommand" -> MCsTaken: numberOfMCsTaken()
-activate MCsTaken
-MCsTaken -> "StatusCommand": number of MCs taken
-deactivate MCsTaken
 
 create CommandResult
 "StatusCommand" -> CommandResult
