@@ -32,7 +32,7 @@ public class TakenCommand extends Command {
     @Override
     public CommandResult execute(ModelManager model) throws DuplicateModuleException, InvalidCommandException {
         if (taken.getGrade().equals("U") || taken.getGrade().equals("S")) {
-            if (ModuleRetriever.getSUstatus(taken.getCode())){
+            if (!ModuleRetriever.getSUstatus(taken.getCode())){
                 throw new InvalidCommandException("The module cannot be SU-ed");
             }
         }

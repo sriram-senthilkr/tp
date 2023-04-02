@@ -39,7 +39,7 @@ public class MarkCommand extends Command {
         }
 
         if (this.grade.equals("S") || this.grade.equals("U")) {
-            if (ModuleRetriever.getSUstatus(this.moduleCode)) {
+            if (!ModuleRetriever.getSUstatus(this.moduleCode)) {
                 throw new InvalidCommandException("The module cannot be Su-ed");
             }
         }
