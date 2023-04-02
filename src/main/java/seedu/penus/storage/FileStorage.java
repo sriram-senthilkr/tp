@@ -18,9 +18,8 @@ public class FileStorage {
 
     /**
      * Constructor for the File Manager object.
-     * <p>
      * Creates a File object according to the relative path /data/penus.txt to store the data
-     * <p>
+     * 
      * Initializes a /data/ folder and penus.txt if it does not exist
      */
     public FileStorage() {
@@ -63,7 +62,6 @@ public class FileStorage {
 
     /**
      * Retrieves any modules saved in /data/penus.txt if the directory exists.
-     * <p>
      * Decodes the contents of penus.txt into a moduleList object. 
      *
      * @return moduleList the moduleList containing all the user's modules saved in storage
@@ -93,7 +91,6 @@ public class FileStorage {
 
     /**
      * Retrieves any User saved in /data/penus.txt if the directory exists.
-     * <p>
      * Decodes the contents of penus.txt into a User object. 
      *
      * @return user the User containing the user details saved in storage

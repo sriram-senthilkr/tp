@@ -38,7 +38,7 @@ public class ResourceStorage {
 
     /**
      * Retrieves all module details in /resource/core-modules.txt
-     * <p>
+     * 
      * Parses the content of core-modules.txt into a Hashmap
      * Key: courseName String
      * Value: coreModulesList Array
@@ -76,7 +76,7 @@ public class ResourceStorage {
 
     /**
      * Retrieves all module details in /resource/module-details.txt
-     * <p>
+     * 
      * Parses the content of module-details.txt into a List of decoded modules.
      * @return the List containing all the decoded modules.
      */
@@ -104,9 +104,8 @@ public class ResourceStorage {
     /**
      * Decoder method to read a line of module-details.txt storage and splits the string
      * into a string array
-     * <p>
+     * 
      * Format: 
-     * <p>
      * moduleCode ### moduleName ### numberOfMcs ### preRequisites ### coRequisites ###
      * preclusions ### semOfferedIn ### canSU
      * @param module the string corresponding to the lines of module-details.txt
