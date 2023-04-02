@@ -40,16 +40,23 @@ public class StatusCommandTest {
     @Test
     public void testStatusCommandSuccess() throws PenusException {
         CommandResult result = statusCommand.execute(model);
-        String expectedString = "--------- Taken ---------\n" +
-                "GESS1004 Singapore and India: Emerging Relations MCs: 4\n" +
-                "CS2040C Data Structures and Algorithms MCs: 4\n" +
-                "CS1231 Discrete Structures MCs: 4\n" +
-                "--------- Not Taken ---------\n" +
-                "GECXXXX\n" +
-                "GENXXXX\n" +
-                "EE2211 Introduction to Machine Learning MCs: 4\n" +
-                "EG1311 Design and Make MCs: 4\n" +
-                "MCs Taken: 20/160\n";
+        String expectedString =
+                "-------------------------- User --------------------------\n" +
+                "\tUser: bentohset\n" +
+                "\tCourse: Computer Engineering\n" +
+                "\t------------------- Core Modules Taken --------------------\n" +
+                "\tGESS1004 Singapore and India: Emerging Relations MCs: 4\n" +
+                "\tCS2040C Data Structures and Algorithms MCs: 4\n" +
+                "\tCS1231 Discrete Structures MCs: 4\n" +
+                "\t----------------- Core Modules Not Taken ------------------\n" +
+                "\tGECXXXX\n" +
+                "\tGENXXXX\n" +
+                "\tEE2211 Introduction to Machine Learning MCs: 4\n" +
+                "\tEG1311 Design and Make MCs: 4\n" +
+                "\t------------------------ MCs Status -----------------------\n" +
+                "\tCore Modules MCs Taken: 12\n" +
+                "\tElective MCs Taken: 8\n" +
+                "\tTotal MCs Taken: 20/160\n";
         assertEquals(expectedString, result.feedbackToUser);
     }
 }
