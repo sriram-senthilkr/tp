@@ -103,12 +103,12 @@ public class Parser {
             throw new InvalidFormatException("Try again in the format: PLAN CODE y/YEAR s/SEM");
         }
 
-        String moduleCode = planDetails[0].toUpperCase();
+        String moduleCode = planDetails[0].toUpperCase().trim();
         int year;
         int semester;
         try {
-            year = Integer.parseInt(planDetails[1]);
-            semester = Integer.parseInt(planDetails[2]);
+            year = Integer.parseInt(planDetails[1].trim());
+            semester = Integer.parseInt(planDetails[2].trim());
         } catch (NumberFormatException e) {
             throw new InvalidFormatException("y/ or s/ Must be specified as an integer!");
         }
@@ -138,17 +138,17 @@ public class Parser {
         if (takenDetails[1].length() == 0 || takenDetails[2].length() == 0 || takenDetails[3].length() == 0) {
             throw new InvalidFormatException("Try again, y/ s/ g/ cannot be empty");
         }
-        String moduleCode = takenDetails[0].toUpperCase();
+        String moduleCode = takenDetails[0].toUpperCase().trim();
         int year;
         int semester;
         try {
-            year = Integer.parseInt(takenDetails[1]);
-            semester = Integer.parseInt(takenDetails[2]);
+            year = Integer.parseInt(takenDetails[1].trim());
+            semester = Integer.parseInt(takenDetails[2].trim());
         } catch (NumberFormatException e) {
             throw new InvalidFormatException("y/ or s/ Must be specified as an integer!");
         }
         
-        String grade = takenDetails[3].toUpperCase();
+        String grade = takenDetails[3].toUpperCase().trim();
         if (!Grade.isValid(grade)) {
             throw new InvalidGradeException();
         }
@@ -171,11 +171,11 @@ public class Parser {
             throw new InvalidFormatException("Try again in the format: mark MODULECODE g/GRADE");
         }
         String[] details = args.split(" g/");
-        if (!Grade.isValid(details[1])) {
+        if (!Grade.isValid(details[1].trim())) {
             throw new InvalidGradeException();
         }
-        String moduleCode = details[0].toUpperCase();
-        String grade = details[1].toUpperCase();
+        String moduleCode = details[0].toUpperCase().trim();
+        String grade = details[1].toUpperCase().trim();
 
         return new MarkCommand(moduleCode, grade);
     }
@@ -200,7 +200,7 @@ public class Parser {
         int year = 0;
         int semester = 0;
         try {
-            year = Integer.parseInt(details[1]);
+            year = Integer.parseInt(details[1].trim());
         } catch (NumberFormatException e) {
             throw new InvalidFormatException("Must be specified as an integer!");
         }
@@ -213,7 +213,7 @@ public class Parser {
         } else if (details.length == 3) {
             if (args.contains("s/")) {
                 try {
-                    semester = Integer.parseInt(details[2]);
+                    semester = Integer.parseInt(details[2].trim());
                 } catch (NumberFormatException e) {
                     throw new InvalidFormatException("Semester must be specified as an integer!");
                 }
@@ -243,7 +243,7 @@ public class Parser {
             throw new InvalidModuleException("Please specify a module");
         }
 
-        String moduleCode = args.toUpperCase();
+        String moduleCode = args.toUpperCase().trim();
 
         return new RemoveCommand(moduleCode);
     }
@@ -322,7 +322,7 @@ public class Parser {
         int semester = 0;
 
         try {
-            year = Integer.parseInt(details[1]);
+            year = Integer.parseInt(details[1].trim());
         } catch (NumberFormatException e) {
             throw new InvalidFormatException("Must be specified as an integer!");
         }
@@ -338,7 +338,7 @@ public class Parser {
         } else if (details.length == 3) { //Year and Semester specified
             if (args.contains("s/")) {
                 try {
-                    semester = Integer.parseInt(details[2]);
+                    semester = Integer.parseInt(details[2].trim());
                 } catch (NumberFormatException e) {
                     throw new InvalidFormatException("Semester must be specified as an integer!");
                 }
