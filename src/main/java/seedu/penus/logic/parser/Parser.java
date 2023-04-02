@@ -104,13 +104,19 @@ public class Parser {
         }
 
         String moduleCode = planDetails[0].toUpperCase();
-        int year = Integer.parseInt(planDetails[1]);
+        int year;
+        int semester;
+        try {
+            year = Integer.parseInt(planDetails[1]);
+            semester = Integer.parseInt(planDetails[2]);
+        } catch (NumberFormatException e) {
+            throw new InvalidFormatException("y/ or s/ Must be specified as an integer!");
+        }
 
         if (year != 1 && year != 2 && year != 3 && year != 4) {
             throw new InvalidYearException("Year must be 1 to 4. Please try again.");
         }
 
-        int semester = Integer.parseInt(planDetails[2]);
         if (semester != 1 && semester != 2) {
             throw new InvalidSemesterException("Semester must be 1 or 2!");
         }
@@ -133,8 +139,15 @@ public class Parser {
             throw new InvalidFormatException("Try again, y/ s/ g/ cannot be empty");
         }
         String moduleCode = takenDetails[0].toUpperCase();
-        int year = Integer.parseInt(takenDetails[1]);
-        int semester = Integer.parseInt(takenDetails[2]);
+        int year;
+        int semester;
+        try {
+            year = Integer.parseInt(takenDetails[1]);
+            semester = Integer.parseInt(takenDetails[2]);
+        } catch (NumberFormatException e) {
+            throw new InvalidFormatException("y/ or s/ Must be specified as an integer!");
+        }
+        
         String grade = takenDetails[3].toUpperCase();
         if (!Grade.isValid(grade)) {
             throw new InvalidGradeException();
