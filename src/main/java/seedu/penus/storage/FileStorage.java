@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import seedu.penus.common.exceptions.DuplicateModuleException;
+import seedu.penus.common.exceptions.PenusException;
 import seedu.penus.model.Module;
 import seedu.penus.model.ModuleList;
 import seedu.penus.model.User;
@@ -66,17 +68,24 @@ public class FileStorage {
      *
      * @return moduleList the moduleList containing all the user's modules saved in storage
      */
-    public List<Module> retrieveMods() {
+    public List<Module> retrieveMods() throws PenusException {
         Scanner scanner = null;
         List<Module> moduleList = new ArrayList<>();
         try {
             scanner = new Scanner(this.file);
             while (scanner.hasNextLine()) {
                 String encoded = scanner.nextLine();
+                if (encoded.length() == 0) {
+                    continue;
+                }
                 if (encoded.contains("User")) {
                     continue;
                 }
-                moduleList.add(this.decodemodule(encoded));
+                Module decodedModule = StorageDecoder.decodemodule(encoded);
+                if (hasModule(decodedModule, moduleList)) {
+                    throw new DuplicateModuleException();
+                }
+                moduleList.add(decodedModule);
             }
         } catch (FileNotFoundException e) {
             System.out.println(e);
@@ -95,7 +104,7 @@ public class FileStorage {
      *
      * @return user the User containing the user details saved in storage
      */
-    public User retrieveUser() {
+    public User retrieveUser() throws PenusException {
         Scanner scanner = null;
         User user = new User();
         try {
@@ -103,9 +112,7 @@ public class FileStorage {
             if (scanner.hasNextLine()) {
                 String userLine = scanner.nextLine();
                 if (userLine.contains("User")) {
-                    String[] components = userLine.split(" ### ");
-                    user.setName(components[1]);
-                    user.setCourse(components[2]);
+                    user = StorageDecoder.decodeUser(userLine);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -119,39 +126,14 @@ public class FileStorage {
         return user;
     }
 
-    /**
-     * Decoder method to read a lines in storage and splits the string
-     * into a string array
-     * Format: Taken/Plan ### moduleCode ### year ### semester (### grade for taken)
-     * @param module String
-     * @return decoded Module object
-     */
-    private Module decodemodule(String module) {
-        String[] components = module.split(" ### ");
-        String status = components[0];
-        String moduleCode = components[1];
-        int year = Integer.parseInt(components[2]);
-        int semester = Integer.parseInt(components[3]);
-
-        Module decoded = null;
-
-        switch (status) {
-        case "Taken":
-            String grade = components[4];
-            decoded = new Module(moduleCode, year, semester, grade);
-            break;
-
-        case "Plan":
-            decoded = new Module(moduleCode, year, semester);
-            break;
-
-        default:
-            break;
+    private boolean hasModule(Module module, List<Module> moduleList) {
+        for (Module m : moduleList) {
+            if (m.getCode().equals(module.getCode())) {
+                return true;
+            }
         }
-
-        return decoded;
+        return false;
     }
-
 }
 
 

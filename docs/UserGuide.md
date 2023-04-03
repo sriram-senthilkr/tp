@@ -286,14 +286,17 @@ There is no need to save manually.
 ### Editing the data file
 PENUS's data are saved as a .txt file in `[JAR file location]/data/penus.txt`. 
 Edits must be made according to the formatting of the data.
+- User MUST be at the **top of the file**
+- If 2 Users are declared, only the first declared User will be initialised
+- Line breaks/spacings are allowed
+- Inclusive of valid formatting of parameters as mentioned in features above
 
 Format:
 
 | Line       | Description              | Format                                                                                      |
 |------------|--------------------------|---------------------------------------------------------------------------------------------|
 | 1          | User's Name and Course   | User ### NAME ### COURSE_NAME                                                               |
-| 2 to (n-1) | Taken or Planned Modules | Taken ### MODULE_CODE ### YEAR ### SEM ### GRADE <br> Plan ### MODULE_CODE ### YEAR ### SEM |
-| n          | Empty Line               |                                                                                             |
+| 2 to n     | Taken or Planned Modules | Taken ### MODULECODE ### YEAR ### SEM ### GRADE <br> Plan ### MODULECODE ### YEAR ### SEM   |
 
 Example:
 
