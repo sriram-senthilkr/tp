@@ -28,7 +28,7 @@ public class PlanCommandTest {
     }
 
     @Test
-    public void execute_duplicateModule_throwsDuplicateModuleException() throws DuplicateModuleException {
+    public void execute_duplicateModule_throwsDuplicateModuleException() throws PenusException {
         PlanCommand command1 = new PlanCommand("CS2113", 2, 2);
         PlanCommand command2 = new PlanCommand("CS2113", 2, 2);
 
@@ -36,4 +36,6 @@ public class PlanCommandTest {
 
         assertThrows(DuplicateModuleException.class, () -> command2.execute(model));
     }
+
+    //test for invalid module
 }

@@ -36,4 +36,6 @@ public class TakenCommandTest {
 
         assertThrows(DuplicateModuleException.class, () -> command2.execute(model));
     }
+
+    //test for invalid module
 }
