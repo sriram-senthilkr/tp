@@ -1,6 +1,7 @@
 package seedu.penus.logic.commands;
 
 import seedu.penus.common.exceptions.DuplicateModuleException;
+import seedu.penus.common.exceptions.InvalidModuleException;
 import seedu.penus.common.exceptions.PenusException;
 import seedu.penus.model.ModelManager;
 import seedu.penus.model.User;
@@ -37,5 +38,10 @@ public class TakenCommandTest {
         assertThrows(DuplicateModuleException.class, () -> command2.execute(model));
     }
 
-    //test for invalid module
+    @Test
+    public void execute_invalidModule_throwsInvalidModuleException() throws PenusException {
+        TakenCommand command = new TakenCommand("CS211300 ", 2, 2, "A+");
+        
+        assertThrows(InvalidModuleException.class, () -> command.execute(model));
+    }
 }

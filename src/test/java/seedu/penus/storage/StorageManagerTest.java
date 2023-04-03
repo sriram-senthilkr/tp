@@ -3,6 +3,7 @@ package seedu.penus.storage;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.penus.common.exceptions.PenusException;
 import seedu.penus.model.ModuleList;
 import seedu.penus.model.User;
 
@@ -24,12 +25,12 @@ class StorageManagerTest {
     }
 
     @Test
-    public void testLoadStorage() {
+    public void testLoadStorage() throws PenusException {
         storageManager.storage = new FileStorage();
         assertNotNull(storageManager.loadStorage());
     }
     @Test
-    public void testLoadUser() {
+    public void testLoadUser() throws PenusException {
         storageManager.storage = new FileStorage();
         assertNotNull(storageManager.loadUser());
     }
