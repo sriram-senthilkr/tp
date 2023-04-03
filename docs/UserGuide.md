@@ -122,7 +122,7 @@ Example:
 <br>
 
 ### Plan untaken modules: `plan`
-Adds a module to the planner as an untaken module.
+Adds a module to the planner as a module that has not been taken or completed.
 
 <br>
 
@@ -137,12 +137,12 @@ Example:
 
 ### Remove a module: `remove`
 
-Removes a mod from the planner.
+Removes a module from the planner.
 
 <br>
 <br>
 
-Format:`remove [MODULECODE]`
+Format:`remove [MODULE CODE]`
 
 <br>
 <br>
@@ -153,7 +153,8 @@ Example:
 <br>
 
 ### Mark module as taken: `mark`
-Marks the mod that has been cleared and upgrade its grade.
+Marks the module that has been taken and update its grade. 
+<br> Module must already have been added to the planner using the `plan` command.
 
 <br>
 <br>
@@ -170,6 +171,7 @@ Example:
 
 ### View modules: `list`
 Displays a list of all modules taken or planned in a specified Year and/or Semester.
+<br>
 If Year/Semester is not specified, then all modules will be listed.
 
 
@@ -236,7 +238,8 @@ Example:
 
 ### Clear modules: `clear`
 Clears all modules in a specified Year and/or Semester.
-If Year/Semester is not specified, then all modules will be cleared.
+<br>
+If neither Year nor Semester are specified, then all modules in the planner will be cleared.
 
 Format:`clear [FILTER]`
 
