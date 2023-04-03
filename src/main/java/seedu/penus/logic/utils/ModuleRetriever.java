@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 import seedu.penus.common.exceptions.InvalidModuleAPIException;
+import seedu.penus.common.exceptions.InvalidModuleException;
 
 
 // test comment
@@ -173,5 +174,16 @@ public class ModuleRetriever {
             //e.printStackTrace();
             return null;
         }
+    }
+
+    public static Boolean isValidMod(String module) throws InvalidModuleException {
+        try {
+            moduleInfo2223 = null;
+            getData2223(module);
+        } catch (InvalidModuleAPIException e) {
+            throw new InvalidModuleException();
+        }
+        return moduleInfo2223 != null;
+
     }
 }

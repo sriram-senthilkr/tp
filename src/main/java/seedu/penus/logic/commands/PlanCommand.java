@@ -1,6 +1,9 @@
 package seedu.penus.logic.commands;
 
 import seedu.penus.common.exceptions.DuplicateModuleException;
+import seedu.penus.common.exceptions.InvalidModuleException;
+import seedu.penus.common.exceptions.PenusException;
+import seedu.penus.logic.utils.ModuleRetriever;
 import seedu.penus.model.ModelManager;
 import seedu.penus.model.Module;
 
@@ -28,11 +31,13 @@ public class PlanCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ModelManager model) throws DuplicateModuleException {
+    public CommandResult execute(ModelManager model) throws PenusException {
         if (model.hasModule(plan)) {
             throw new DuplicateModuleException();
         }
-
+        if (!ModuleRetriever.isValidMod(this.plan.getCode())) {
+            throw new InvalidModuleException();
+        }
         model.addModule(plan);
 
         return new CommandResult(String.format(MESSAGE, plan, model.getSize()), false);
