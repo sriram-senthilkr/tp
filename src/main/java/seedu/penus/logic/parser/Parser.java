@@ -188,11 +188,7 @@ public class Parser {
             //list command with all modules
             return new ListCommand();
         }
-
-        //year must be specified
-        // if (!args.contains("y/")) {
-        //     throw new InvalidFormatException("Try again in the format: list y/YEAR s/SEM or list y/YEAR or list");
-        // }
+        
         if (args.contains("s/") && !args.contains("y/")) { // Semester specified but year not specified
             throw new InvalidFormatException(
                     "\tTry again, y/ must not be empty if s/ is not empty. " +
