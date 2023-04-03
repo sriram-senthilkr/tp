@@ -33,56 +33,80 @@ public class ClearCommand extends Command {
 
         //clear all modules
         if (this.year == 0 && this.semester == 0) {
-            if (moduleList.isEmpty()) {
-                messageArray.add("No modules to clear.");
-
-            } else {
-                moduleList.clear();
-                messageArray.add(MESSAGE);
-            }
+            List<String> clearallModules = clearAllMods(moduleList);
+            messageArray.addAll(clearallModules);
         }
 
         //clear specific year only
         if (this.year != 0 && this.semester == 0) {
-            messageArray.add("Clearing modules for Year " + this.year);
-            
-            int listSize = model.getModuleList().size();
-
-            if (listSize == 0) {
-
-                messageArray.add("No modules to clear.");
-            } else {
-                
-                for (int index = listSize - 1; index >= 0; index -= 1) {
-                    if (model.getModuleList().getModule(index).getYear().equals(this.year)) {
-                        model.removeModule(index);
-                    }
-                }
-                messageArray.add(MESSAGE);
-            }
+            List<String> clearYearModules = clearYearMods(model);
+            messageArray.addAll(clearYearModules);
         }
 
         //list year and sem specific
         if (this.year != 0 && this.semester != 0) {
-            messageArray.add("Clearing modules for Year " + this.year + " and Semester " + this.semester);
-
-            int listSize = model.getModuleList().size();
-
-            if (listSize == 0) {
-
-                messageArray.add("No modules to clear.");
-            } else {
-            
-                for (int index = listSize - 1; index >= 0; index -= 1) {
-                    if ((model.getModuleList().getModule(index).getYear() == this.year) && 
-                        (model.getModuleList().getModule(index).getSem() == this.semester)) {
-                        model.removeModule(index);
-                    }
-                }
-                messageArray.add(MESSAGE);
-            }
+            List<String> clearYearAndSemModules = clearYearAndSemMods(model);
+            messageArray.addAll(clearYearAndSemModules);
         }
 
         return new CommandResult(messageArray, true);
+    }
+
+    //clear all modules method
+    private List<String> clearAllMods(List<Module> moduleList) {
+        List<String> messageList = new ArrayList<>();
+        if (moduleList.isEmpty()) {
+            messageList.add("No modules to clear.");
+
+        } else {
+            moduleList.clear();
+            messageList.add(MESSAGE);
+        }
+        return messageList;
+    }
+
+    //clear specific year method
+    private List<String> clearYearMods(ModelManager model) {
+        List<String> messageList = new ArrayList<>();
+        messageList.add("Clearing modules for Year " + this.year);
+
+        int listSize = model.getModuleList().size();
+
+        if (listSize == 0) {
+
+            messageList.add("No modules to clear.");
+        } else {
+
+            for (int index = listSize - 1; index >= 0; index -= 1) {
+                if (model.getModuleList().getModule(index).getYear().equals(this.year)) {
+                    model.removeModule(index);
+                }
+            }
+            messageList.add(MESSAGE);
+        }
+        return messageList;
+    }
+
+    //list year and sem specific method
+    private List<String> clearYearAndSemMods(ModelManager model) {
+        List<String> messageList = new ArrayList<>();
+        messageList.add("Clearing modules for Year " + this.year + " and Semester " + this.semester);
+
+        int listSize = model.getModuleList().size();
+
+        if (listSize == 0) {
+
+            messageList.add("No modules to clear.");
+        } else {
+
+            for (int index = listSize - 1; index >= 0; index -= 1) {
+                if ((model.getModuleList().getModule(index).getYear() == this.year) &&
+                        (model.getModuleList().getModule(index).getSem() == this.semester)) {
+                    model.removeModule(index);
+                }
+            }
+            messageList.add(MESSAGE);
+        }
+        return messageList;
     }
 }
