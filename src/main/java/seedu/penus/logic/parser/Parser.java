@@ -100,7 +100,7 @@ public class Parser {
         }
         String[] planDetails = args.split(" y/| s/", 3);
         if (planDetails.length != 3 || planDetails[1].length() == 0 || planDetails[2].length() == 0) {
-            throw new InvalidFormatException("Try again in the format: PLAN CODE y/YEAR s/SEM");
+            throw new InvalidFormatException("Try again in the format: plan MODULE_CODE y/YEAR s/SEM");
         }
 
         String moduleCode = planDetails[0].toUpperCase().trim();
@@ -133,7 +133,7 @@ public class Parser {
     public Command takenParser(String args) throws PenusException {
         String[] takenDetails = args.split(" y/| s/| g/", 4);
         if (takenDetails.length != 4) {
-            throw new InvalidFormatException("Try again in the format: PLAN CODE y/YEAR s/SEM g/GRADE");
+            throw new InvalidFormatException("Try again in the format: taken MODULE_CODE y/YEAR s/SEM g/GRADE");
         }
         if (takenDetails[1].length() == 0 || takenDetails[2].length() == 0 || takenDetails[3].length() == 0) {
             throw new InvalidFormatException("Try again, y/ s/ g/ cannot be empty");
@@ -171,7 +171,7 @@ public class Parser {
      */
     public Command markParser(String args) throws PenusException {
         if (!args.contains("g/")) {
-            throw new InvalidFormatException("Try again in the format: mark MODULECODE g/GRADE");
+            throw new InvalidFormatException("Try again in the format: mark MODULE_CODE g/GRADE");
         }
         String[] details = args.split(" g/");
         if (!Grade.isValid(details[1].trim())) {
