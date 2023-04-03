@@ -6,6 +6,6 @@ public class InvalidModuleException extends PenusException {
     }
 
     public InvalidModuleException() {
-        super("This module is invalid. Please try again");
+        super("Invalid module. Please try again");
     }
 }

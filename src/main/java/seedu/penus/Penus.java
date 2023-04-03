@@ -32,12 +32,19 @@ public class Penus {
     private void start() {
         this.ui = new Ui();
         this.storage = new StorageManager();
-        this.model = new ModelManager(
+        try {
+            this.model = new ModelManager(
             storage.loadUser(),
             storage.loadStorage(),
             storage.loadCoreDetails(),
             storage.loadCoreModList()
-        );
+            );
+        } catch (Exception e) {
+            ui.printStorageError(e.getMessage());
+            //unchecked exception to exit application upon initialising with error
+            throw new RuntimeException(e);
+        }
+        
         this.logic = new LogicManager(model, storage);
         ui.printWelcome();
     }

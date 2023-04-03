@@ -42,6 +42,16 @@ public class Ui {
         out.println(DIVIDER);
     }
 
+    public void printStorageError(String... messages) {
+        out.println();
+        out.println(DIVIDER);
+        for (String m : messages) {
+            out.println("\tStorage " + m);
+        }
+        out.println("\tPlease check ./data/penus.txt again");
+        out.println(DIVIDER);
+    }
+
     public void printResultString(CommandResult result) {
         requireNonNull(result);
         printMessage(result.feedbackToUser);
