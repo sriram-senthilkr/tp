@@ -159,7 +159,7 @@ Marks the module that has been taken and update its grade.
 <br>
 <br>
 
-Format:`[MODULE CODE] g/[GRADE]`
+Format:`mark [MODULE CODE] g/[GRADE]`
 
 <br>
 <br>

@@ -19,8 +19,7 @@ public class DetailsCompiler extends ModuleRetriever{
             }
             return title + "\n" + description + "\n" + prereqs + "\n" + credits + "\n" + suStatusDescription;
         } catch (Exception e) {
-            return "This information is not available";
+            return ": This information is not available";
         }
     }
-
 }
