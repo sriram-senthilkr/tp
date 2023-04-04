@@ -24,6 +24,7 @@ For students that can type fast, PENUS can help them plan and track their module
 
 ## Table of Contents 📔
 - [Quick Start](#quick-start-⚙️)
+- [NUSMods API](#NUSMods-API)
 - [Features](#features-👾)
     + [Initialisation: `init`](#initialisation-init)
     + [Help: `help`](#help-help)
@@ -60,6 +61,15 @@ _Some example commands you can try:_
     - `status`: gets the status of core modules and MCs taken.
     - `exit`: exits the application.
 6. Refer to features below for details of each command
+
+## NUSMods API
+Several of our features access the NUSMods API to retrieve data for the modules. These features include `list`, `status`
+and `details`. 
+<br>
+Here are some points to note:
+<br>
+- Please ensure you have a stable internet connection when using PENUS.
+- Retrieving data from the NUSMods API may take a while, please expect some loading time when using the features listed above.
 
 ## Features 👾
 
