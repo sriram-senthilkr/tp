@@ -8,13 +8,14 @@ import seedu.penus.model.Module;
 public class Grade {
     /**
      * Converts a {@code String} grade into its associated gradepoint
+     * 
      * @param grade string
      * @return {@code double} corresponding value of the grade
      * @throws InvalidGradeException invalid grade
      */
     public static double getGradePoint(String grade) throws InvalidGradeException {
         double gradePoint;
-        switch(grade.toUpperCase()) {
+        switch (grade.toUpperCase()) {
         case "A+":
         case "A":
             gradePoint = 5.0;
@@ -65,26 +66,26 @@ public class Grade {
 
     /**
      * Checks if a grade {@code String} is valid and within expected inputs
+     * 
      * @param grade string
      * @return Boolean true if grade is valid
      */
     public static Boolean isValid(String grade) {
         List<String> validGrades = Arrays.asList(
-            "A+", "A", "A-", 
-            "B+", "B", "B-", 
-            "C+", "C", 
-            "D+", "D", 
-            "F", "S", "U"
-        );
+                "A+", "A", "A-",
+                "B+", "B", "B-",
+                "C+", "C",
+                "D+", "D",
+                "F", "S", "U");
 
         return validGrades.contains(grade.toUpperCase());
     }
-
 
     /**
      * For every module taken, calculate weighted score = number of MC * grade
      * Sum up weighted score for all mods and divide by total MCs taken thus far
      * S/U grades are not calculated for in Overall CAP
+     * 
      * @param moduleList the list containing all modules taken
      * @return total CAP for all mods taken thus far
      * @throws InvalidGradeException if there exists an unidentified Grade type
@@ -109,9 +110,12 @@ public class Grade {
     }
 
     /**
-     * For every module taken in a semester, calculate weighted score = number of MC * grade
-     * Sum up weighted score for all mods and divide by total MCs taken in the semester
+     * For every module taken in a semester, calculate weighted score = number of MC
+     * * grade
+     * Sum up weighted score for all mods and divide by total MCs taken in the
+     * semester
      * S/U grades are not calculated for in Semester CAP
+     * 
      * @param semArray list of String array containing moduleCode and moduleGrade
      * @return total CAP for a particular semester
      * @throws InvalidGradeException if there exists an unidentified Grade type
@@ -139,6 +143,7 @@ public class Grade {
 
     /**
      * Calls calculateOverallCAP and prints the overall CAP to 2 decimal places
+     * 
      * @param moduleList the list containing all modules taken
      * @return capMessage String
      * @throws InvalidGradeException if there exists an unidentified Grade
@@ -156,6 +161,7 @@ public class Grade {
 
     /**
      * Calls calculateSemCAP and prints the semester CAP to 2 decimal places
+     * 
      * @param semArray list of String array containing moduleCode and moduleGrade
      * @return semCapMessage String
      * @throws InvalidGradeException if there exists an unidentified Grade
@@ -166,9 +172,8 @@ public class Grade {
             semCapMessage = "Semester CAP : 0.00\n";
         } else {
             Double semCAP = calculateSemCAP(semArray);
-            semCapMessage = String.format("Semester CAP : %.2f\n", semCAP);       
+            semCapMessage = String.format("Semester CAP : %.2f\n", semCAP);
         }
         return semCapMessage;
     }
 }
-
