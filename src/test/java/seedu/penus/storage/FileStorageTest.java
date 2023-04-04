@@ -16,6 +16,9 @@ import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FileStorageTest {
+    static final int NUMBER_OF_MODULES = 2;
+    static final String DATA_DIRECTORY = "./data/";
+    static final String FILE_PATH = "./data/penus.txt";
 
     FileStorage fileStorage;
 
@@ -27,8 +30,8 @@ class FileStorageTest {
 
     @Test
     public void testConstructor() {
-        assertEquals("./data/penus.txt", fileStorage.filePath);
-        assertEquals("./data/", fileStorage.dataDirectory);
+        assertEquals(FILE_PATH, fileStorage.filePath);
+        assertEquals(DATA_DIRECTORY, fileStorage.dataDirectory);
         assertEquals(new File("./data/penus.txt"), fileStorage.file);
     }
 
@@ -59,7 +62,7 @@ class FileStorageTest {
         toDelete.close();
         assertEquals("CS1010", moduleList.get(0).getCode());
         assertEquals("CS2040C", moduleList.get(1).getCode());
-        assertEquals(2, moduleList.size());
+        assertEquals(NUMBER_OF_MODULES, moduleList.size());
     }
 
     @Test

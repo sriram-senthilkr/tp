@@ -16,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 class ResourceStorageTest {
+    static final int NUMBER_OF_CORE_MODS_FOR_MECH_ENG = 27;
+    static final int NUMBER_OF_CORE_MODS_FOR_ENV_ENG = 25;
 
     public ResourceStorage storage;
     @BeforeEach
@@ -28,9 +30,9 @@ class ResourceStorageTest {
         HashMap<String, List<String>> coreMods = storage.getCoreMods();
         assertNotNull(coreMods);
         assertTrue(coreMods.containsKey("Electrical Engineering"));
-        assertEquals(27, coreMods.get("Mechanical Engineering").size());
+        assertEquals(NUMBER_OF_CORE_MODS_FOR_MECH_ENG, coreMods.get("Mechanical Engineering").size());
         assertTrue(coreMods.containsKey("Environmental Engineering"));
-        assertEquals(25, coreMods.get("Environmental Engineering").size());
+        assertEquals(NUMBER_OF_CORE_MODS_FOR_ENV_ENG, coreMods.get("Environmental Engineering").size());
         assertEquals("EG2501", coreMods.get("Civil Engineering").get(7));
     }
 
