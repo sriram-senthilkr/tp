@@ -73,6 +73,9 @@ public class StorageDecoder {
 
         switch (status) {
         case "Taken":
+            if (components.length <= 4) {
+                throw new InvalidFormatException("Grade must be included for taken command");
+            }
             String grade = components[4].trim().toUpperCase();
             if (!Grade.isValid(grade)) {
                 throw new InvalidGradeException();

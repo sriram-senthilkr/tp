@@ -1,0 +1,17 @@
+@startuml
+hide empty members
+hide circle
+skinparam classAttributeIconSize 0
+
+package Storage {
+    class StorageManager
+    class FileStorage
+    class ResourceStorage
+    class StorageDecoder
+}
+
+StorageManager -left-> "1" FileStorage
+StorageManager --> "1" ResourceStorage
+
+FileStorage ..> StorageDecoder: uses >
+@enduml
