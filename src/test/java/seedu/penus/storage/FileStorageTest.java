@@ -2,6 +2,13 @@ package seedu.penus.storage;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import seedu.penus.common.exceptions.DuplicateModuleException;
+import seedu.penus.common.exceptions.InvalidFormatException;
+import seedu.penus.common.exceptions.InvalidGradeException;
+import seedu.penus.common.exceptions.InvalidModuleException;
+import seedu.penus.common.exceptions.InvalidSemesterException;
+import seedu.penus.common.exceptions.InvalidYearException;
+import seedu.penus.common.exceptions.PenusException;
 import seedu.penus.model.Module;
 import seedu.penus.model.ModuleList;
 import seedu.penus.model.User;
@@ -14,6 +21,7 @@ import java.util.Scanner;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FileStorageTest {
     static final int NUMBER_OF_MODULES = 2;
@@ -50,7 +58,7 @@ class FileStorageTest {
     }
 
     @Test
-    void testRetrieveMods_returnsModuleListSuccess() throws IOException {
+    void testRetrieveMods_returnsModuleListSuccess() throws IOException, PenusException {
         FileWriter writer = new FileWriter("./data/penus.txt");
         writer.write("User ### John ### Electrical Engineering\n" +
                 "Taken ### CS1010 ### 1 ### 1 ### A+\n" +
@@ -66,7 +74,7 @@ class FileStorageTest {
     }
 
     @Test
-    void testRetrieveUser_returnsUserSuccess() throws IOException {
+    void testRetrieveUser_returnsUserSuccess() throws IOException, PenusException {
         FileWriter writer = new FileWriter("./data/penus.txt");
         writer.write("User ### John ### Electrical Engineering\n" +
                 "Taken ### CS1010 ### 1 ### 1 ### A+\n" +
@@ -78,5 +86,70 @@ class FileStorageTest {
         toDelete.close();
         assertEquals("John", user.getName());
         assertEquals("Electrical Engineering", user.getCourse());
+    }
+
+    @Test
+    void testInvalidUser_throwsException() throws PenusException, IOException {
+        FileWriter writer = new FileWriter("./data/penus.txt");
+        writer.write("User ### John1 ### Electrical Engineering\n");
+        writer.close();
+        assertThrows(InvalidFormatException.class, () -> fileStorage.retrieveUser());
+    }
+
+    @Test
+    void testInvalidCourse_throwsException() throws PenusException, IOException {
+        FileWriter writer = new FileWriter("./data/penus.txt");
+        writer.write("User ### John ### Electrical Engineering sadasd\n");
+        writer.close();
+        assertThrows(InvalidFormatException.class, () -> fileStorage.retrieveUser());
+    }
+
+    @Test
+    void testInvalidModule_throwsException() throws PenusException, IOException {
+        FileWriter writer = new FileWriter("./data/penus.txt");
+        writer.write("Taken ### CS10101 ### 1 ### 1 ### A+\n");
+        writer.close();
+        assertThrows(InvalidModuleException.class, () -> fileStorage.retrieveMods());
+    }
+
+    @Test
+    void testInvalidGrade_throwsException() throws PenusException, IOException {
+        FileWriter writer = new FileWriter("./data/penus.txt");
+        writer.write("Taken ### CS1010 ### 1 ### 1 ### 12\n");
+        writer.close();
+        assertThrows(InvalidGradeException.class, () -> fileStorage.retrieveMods());
+    }
+
+    @Test
+    void testInvalidYear_throwsException() throws PenusException, IOException {
+        FileWriter writer = new FileWriter("./data/penus.txt");
+        writer.write("Taken ### CS1010 ### 9999 ### 1 ### A+\n");
+        writer.close();
+        assertThrows(InvalidYearException.class, () -> fileStorage.retrieveMods());
+    }
+
+    @Test
+    void testInvalidSemester_throwsException() throws PenusException, IOException {
+        FileWriter writer = new FileWriter("./data/penus.txt");
+        writer.write("Taken ### CS1010 ### 1 ### 1090 ### A+\n");
+        writer.close();
+        assertThrows(InvalidSemesterException.class, () -> fileStorage.retrieveMods());
+    }
+
+    @Test
+    void testInvalidInteger_throwsException() throws PenusException, IOException {
+        FileWriter writer = new FileWriter("./data/penus.txt");
+        writer.write("Taken ### CS1010 ### 1 ### asdf ### A+\n");
+        writer.close();
+        assertThrows(InvalidFormatException.class, () -> fileStorage.retrieveMods());
+    }
+
+    @Test
+    void testDuplicateMod_throwsException() throws PenusException, IOException {
+        FileWriter writer = new FileWriter("./data/penus.txt");
+        writer.write("Taken ### CS1010 ### 1 ### 1 ### A+\n" +
+                "Plan ### CS1010 ### 2 ### 1\n");
+        writer.close();
+        assertThrows(DuplicateModuleException.class, () -> fileStorage.retrieveMods());
     }
 }

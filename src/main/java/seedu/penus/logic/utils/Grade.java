@@ -80,10 +80,8 @@ public class Grade {
                 "F", "S", "U",
                 "CS", "CU"
         );
-
         return validGrades.contains(grade.toUpperCase());
     }
-
 
     /**
      * For every module taken, calculate weighted score = number of MC * grade
@@ -129,8 +127,10 @@ public class Grade {
     }
 
     /**
-     * For every module taken in a semester, calculate weighted score = number of MC * grade
-     * Sum up weighted score for all mods and divide by total MCs taken in the semester
+     * For every module taken in a semester, calculate weighted score = number of MC
+     * * grade
+     * Sum up weighted score for all mods and divide by total MCs taken in the
+     * semester
      * S/U grades are not calculated for in Semester CAP
      *
      * @param semArray list of String array containing moduleCode and moduleGrade
@@ -146,7 +146,7 @@ public class Grade {
         for (String[] module : semArray) {
             String moduleCode = module[0];
             String moduleGrade = module[1];
-            if (moduleGrade.matches("[SU]")) {
+            if (moduleGrade.matches("S|U|CS|CU")) {
                 numOfSUMods++;
             }
             if (!moduleGrade.matches("S|U|CS|CU") && !moduleGrade.equals("")) {
@@ -203,4 +203,3 @@ public class Grade {
         return semCapMessage;
     }
 }
-

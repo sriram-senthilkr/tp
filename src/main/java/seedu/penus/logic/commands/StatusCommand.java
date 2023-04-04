@@ -6,6 +6,7 @@ import seedu.penus.logic.utils.MCsTaken;
 import seedu.penus.logic.utils.ModuleRetriever;
 import seedu.penus.model.ModelManager;
 import seedu.penus.model.ModuleList;
+import seedu.penus.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +79,8 @@ public class StatusCommand extends Command {
 
     @Override
     public CommandResult execute(ModelManager model) throws PenusException {
+        //System.out.println("loading...");
+        Ui.showLoadingAnimation();
         if (model.getUserName().equals("")) {
             throw new InvalidCommandException(
                 "Please initialise first with the init command!"
@@ -120,6 +123,7 @@ public class StatusCommand extends Command {
         }
         
         String message = sb.toString();
+        Ui.stopLoadingAnimation();
         return new CommandResult(message, false);
     }
 }

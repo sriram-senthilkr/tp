@@ -1,6 +1,7 @@
 package seedu.penus.logic.commands;
 
 import seedu.penus.common.exceptions.DuplicateModuleException;
+import seedu.penus.common.exceptions.InvalidModuleException;
 import seedu.penus.common.exceptions.PenusException;
 import seedu.penus.model.ModelManager;
 import seedu.penus.model.User;
@@ -28,12 +29,19 @@ public class PlanCommandTest {
     }
 
     @Test
-    public void execute_duplicateModule_throwsDuplicateModuleException() throws DuplicateModuleException {
+    public void execute_duplicateModule_throwsDuplicateModuleException() throws PenusException {
         PlanCommand command1 = new PlanCommand("CS2113", 2, 2);
         PlanCommand command2 = new PlanCommand("CS2113", 2, 2);
 
         command1.execute(model);
 
         assertThrows(DuplicateModuleException.class, () -> command2.execute(model));
+    }
+
+    @Test
+    public void execute_invalidModule_throwsInvalidModuleException() throws PenusException {
+        PlanCommand command = new PlanCommand("CS211300", 2, 2);
+        
+        assertThrows(InvalidModuleException.class, () -> command.execute(model));
     }
 }

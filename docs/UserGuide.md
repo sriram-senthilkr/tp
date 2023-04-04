@@ -24,6 +24,7 @@ For students that can type fast, PENUS can help them plan and track their module
 
 ## Table of Contents 📔
 - [Quick Start](#quick-start-⚙️)
+- [NUSMods API](#NUSMods-API)
 - [Features](#features-👾)
     + [Initialisation: `init`](#initialisation-init)
     + [Help: `help`](#help-help)
@@ -60,6 +61,15 @@ _Some example commands you can try:_
     - `status`: gets the status of core modules and MCs taken.
     - `exit`: exits the application.
 6. Refer to features below for details of each command
+
+## NUSMods API
+Several of our features access the NUSMods API to retrieve data for the modules. These features include `list`, `status`
+and `details`. 
+<br>
+Here are some points to note:
+<br>
+- Please ensure you have a stable internet connection when using PENUS.
+- Retrieving data from the NUSMods API may take a while, please expect some loading time when using the features listed above.
 
 ## Features 👾
 
@@ -122,7 +132,7 @@ Example:
 <br>
 
 ### Plan untaken modules: `plan`
-Adds a module to the planner as an untaken module.
+Adds a module to the planner as a module that has not been taken or completed.
 
 <br>
 
@@ -137,12 +147,12 @@ Example:
 
 ### Remove a module: `remove`
 
-Removes a mod from the planner.
+Removes a module from the planner.
 
 <br>
 <br>
 
-Format:`remove [MODULECODE]`
+Format:`remove [MODULE CODE]`
 
 <br>
 <br>
@@ -153,12 +163,13 @@ Example:
 <br>
 
 ### Mark module as taken: `mark`
-Marks the mod that has been cleared and upgrade its grade.
+Marks the module that has been taken and update its grade. 
+<br> Module must already have been added to the planner using the `plan` command.
 
 <br>
 <br>
 
-Format:`[MODULE CODE] g/[GRADE]`
+Format:`mark [MODULE CODE] g/[GRADE]`
 
 <br>
 <br>
@@ -170,6 +181,7 @@ Example:
 
 ### View modules: `list`
 Displays a list of all modules taken or planned in a specified Year and/or Semester.
+<br>
 If Year/Semester is not specified, then all modules will be listed.
 
 
@@ -236,7 +248,8 @@ Example:
 
 ### Clear modules: `clear`
 Clears all modules in a specified Year and/or Semester.
-If Year/Semester is not specified, then all modules will be cleared.
+<br>
+If neither Year nor Semester are specified, then all modules in the planner will be cleared.
 
 Format:`clear [FILTER]`
 
@@ -283,14 +296,17 @@ There is no need to save manually.
 ### Editing the data file
 PENUS's data are saved as a .txt file in `[JAR file location]/data/penus.txt`. 
 Edits must be made according to the formatting of the data.
+- User MUST be at the **top of the file**
+- If 2 Users are declared, only the first declared User will be initialised
+- Line breaks/spacings are allowed
+- Inclusive of valid formatting of parameters as mentioned in features above
 
 Format:
 
 | Line       | Description              | Format                                                                                      |
 |------------|--------------------------|---------------------------------------------------------------------------------------------|
 | 1          | User's Name and Course   | User ### NAME ### COURSE_NAME                                                               |
-| 2 to (n-1) | Taken or Planned Modules | Taken ### MODULE_CODE ### YEAR ### SEM ### GRADE <br> Plan ### MODULE_CODE ### YEAR ### SEM |
-| n          | Empty Line               |                                                                                             |
+| 2 to n     | Taken or Planned Modules | Taken ### MODULECODE ### YEAR ### SEM ### GRADE <br> Plan ### MODULECODE ### YEAR ### SEM   |
 
 Example:
 
