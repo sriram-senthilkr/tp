@@ -82,7 +82,7 @@ Enter command:
 
 
 	init n/[NAME] c/[COURSE NUMBER]                      Initialize User.
-	
+
 	                                                     [COURSE NUMBER] -> [COURSE NAME]
 	                                                     1 -> Biomedical Engineering
 	                                                     2 -> Chemical Engineering
