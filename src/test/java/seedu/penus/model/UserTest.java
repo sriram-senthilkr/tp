@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UserTest {
+    static final String EMPTY_STRING = "";
     public User user;
     @BeforeEach
     public void setUp() {
@@ -14,8 +15,8 @@ class UserTest {
     }
     @Test
     public void testDefaultConstructor() {
-        assertEquals("", user.getName());
-        assertEquals("", user.getCourse());
+        assertEquals(EMPTY_STRING, user.getName());
+        assertEquals(EMPTY_STRING, user.getCourse());
     }
 
     @Test
