@@ -38,8 +38,7 @@ public class HelpCommand extends Command {
                         "\n\t" + String.format("%-52s %-97s", "", "and if it can be SU-ed.") +
                         "\n\n\n\t" + String.format("%-52s %-97s",
                         "init n/[NAME] c/[COURSE NUMBER]", "Initialize User.") +
-                        "\n" +
-                        "\n\t" + String.format("%-52s %-97s", "", "[COURSE NUMBER] -> [COURSE NAME]") +
+                        "\n\n\t" + String.format("%-52s %-97s", "", "[COURSE NUMBER] -> [COURSE NAME]") +
                         "\n\t" + String.format("%-52s %-97s", "", "1 -> Biomedical Engineering") +
                         "\n\t" + String.format("%-52s %-97s", "", "2 -> Chemical Engineering") +
                         "\n\t" + String.format("%-52s %-97s", "", "3 -> Civil Engineering") +
