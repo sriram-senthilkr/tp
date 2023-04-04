@@ -23,6 +23,7 @@ Given below are my contributions to the project.
     - Highlights: Required in-depth understanding of Scanner API as 2 different types of classes needed to be read (User and Module). Challenging as all errors that the Parser class handled will need to be implemented for the loading of the .txt file.
 
 - **Feature**: Resource retrieving from .txt file
+    - Justification: Allows user to read preset core module details for the status command without seeing the folder in the root folder of .jar file.
     - What it does: retrieves data from a .txt file with all core module details gathered. Saves it as a resource.
     - Highlights: Used `getResourceAsStream()` java API. Challenging as it required in-depth understanding of folder architecture and gradle. The implementation was also challenging as the API had little info and required a different way to scan input. Had to manually edit vscode and intellij settings to enable resources.
 
@@ -45,7 +46,7 @@ Given below are my contributions to the project.
     - Table of contents and overall structure
     - Acknowledgements, Design, Appendix A, B, C, D, E sections
     - Implementation section: Add module, Remove module, Mark module, Save planner, [Proposed] handle CS/CU
-    - Diagrams: Architecture, Component classes (Ui, Logic, Model, Storage), Add module sequence, remove module sequence, mark module sequence, list sequence, Grade class, Save feature class
+    - Diagrams (refer to extract): Architecture, Component classes (Ui, Logic, Model, Storage), Add module sequence, remove module sequence, mark module sequence, list sequence, Grade class, Save feature class
 
 - **Contributions to team-based tasks**:
     - Set up GitHub team org and repo
