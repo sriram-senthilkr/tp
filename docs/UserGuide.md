@@ -52,7 +52,7 @@ For students that can type fast, PENUS can help them plan and track their module
 4. Open a command terminal, cd into the folder you put the jar file in, and use the `java -jar penus.jar` command to run the application.
 5. Type the command in the Command Line Interface and press Enter to execute it.
 _Some example commands you can try:_
-    - `init`:
+    - `init n/John c/4`: sets user name as John and course as Computer Engineering
     - `taken CS2113 y/2 s/2 g/A+`: Adds CS2113 to Year 2 Semester 2 with grade A+.
     - `plan CS2040C y/1 s/2`: Adds CS2040C to Year 1 Semester 2 as untaken
     - `list`: list all modules in the planner with overall CAP
@@ -64,10 +64,14 @@ _Some example commands you can try:_
 
 ## NUSMods API
 Several of our features access the NUSMods API to retrieve data for the modules. These features include `list`, `status`
-and `details`. 
+and `details`.
+ 
 <br>
+
 Here are some points to note:
+
 <br>
+
 - Please ensure you have a stable internet connection when using PENUS.
 - Retrieving data from the NUSMods API may take a while, please expect some loading time when using the features listed above.
 
