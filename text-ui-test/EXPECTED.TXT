@@ -46,7 +46,7 @@ Enter command:
 	___________________________________________________________
 Enter command: 
 	___________________________________________________________
-
+	
 	Command                                              Description
 	-------                                              -----------
 	clear [FILTER]                                       Clears modules in the specified Year or Semester.
@@ -92,9 +92,9 @@ Enter command:
 	                                                     6 -> Environmental Engineering
 	                                                     7 -> Industrial and Systems Engineering
 	                                                     8 -> Mechanical Engineering
-
+	
 	___________________________________________________________
-Enter command:
+Enter command: 
 	___________________________________________________________
 	CS2113 Software Engineering & Object-Oriented Programming
 	This module introduces the necessary skills for systematic and rigorous development of software systems. It covers requirements, design, implementation, quality assurance, and project management aspects of small-to-medium size multi-person software projects. The module uses the Object Oriented Programming paradigm. Students of this module will receive hands-on practice of tools commonly used in the industry, such as test automation tools, build automation tools, and code revisioning tools will be covered.
