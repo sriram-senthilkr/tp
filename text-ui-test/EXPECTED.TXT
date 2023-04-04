@@ -46,31 +46,55 @@ Enter command:
 	___________________________________________________________
 Enter command: 
 	___________________________________________________________
-	clear [FILTER]							Clears modules in the specified Year or Semester.
-									If [FILTER] is not specified, then all modules will cleared.
-	exit								Exits the program
-	list [FILTER]							Displays a list of all modules taken or planned in the specified Year or Semester
-									If [FILTER] is not specified, then all modules will shown.
-	mark [MODULE CODE] g/[GRADE]					Marks the module that has been cleared, while updating its grades
-	plan [MODULE CODE] y/[YEAR] s/[SEMESTER]			Adds a module to the planner as an untaken module
-	remove [MODULECODE]						Removes a module from the planner
-	status								Displays the status of Core Modules and MCs taken
-	taken [MODULE CODE] y/[YEAR] s/[SEMESTER] g/[GRADE]		Adds a module to the planner as a module you have already taken
-	details [MODULE CODE]						Displays the details of given module, including Title, Description, Prerequisites, Module Credits 
-									and if it can be SU-ed.
-	init n/[NAME] c/[COURSE NUMBER]					Initialize User.
-									 [COURSE NUMBER] -> [COURSE NAME]
-									 1 -> Biomedical Engineering
-									 2 -> Chemical Engineering
-									 3 -> Civil Engineering
-									 4 -> Computer Engineering
-									 5 -> Electrical Engineering
-									 6 -> Environmental Engineering
-									 7 -> Industrial and Systems Engineering
-									 8 -> Mechanical Engineering
+
+	Command                                              Description
+	-------                                              -----------
+	clear [FILTER]                                       Clears modules in the specified Year or Semester.
+	                                                     If [FILTER] is not specified, then all modules will cleared.
+
+
+	exit                                                 Exits the program.
+
+
+	list [FILTER]                                        Displays a list of all modules taken or planned
+	                                                     in the specified Year or Semester.
+	                                                     If [FILTER] is not specified, then all modules will shown.
+
+
+	mark [MODULE CODE] g/[GRADE]                         Marks the module that has been cleared, while updating its grades.
+
+
+	plan [MODULE CODE] y/[YEAR] s/[SEMESTER]             Adds a module to the planner as an untaken module.
+
+
+	remove [MODULECODE]                                  Removes a module from the planner.
+
+
+	status                                               Displays the status of Core Modules and MCs taken.
+
+
+	taken [MODULE CODE] y/[YEAR] s/[SEMESTER] g/[GRADE]  Adds a module to the planner as a module you have already taken.
+
+
+	details [MODULE CODE]                                Displays the details of given module, including
+	                                                     Title, Description, Prerequisites, Module Credits
+	                                                     and if it can be SU-ed.
+
+
+	init n/[NAME] c/[COURSE NUMBER]                      Initialize User.
+
+	                                                     [COURSE NUMBER] -> [COURSE NAME]
+	                                                     1 -> Biomedical Engineering
+	                                                     2 -> Chemical Engineering
+	                                                     3 -> Civil Engineering
+	                                                     4 -> Computer Engineering
+	                                                     5 -> Electrical Engineering
+	                                                     6 -> Environmental Engineering
+	                                                     7 -> Industrial and Systems Engineering
+	                                                     8 -> Mechanical Engineering
 
 	___________________________________________________________
-Enter command: 
+Enter command:
 	___________________________________________________________
 	CS2113 Software Engineering & Object-Oriented Programming
 	This module introduces the necessary skills for systematic and rigorous development of software systems. It covers requirements, design, implementation, quality assurance, and project management aspects of small-to-medium size multi-person software projects. The module uses the Object Oriented Programming paradigm. Students of this module will receive hands-on practice of tools commonly used in the industry, such as test automation tools, build automation tools, and code revisioning tools will be covered.
