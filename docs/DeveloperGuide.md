@@ -37,16 +37,70 @@ References made from [AddressBook 2](https://github.com/se-edu/addressbook-level
 
 ![ArchitectureDiagram](uml/diagrams/Architecture.png)
 
+The **Architecture Diagram** given above explains the high-level design of the App.
+
+Given below is a quick overview of main components and how they interact with each other.
+#### Main components of the architecture
+`Main` is responsible for:
+- At app launch: Initializes the components in the correct sequence, and connects them up with each other with the correct methods.
+- At shut down: Shuts down the components and invokes cleanup methods where necessary.
+
+`Commons` represents a collection of classes used by multiple other components and includes:
+- `Exceptions`: handles error and extends PenusException
+- `Utils`: utility static methods like NUSMods API and other string manipulation
+- `Messages`: Logo, goodbye and welcome messages of the App
+
+The rest of the App consists of four components.
+
+- `UI`: The UI of the App.
+- `Logic`: The command executor.
+- `Model`: Holds the data of the App in memory.
+- `Storage`: Reads data from, and writes data to, the hard disk.
+
+
 ### UI Component
+The component is specified in `Ui.java`
+
 ![UIClassDiagram](uml/diagrams/UiClass.png)
 
+The `UI` component:
+- displays messages to the user by printing to the CLI.
+- displays results from commands executed by the `LogicManager` class.
+
 ### Logic Component
+The component is specified in `logic` package and facilitated by `LogicManager.java`
+
 ![LogicObjDiagram](uml/diagrams/LogicClass.png)
 
+How the `Logic` component works:
+1. When `LogicManager` is called upon to execute a command, it uses the `Parser` class to parse the user command.
+2. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `AddCommand`) which is executed by the `LogicManager`.
+3. The command can communicate with the `ModelManager` when it is executed (e.g. to add a module).
+4. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from Logic and printed into the CLI.
+
+
 ### Model Component
+The component is specified in `model` package and facilitated by `ModelManager.java`
+
 ![ModelObjDiagram](uml/diagrams/ModelClass.png)
 
+The `Model` component:
+- stores the module list data i.e., all `Module` objects (which are contained in a `ModuleList` object).
+- stores a `User` object that represents the user’s preferences (name and course).
+- stores the core module details as a `HashMap` object, initialised by a .txt file with core modules for each course.
+- does not depend on any of the other three components (as the Model represents data entities of the domain, they should make sense on their own without depending on other components)
+
+
 ### Storage Component
+The component is specified in `storage` package and facilitated by `StorageManager.java`
+
+![StorageObjDiagram](uml/diagrams/StorageClass.png)
+
+The `Storage` component:
+- can save both module list data and user data in .txt format, and read them back into corresponding objects.
+- retrieves core module details from a prefilled .txt file formatted as a resource.
+- depends on some classes in the `Model` component (because the `Storage` component’s job is to save/retrieve objects that belong to the `Model`)
+
 
 ### Common classes
 Classes used by multiple components are in the `seedu.penus.commons` package.
@@ -367,6 +421,18 @@ The next time a user starts the program with a saved `penus.txt`:
 Below is a class diagram of the classes pertaining to the save feature (some details omitted for simplicity):
 ![SaveFeatureClassDiagram](uml/diagrams/SaveFeatureClass.png)
 
+<br>
+
+### [Proposed] Handle CS/CU modules
+The proposed mechanism is facilitated by `ModuleRetriever` and would allow users to identify CS/CU modules and add only CS or CU grade to them.
+>Note: In the current release, any grade can be assigned to a CS/CU module. It is up to users to verify if the module is CS/CU-able. Otherwise, CAP calculated will be wrong.
+
+**Step 1**. Implement a new method `isCSCU()` in `ModuleRetriever`. This method should communicate with the NUSMods API and check the `gradingBasisDescription` key of the JSON object. A boolean would be returned, indicating if the module is CS or CU graded.
+
+**Step 2**. Implement the `isCSCU()` method in the `TakenCommand` and `MarkCommand` commands. Check whether the indicated module only accepts CS or CU grade. An exception `InvalidGradeException` is thrown if the input grade is not CS/CU. Else the module is added.
+
+
+
 <!----------------------------Documentation----------------------------------------->
 ## Documentation, logging, testing, configuration, dev-ops
 ### Documentation
@@ -375,19 +441,19 @@ Below is a class diagram of the classes pertaining to the save feature (some det
 ### Configuration
 ### Dev-ops
 
-<!----------------------------Appendix A----------------------------------------->
-## Appendix A: Requirements
-### Product scope
+<!----------------------------Appendix----------------------------------------->
+## Appendix A: Product scope
 
-#### Target user profile
+### Target user profile
 - NUS engineering students
 - prefers desktop CLI over other available planner application(s)
 - prefers typing to mouse interactions
+- does not want to keep referring to NUSMods website
 
-#### Value proposition
-Manage a planner faster and more efficiently than a typical mouse/GUI driven application
+### Value proposition
+Manage a planner faster and more efficiently than a typical mouse/GUI driven application. As NUS engineering students have an extensive number of modules to cover in their 4 years of study in addition to their busy schedules, this app aims to help them plan modules more efficiently without the need to keep referring to different websites and GUIs (example NUSMods and a scheduler site).
 
-### User Stories
+## Appendix B: User Stories
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
 | Priority | Version |         As a ...         | I want to ...                          | So that I can ...                                                   |
@@ -403,23 +469,186 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 |   ***    |  v2.0   |         new user         | see usage instructions                 | refer to them in case I forget the application commands             |
 |    **    |  v2.0   |      returning user      | save my planner                        | I do not need to re-add my modules                                  |
 |   ***    |  v2.0   |         new user         | include my course                      | plan for course-specific core modules                               |
+|    *     |  v2.1   |  undergraduate student   | include S/U for S/U-able modules       | get an accurate CAP displayed                                       |
 
 
-### Use cases
-
-### Non-Functional Requirements
+## Appendix C: Non-Functional Requirements
 - PENUS should work on any mainstream OS as long as it has Java 11 or above installed.
+- PENUS requires a **stable internet connection** as NUSMods API is used.
 - PENUS should be able to hold up to 1000 modules without a noticeable sluggishness in performance for typical usage.
 - A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-### Glossary
+## Appendix D: Glossary
 
 * *Mainstream OS* - Windows, Linux, Unix, OS-X
 * *CLI* - Command Line Interface
+* *API* - Application Programming Interface
 
 
 <!----------------------------Appendix B----------------------------------------->
-##  Appendix B: Instructions for manual testing
+##  Appendix E: Instructions for manual testing
 Given below are instructions to test the app manually.
 > Note: These instructions only provide a starting point for testers to work on;
 > testers are expected to do more *exploratory* testing. 
+### Launch
+1. Initial launch
+2. Download the jar file and copy into an empty folder
+3. Open a command terminal, cd into the folder you put the `penus.jar` file in, and use the `java -jar penus.jar` command to run the application. A CLI should appear in a few seconds.
+
+### Plan command
+1. Test case: `plan CS2113 y/2 s/2` <br>
+  Expected output: A planned module is successfully added <br>
+  Example:
+  ```
+    ___________________________________________________________
+    Module has been added:
+      Plan CS2113 year 2 semester 2
+    You have 1 module(s) in your planner
+    ___________________________________________________________
+  ```
+
+2. Test case: `plan CS0000 y/2 s/2` <br>
+  Expected output: Error as invalid module is added <br>
+  Example:
+  ```
+    ___________________________________________________________
+    Error: Invalid module. Please try again
+    ___________________________________________________________
+  ```
+
+3. Test case: `plan CS2113 y/0 s/2` <br>
+  Expected output: Error as year is invalid <br>
+  Example:
+  ```
+    ___________________________________________________________
+    Error: Year must be 1 to 4. Please try again.
+    ___________________________________________________________
+  ```
+
+4. Other incorrect plan commands to try:
+  - `plan CS2113 y/a s/2` or `plan CS2113 y/2 s/a`
+  - `plan CS2113 y/1 s/2 23`
+  - `plan CS2113 y/1 s/2 g/A` <br>
+  Expected output: Similar to previous
+
+### Remove command
+1. Prerequisites: Add a few valid modules using `plan` or `taken`
+
+2. Test case: `remove CS2113` (where CS2113 is a module that exists in the list) <br>
+Expected output: Module successfully removed <br>
+Example:
+```
+    ___________________________________________________________
+    Module has been removed:
+      Plan CS2113 year 1 semester 2
+    You have 0 module(s) in your planner
+    ___________________________________________________________
+```
+
+3. Test case: `remove CS3244` (where CS3244 does not exist in the list) <br>
+Expected output: Error as module does not exist within the listt <br>
+Example:
+```
+    ___________________________________________________________
+    Error: No such module exists!
+    ___________________________________________________________
+```
+
+### Mark command
+1. Prerequisites: Add a few valid modules using `plan`
+
+2. Test case: `mark CS2113 g/A+` (where CS2113 is a planned module that exists in the list) <br>
+Expected output: Successfully marked CS2113, converting it to a taken module <br>
+Example:
+```
+    ___________________________________________________________
+    Module has been taken:
+      Taken CS2113 year 1 semester 1 A+
+    ___________________________________________________________
+```
+
+3. Test case: `mark CS2113` <br>
+Expected output: Error as `g/GRADE` is not provided
+Example:
+```
+    ___________________________________________________________
+    Error: Try again in the format: mark MODULECODE g/GRADE
+    ___________________________________________________________
+```
+
+4. Test case: `mark CS2001 g/A` <br>
+Expected output: Error as the module does not exist in the list <br>
+Example:
+```
+    ___________________________________________________________
+    Error: No such module exists!
+    ___________________________________________________________
+```
+
+5. Test case: `mark CS2113 g/N` <br>
+Expected output: Error as the grade is invalid <br>
+Example:
+```
+    ___________________________________________________________
+    Error: Grade is not valid
+    ___________________________________________________________
+```
+
+6. Other incorrect mark commands
+- `mark CS2113 g/9` or `mark CS2113 g/9 1`
+- `mark g/9` <br>
+Expected output: Similar as previous
+
+### Loading data
+1. Edit the `/data/penus.txt` file which appears within the same folder as `penus.jar` before launching the program <br>
+> Note: If a user is to be initialised, User MUST be at the TOP of the .txt file
+
+2. Test case: 
+```
+User ### John ### Computer Engineering
+Taken ### CS2113 ### 1 ### 1 ### A+
+```
+Expected: Program launches successfully with:
+- User: John (course: computer engineering)
+- CS2113 as a taken module in year 1 semester 1 with grade A+
+
+3. Test case:
+```
+User ### John1 ### Computer Engineering
+```
+Expected: Error as Name has an integer
+
+4. Test case:
+```
+User ### John ### Computer Hacking
+```
+Expected: Error as Course is invalid
+
+5. Test case:
+```
+Plan ### CS0000 ### 1 ### 1
+```
+Expected: Error as module code is an invalid module
+
+6. Test case:
+```
+Taken ### CS2113 ### 1 ### 1
+```
+Expected: Error as grade must be included
+
+7. Test case:
+```
+Plan ### CS2113 ### 1 ### 1 ### A+
+```
+Expected: Grade is ignored, program launches successfully
+
+8. Other incorrect inputs:
+```
+Use ### John ### Computer Engineering
+Plan ### CS2113 ### s ### 1
+Plan ### CS2103 ### 1 ### 0
+Taken ### CS2100 ### 1 ### 1 ### n
+Plan #### CS2107 #### 1 #### 1
+```
+Expected: Similar to previous
+
