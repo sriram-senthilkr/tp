@@ -49,6 +49,5 @@ public class HelpCommand extends Command {
                         "\n\t" + String.format("%-52s %s", "", "8 -> Mechanical Engineering") +
                         "\n\t"
                 ), false);
-
     }
 }
