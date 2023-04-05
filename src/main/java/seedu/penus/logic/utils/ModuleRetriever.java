@@ -154,6 +154,10 @@ public class ModuleRetriever {
     }
 
     public static String getModuleCredit2122(String module) {
+        //Temporary fix, will make code cleaner if I can think of a better solution
+        if (module.equals("ES2631")) {
+            return "4";
+        }
         try {
             getData2122(module);
             return (String) moduleInfo2122.get("moduleCredit");
