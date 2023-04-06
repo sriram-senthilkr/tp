@@ -44,8 +44,6 @@ For students that can type fast, PENUS can help them plan and track their module
 
 ## Quick Start ⚙️
 
-{Give steps to get started quickly}
-
 1. Ensure that you have Java 11 or above installed.
 2. Download the latest version of PENUS from [here](https://github.com/AY2223S2-CS2113-T11-2/tp/releases/download/v2.0/penus.jar).
 3. Copy the file to the folder you want to use as the home folder for your PENUS.
@@ -63,15 +61,12 @@ _Some example commands you can try:_
 6. Refer to features below for details of each command
 
 ## NUSMods API
-Several of our features access the NUSMods API to retrieve data for the modules. These features include `list`, `status`
-and `details`.
+Several of our features access the NUSMods API to retrieve data for the modules. 
+These features include `taken`, `plan`, `list`, `status` and `details`.
  
 <br>
 
 Here are some points to note:
-
-<br>
-
 - Please ensure you have a stable internet connection when using PENUS.
 - Retrieving data from the NUSMods API may take a while, please expect some loading time when using the features listed above.
 
@@ -81,11 +76,9 @@ Here are some points to note:
 On startup, there will be a prompt for first time users to type `init` to start the initialisation process. 
 
 <br>
-<br>
 
 Format:`init n/[NAME] c/[COURSE NUMBER]` 
 
-<br>
 <br>
 
 | Course Number | Course                              |
@@ -112,7 +105,6 @@ separate profile
 Shows a message with the format and functionality of all features. 
 
 <br>
-<br>
 
 Format:`help`
 
@@ -122,11 +114,9 @@ Format:`help`
 Adds a module to the planner as a taken module.
 
 <br>
-<br>
 
 Format:`taken [MODCODE] y/[YEAR] s/[SEMESTER] g/[GRADE]`
 
-<br>
 <br>
 
 Example:
@@ -154,11 +144,9 @@ Example:
 Removes a module from the planner.
 
 <br>
-<br>
 
 Format:`remove [MODULE CODE]`
 
-<br>
 <br>
 
 Example:
@@ -171,11 +159,9 @@ Marks the module that has been taken and update its grade.
 <br> Module must already have been added to the planner using the `plan` command.
 
 <br>
-<br>
 
 Format:`mark [MODULE CODE] g/[GRADE]`
 
-<br>
 <br>
 
 Example:
@@ -185,12 +171,15 @@ Example:
 
 ### View modules: `list`
 Displays a list of all modules taken or planned in a specified Year and/or Semester.
-<br>
-If Year/Semester is not specified, then all modules will be listed.
+- If Year/Semester is not specified, then all modules will be listed.
+- Filter is optional
+- The difference between a `plan` and `taken` module is indicated by the presence of a grade. (only `taken` module has a grade)
 
+<br>
 
 Format:`list [FILTER]`
 
+<br>
 
 | Filter                | Action                                 | Example         |
 |-----------------------|----------------------------------------|-----------------|
@@ -216,19 +205,20 @@ Example:
 ### View graduation status: `status`
 Displays the status of core modules* and MCs taken. 
 
-<font size ="1">**Core modules are based on AY21/22*</font>
+<font size ="1">**Core modules are based on AY22/23*</font>
 
-<br>
 <br>
 
 Format:`status`
 
 <br>
-<br>
 
 Example: `status` *(course: Computer Engineering)*
 
 ![details example](./ugmedia/status1.png)
+
+Notes:
+- The status command may take a while to load. Please ensure a stable internet connection.
 
 <br>
 
@@ -236,11 +226,9 @@ Example: `status` *(course: Computer Engineering)*
 Display the module title, description, pre-requisites, MCs and SU option. 
 
 <br>
-<br>
 
 Format: `details [MODULECODE]`
 
-<br>
 <br>
 
 Example:
@@ -252,11 +240,14 @@ Example:
 
 ### Clear modules: `clear`
 Clears all modules in a specified Year and/or Semester.
+- If neither Year nor Semester are specified, then all modules in the planner will be cleared.
+- Filter is optional.
+
 <br>
-If neither Year nor Semester are specified, then all modules in the planner will be cleared.
 
 Format:`clear [FILTER]`
 
+<br>
 
 | Filter                | Action                                 | Example         |
 |-----------------------|----------------------------------------|-----------------|
@@ -284,7 +275,6 @@ Example:
 Exits the program.
 
 <br>
-<br>
 
 Format: `exit`
 
@@ -305,6 +295,8 @@ Edits must be made according to the formatting of the data.
 - Line breaks/spacings are allowed
 - Inclusive of valid formatting of parameters as mentioned in features above
 
+<br>
+
 Format:
 
 | Line       | Description              | Format                                                                                      |
@@ -312,10 +304,11 @@ Format:
 | 1          | User's Name and Course   | User ### NAME ### COURSE_NAME                                                               |
 | 2 to n     | Taken or Planned Modules | Taken ### MODULECODE ### YEAR ### SEM ### GRADE <br> Plan ### MODULECODE ### YEAR ### SEM   |
 
+<br>
+
 Example:
 
 ![penus.txt exmaple](./ugmedia/penustxt.png) 
-
 
 <br>
 

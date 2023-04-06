@@ -340,7 +340,7 @@ public class Parser {
         try {
             year = Integer.parseInt(details[1].trim());
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new InvalidFormatException("Must be specified as an integer!");
+            throw new InvalidFormatException("Year must be specified as an integer!");
         }
         //Invalid year
         if (year < 1 || year > 4) {

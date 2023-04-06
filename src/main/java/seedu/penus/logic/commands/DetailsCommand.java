@@ -5,7 +5,7 @@ import seedu.penus.logic.utils.DetailsCompiler;
 
 public class DetailsCommand extends Command {
     public static final String COMMAND_WORD = "details";
-    private final String moduleCode;
+    public final String moduleCode;
 
     /**
      * Creates a DetailsCommand with the moduleCode for querying during execution

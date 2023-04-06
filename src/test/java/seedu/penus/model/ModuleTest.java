@@ -10,6 +10,7 @@ class ModuleTest {
     static final int YEAR_2022 = 2022;
     static final int SEMESTER_1 = 1;
     static final String GRADE_A = "A";
+    
     @Test
     public void testGetCode() {
         Module module = new Module("CS1010", YEAR_2022, SEMESTER_1);

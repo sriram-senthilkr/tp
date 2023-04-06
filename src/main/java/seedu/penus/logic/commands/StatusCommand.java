@@ -79,13 +79,12 @@ public class StatusCommand extends Command {
 
     @Override
     public CommandResult execute(ModelManager model) throws PenusException {
-        //System.out.println("loading...");
-        Ui.showLoadingAnimation();
         if (model.getUserName().equals("")) {
             throw new InvalidCommandException(
                 "Please initialise first with the init command!"
             );
         }
+        Ui.showLoadingAnimation();
         StringBuilder sb = new StringBuilder();
         List<String> takenCoreModsList = getTakenCoreModsList(model);
         List<String> untakenCoreModsList = getUntakenCoreModsList(model);

@@ -1,6 +1,5 @@
 package seedu.penus.model;
 
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class UserTest {
     static final String EMPTY_STRING = "";
     public User user;
+
     @BeforeEach
     public void setUp() {
         user = new User();

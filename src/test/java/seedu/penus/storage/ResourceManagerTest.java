@@ -26,14 +26,6 @@ class ResourceManagerTest {
         assert resource.modDetailsFile == "core-module-details.txt" : "core module details file name error";
     }
 
-    //test if retrieveCoreMods() successfully converts CoreMods.txt into List<String> form
-    /* @Test
-    public void testRetrieveCoreMods(){
-        List <String> coreModules = resource.getCoreMods();
-        assertEquals(coreModules.get(0),"GESS");
-        assertEquals(coreModules.size(),31);
-    } */
-
     //test if getAllModuleDetails successfully converts module-details.txt into List<String[]> form
     @Test
     public void testGetAllModuleDetails() {

@@ -12,8 +12,8 @@ public class MarkCommand extends Command {
             "Module has been taken:\n" 
             + "\t  %s";
 
-    private final String moduleCode;
-    private final String grade;
+    public final String moduleCode;
+    public final String grade;
 
 
     // Creates a PlanCommand with the moduleCode and grade

@@ -12,8 +12,8 @@ public class ClearCommand extends Command {
 
     public static final String MESSAGE = "Cleared!";
 
-    private final int year;
-    private final int semester;
+    public final int year;
+    public final int semester;
 
     public ClearCommand() {
         this.year = 0;

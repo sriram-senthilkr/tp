@@ -75,6 +75,10 @@ public class ModelManager {
         return moduleList.getModule(index);
     }
 
+    public Module getModuleByCode(String moduleCode) {
+        return moduleList.getModuleByCode(moduleCode);
+    }
+
     public String getGESS() {
         return moduleList.getGESS();
     }
