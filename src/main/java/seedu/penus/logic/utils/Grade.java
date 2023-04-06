@@ -106,7 +106,7 @@ public class Grade {
                 if (module.getGrade().matches("S|U|CS|CU")) {
                     numOfSUMods++;
                 } else {
-                    numberOfMCs = ModuleRetriever.getModuleCredit2122(module.getCode());
+                    numberOfMCs = ModuleRetriever.getModuleCredit2223(module.getCode());
                     double weightedScore = Double.parseDouble(numberOfMCs) *
                             module.getGradePoint();
                     totalScore += weightedScore;

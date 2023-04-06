@@ -94,7 +94,7 @@ public class Ui {
         loadingThread = new Thread(() -> {
             int i = 0;
             while (!Thread.currentThread().isInterrupted()) {
-                System.out.print("Loading " + animationChars[i % 4] + "\r");
+                System.out.print("\tLoading " + animationChars[i % 4] + "\r");
                 i++;
                 try {
                     Thread.sleep(100);

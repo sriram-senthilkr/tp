@@ -43,6 +43,15 @@ public class ModuleList {
         return modules.get(index);
     }
 
+    public Module getModuleByCode(String moduleCode) {
+        for (Module m : modules) {
+            if (m.getCode().equals(moduleCode)) {
+                return m;
+            }
+        }
+        return null;
+    }
+
     public boolean hasModule(Module module) {
         for (Module m : modules) {
             if (m.getCode().equals(module.getCode())) {

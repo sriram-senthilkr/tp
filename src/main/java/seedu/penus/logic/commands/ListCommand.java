@@ -14,8 +14,8 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE = "List of";
 
-    private final int year;
-    private final int semester;
+    public final int year;
+    public final int semester;
 
     public ListCommand() {
         this.year = 0;

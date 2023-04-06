@@ -12,7 +12,7 @@ public class RemoveCommand extends Command {
             + "\t  %s\n"
             + "\tYou have %s module(s) in your planner";
 
-    private final String moduleCode;
+    public final String moduleCode;
 
     /**
      * Creates a PlanCommand to with the moduleCode attribute
