@@ -44,6 +44,12 @@ class ModelManagerTest {
     }
 
     @Test
+    public void hasModuleCode_success() {
+        assertFalse(modelManager.hasModuleCode("CS2040C"));
+        assertTrue(modelManager.hasModuleCode("CS1231"));
+    }
+
+    @Test
     public void addModule_validModule_success() {
         modelManager.addModule(new Module("MA1508E", 1, 2));
         assertEquals(3, modelManager.getSize());
