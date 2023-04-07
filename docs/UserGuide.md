@@ -308,7 +308,7 @@ Format:
 
 Example:
 
-![penus.txt exmaple](./ugmedia/penustxt.png) 
+![penus.txt example](./ugmedia/penustxt.png) 
 
 <br>
 
