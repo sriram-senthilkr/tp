@@ -40,6 +40,11 @@ public class ModelManager {
         return moduleList.hasModule(module);
     }
 
+    public boolean hasModuleCode(String moduleCode) {
+        requireNonNull(moduleCode);
+        return moduleList.hasModuleCode(moduleCode);
+    }
+
     /**
      * Adds the specificed Module to the moduleList
      * @param module Module

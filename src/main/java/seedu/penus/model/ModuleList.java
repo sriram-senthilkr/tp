@@ -61,6 +61,15 @@ public class ModuleList {
         return false;
     }
 
+    public boolean hasModuleCode(String moduleCode) {
+        for (Module m : modules) {
+            if (m.getCode().equals(moduleCode)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Adds a given module to the ModuleList object.
      *

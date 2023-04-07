@@ -14,13 +14,13 @@ public class SampleData {
 
     public static Module sampleModule2 = new Module("CS1231", 1, 1, "A");
 
-    public static Module sampleModule3 = new Module("GESS1004", 1, 1, "A");
+    public static Module sampleModule3 = new Module("GESS1004", 1, 2, "A");
 
-    public static Module sampleModule4 = new Module("GEC1015", 1, 1);
+    public static Module sampleModule4 = new Module("GEC1015", 1, 2);
 
-    public static Module sampleModule5 = new Module("BN1111", 1, 1, "A");
+    public static Module sampleModule5 = new Module("BN1111", 2, 1, "A");
 
-    public static Module sampleModule6 = new Module("BN2111", 1, 1, "A");
+    public static Module sampleModule6 = new Module("BN2111", 2, 2, "A");
 
     public static User user = new User("bentohset", "Computer Engineering");
 

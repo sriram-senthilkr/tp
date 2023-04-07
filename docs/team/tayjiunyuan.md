@@ -30,6 +30,7 @@ Given below are my contributions to the project.
   - Parser Tests (for initialisation parser and status parser)
   - ModuleList Tests (for getGEXX() methods)
   - Sample Data Tests
+  - Clear Command Tests
 
 - **Enhancement**: Planned new architecture to adopt MVC design pattern
     - Justification: Improves abstraction and OOP significantly and made it easier for teammates to work on features independently as working on previous codebase asynchronously made the code messy. Made architecture diagrams cleaner and simple.
