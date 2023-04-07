@@ -1,6 +1,6 @@
 package seedu.penus.logic.commands;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +14,7 @@ public class DetailsCommandTest {
     private DetailsCommand command;
 
     @Test
-    public void test_validModuleCode_success() throws InvalidCommandException {
+    public void testValidModuleCodeSuccess() throws InvalidCommandException {
         command = new DetailsCommand("CS2113");
         CommandResult result = command.execute(model);
         

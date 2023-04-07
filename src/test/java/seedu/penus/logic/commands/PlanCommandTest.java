@@ -8,19 +8,21 @@ import seedu.penus.model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PlanCommandTest {
-    private final ModelManager model = new ModelManager(new User(), new ArrayList<>(),
-                                                         new ArrayList<>(), new HashMap<>());
-
+    private ModelManager model;
     private PlanCommand command;
 
+    @BeforeEach
+    public void setup() {
+        model = new ModelManager(new User(), new ArrayList<>(), new ArrayList<>(), new HashMap<>());
+    }
     @Test
-    public void execute_validModule_success() throws PenusException {
+    public void testExecuteValidModuleSuccess() throws PenusException {
         command = new PlanCommand("CS2113", 2, 2);
         CommandResult result = command.execute(model);
 
@@ -29,7 +31,7 @@ public class PlanCommandTest {
     }
 
     @Test
-    public void execute_duplicateModule_throwsDuplicateModuleException() throws PenusException {
+    public void testExecuteDuplicateModuleThrowsDuplicateModuleException() throws PenusException {
         PlanCommand command1 = new PlanCommand("CS2113", 2, 2);
         PlanCommand command2 = new PlanCommand("CS2113", 2, 2);
 
@@ -39,7 +41,7 @@ public class PlanCommandTest {
     }
 
     @Test
-    public void execute_invalidModule_throwsInvalidModuleException() throws PenusException {
+    public void testExecuteInvalidModuleThrowsInvalidModuleException() throws PenusException {
         PlanCommand command = new PlanCommand("CS211300", 2, 2);
         
         assertThrows(InvalidModuleException.class, () -> command.execute(model));

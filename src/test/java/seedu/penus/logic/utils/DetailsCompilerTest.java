@@ -8,7 +8,7 @@ class DetailsCompilerTest {
 
     private DetailsCompiler details;
     @Test
-    void getDetailsForCS2113() {
+    void testGetDetailsForCS2113() {
         String moduleCode = "CS2113";
         String actualOutput = details.getDetails(moduleCode);
         String expectedOutput = "Software Engineering & Object-Oriented Programming\n\tThis module introduces the " +
@@ -23,7 +23,7 @@ class DetailsCompilerTest {
         assertEquals(expectedOutput, actualOutput);
     }
     @Test
-    void getDetailsForInvalidModule() {
+    void testGetDetailsForInvalidModule() {
         String moduleCode = "INVALID MODULE";
         String actualOutput = details.getDetails(moduleCode);
         String expectedOutput = ": This information is not available";
@@ -32,7 +32,7 @@ class DetailsCompilerTest {
     }
 
     @Test
-    void getDetailsForNull() {
+    void testGetDetailsForNull() {
         String moduleCode = null;
         String actualOutput = details.getDetails(moduleCode);
         String expectedOutput = ": This information is not available";

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class HelpCommandTest {
 
     @Test
-    public void execute() {
+    public void testExecute() {
         final ModelManager model = new ModelManager(new User(), new ArrayList<>(),
                 new ArrayList<>(), new HashMap<>());
 

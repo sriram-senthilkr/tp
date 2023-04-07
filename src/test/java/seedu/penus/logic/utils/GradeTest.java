@@ -33,10 +33,40 @@ class GradeTest {
         });
     }
     @Test
-    void getGradePoint_grade_success() throws
-            InvalidGradeException {
+    void getGradePoint_grade_success() throws InvalidGradeException {
         assertEquals(0.0, Grade.getGradePoint("F"));
     }
+
+    @Test
+    void getGradePoint_gradeAMinus_success() throws InvalidGradeException {
+        assertEquals(4.5, Grade.getGradePoint("A-"));
+    }
+
+    @Test
+    void getGradePoint_gradeBMinus_success() throws InvalidGradeException {
+        assertEquals(3.0, Grade.getGradePoint("B-"));
+    }
+
+    @Test
+    void getGradePoint_gradeCPlus_success() throws InvalidGradeException {
+        assertEquals(2.5, Grade.getGradePoint("C+"));
+    }
+
+    @Test
+    void getGradePoint_gradeC_success() throws InvalidGradeException {
+        assertEquals(2.0, Grade.getGradePoint("C"));
+    }
+
+    @Test
+    void getGradePoint_gradeDPlus_success() throws InvalidGradeException {
+        assertEquals(1.5, Grade.getGradePoint("D+"));
+    }
+
+    @Test
+    void getGradePoint_gradeD_success() throws InvalidGradeException {
+        assertEquals(1.0, Grade.getGradePoint("D"));
+    }
+
     @Test
     void isValid_lowercaseGrade_success() {
         assertEquals(true, Grade.isValid("a+"));

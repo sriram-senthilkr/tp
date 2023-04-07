@@ -89,6 +89,22 @@ class FileStorageTest {
     }
 
     @Test
+    void testRetrieveUser_returnsUserSuccessEmptyLine() throws IOException, PenusException {
+        FileWriter writer = new FileWriter("./data/penus.txt");
+        writer.write("User ### John ### Electrical Engineering\n" +
+                "Taken ### CS1010 ### 1 ### 1 ### A+\n" +
+                " \n" +
+                "Plan ### CS2040C ### 2 ### 1\n");
+        writer.close();
+        User user = fileStorage.retrieveUser();
+        FileWriter toDelete = new FileWriter("./data/penus.txt");
+        toDelete.write("");
+        toDelete.close();
+        assertEquals("John", user.getName());
+        assertEquals("Electrical Engineering", user.getCourse());
+    }
+
+    @Test
     void testInvalidUser_throwsException() throws PenusException, IOException {
         FileWriter writer = new FileWriter("./data/penus.txt");
         writer.write("User ### John1 ### Electrical Engineering\n");

@@ -11,11 +11,14 @@ import seedu.penus.common.exceptions.PenusException;
 import seedu.penus.logic.commands.ClearCommand;
 import seedu.penus.logic.commands.Command;
 import seedu.penus.logic.commands.DetailsCommand;
+import seedu.penus.logic.commands.ExitCommand;
+import seedu.penus.logic.commands.HelpCommand;
 import seedu.penus.logic.commands.InitCommand;
 import seedu.penus.logic.commands.ListCommand;
 import seedu.penus.logic.commands.MarkCommand;
 import seedu.penus.logic.commands.PlanCommand;
 import seedu.penus.logic.commands.RemoveCommand;
+import seedu.penus.logic.commands.StatusCommand;
 import seedu.penus.logic.commands.TakenCommand;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -41,22 +44,37 @@ class ParserTest {
     @Test
     public void testInitParserInvalidFormat() throws PenusException {
         String args = "init n/John Doe";
-        PenusException invalidFormatException = assertThrows(InvalidFormatException.class, ()->parser.initParser(args));
-        assertEquals("Error: Try again in the format: init n/NAME c/COURSE CODE", invalidFormatException.getMessage());
+        PenusException invalidFormatException = assertThrows(InvalidFormatException.class,
+                ()->parser.parseCommand(args));
+        assertEquals("Error: Try again in the format: init n/NAME c/COURSE CODE",
+                invalidFormatException.getMessage());
     }
 
     @Test
     public void testInitParserEmptyParameters() throws PenusException {
         String args = "init n/ c/1";
-        PenusException invalidFormatException = assertThrows(InvalidFormatException.class, ()->parser.initParser(args));
+        PenusException invalidFormatException = assertThrows(InvalidFormatException.class,
+                ()->parser.parseCommand(args));
         assertEquals("Error: Try again, n/ c/ cannot be empty", invalidFormatException.getMessage());
     }
 
     @Test
     public void testInitParserCourseCodeNotInteger() throws PenusException {
         String args = "init n/John Doe c/abc";
-        Exception invalidFormatException = assertThrows(InvalidFormatException.class, ()->parser.initParser(args));
+        Exception invalidFormatException = assertThrows(InvalidFormatException.class, ()->parser.parseCommand(args));
         assertEquals("Error: c/ must be an integer", invalidFormatException.getMessage());
+    }
+
+    @Test
+    public void testInitParserNameInteger() {
+        String args = "init n/John Doe2 c/3";
+        assertThrows(InvalidFormatException.class, () -> parser.parseCommand(args));
+    }
+
+    @Test
+    public void testInitParserEmptyField() {
+        String args = "init n/ c/";
+        assertThrows(InvalidFormatException.class, () -> parser.parseCommand(args));
     }
 
 
@@ -192,6 +210,17 @@ class ParserTest {
 
 
     @Test
+    public void testListParser_validInputNoFilter() throws PenusException {
+        String input = "list";
+
+        Command result = parser.parseCommand(input);
+        assertTrue(result instanceof ListCommand);
+        ListCommand command = (ListCommand) result;
+        assertEquals(command.year, 0);
+        assertEquals(command.semester, 0);
+    }
+
+    @Test
     public void testListParser_validInput() throws PenusException {
         String input = "list y/1";
 
@@ -200,6 +229,17 @@ class ParserTest {
         ListCommand command = (ListCommand) result;
         assertEquals(command.year, 1);
         assertEquals(command.semester, 0);
+    }
+
+    @Test
+    public void testListParser_validInputYearSem() throws PenusException {
+        String input = "list y/1 s/1";
+
+        Command result = parser.parseCommand(input);
+        assertTrue(result instanceof ListCommand);
+        ListCommand command = (ListCommand) result;
+        assertEquals(command.year, 1);
+        assertEquals(command.semester, 1);
     }
 
     //list sem but not year specified
@@ -213,6 +253,12 @@ class ParserTest {
     @Test
     public void testListParser_invalidInteger() {
         String input = "list y/g s/2";
+        assertThrows(InvalidFormatException.class, () -> parser.parseCommand(input));
+    }
+
+    @Test
+    public void testListParser_invalidIntegerSem() {
+        String input = "list y/1 s/5,5";
         assertThrows(InvalidFormatException.class, () -> parser.parseCommand(input));
     }
 
@@ -261,11 +307,28 @@ class ParserTest {
     //detials no module code
     @Test
     public void testDetailsParser_noCode() {
-        String input = "remove ";
+        String input = "details ";
+        assertThrows(InvalidModuleException.class, () -> parser.parseCommand(input));
+    }
+
+    @Test
+    public void testDetailsParser_noCode2() {
+        String input = "details  ";
         assertThrows(InvalidModuleException.class, () -> parser.parseCommand(input));
     }
     
     //clear
+    @Test
+    public void testClearParser_validInputNoFilter() throws PenusException {
+        String input = "clear";
+
+        Command result = parser.parseCommand(input);
+        assertTrue(result instanceof ClearCommand);
+        ClearCommand command = (ClearCommand) result;
+        assertEquals(command.year, 0);
+        assertEquals(command.semester, 0);
+    }
+
     @Test
     public void testClearParser_validInput() throws PenusException {
         String input = "clear y/1";
@@ -275,6 +338,17 @@ class ParserTest {
         ClearCommand command = (ClearCommand) result;
         assertEquals(command.year, 1);
         assertEquals(command.semester, 0);
+    }
+
+    @Test
+    public void testClearParser_validInputYearSem() throws PenusException {
+        String input = "clear y/1 s/2";
+
+        Command result = parser.parseCommand(input);
+        assertTrue(result instanceof ClearCommand);
+        ClearCommand command = (ClearCommand) result;
+        assertEquals(command.year, 1);
+        assertEquals(command.semester, 2);
     }
 
     //clear year not specified but sem is
@@ -306,11 +380,41 @@ class ParserTest {
         assertThrows(InvalidFormatException.class, () -> parser.parseCommand(input));
     }
 
+    @Test
+    public void testClearParser_invalidSemInteger() {
+        String input = "clear y/1 s/g";
+        assertThrows(InvalidFormatException.class, () -> parser.parseCommand(input));
+    }
+
     //clear empty fields
     @Test
     public void testClearParser_emptyField() {
         String input = "clear y/ s/ ";
         assertThrows(InvalidFormatException.class, () -> parser.parseCommand(input));
+    }
+
+    @Test
+    public void testHelpParser_validInput() throws PenusException {
+        String input = "help";
+
+        Command result = parser.parseCommand(input);
+        assertTrue(result instanceof HelpCommand);
+    }
+
+    @Test
+    public void testExitParser_validInput() throws PenusException {
+        String input = "exit";
+
+        Command result = parser.parseCommand(input);
+        assertTrue(result instanceof ExitCommand);
+    }
+
+    @Test
+    public void testStatusParser_validInput() throws PenusException {
+        String input = "status";
+
+        Command result = parser.parseCommand(input);
+        assertTrue(result instanceof StatusCommand);
     }
 }
 

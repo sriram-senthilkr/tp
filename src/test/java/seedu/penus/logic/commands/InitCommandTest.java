@@ -25,7 +25,57 @@ public class InitCommandTest {
     }
 
     @Test
-    public void execute_invalidCourseCode_throwsInvalidCommandException() {
+    public void testInitChemCommandSuccess() throws Exception {
+        initCommand = new InitCommand("John Doe", 2);
+        CommandResult commandResult = initCommand.execute(modelManager);
+        assertEquals("John Doe", modelManager.getUserName());
+        assertEquals("Chemical Engineering", modelManager.getUserCourse());
+    }
+    @Test
+    public void testInitCivilCommandSuccess() throws Exception {
+        initCommand = new InitCommand("John Doe", 3);
+        CommandResult commandResult = initCommand.execute(modelManager);
+        assertEquals("John Doe", modelManager.getUserName());
+        assertEquals("Civil Engineering", modelManager.getUserCourse());
+    }
+    @Test
+    public void testInitComputerCommandSuccess() throws Exception {
+        initCommand = new InitCommand("John Doe", 4);
+        CommandResult commandResult = initCommand.execute(modelManager);
+        assertEquals("John Doe", modelManager.getUserName());
+        assertEquals("Computer Engineering", modelManager.getUserCourse());
+    }
+    @Test
+    public void testInitElectricalCommandSuccess() throws Exception {
+        initCommand = new InitCommand("John Doe", 5);
+        CommandResult commandResult = initCommand.execute(modelManager);
+        assertEquals("John Doe", modelManager.getUserName());
+        assertEquals("Electrical Engineering", modelManager.getUserCourse());
+    }
+    @Test
+    public void testInitEnvCommandSuccess() throws Exception {
+        initCommand = new InitCommand("John Doe", 6);
+        CommandResult commandResult = initCommand.execute(modelManager);
+        assertEquals("John Doe", modelManager.getUserName());
+        assertEquals("Environmental Engineering", modelManager.getUserCourse());
+    }
+    @Test
+    public void testInitISECommandSuccess() throws Exception {
+        initCommand = new InitCommand("John Doe", 7);
+        CommandResult commandResult = initCommand.execute(modelManager);
+        assertEquals("John Doe", modelManager.getUserName());
+        assertEquals("Industrial and Systems Engineering", modelManager.getUserCourse());
+    }
+    @Test
+    public void testInitMechCommandSuccess() throws Exception {
+        initCommand = new InitCommand("John Doe", 8);
+        CommandResult commandResult = initCommand.execute(modelManager);
+        assertEquals("John Doe", modelManager.getUserName());
+        assertEquals("Mechanical Engineering", modelManager.getUserCourse());
+    }
+
+    @Test
+    public void testExecuteInvalidCourseCodeThrowsInvalidCommandException() {
         initCommand = new InitCommand("John Doe", 10);
         PenusException invalidCommandException = assertThrows(InvalidCommandException.class,
                                                               () -> initCommand.execute(modelManager));
