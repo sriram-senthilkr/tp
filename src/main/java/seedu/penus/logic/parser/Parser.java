@@ -272,7 +272,7 @@ public class Parser {
      */
     public Command detailsParser(String args) throws PenusException {
         String[] details = args.split(" ");
-        if (args.equals("") || details.length >= 2) {
+        if (args.equals("") || args.equals(" ") || details.length >= 2) {
             throw new InvalidModuleException(args);
         }
         String moduleCode = args.toUpperCase().trim();

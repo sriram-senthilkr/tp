@@ -2,7 +2,7 @@ package seedu.penus.logic.commands;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import seedu.penus.common.exceptions.InvalidCommandException;
 import seedu.penus.model.ModelManager;
 import seedu.penus.model.Module;
@@ -18,7 +18,7 @@ public class RemoveCommandTest {
     private RemoveCommand command;
 
     @Test
-    public void execute_validModule_success() throws InvalidCommandException {
+    public void testValidModuleSuccess() throws InvalidCommandException {
         Module module = new Module("CS2113", 2, 1);
         model.addModule(module);
 
@@ -30,9 +30,19 @@ public class RemoveCommandTest {
         assertEquals(0, model.getSize());
     }
 
+    //module does not exist
     @Test
-    public void execute_invalidModule_throwsInvalidCommandException() {
+    public void testInvalidModuleThrowsInvalidCommandException() {
         command = new RemoveCommand("CS2113");
+
+        assertThrows(InvalidCommandException.class, () -> command.execute(model));
+    }
+
+    @Test
+    public void testExecute_moduleNotFound_throwsException() {
+
+        model.addModule(new Module("CS2113", 2, 2));
+        RemoveCommand command = new RemoveCommand("CS2105");
 
         assertThrows(InvalidCommandException.class, () -> command.execute(model));
     }

@@ -13,7 +13,7 @@ public class ExitCommandTest {
     }
 
     @Test
-    public void execute_returnsCorrectResult() {
+    public void testExecuteReturnsCorrectResult() {
         CommandResult expectedResult = new CommandResult(ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT, false);
         CommandResult actualResult = new ExitCommand().execute(null);
         assertEquals(expectedResult.feedbackToUser, actualResult.feedbackToUser);
