@@ -14,6 +14,29 @@ import seedu.penus.common.exceptions.InvalidModuleException;
 public class ModuleRetriever {
     public static JSONObject moduleInfo2223;
     public static JSONObject moduleInfo2122;
+    public static void connectionChecker() throws Exception{
+        try {
+            // Public API:
+            // https://api.nusmods.com/v2/2022-2023/modules/<module_code>.json
+
+
+            URL url = new URL("https://api.nusmods.com/v2/2022-2023/modules/CS1231.json");
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
+
+            // check if connect is made
+            int responseCode = conn.getResponseCode();
+
+            // 200 OK
+            if (responseCode != 200) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            System.out.println("You are not connected to the internet! Connect now to prevent any errors.");
+        }
+    }
 
     public static void getData2223(String module) throws InvalidModuleAPIException{
         try {
