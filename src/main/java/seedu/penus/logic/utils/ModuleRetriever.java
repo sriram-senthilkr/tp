@@ -8,13 +8,14 @@ import java.net.URL;
 import java.util.Scanner;
 import seedu.penus.common.exceptions.InvalidModuleAPIException;
 import seedu.penus.common.exceptions.InvalidModuleException;
+import seedu.penus.common.exceptions.NoInternetException;
 
 
 // test comment
 public class ModuleRetriever {
     public static JSONObject moduleInfo2223;
     public static JSONObject moduleInfo2122;
-    public static void connectionChecker() throws Exception{
+    public static void connectionChecker() throws NoInternetException {
         try {
             // Public API:
             // https://api.nusmods.com/v2/2022-2023/modules/<module_code>.json
@@ -34,7 +35,7 @@ public class ModuleRetriever {
                 throw new Exception();
             }
         } catch (Exception e) {
-            System.out.println("You are not connected to the internet! Connect now to prevent any errors.");
+            throw new NoInternetException();
         }
     }
 
