@@ -250,15 +250,13 @@ public class Parser {
      * @throws PenusException if the user input does not conform the expected format
      */
     public Command removeParser(String args) throws PenusException {
-        String[] details = args.split(" ");
-        if (args.equals("") || details.length >= 2) {
+        String moduleCode = args.toUpperCase().trim();
+        if (args.equals("")) {
             throw new InvalidModuleException(args);
         }
         if (args.equals(" ")) {
             throw new InvalidModuleException("\tPlease specify a module");
         }
-
-        String moduleCode = args.toUpperCase().trim();
 
         return new RemoveCommand(moduleCode);
     }
