@@ -23,10 +23,20 @@ class DetailsCompilerTest {
         assertEquals(expectedOutput, actualOutput);
     }
     @Test
-    void getDetailsForInvalidModule() {
+    void getDetailsForInvalidModulePreRequisities() {
         String moduleCode = "INVALID MODULE";
         String actualOutput = details.getDetails(moduleCode);
-        String expectedOutput = ": This information is not available";
+        String expectedOutput = "Programming Methodology\n" +
+                "\tThis module introduces the fundamental concepts of problem solving by computing and programming " +
+                "using an imperative programming language. It is the first and foremost introductory course to " +
+                "computing. Topics covered include computational thinking and computational problem solving, " +
+                "designing and specifying an algorithm, basic problem formulation and problem solving approaches, " +
+                "program development, coding, testing and debugging, fundamental programming constructs (variables, " +
+                "types, expressions, assignments, functions, control structures, etc.), fundamental data structures " +
+                "(arrays, strings, composite data types), basic sorting, and recursion.\n" +
+                "\tPre-Requisites information is not available\n" +
+                "\tMCs: 4\n" +
+                "\tModule can be SU-ed.";
 
         assertEquals(expectedOutput, actualOutput);
     }
