@@ -115,12 +115,12 @@ Adds a module to the planner as a taken module.
 
 <br>
 
-Format:`taken [MODCODE] y/[YEAR] s/[SEMESTER] g/[GRADE]`
+Format:`taken [MODULE CODE] y/[YEAR] s/[SEMESTER] g/[GRADE]`
 
 <br>
 
 Example:
-- `taken CG1111A y/1 s/1 g/A+` means that you have `taken` and cleared the `CG1111A` module in `Year 1` `Semester 1`, and got an `A+` grade for it
+- `taken CG1111A y/1 s/1 g/A+` means that you have `taken` and completed the `CG1111A` module in `Year 1` `Semester 1` with `A+` grade
 
 
 <br>
@@ -130,7 +130,7 @@ Adds a module to the planner as a module that has not been taken or completed.
 
 <br>
 
-Format:`plan [MODULE] y/[YEAR] s/[SEMESTER]`
+Format:`plan [MODULE CODE] y/[YEAR] s/[SEMESTER]`
 
 <br>
 
@@ -224,6 +224,8 @@ Notes:
 
 ### View module details: `details`
 Display the module title, description, pre-requisites, MCs and SU option. 
+<br>
+Please ensure you have a stable internet connection when using this command.
 
 <br>
 
