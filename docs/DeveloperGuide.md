@@ -16,15 +16,24 @@
   - [Display Status](#display-status)
   - [Get Module Details](#get-module-details)
   - [Initialise User](#initialise-user)
-  - [Save To Local Drive](#save-plan-to-local-drive)
+  - [[Proposed] Handle CS/CU Grade](#proposed-handle-cscu-modules)
+  - [Save To Local Drive](#save-planner-to-local-drive)
 - [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
   - [Documentation](#documentation)
   - [Logging](#logging)
   - [Testing](#testing)
   - [Configuration](#configuration)
   - [Dev-ops](#dev-ops)
-- [Appendix A: Requirements](#appendix-a--requirements)
-- [Appendix B: Instructions for manual testing](#appendix-b--instructions-for-manual-testing)
+- [Appendix A: Product Scope](#appendix-a-product-scope)
+- [Appendix B: User Stories](#appendix-b-user-stories)
+- [Appendix C: Non-Functional Requirements](#appendix-c-non-functional-requirements)
+- [Appendix D: Glossary](#appendix-d-glossary)
+- [Appendix E: Instructions for Manual Testing](#appendix-e-instructions-for-manual-testing)
+  - [Launch](#launch)
+  - [Plan Command](#plan-command)
+  - [Remove Command](#remove-command)
+  - [Mark Command](#mark-command)
+  - [Loading Data](#loading-data)
 <!----------------------------Acknowledgements----------------------------------------->
 ## Acknowledgements
 References made from [AddressBook 2](https://github.com/se-edu/addressbook-level2) and [AddressBook 3](https://github.com/se-edu/addressbook-level3).
@@ -391,14 +400,14 @@ Given below is an example of how the saving mechanism behaves at each step.
 
 **Step 2.** In `StorageManager` the `saveStorage()` method calls the `save()` method and passes the `ModuleList` and `User` objects to the `FileStorage`. 
 
-**Step 3.** A `FileWriter` object is instantiated with the filepath `/data/penus.txt` and writes to the text file. If the `User` object has valid attributes of `name` and `course`, the first line written would be the User's name and course in the format "User ### <USERNAME> ### <COURSE>". 
+**Step 3.** A `FileWriter` object is instantiated with the filepath `/data/penus.txt` and writes to the text file. If the `User` object has valid attributes of `name` and `course`, the first line written would be the User's name and course in the format `User ### [NAME] ### [COURSE]`. 
 
 _Example:_
 ```
 User ### Albert ### Computer Engineering
 ```
 
-**Step 4.** The next few lines of the file would then be written with the modules in the `ModuleList`. The list is iterated through and the `FileWriter` writes an encoded format of the module to the file with the `encode()` method of a `Module`. The `encode()` method formats the attributes of a `Module` into the format of : "<STATUS> ### <MODULECODE> ### <YEAR> ### <SEMESTER> (### <GRADE> if module is `Taken`)
+**Step 4.** The next few lines of the file would then be written with the modules in the `ModuleList`. The list is iterated through and the `FileWriter` writes an encoded format of the module to the file with the `encode()` method of a `Module`. The `encode()` method formats the attributes of a `Module` into the format of : `[STATUS] ### [MODULECODE] ### [YEAR] ### [SEMESTER]` (`### [GRADE]` if module is `Taken`)
 
 _Example:_
 ```
@@ -477,6 +486,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 - PENUS requires a **stable internet connection** as NUSMods API is used.
 - PENUS should be able to hold up to 1000 modules without a noticeable sluggishness in performance for typical usage.
 - A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+- Module data is limited to what is available on NUSMods, i.e. PENUS has module data for all modules offered by NUS in AY22/23 Semester 1 and 2. It is recommended to input updated modules offered in AY22/23 onwards.
 
 ## Appendix D: Glossary
 
