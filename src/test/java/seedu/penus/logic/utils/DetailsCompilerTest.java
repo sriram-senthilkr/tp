@@ -26,7 +26,7 @@ class DetailsCompilerTest {
     void testGetDetailsForInvalidModule() {
         String moduleCode = "INVALID MODULE";
         String actualOutput = details.getDetails(moduleCode);
-        String expectedOutput = ": This information is not available";
+        String expectedOutput = "This module code is invalid. Try again.";
 
         assertEquals(expectedOutput, actualOutput);
     }
@@ -35,7 +35,7 @@ class DetailsCompilerTest {
     void testGetDetailsForNull() {
         String moduleCode = null;
         String actualOutput = details.getDetails(moduleCode);
-        String expectedOutput = ": This information is not available";
+        String expectedOutput = "This module code is invalid. Try again.";
 
         assertEquals(expectedOutput, actualOutput);
     }
