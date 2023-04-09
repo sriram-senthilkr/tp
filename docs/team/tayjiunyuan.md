@@ -1,7 +1,6 @@
 ### Tay Jiun Yuan's Project Portfolio Page
 ### Project: PENUS
 PENUS is a desktop app for NUS engineering students to manage and plan their modules in their university life. The user interacts with it using a CLI. It is written in Java, and has about 6 kLoC.
-
 Given below are my contributions to the project.
 
 - **New Feature**: Initialization Command
