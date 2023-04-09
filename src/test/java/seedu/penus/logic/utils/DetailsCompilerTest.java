@@ -38,7 +38,6 @@ class DetailsCompilerTest {
         String moduleCode = null;
         String actualOutput = details.getDetails(moduleCode);
         String expectedOutput = "This module code is invalid. Try again.";
-
         assertEquals(expectedOutput, actualOutput);
     }
 
@@ -47,7 +46,17 @@ class DetailsCompilerTest {
     void testGetDetailsForNewModule() {
         String moduleCode = "ES2631";
         String actualOutput = details.getDetails(moduleCode);
-        String expectedOutput = ": This information is not available";
+        String expectedOutput = "Critique and Communication of Thinking and Design\n\tThis " +
+                "module equips students with competencies requiring students to analyze, critique, " +
+                "and communicate engineering ideas in a systematic and thoughtful manner. " +
+                "Students will be introduced to a reasoning in engineering framework " +
+                "(Paul et al., 2019), as well as key principles of effective communication " +
+                "in the field of engineering, such as being purpose- and context-conscious " +
+                "and audience-centric (Irish & Weiss, 2013). These will be applied to analyze " +
+                "engineering ideas in both written and oral communication. Students will also " +
+                "engage in a group engineering conceptual design project aimed at promoting " +
+                "critical analysis and communication within groups.\n\tPre-Requisites " +
+                "information is not available\n\tMCs: 4\n\tModule can be SU-ed.";
 
         assertEquals(expectedOutput, actualOutput);
     }
