@@ -95,7 +95,7 @@ Format:`init n/[NAME] c/[COURSE NUMBER]`
 Example:
 - `init n/John Doe c/1` Initiates a user with the name `John` and course `Biomedical Engineering`.
 
-Notes:
+Note:
 - Each program is limited to 1 user, ie. Initialisation more than once will overwrite the current user `name` and `course` and not create a 
 separate profile
 
@@ -215,9 +215,10 @@ Format:`status`
 
 Example: `status` *(course: Computer Engineering)*
 
-![details example](./ugmedia/status1.png)
+![status example 1](./ugmedia/status1.png)
+![status example 2](./ugmedia/status2.png)
 
-Notes:
+Note:
 - The status command may take a while to load. Please ensure a stable internet connection.
 
 <br>
