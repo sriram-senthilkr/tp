@@ -87,7 +87,7 @@ public class ModuleList {
     public void removeModule(int index) {
         this.modules.remove(index);
     }
-
+ 
     /**
      * Returns the number of modules in the module list
      *
