@@ -28,13 +28,13 @@ Given below are my contributions to the project.
     - List Command
     - Help Command
     - Clear Command
-  - Sequence diagram for Clear Command
 
 - **Contributions to DG**:
   - Written Documentation for:
     - List Command
     - Help Command
     - Clear Command
+  - Sequence diagram for Clear Command (See extracts)
 
 - **Contributions to team-based tasks**:
   - Assigned teammates for milestones and issues
@@ -48,6 +48,6 @@ Given below are my contributions to the project.
   - Reported 11 bugs for PE-D
 
 - **Contributions to the Developer Guide (Extracts)**:
-  Logic object diagram:
+  Clear Command Sequence diagram:
 
 ![ClearSequenceDiagram](/docs/uml/diagrams/ClearCommandSequence.png)
