@@ -276,6 +276,27 @@ class ParserTest {
         String input = "list y/1 s/0";
         assertThrows(InvalidFormatException.class, () -> parser.parseCommand(input));
     }
+    
+    //list empty year
+    @Test
+    public void testListParser_emptyYear() {
+        String input = "list y/";
+        assertThrows(InvalidFormatException.class, () -> parser.parseCommand(input));
+    }
+
+    //list empty semester
+    @Test
+    public void testListParser_emptySem() {
+        String input = "list y/1 s/";
+        assertThrows(InvalidFormatException.class, () -> parser.parseCommand(input));
+    }
+
+    //list empty year and semester
+    @Test
+    public void testListParser_emptyYearAndSem() {
+        String input = "list y/ s/";
+        assertThrows(InvalidFormatException.class, () -> parser.parseCommand(input));
+    }
 
     @Test
     public void testRemoveParser_validInput() throws PenusException {
@@ -316,7 +337,7 @@ class ParserTest {
         String input = "details  ";
         assertThrows(InvalidModuleException.class, () -> parser.parseCommand(input));
     }
-    
+
     //clear
     @Test
     public void testClearParser_validInputNoFilter() throws PenusException {
@@ -365,13 +386,19 @@ class ParserTest {
         assertThrows(InvalidFormatException.class, () -> parser.parseCommand(input));
     }
 
+    //clear invalid year (not integer)
+    @Test
+    public void testClearParser_invalidYearInteger() {
+        String input = "clear y/g";
+        assertThrows(InvalidFormatException.class, () -> parser.parseCommand(input));
+    }
+
     //clear invalid year
     @Test
     public void testClearParser_invalidYear() {
         String input = "clear y/1000";
         assertThrows(InvalidFormatException.class, () -> parser.parseCommand(input));
     }
-
 
     //clear invalid sem
     @Test

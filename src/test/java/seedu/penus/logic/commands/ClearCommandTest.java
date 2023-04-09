@@ -2,6 +2,7 @@ package seedu.penus.logic.commands;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.penus.common.exceptions.PenusException;
 import seedu.penus.model.ModelManager;
 import seedu.penus.testutils.SampleData;
@@ -20,7 +21,7 @@ public class ClearCommandTest {
 
     @Test
     public void testClearYearAndSemModsSuccess() throws PenusException {
-        clearCommand = new ClearCommand(1,1);
+        clearCommand = new ClearCommand(1, 1);
         clearCommand.execute(model);
         assertFalse(model.hasModuleCode("CS2040C"));
         assertFalse(model.hasModuleCode("CS1231"));
@@ -28,11 +29,12 @@ public class ClearCommandTest {
         assertTrue(model.hasModuleCode("GEC1015"));
         assertTrue(model.hasModuleCode("BN1111"));
         assertTrue(model.hasModuleCode("BN2111"));
-        assertEquals(4,model.getSize());
+        assertEquals(4, model.getSize());
     }
+
     @Test
     public void testClearYearModsSuccess() throws PenusException {
-        clearCommand = new ClearCommand(1,0);
+        clearCommand = new ClearCommand(1, 0);
         clearCommand.execute(model);
         assertFalse(model.hasModuleCode("CS2040C"));
         assertFalse(model.hasModuleCode("CS1231"));
@@ -40,13 +42,13 @@ public class ClearCommandTest {
         assertFalse(model.hasModuleCode("GEC1015"));
         assertTrue(model.hasModuleCode("BN1111"));
         assertTrue(model.hasModuleCode("BN2111"));
-        assertEquals(2,model.getSize());
-    }
-    @Test
-    public void testClearAllModsSuccess() throws PenusException {
-        clearCommand = new ClearCommand(0,0);
-        clearCommand.execute(model);
-        assertEquals(0,model.getSize());
+        assertEquals(2, model.getSize());
     }
 
+    @Test
+    public void testClearAllModsSuccess() throws PenusException {
+        clearCommand = new ClearCommand(0, 0);
+        clearCommand.execute(model);
+        assertEquals(0, model.getSize());
+    }
 }
