@@ -314,7 +314,7 @@ The retrieved information will be stored as `moduleInfo` `JSONObject` in the `Mo
 
 - _Note:_ If a “GET” request fails, it will stop the Connection, and return the HTTP Response Code.
 
-- _Note:_ (Proposed) If an incorrect module was entered, the program will return an error, and ask the user to input the correct module code.
+- _Note:_ If an incorrect module was entered, the program will return an error, and ask the user to input the correct module code.
 
 **Step 3b.** Each retrieve method (e.g. `retrieveTitle()`) will retrieve the respective information from the retrieved `JSONObject`, and return it as a `String`.
 
@@ -662,3 +662,24 @@ Plan #### CS2107 #### 1 #### 1
 ```
 Expected: Similar to previous
 
+### Details command
+1. Test case: `details CS2040c` <br>
+   Expected output: Relevant details for CS2040C will be displayed <br>
+   Example:
+  ```
+    ___________________________________________________________
+    CS2040C Data Structures and Algorithms
+	This module introduces students to the design and implementation of fundamental data structures and algorithms. The module covers basic data structures (linked lists, stacks, queues, hash tables, binary heaps, trees, and graphs), searching and sorting algorithms, basic analysis of algorithms, and basic object-oriented programming concepts.
+	Pre-Requisites: CS1010 or its equivalent
+	MCs: 4
+	Module cannot be SU-ed.
+    ___________________________________________________________
+  ```
+2. Test case: `details ABCDE` <br>
+   Expected output: Error message will be shown <br>
+   Example:
+  ```
+    ___________________________________________________________
+    ABCDE This module code is invalid. Try again.
+    ___________________________________________________________
+  ```
