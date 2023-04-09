@@ -8,12 +8,36 @@ import java.net.URL;
 import java.util.Scanner;
 import seedu.penus.common.exceptions.InvalidModuleAPIException;
 import seedu.penus.common.exceptions.InvalidModuleException;
+import seedu.penus.common.exceptions.NoInternetException;
 
 
 // test comment
 public class ModuleRetriever {
     public static JSONObject moduleInfo2223;
     public static JSONObject moduleInfo2122;
+    public static void connectionChecker() throws NoInternetException {
+        try {
+            // Public API:
+            // https://api.nusmods.com/v2/2022-2023/modules/<module_code>.json
+
+
+            URL url = new URL("https://api.nusmods.com/v2/2022-2023/modules/CS1231.json");
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.connect();
+
+            // check if connect is made
+            int responseCode = conn.getResponseCode();
+
+            // 200 OK
+            if (responseCode != 200) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            throw new NoInternetException();
+        }
+    }
 
     public static void getData2223(String module) throws InvalidModuleAPIException{
         try {

@@ -1,5 +1,7 @@
 package seedu.penus;
 
+import seedu.penus.common.exceptions.NoInternetException;
+import seedu.penus.logic.utils.ModuleRetriever;
 import seedu.penus.ui.Ui;
 import seedu.penus.logic.LogicManager;
 import seedu.penus.model.ModelManager;
@@ -32,6 +34,11 @@ public class Penus {
     private void start() {
         this.ui = new Ui();
         this.storage = new StorageManager();
+        try {
+            ModuleRetriever.connectionChecker();
+        } catch (NoInternetException e) {
+            ui.printMessage(e.getMessage());
+        }
         try {
             this.model = new ModelManager(
             storage.loadUser(),
