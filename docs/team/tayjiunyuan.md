@@ -1,7 +1,6 @@
 ### Tay Jiun Yuan's Project Portfolio Page
 ### Project: PENUS
 PENUS is a desktop app for NUS engineering students to manage and plan their modules in their university life. The user interacts with it using a CLI. It is written in Java, and has about 6 kLoC.
-
 Given below are my contributions to the project.
 
 - **New Feature**: Initialization Command
@@ -12,12 +11,12 @@ Given below are my contributions to the project.
 - **New Feature**: Get core modules of user
   - What it does: Retrieves a list of the core modules of the user.
   - Justification: Allows the Status Command to retrieve the core module information of the user based on his/her course.
-  - Highlights: Tedious to implement as there were many components. Hardcoded each course's core modules (found through each course's website) into a txt file and created a method getCoreMods() to read the txt file and add each core module code under the correct course in a hashmap.
+  - Highlights: Hardcoded each course's core modules (found through each course's website) into a txt file and created a method getCoreMods() to read the txt file and add each core module code under the correct course in a hashmap.
 
 - **New Feature**: Status Command 
   - What it does: Displays the user's name, course, core module status and total module credits taken
   - Justification: Provides a summary of the user's progress to graduation. 
-  - Highlights: Very challenging to implement due to the sheer number of components. Retrieving the status of each core module requires calling the methods to get the core module codes, checking if the user has taken it and factoring modules such has GE mods which cannot be hardcoded. Also required API calls to retrieve the module information and separate methods to get the MC progress of the user. It was very difficult to achieve everything whilst maintaining strict OOP practices.
+  - Highlights: Very challenging to implement due to the number of components. Retrieving the status of each core module requires calling the methods to get the core module codes, checking if the user has taken it. Also required API calls to retrieve the module information and separate methods to get the MC progress of the user. Very difficult to achieve everything whilst maintaining strict OOP practices.
 
 - **New Feature**: Sample Data
   - What it does: Creates an instance of the model, with sample data.
@@ -33,7 +32,7 @@ Given below are my contributions to the project.
 
 - **Enhancement**: Planned new architecture to adopt MVC design pattern
     - Justification: Improves abstraction and OOP significantly and made it easier for teammates to work on features independently as working on previous codebase asynchronously made the code messy. Made architecture diagrams cleaner and simple.
-    - Highlights: Came up with the rough planning of refactored architecture adopting MVC pattern with Benjamin. Implementation not done by me and I do not claim credit for it.
+    - Highlights: Came up with the rough planning of refactored architecture adopting MVC pattern with Benjamin. Only responsible for planning and not implementation.
     - Credits: [AddressBook 2](https://github.com/se-edu/addressbook-level2) and [AddressBook 3](https://github.com/se-edu/addressbook-level3).
 
 - **Code contributed**: [RepoSense link](https://nus-cs2113-ay2223s2.github.io/tp-dashboard/?search=tayjiunyuan&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2023-02-17&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
