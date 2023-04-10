@@ -58,7 +58,6 @@ public class ModuleRetriever {
             // 200 OK
             if (responseCode != 200) {
                 throw new InvalidModuleAPIException();
-                //throw new RuntimeException("HttpResponseCode: " + responseCode + " NO SUCH MODULE WAS FOUND");
             } else {
                 Scanner scanner = new Scanner(url.openStream());
                 String informationString = scanner.nextLine();
@@ -76,7 +75,6 @@ public class ModuleRetriever {
                 moduleInfo2223 = (JSONObject) dataObject.get(0);
             }
         } catch (Exception e) {
-            //System.out.println("Unable to retrieve module");
             moduleInfo2122 = null;
         }
     }
@@ -100,7 +98,6 @@ public class ModuleRetriever {
             // 200 OK
             if (responseCode != 200) {
                 throw new InvalidModuleAPIException();
-                //throw new RuntimeException("HttpResponseCode: " + responseCode + " NO SUCH MODULE WAS FOUND");
             } else {
                 Scanner scanner = new Scanner(url.openStream());
                 String informationString = scanner.nextLine();
@@ -120,8 +117,6 @@ public class ModuleRetriever {
                 //test code
             }
         } catch (Exception e) {
-            //e.printStackTrace();
-            //System.out.println("Unable to retrieve module");
             moduleInfo2122 = null;
         }
     }
@@ -131,7 +126,6 @@ public class ModuleRetriever {
             getData2122(module);
             return (String) moduleInfo2122.get("prerequisite");
         } catch (InvalidModuleAPIException e) {
-            //e.printStackTrace();
             return null;
         }
     }
@@ -141,7 +135,6 @@ public class ModuleRetriever {
             getData2223(module);
             return (String) moduleInfo2223.get("description");
         } catch (InvalidModuleAPIException e) {
-            //e.printStackTrace();
             return null;
         }
     }
@@ -151,7 +144,6 @@ public class ModuleRetriever {
             getData2223(module);
             return (String) moduleInfo2223.get("title");
         } catch (InvalidModuleAPIException e) {
-            //e.printStackTrace();
             return null;
         }
 
@@ -162,7 +154,6 @@ public class ModuleRetriever {
             getData2223(module);
             return (String) moduleInfo2223.get("moduleCredit");
         } catch (InvalidModuleAPIException e) {
-            //e.printStackTrace();
             return null;
         }
     }
@@ -172,7 +163,6 @@ public class ModuleRetriever {
             getData2122(module);
             return (String) moduleInfo2122.get("title");
         } catch (InvalidModuleAPIException e) {
-            //e.printStackTrace();
             return null;
         }
     }
@@ -186,7 +176,6 @@ public class ModuleRetriever {
             getData2122(module);
             return (String) moduleInfo2122.get("moduleCredit");
         } catch (InvalidModuleAPIException e) {
-            //e.printStackTrace();
             return null;
         }
     }
@@ -199,7 +188,6 @@ public class ModuleRetriever {
 
             return suStatus != null;
         } catch (InvalidModuleAPIException e) {
-            //e.printStackTrace();
             return null;
         }
     }
