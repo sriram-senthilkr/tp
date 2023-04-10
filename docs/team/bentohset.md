@@ -6,11 +6,9 @@ Given below are my contributions to the project.
 - **Feature**: Plan and Taken command
     - What it does: Adds a module (plan or taken) to the module list.
     - Highlights: Decided on design and chose to implement by overloading a constructor.
-
 - **Feature**: Mark Command
 - **Feature**: Remove Command
 - **Feature**: Exit Command
-
 - **Feature**: Storage saving and loading
     - What it does: enables saving data from the module list by encoding it and loads upon initialising the application
     - Highlights: Required in-depth understanding of Scanner API as 2 different types of classes needed to be read (User and Module). Challenging as all errors that the Parser class handled will need to be implemented for the loading of the .txt file.
@@ -85,16 +83,16 @@ Remove module sequence diagram:
 
 Mark module sequence diagram:
 
-![MarkModuleSequenceDiagram](/docs/uml/diagrams/MarkModSequence.png)
+<img src="/docs/uml/diagrams/MarkModSequence.png"/>
 
 List sequence diagram:
 
-![ListSequenceDiagram](/docs/uml/diagrams/ListSequence.png)
+<img src="/docs/uml/diagrams/ListSequence.png"/>
 
 Grade class diagram:
 
-![Grade Class Diagram](/docs/uml/diagrams/GradeClass.png)
+<img src="/docs/uml/diagrams/GradeClass.png"/>
 
 Save feature class diagram:
 
-![SaveFeatureClassDiagram](/docs/uml/diagrams/SaveFeatureClass.png)
+<img src="/docs/uml/diagrams/SaveFeatureClass.png"/>
