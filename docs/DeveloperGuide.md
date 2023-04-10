@@ -16,6 +16,7 @@
   - [Display Status](#display-status)
   - [Get Module Details](#get-module-details)
   - [Initialise User](#initialise-user)
+  - [Clear Modules](#clear-modules)
   - [[Proposed] Handle CS/CU Grade](#proposed-handle-cscu-modules)
   - [Save To Local Drive](#save-planner-to-local-drive)
 - [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
@@ -196,55 +197,101 @@ The following sequence diagram shows how the `mark` command works:
 <br>
 
 ### List modules
-The List modules feature allows users to view their added modules, in a specified range using the command `list`. There are 3 ways of modules listing :
+The List modules feature allows users to view their added modules, in a specified range using the command `list [FILTER]`. There are 3 ways of modules listing :
   1. List all modules in the planner
   2. List all modules in the planner for a specific year
   3. List all modules in the planner for a specific year and semester
 
 Given below is an example usage scenario for each type, and how the list modules mechanism behaves at each step.
 
-**When a the year and semester are not specified:**
+**When the year and semester are not specified:**
 
-**Step 1.** The user executes the command `list`, without any specified year or semester range, to list all modules in the planner. The `list` command is executed within the switch case of the `parseCommand()` method of `CommandParser`. 
+**Step 1.** The user types in `list`, which will be taken in by the `getUserCommand()` method of the `Ui` class. 
+The input command will then be passed to the `LogicManager` class by `getCommand()` and calls `parseCommand()` in the `Parser` class 
+which returns the main command, `ListCommand`, if a valid command is entered. 
+The `LogicManager` then calls `execute()` on `ListCommand`, which runs the main logic behind this command.
+In this example, `list means that the user wants to list all modules in the planner for all semesters from Year 1 to 4.
 
-**Step 2.** If a valid command is entered, the `printModule` method of `ModuleList` will be executed with the inputs of -1 for both the year and semester. 
+**Step 2.** `Parser` returns a `ListCommand()` object with no arguments.
 
-**Step 3.** In `printModule` of `ModuleList`, a `Map<Integer, Map<Integer, List<String[]>>>` Hashmap is iniitialised, and all the modules stored in the `modules` container is added to the Hashmap. 
+**Step 3.** In `CommandResult` of `ListCommand`, a `List<String> messageArray` list, `Map<Integer, Map<Integer, List<String[]>>>` Hashmap and `List<Module> moduleList` ArrayList
+are initialised. The `List<Module>` ArrayList is a ModuleList object, which contains all modules in the planner. 
+Then, all the modules in `moduleList` are copied to the Hashmap, along with all their details such as their Year, Semester and Grade.
 
-**Step 4.** The year and semester have values of -1, which then `printModules` recognises as printing all modules in the Hashmap. A `List<String[]> modules` is initialised with all the modules in the Hashmap. 
+**Step 4.** In the `ListCommand` class, the `year` and `semester` have default values of 0. When `ListCommand` is called without any year and semester specifications, the year and semester values of 0 will be passed to `CommandResult`.
+Then, a `List<String> allModules` list will be initialised, and the `getAllMods` method is called to retrieve all modules to be stored in `allModules`.
 
-**Step 5.** If `modules` is not empty, the modules for that year and semester are printed sequentially. For modules with available grade information, the grade will be printed beside the module code. 
+**Step 5.** In the `getAllMods` method, a `List<String> messageList` is initialised. `messageList` is used to store the string inputs to be returned to `CommandResult`. 
+A `List<String[]> modulesInYearSem` is initialised, which copies all module details from the Hashmap.
 
-Below is a sequence diagram of how the `list` command works:
+**Step 6.** If `modulesInYearSem` is not empty, then `modulesInYearSem` will be iterated through to be appended to `messageList` as a String, and the `messageList` list will be returned to `CommandResult`.
+
+**Step 7.** In `CommandResult`, the returned `messageList` list will have its contents copied into an `allModules` list. This `allModules` list will have its contents appended to the `messageArray` of `CommandResult`. 
+Then, `getOverallCap` of `Grade` is called to retrieve the overall CAP for the user, and this string is appended to `msessageArray`.  
+Lastly, a new `CommandResult()` is constructed with the message to be printed to the user.
+
+**Step 8.** The `CommandResult` object is passed to the `Ui` component with a `printMessage()` method which prints the formatted message to the Command Line Interface. 
+
+Below is a sequence diagram of how the `list` command works: 
 ![ListSequenceDiagram](uml/diagrams/ListSequence.png)
 
-**When a the year is specified:**
+**When the year is specified:**
 
-**Step 1.** The user executes the command `list y/1`, with the year specified, but not the semester, to print the modules for both semesters in Year 1. The `list` command is executed within the switch case of the `parseCommand()` method of `CommandParser`. 
+**Step 1.** The user types in `list y/1`, which will be taken in by the `getUserCommand()` method of the `Ui` class.
+The input command will then be passed to the `LogicManager` class by `getCommand()` and calls `parseCommand()` in the `Parser` class which returns the main command, `ListCommand`, if a valid command is entered.
+The `LogicManager` then calls `execute()` on `ListCommand`, which runs the main logic behind this command.
+In this example, `list y/1` means that the user wants to list all modules in the planner for Year 1, i.e. both semesters in Year 1.
 
-**Step 2.** If a valid command is entered, the `printModule` method of `ModuleList` will be executed. The string `inputArray` is then split into parts separated by the flags `y/` and `s/` into a `rangeToPrint` array. 
+**Step 2.** `Parser` returns a `ListCommand()` object with the year that the user entered, as the argument.
 
-**Step 3.** If the year entered is valid, the integer `yearSpecified` is assigned parsed from the String that the user entered. The integer `semesterSpecified` is assigned to 0. The `printModule` method of `ModuleList` is called with the `yearSpecified` and `semesterSpecified` as inputs, and `semesterSpecified` is valued at -1.
+**Step 3.** In `CommandResult` of `ListCommand`, a `List<String> messageArray` list, `Map<Integer, Map<Integer, List<String[]>>>` Hashmap and `List<Module>` ArrayList named `moduleList`
+are initialised. The `List<Module>` ArrayList is a ModuleList object, which contains all modules in the planner.
+Then, all the modules in `moduleList` are copied to the Hashmap, along with all their details such as their Year, Semester and Grade.
 
-**Step 4.** In `printModule` of `ModuleList`, a `Map<Integer, Map<Integer, List<String[]>>>` Hashmap is iniitialised, and all the modules stored in the `modules` container is added to the Hashmap. 
+**Step 4.** In the `ListCommand` class, the `year` and `semester` have default values of 0. When `ListCommand` is called with only the year specified, the year value that the user entered and the default semester value of 0 will be passed to `CommandResult`.
+Then, a `List<String> yearModules` list will be initialised, and the `getYearMods` method is called to retrieve all modules to be stored in `yearModules`.
 
-**Step 5.** A `List<String[]> modules` is initialised with all the modules in the Hashmap. 
+**Step 5.** In the `getYearMods` method, a `List<String> messageList` is initialised. `messageList` is used to store the string inputs to be returned to `CommandResult`.
+A `List<String[]> modulesInYear` is initialised, which copies all module details from modules of the specified year, from the Hashmap. 
+For this example, `year` is *1* and thus all modules with `year` as *1* will be copied to `modulesInYear`. 
 
-**Step 6.** If `modules` is not empty, the modules for that year and both its semesters are printed sequentially. For modules with available grade information, the grade will be printed beside the module code. 
+**Step 6.** If `modulesInYear` is not empty, then `modulesInYear` will be iterated through to be appended to `messageList` as a String, and the `messageList` list will be returned to `CommandResult`.
 
-**When a the year and semester are specified:**
+**Step 7.** In `CommandResult`, the returned `messageList` list will have its contents copied into an `yearModules` list. This `yearModules` list will have its contents appended to the `messageArray` of `CommandResult`.
+For each semester in the year, the CAP for that semester will be retrieved through `getSemCAP` of `Grade`. This information is appended to `messageArray` as a String.
+Then, `getOverallCap` of `Grade` is called to retrieve the overall CAP for the user, and this string is appended to `msessageArray`.  
+Lastly, a new `CommandResult()` is constructed with the message to be printed to the user.
 
-**Step 1.** The user executes the command `list y/1 s/2`, with the year and semester specified, to print the modules for Year 1 Semester 2. The `list` command is executed within the switch case of the `parseCommand()` method of `CommandParser`. 
+**Step 8.** The `CommandResult` object is passed to the `Ui` component with a `printMessage()` method which prints the formatted message to the Command Line Interface.
 
-**Step 2.** If a valid command is entered, the `printModule` method of `ModuleList` will be executed. The string `inputArray` is then split into parts separated by the flags `y/` and `s/` into a `rangeToPrint` array. 
+**When the year and semester are specified:**
 
-**Step 3.** If the year entered is valid, the integer `yearSpecified` and `semesterSpecified` is parsed from the String that the user entered. The `printModule` method of `ModuleList` is called with the `yearSpecified` and `semesterSpecified` as inputs.
+**Step 1.** The user types in `list y/2 s/1`, which will be taken in by the `getUserCommand()` method of the `Ui` class.
+The input command will then be passed to the `LogicManager` class by `getCommand()` and calls `parseCommand()` in the `Parser` class which returns the main command, `ListCommand`, if a valid command is entered.
+The `LogicManager` then calls `execute()` on `ListCommand`, which runs the main logic behind this command. 
+In this example, `list y/2 s/1` means that the user wants to list all modules in the planner for Year 2 Semester 1.
 
-**Step 4.** In `printModule` of `ModuleList`, a `Map<Integer, Map<Integer, List<String[]>>>` Hashmap is iniitialised, and all the modules stored in the `modules` container is added to the Hashmap. 
+**Step 2.** `Parser` returns a `ListCommand()` object with the year and semester that the user entered, as the arguments.
 
-**Step 5.** A `List<String[]> modules` is initialised with all the modules in the Hashmap. 
+**Step 3.** In `CommandResult` of `ListCommand`, a `List<String> messageArray` list, `Map<Integer, Map<Integer, List<String[]>>>` Hashmap and `List<Module>` ArrayList named `moduleList`
+are initialised. The `List<Module>` ArrayList is a ModuleList object, which contains all modules in the planner.
+Then, all the modules in `moduleList` are copied to the Hashmap, along with all their details such as their Year, Semester and Grade.
 
-**Step 6.** If `modules` is not empty, the modules for that specified year and semester are printed sequentially. For modules with available grade information, the grade will be printed beside the module code. 
+**Step 4.** In the `ListCommand` class, the `year` and `semester` have default values of 0. When `ListCommand` is called with both the year and semester specified, the year and semester values that the user entered will be passed to `CommandResult`.
+Then, a `List<String> semModules` list will be initialised, and the `getSemMods` method is called to retrieve all modules to be stored in `semModules`.
+
+**Step 5.** In the `getSemMods` method, a `List<String> messageList` is initialised. `messageList` is used to store the string inputs to be returned to `CommandResult`.
+A `List<String[]> modulesInYearAndSem` is initialised, which copies all module details from modules of the specified year, from the Hashmap.
+For this example, `year` is *2*, `semester` is *1*, and thus all modules with `year` as *2* and `semester` as *1* will be copied to `modulesInYearAndSem`.
+
+**Step 6.** If `modulesInYearAndSem` is not empty, then `modulesInYearAndSem` will be iterated through to be appended to `messageList` as a String, and the `messageList` list will be returned to `CommandResult`.
+
+**Step 7.** In `CommandResult`, the returned `messageList` list will have its contents copied into an `semModules` list. This `semModules` list will have its contents appended to the `messageArray` of `CommandResult`.
+The CAP for this semester will be retrieved through `getSemCAP` of `Grade`. This information is appended to `messageArray` as a String.
+Then, `getOverallCap` of `Grade` is called to retrieve the overall CAP for the user, and this string is appended to `msessageArray`.  
+Lastly, a new `CommandResult()` is constructed with the message to be printed to the user.
+
+**Step 8.** The `CommandResult` object is passed to the `Ui` component with a `printMessage()` method which prints the formatted message to the Command Line Interface.
 
 <br>
 
@@ -390,6 +437,92 @@ Class Diagram (with unnecessary details ommitted):
 ![Grade Class Diagram](uml/diagrams/GradeClass.png)
 
 <br>
+
+### Clear modules
+The Clear modules feature allows users to remove all of their added modules, in a specified range using the command `clear [FILTER]`. There are 3 ways of clearing modules :
+1. Clear all modules in the planner
+2. Clear all modules in the planner for a specific year
+3. Clear all modules in the planner for a specific year and semester
+
+Given below is an example usage scenario for each type, and how the clear modules mechanism behaves at each step.
+
+**When the year and semester are not specified:**
+
+**Step 1.** The user types in `clear`, which will be taken in by the `getUserCommand()` method of the `Ui` class.
+The input command will then be passed to the `LogicManager` class by `getCommand()` and calls `parseCommand()` in the `Parser` class
+which returns the main command, `ClearCommand`, if a valid command is entered.
+The `LogicManager` then calls `execute()` on `ClearCommand`, which runs the main logic behind this command.
+For this example, `clear` means that the user wants to delete **all** modules in the planner.
+
+**Step 2.** `Parser` returns a `ClearCommand()` object with no arguments.
+
+**Step 3.** In `CommandResult` of `ClearCommand`, a `List<String> messageArray` list and `List<Module> moduleList` ArrayList
+are initialised. `moduleList` is the list that contains all the modules added to the planner.
+
+**Step 4.** In the `ClearCommand` class, the `year` and `semester` have default values of 0. When `ClearCommand` is called without any year and semester specifications, the year and semester values of 0 will be passed to `CommandResult`.
+Then, a `List<String> clearAllModules` list is initialised, and the `clearAllMods` method is called to clear all modules that are stored in `moduleList`.
+
+**Step 5.** In the `clearAllMods` method, a `List<String> messageList` is initialised. `messageList` is used to store the string inputs to be returned to `CommandResult`.
+
+**Step 6.** If `modulesList` is not empty, `clear()` of the `List` class is called to clear all modules in `moduleList`, which deletes all contents of `moduleList`. 
+
+**Step 7.** A new `CommandResult()` is constructed with the message to be printed to the user. 
+The `CommandResult` object is passed to the `Ui` component with a `printMessage()` method which prints the formatted message to the Command Line Interface. 
+This prints the String **"Cleared!"** to indicate that the `clear` command has been executed successfully.
+
+**When only the year is specified:**
+
+**Step 1.** The user types in `clear y/2`, which will be taken in by the `getUserCommand()` method of the `Ui` class.
+The input command will then be passed to the `LogicManager` class by `getCommand()` and calls `parseCommand()` in the `Parser` class
+which returns the main command, `ClearCommand`, if a valid command is entered.
+The `LogicManager` then calls `execute()` on `ClearCommand`, which runs the main logic behind this command. 
+For this example, `clear y/2` means that the user wants to delete **all** modules for Year 2.
+
+**Step 2.** `Parser` returns a `ClearCommand()` object with the user specified year as the argument.
+
+**Step 3.** In `CommandResult` of `ClearCommand`, a `List<String> messageArray` list and `List<Module>` ArrayList named `moduleList`
+are initialised. `moduleList` is the list that contains all the modules added to the planner.
+
+**Step 4.** In the `ClearCommand` class, the `year` and `semester` have default values of 0. When `ClearCommand` is called with the year as `2` but no specific semester, the year value of `2` and semester value of `0` will be passed to `CommandResult`.
+Then, a `List<String> clearYearModules` list is initialised, and the `clearYearMods` method is called to clear all modules that are stored in `moduleList`.
+
+**Step 5.** In the `clearYearMods` method, a `List<String> messageList` is initialised. `messageList` is used to store the string inputs to be returned to `CommandResult`.
+
+**Step 6.** If `modulesList` is not empty, `moduleList` is iterated to search for the index of modules of the specified year. 
+When the year of the module in `moduleList` matches the specified year, its index is used to call `removeModule` of `ModelManager`. 
+`removeModule(index)` is called to delete that module from `moduleList`. 
+
+**Step 7.** `clearYearMods` returns `messageList` to `CommandResult`, and a new `CommandResult()` is constructed with the message to be printed to the user.
+
+**Step 8.** The `CommandResult` object is passed to the `Ui` component with a `printMessage()` method which prints the formatted message to the Command Line Interface.
+This prints the String **"Cleared!"** to indicate that the `clear y/2` command has been executed successfully.
+
+**When both the year and semester are specified:**
+
+**Step 1.** The user types in `clear y/2 s/1`, which will be taken in by the `getUserCommand()` method of the `Ui` class.
+The input command will then be passed to the `LogicManager` class by `getCommand()` and calls `parseCommand()` in the `Parser` class
+which returns the main command, `ClearCommand`, if a valid command is entered.
+The `LogicManager` then calls `execute()` on `ClearCommand`, which runs the main logic behind this command.
+For this example, `clear y/2 s/1` means that the user wants to delete **all** modules for Year 2 Semester 1.
+
+**Step 2.** `Parser` returns a `ClearCommand()` object with the user specified year and semester as the arguments.
+
+**Step 3.** In `CommandResult` of `ClearCommand`, a `List<String> messageArray` list and `List<Module>` ArrayList named `moduleList`
+are initialised. `moduleList` is the list that contains all the modules added to the planner.
+
+**Step 4.** In the `ClearCommand` class, the `year` and `semester` have default values of 0. When `ClearCommand` is called with the year as `2` and semester as `1`, so the year value of `2` and semester value of `1` will be passed to `CommandResult`.
+Then, a `List<String> clearYearAndSemModules` list is initialised, and the `clearYearAndSemMods` method is called to clear all modules that are stored in `moduleList`.
+
+**Step 5.** In the `clearYearAndSemMods` method, a `List<String> messageList` is initialised. `messageList` is used to store the string inputs to be returned to `CommandResult`.
+
+**Step 6.** If `modulesList` is not empty, `moduleList` is iterated to search for the index of modules of the specified year and semester.
+When the year and semester of the module in `moduleList` matches the specified year and semester, its index is used to call `removeModule` of `ModelManager`.
+`removeModule(index)` is called to delete that module from `moduleList`.
+
+**Step 7.** `clearYearAndSemMods` returns `messageList` to `CommandResult`, and a new `CommandResult()` is constructed with the message to be printed to the user.
+
+**Step 8.** The `CommandResult` object is passed to the `Ui` component with a `printMessage()` method which prints the formatted message to the Command Line Interface.
+This prints the String **"Cleared!"** to indicate that the `clear y/2 s/1` command has been executed successfully.
 
 ### Save planner to local drive
 The Save to local drive feature allows user to save the `ModuleList` and `User` details to a `penus.txt` file. It is facilitated by FileStorage and is executed after the `execute()` of a command by `LogicManager`. 

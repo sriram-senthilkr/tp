@@ -69,7 +69,7 @@ Ui class diagram:
 
 ![UIClassDiagram](/docs/uml/diagrams/UiClass.png)
 
-Logic oject diagram:
+Logic object diagram:
 
 ![LogicObjDiagram](/docs/uml/diagrams/LogicClass.png)
 

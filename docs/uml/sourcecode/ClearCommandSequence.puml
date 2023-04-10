@@ -1,0 +1,108 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant User
+participant ":Ui" as Ui
+
+box "Logic" #LightBlue
+participant ":LogicManager" as LogicManager
+participant ":Parser" as Parser
+participant "command:ClearCommand" as ClearCommand
+participant "result:CommandResult" as CommandResult
+end box
+
+box "Model" #LightPink
+participant ":ModelManager" as ModelManager
+participant ":ModuleList" as ModuleList
+participant ":Module" as Module
+end box
+
+User -> Ui: getUserCommand() "clear y/1 s/1"
+
+activate Ui
+Ui -> LogicManager: getCommand()
+activate LogicManager
+
+
+LogicManager -> Parser: parseCommand()
+activate Parser
+
+create ClearCommand
+Parser -> ClearCommand
+activate ClearCommand
+
+ClearCommand --> Parser: command
+deactivate ClearCommand
+
+Parser --> LogicManager: command
+deactivate Parser
+
+LogicManager -> ClearCommand: execute()
+
+activate ClearCommand
+
+ClearCommand -> ModelManager: getModuleList().size()
+activate ModelManager
+ModelManager --> ClearCommand : size
+deactivate ModelManager
+
+loop index >= 0
+
+ClearCommand -> ModelManager : getModuleList()
+activate ModelManager
+ModelManager -> ModuleList : getModule()
+activate ModuleList
+ModuleList -> Module : getYear()
+activate Module
+Module --> ModuleList : year
+deactivate Module
+ModuleList --> ModelManager
+deactivate ModuleList
+ModelManager --> ClearCommand
+deactivate ModelManager
+
+ClearCommand -> ModelManager : getModuleList()
+activate ModelManager
+ModelManager -> ModuleList : getModule()
+activate ModuleList
+ModuleList -> Module : getSem()
+activate Module
+Module --> ModuleList : sem
+deactivate Module
+ModuleList --> ModelManager
+deactivate ModuleList
+ModelManager --> ClearCommand
+deactivate ModelManager
+
+ClearCommand -> ModelManager: removeModule(index)
+
+activate ModelManager
+
+ModelManager -> ModuleList: removeModule(index)
+activate ModuleList
+
+ModuleList -> ModuleList: remove(index)
+
+ModuleList --> ModelManager:
+deactivate ModuleList
+deactivate ModelManager
+end
+
+create CommandResult
+
+ClearCommand -> CommandResult
+activate CommandResult
+CommandResult --> ClearCommand
+deactivate CommandResult
+destroy CommandResult
+
+ClearCommand --> LogicManager: result
+deactivate ClearCommand
+destroy ClearCommand
+
+LogicManager --> Ui: printResult()
+deactivate LogicManager
+
+Ui --> User
+deactivate Ui
+@enduml

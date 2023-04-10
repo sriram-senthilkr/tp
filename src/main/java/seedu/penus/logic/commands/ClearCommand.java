@@ -33,8 +33,8 @@ public class ClearCommand extends Command {
 
         //clear all modules
         if (this.year == 0 && this.semester == 0) {
-            List<String> clearallModules = clearAllMods(moduleList);
-            messageArray.addAll(clearallModules);
+            List<String> clearAllModules = clearAllMods(moduleList);
+            messageArray.addAll(clearAllModules);
         }
 
         //clear specific year only
@@ -109,4 +109,5 @@ public class ClearCommand extends Command {
         }
         return messageList;
     }
+    
 }
