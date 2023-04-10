@@ -49,6 +49,14 @@ activate DetailsCommand
 DetailsCommand -> DetailsCompiler: getDetails('CS2113')
 activate DetailsCompiler
 
+DetailsCompiler -> ModuleRetriever: isValidMod('CS2113')
+activate ModuleRetriever
+ModuleRetriever -> ModuleRetriever: getData2223('CS2113')
+activate ModuleRetriever
+deactivate ModuleRetriever
+ModuleRetriever --> DetailsCompiler: boolean value
+deactivate ModuleRetriever
+
 DetailsCompiler -> ModuleRetriever: getTitle2223('CS2113')
 activate ModuleRetriever
 ModuleRetriever -> ModuleRetriever: getData2223('CS2113')

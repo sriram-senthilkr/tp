@@ -48,7 +48,7 @@ Given below are my contributions to the project.
     - User Stories
 
 - **Review/mentoring contributions:**:
-    - PRs reviewed [#196](https://github.com/AY2223S2-CS2113-T11-2/tp/pull/196)
+    - PRs reviewed [#196](https://github.com/AY2223S2-CS2113-T11-2/tp/pull/196), [#201](https://github.com/AY2223S2-CS2113-T11-2/tp/pull/201)
 
 - **Contributions beyond the project team**:
     - Reported 11 bugs for PE-D
