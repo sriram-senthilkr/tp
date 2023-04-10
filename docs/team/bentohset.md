@@ -55,7 +55,7 @@ Given below are my contributions to the project.
 
 Architecture diagram:
 
-<img src="../uml/diagrams/Architecture.png" height="300"/>
+<img src="../uml/diagrams/Architecture.png" height="200"/>
 
 Ui class diagram:
 
@@ -63,7 +63,7 @@ Ui class diagram:
 
 Logic object diagram:
 
-<img src="../uml/diagrams/LogicClass.png" height="300"/>
+<img src="../uml/diagrams/LogicClass.png" height="200"/>
 
 Model object diagram:
 
@@ -71,7 +71,7 @@ Model object diagram:
 
 Storage object diagram:
 
-<img src="../uml/diagrams/StorageClass.png" height="150"/>
+<img src="../uml/diagrams/StorageClass.png" height="100"/>
 
 Add module sequence diagram:
 
