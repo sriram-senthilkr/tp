@@ -6,6 +6,6 @@ Display |        Name         |                Github Profile                 | 
 ![](https://via.placeholder.com/100.png?text=Photo) |    Chia Yu Xuan     |    [Github](https://github.com/chiayuxuan)    | [Portfolio](team/chiayuxuan.md)
 ![](AboutUsmedia/ansenn.png) | Lee Jun Hui Ansenn  |      [Github](https://github.com/ansenn)      | [Portfolio](team/ansenn.md)
 ![](AboutUsmedia/sriram.JPG) | Senthilkumar Sriram | [Github](https://github.com/sriram-senthilkr) | [Portfolio](team/sriram-senthilkr.md)
-![](https://via.placeholder.com/100.png?text=Photo) |    Benjamin Toh     |    [Github](https://github.com/bentohset)     | [Portfolio](team/bentohset.md)
+![](AboutUsmedia/benpic.jpg) |    Benjamin Toh     |    [Github](https://github.com/bentohset)     | [Portfolio](team/bentohset.md)
 
     
