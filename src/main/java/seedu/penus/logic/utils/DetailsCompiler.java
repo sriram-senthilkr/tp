@@ -3,6 +3,10 @@ package seedu.penus.logic.utils;
 public class DetailsCompiler extends ModuleRetriever{
     protected String moduleCode;
 
+    /**
+     * Retrieves details of given module code, and displays error message if information is not available
+     * @param module string
+     */
     public static String getDetails(String module) {
         String title;
         String description;
