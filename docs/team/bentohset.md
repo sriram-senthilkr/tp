@@ -67,11 +67,11 @@ Logic object diagram:
 
 Model object diagram:
 
-<img src="../uml/diagrams/ModelClass.png" height="300"/>
+<img src="../uml/diagrams/ModelClass.png" height="150"/>
 
 Storage object diagram:
 
-<img src="../uml/diagrams/StorageClass.png" height="300"/>
+<img src="../uml/diagrams/StorageClass.png" height="150"/>
 
 Add module sequence diagram:
 
@@ -91,8 +91,8 @@ List sequence diagram:
 
 Grade class diagram:
 
-<img src="../uml/diagrams/GradeClass.png" height="300"/>
+<img src="../uml/diagrams/GradeClass.png" height="150"/>
 
 Save feature class diagram:
 
-<img src="../uml/diagrams/SaveFeatureClass.png" height="300"/>
+<img src="../uml/diagrams/SaveFeatureClass.png" height="200"/>
