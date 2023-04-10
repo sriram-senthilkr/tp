@@ -67,7 +67,7 @@ These features include `taken`, `plan`, `list`, `status` and `details`.
 <br>
 
 Here are some points to note:
-- Please ensure you have a stable internet connection when using PENUS.
+- Please ensure you have a **stable internet connection** when using PENUS.
 - Retrieving data from the NUSMods API may take a while, please expect some loading time when using the features listed above.
 
 ## Features 👾
@@ -192,11 +192,11 @@ Example:
 
 ![list example](./ugmedia/list1.png)
 
-- `list y/1` Displays modules taken in Year 1.
+- `list y/2` Displays modules taken in Year 2.
 
 ![list example](./ugmedia/list2.png)
 
-- `list y/2 s/1` Displays modules taken in Year 2 Semester 1.
+- `list y/2 s/2` Displays modules taken in Year 2 Semester 2.
 
 ![list example](./ugmedia/list3.png)
 
