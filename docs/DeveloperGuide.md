@@ -335,7 +335,7 @@ The following sequence diagram shows how the `status` command works:
 
 ### Get module details
 The details feature is facilitated by `ModuleRetriever`. It retrieves the module’s title, description, pre-requisites, modular credits, and if the module is SU-able. Additionally, it implements the following operations:
-`retrieveTitle()` - Retrieves the module’s Title.
+- `retrieveTitle()` - Retrieves the module’s Title.
 - `retrieveDescription()` - Retrieves the module’s Description.
 - `retrievePrerequisite()` - Retrieves the module’s Pre-Requisites.
 - `retrieveModuleCredits()` - Retrieves the module’s total Modular Credits.
@@ -345,21 +345,30 @@ These operations are exposed in the `ModuleRetriever` class as `retrieveTitle()`
 
 **Step 1.** The user launches the application for the first time. The API will not be called.
 
-**Step 2.** The user executes `details cs2113` command to retrieve the details about CS2113 module. The details command calls `printDetails(moduleCode)`, passing the module code as the parameter.
+**Step 2.** The user executes `details cs2113` command to retrieve the details about CS2113 module. The details 
+command calls `getDetails(moduleCode)`, passing the module code as the parameter.
 
-**Step 3.** The `printDetails` method calls a few methods – `retrieveTitle(module)`, `retrieveDescription(module)`, `retrievePrerequisite(module)`, `retrieveModuleCredit(module)`, and `retrieveSUstatus(module)`. 
+**Step 3.** The `getDetails` method first checks if the module code passed in is valid by calling the `isValidMod(module)` method. If the module code is valid and can be found on NUSMods, the rest of the steps will be followed. 
+Else, it will return an exception to the user that the module code is invalid, and will let them re-enter another 
+module code.
+
+**Step 4.** The `getDetails` method then calls a few methods – `retrieveTitle(module)`, `retrieveDescription(module)`, 
+`retrievePrerequisite(module)`, `retrieveModuleCredit(module)`, and `retrieveSUstatus(module)`. 
 Each of these methods (e.g. `retrieveTitle(module)`) will make call the `getData()` method, passing the module code as the parameter.
 
-**Step 3a.** The `getData()` method will create a `HttpURLConnection` to NUS API MODS website, redirecting to the particular module’s data. It will then create a “GET” request, and parse the JSON in the API into a `JSONObject` and `JSONArray`. 
+**Step 5a.** The `getData()` method will create a `HttpURLConnection` to NUS API MODS website, redirecting to the 
+particular module’s data. It will then create a “GET” request, and parse the JSON in the API into a `JSONObject` and `JSONArray`. 
 The retrieved information will be stored as `moduleInfo` `JSONObject` in the `ModuleRetriever` class.
 
 - _Note:_ If a “GET” request fails, it will stop the Connection, and return the HTTP Response Code.
 
 - _Note:_ If an incorrect module was entered, the program will return an error, and ask the user to input the correct module code.
 
-**Step 3b.** Each retrieve method (e.g. `retrieveTitle()`) will retrieve the respective information from the retrieved `JSONObject`, and return it as a `String`.
+**Step 5b.** Each retrieve method (e.g. `retrieveTitle()`) will retrieve the respective information from the 
+retrieved `JSONObject`, and return it as a `String`.
 
-**Step 4.** The `printDetails()` method will then store each retrieved information in a `String`, and format them for display standards. It will then store each separated `String` into a `messagePacket` array, and pass it into the `Ui.printMessage()` function to be printed in the CLI.
+**Step 6.** The `getDetails()` method will then store each retrieved information in a `String`, and format them for 
+display standards. It will then store each separated `String` into a `messagePacket` array, and pass it into the `Ui.printMessage()` function to be printed in the CLI.
 
 The following sequence diagram shows how the mechanism works:
 ![Details Sequence Diagram](uml/diagrams/DetailsSequence.png)
