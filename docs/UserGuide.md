@@ -67,7 +67,7 @@ These features include `taken`, `plan`, `list`, `status` and `details`.
 <br>
 
 Here are some points to note:
-- Please ensure you have a stable internet connection when using PENUS.
+- Please ensure you have a **stable internet connection** when using PENUS.
 - Retrieving data from the NUSMods API may take a while, please expect some loading time when using the features listed above.
 
 ## Features 👾

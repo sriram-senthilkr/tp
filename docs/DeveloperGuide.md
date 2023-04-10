@@ -19,12 +19,6 @@
   - [Clear Modules](#clear-modules)
   - [[Proposed] Handle CS/CU Grade](#proposed-handle-cscu-modules)
   - [Save To Local Drive](#save-planner-to-local-drive)
-- [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
-  - [Documentation](#documentation)
-  - [Logging](#logging)
-  - [Testing](#testing)
-  - [Configuration](#configuration)
-  - [Dev-ops](#dev-ops)
 - [Appendix A: Product Scope](#appendix-a-product-scope)
 - [Appendix B: User Stories](#appendix-b-user-stories)
 - [Appendix C: Non-Functional Requirements](#appendix-c-non-functional-requirements)
@@ -499,18 +493,18 @@ This prints the String **"Cleared!"** to indicate that the `clear y/2` command h
 
 **When both the year and semester are specified:**
 
-**Step 1.** The user types in `clear y/2 s/1`, which will be taken in by the `getUserCommand()` method of the `Ui` class.
+**Step 1.** The user types in `clear y/1 s/1`, which will be taken in by the `getUserCommand()` method of the `Ui` class.
 The input command will then be passed to the `LogicManager` class by `getCommand()` and calls `parseCommand()` in the `Parser` class
 which returns the main command, `ClearCommand`, if a valid command is entered.
 The `LogicManager` then calls `execute()` on `ClearCommand`, which runs the main logic behind this command.
-For this example, `clear y/2 s/1` means that the user wants to delete **all** modules for Year 2 Semester 1.
+For this example, `clear y/1 s/1` means that the user wants to delete **all** modules for Year 1 Semester 1.
 
 **Step 2.** `Parser` returns a `ClearCommand()` object with the user specified year and semester as the arguments.
 
 **Step 3.** In `CommandResult` of `ClearCommand`, a `List<String> messageArray` list and `List<Module>` ArrayList named `moduleList`
 are initialised. `moduleList` is the list that contains all the modules added to the planner.
 
-**Step 4.** In the `ClearCommand` class, the `year` and `semester` have default values of 0. When `ClearCommand` is called with the year as `2` and semester as `1`, so the year value of `2` and semester value of `1` will be passed to `CommandResult`.
+**Step 4.** In the `ClearCommand` class, the `year` and `semester` have default values of 0. When `ClearCommand` is called with the year as `1` and semester as `1`, so the year value of `1` and semester value of `1` will be passed to `CommandResult`.
 Then, a `List<String> clearYearAndSemModules` list is initialised, and the `clearYearAndSemMods` method is called to clear all modules that are stored in `moduleList`.
 
 **Step 5.** In the `clearYearAndSemMods` method, a `List<String> messageList` is initialised. `messageList` is used to store the string inputs to be returned to `CommandResult`.
@@ -522,7 +516,10 @@ When the year and semester of the module in `moduleList` matches the specified y
 **Step 7.** `clearYearAndSemMods` returns `messageList` to `CommandResult`, and a new `CommandResult()` is constructed with the message to be printed to the user.
 
 **Step 8.** The `CommandResult` object is passed to the `Ui` component with a `printMessage()` method which prints the formatted message to the Command Line Interface.
-This prints the String **"Cleared!"** to indicate that the `clear y/2 s/1` command has been executed successfully.
+This prints the String **"Cleared!"** to indicate that the `clear y/1 s/1` command has been executed successfully.
+
+The following sequence diagram shows how the `clear y/1 s/1` command works:
+![Clear Command Sequence Diagram](uml/diagrams/ClearCommandSequence.png)
 
 ### Save planner to local drive
 The Save to local drive feature allows user to save the `ModuleList` and `User` details to a `penus.txt` file. It is facilitated by FileStorage and is executed after the `execute()` of a command by `LogicManager`. 
@@ -573,15 +570,6 @@ The proposed mechanism is facilitated by `ModuleRetriever` and would allow users
 
 **Step 2**. Implement the `isCSCU()` method in the `TakenCommand` and `MarkCommand` commands. Check whether the indicated module only accepts CS or CU grade. An exception `InvalidGradeException` is thrown if the input grade is not CS/CU. Else the module is added.
 
-
-
-<!----------------------------Documentation----------------------------------------->
-## Documentation, logging, testing, configuration, dev-ops
-### Documentation
-### Logging
-### Testing
-### Configuration
-### Dev-ops
 
 <!----------------------------Appendix----------------------------------------->
 ## Appendix A: Product scope
