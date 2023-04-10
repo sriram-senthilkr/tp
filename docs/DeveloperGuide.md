@@ -29,6 +29,7 @@
   - [Remove Command](#remove-command)
   - [Mark Command](#mark-command)
   - [Loading Data](#loading-data)
+
 <!----------------------------Acknowledgements----------------------------------------->
 ## Acknowledgements
 References made from [AddressBook 2](https://github.com/se-edu/addressbook-level2) and [AddressBook 3](https://github.com/se-edu/addressbook-level3).
@@ -799,9 +800,11 @@ Expected: Similar to previous
   ```
     ___________________________________________________________
     CS2040C Data Structures and Algorithms
-	This module introduces students to the design and implementation of fundamental data structures and algorithms. 
-  The module covers basic data structures (linked lists, stacks, queues, hashtables, binary heaps, trees, and graphs), 
-  searching and sorting algorithms, basic analysis of algorithms, and basic object-oriented programming concepts.
+	This module introduces students to the design and implementation of fundamental 
+    data structures and algorithms. The module covers basic data structures 
+    (linked lists, stacks, queues, hashtables, binary heaps, trees, and graphs), 
+    searching and sorting algorithms, basic analysis of algorithms, and basic 
+    object-oriented programming concepts.
 	Pre-Requisites: CS1010 or its equivalent
 	MCs: 4
 	Module cannot be SU-ed.
