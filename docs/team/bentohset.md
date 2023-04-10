@@ -55,23 +55,23 @@ Given below are my contributions to the project.
 
 Architecture diagram:
 
-![ArchitectureDiagram](/docs/uml/diagrams/Architecture.png)
+![ArchitectureDiagram](../uml/diagrams/Architecture.png)
 
 Ui class diagram:
 
-![UIClassDiagram](/docs/uml/diagrams/UiClass.png)
+![UIClassDiagram](../uml/diagrams/UiClass.png)
 
 Logic object diagram:
 
-![LogicObjDiagram](/docs/uml/diagrams/LogicClass.png)
+![LogicObjDiagram](../uml/diagrams/LogicClass.png)
 
 Model object diagram:
 
-![ModelObjDiagram](/docs/uml/diagrams/ModelClass.png)
+![ModelObjDiagram](../uml/diagrams/ModelClass.png)
 
 Storage object diagram:
 
-![StorageObjDiagram](/docs/uml/diagrams/StorageClass.png)
+![StorageObjDiagram](../uml/diagrams/StorageClass.png)
 
 Add module sequence diagram:
 
@@ -79,20 +79,20 @@ Add module sequence diagram:
 
 Remove module sequence diagram:
 
-![RemoveModuleSequenceDiagram](/docs/uml/diagrams/RemoveModSequence.png)
+![RemoveModuleSequenceDiagram](../uml/diagrams/RemoveModSequence.png)
 
 Mark module sequence diagram:
 
-<img src="/docs/uml/diagrams/MarkModSequence.png"/>
+![RemoveModuleSequenceDiagram](../uml/diagrams/MarkModSequence.png)
 
 List sequence diagram:
 
-<img src="/docs/uml/diagrams/ListSequence.png"/>
+![RemoveModuleSequenceDiagram](../uml/diagrams/ListSequence.png)
 
 Grade class diagram:
 
-<img src="/docs/uml/diagrams/GradeClass.png"/>
+![RemoveModuleSequenceDiagram](../uml/diagrams/GradeClass.png)
 
 Save feature class diagram:
 
-<img src="/docs/uml/diagrams/SaveFeatureClass.png"/>
+![RemoveModuleSequenceDiagram](../uml/diagrams/SaveFeatureClass.png)
