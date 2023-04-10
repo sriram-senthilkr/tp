@@ -624,7 +624,7 @@ Given below are instructions to test the app manually.
 ### Launch
 1. Initial launch
 2. Download the jar file and copy into an empty folder
-3. Open a command terminal, cd into the folder you put the `penus.jar` file in, and use the `java -jar penus.jar` command to run the application. A CLI should appear in a few seconds.
+3. Open a command terminal, change your directory to the folder you put the `penus.jar` file in, and use the `java -jar penus.jar` command to run the application. A CLI should appear in a few seconds.
 
 ### Plan command
 1. Test case: `plan CS2113 y/2 s/2` <br>
@@ -790,7 +790,9 @@ Expected: Similar to previous
   ```
     ___________________________________________________________
     CS2040C Data Structures and Algorithms
-	This module introduces students to the design and implementation of fundamental data structures and algorithms. The module covers basic data structures (linked lists, stacks, queues, hash tables, binary heaps, trees, and graphs), searching and sorting algorithms, basic analysis of algorithms, and basic object-oriented programming concepts.
+	This module introduces students to the design and implementation of fundamental data structures and algorithms. 
+  The module covers basic data structures (linked lists, stacks, queues, hashtables, binary heaps, trees, and graphs), 
+  searching and sorting algorithms, basic analysis of algorithms, and basic object-oriented programming concepts.
 	Pre-Requisites: CS1010 or its equivalent
 	MCs: 4
 	Module cannot be SU-ed.
