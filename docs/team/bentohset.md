@@ -53,46 +53,36 @@ Given below are my contributions to the project.
 
 - **Contributions to the Developer Guide (Extracts)**:
 
-Architecture diagram:
+**Architecture diagram:**
 
-<img src="../uml/diagrams/Architecture.png" height="200"/>
+<img src="../uml/diagrams/Architecture.png" height="200"/> 
 
-Ui class diagram:
+Ui class diagram: | Logic object diagram: 
+:-------------------------:|:-------------------------:
+<img src="../uml/diagrams/UiClass.png" height="300"/> | <img src="../uml/diagrams/LogicClass.png" height="200"/>
+**Model object diagram:** | **Storage object diagram:**
+ <img src="../uml/diagrams/ModelClass.png" height="150"/> | <img src="../uml/diagrams/StorageClass.png" height="100"/>
 
-<img src="../uml/diagrams/UiClass.png" height="300"/>
-
-Logic object diagram:
-
-<img src="../uml/diagrams/LogicClass.png" height="200"/>
-
-Model object diagram:
-
-<img src="../uml/diagrams/ModelClass.png" height="150"/>
-
-Storage object diagram:
-
-<img src="../uml/diagrams/StorageClass.png" height="100"/>
-
-Add module sequence diagram:
+**Add module sequence diagram:**
 
 <img src="../uml/diagrams/AddModSequence.png" height="300"/>
 
-Remove module sequence diagram:
+**Remove module sequence diagram:**
 
 <img src="../uml/diagrams/RemoveModSequence.png" height="300"/>
 
-Mark module sequence diagram:
+**Mark module sequence diagram:**
 
 <img src="../uml/diagrams/MarkModSequence.png" height="300"/>
 
-List sequence diagram:
+**List sequence diagram:**
 
 <img src="../uml/diagrams/ListSequence.png" height="300"/>
 
-Grade class diagram:
+**Grade class diagram:**
 
 <img src="../uml/diagrams/GradeClass.png" height="150"/>
 
-Save feature class diagram:
+**Save feature class diagram:**
 
 <img src="../uml/diagrams/SaveFeatureClass.png" height="200"/>
