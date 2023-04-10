@@ -17,8 +17,8 @@
   - [Get Module Details](#get-module-details)
   - [Initialise User](#initialise-user)
   - [Clear Modules](#clear-modules)
-  - [[Proposed] Handle CS/CU Grade](#proposed-handle-cscu-modules)
   - [Save To Local Drive](#save-planner-to-local-drive)
+  - [[Proposed] Handle CS/CU Grade](#proposed-handle-cscu-modules)
 - [Appendix A: Product Scope](#appendix-a-product-scope)
 - [Appendix B: User Stories](#appendix-b-user-stories)
 - [Appendix C: Non-Functional Requirements](#appendix-c-non-functional-requirements)
@@ -135,7 +135,7 @@ The following sequence diagram shows how the `plan` command works:
 
 **Step 1.** The user launches the application for the first time. The ModuleList will be initialised with the initial module list state if provided in `penus.txt`.
 
-**Step 2.** The user executes the `taken CS2113 y/1 s/2 g/A+` command to plan the module CS2113 for year 1 and semester 2 to be added into the list. The `taken` command is parsed through `Parser` which returns a `TakenCommand()` object if a valid command is provided. The `PlanCommand()` constructs a `Module()` object with the overloaded constructor `Module()`. It is instantiated with the respective arguments which sets the `isTaken` parameter `true`, `moduleCode`, `year`, `semester` and `grade`.
+**Step 2.** The user executes the `taken CS2113 y/1 s/2 g/A+` command to plan the module CS2113 for year 1 and semester 2 to be added into the list. The `taken` command is parsed through `Parser` which returns a `TakenCommand()` object if a valid command is provided. The `TakenCommand()` constructs a `Module()` object with the overloaded constructor `Module()`. It is instantiated with the respective arguments which sets the `isTaken` parameter `true`, `moduleCode`, `year`, `semester` and `grade`.
 
 **Step 3 - 6.** Identical to that of a `plan` command as mentioned above.
 
@@ -703,7 +703,7 @@ Expected output: Error as `g/GRADE` is not provided
 Example:
 ```
     ___________________________________________________________
-    Error: Try again in the format: mark MODULECODE g/GRADE
+    Error: Try again in the format: mark MODULE_CODE g/GRADE
     ___________________________________________________________
 ```
 
