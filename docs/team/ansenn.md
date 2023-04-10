@@ -48,6 +48,7 @@ Given below are my contributions to the project.
   - Reported 11 bugs for PE-D
 
 - **Contributions to the Developer Guide (Extracts)**:
-  Clear Command Sequence diagram:
 
-![ClearSequenceDiagram](/docs/uml/diagrams/ClearCommandSequence.png)
+Clear Command Sequence diagram:
+
+![ClearSequenceDiagram](../uml/diagrams/ClearCommandSequence.png)

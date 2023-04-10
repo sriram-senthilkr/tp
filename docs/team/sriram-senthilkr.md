@@ -57,4 +57,4 @@ Given below are my contributions to the project.
 
 Get Details sequence diagram:
 
-![DetailsSequenceDiagram](/docs/uml/diagrams/DetailsSequence.png)
+![DetailsSequenceDiagram](../uml/diagrams/DetailsSequence.png)
