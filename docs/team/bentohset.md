@@ -75,7 +75,7 @@ Storage object diagram:
 
 Add module sequence diagram:
 
-![AddModuleSequenceDiagram](/docs/uml/diagrams/AddModSequence.png)
+![AddModuleSequenceDiagram](../uml/diagrams/AddModSequence.png)
 
 Remove module sequence diagram:
 
