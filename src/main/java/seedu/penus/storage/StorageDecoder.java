@@ -51,7 +51,7 @@ public class StorageDecoder {
     public static Module decodemodule(String module) throws PenusException {
         String[] components = module.split(" ### ");
         String status = components[0].trim();
-        String moduleCode = components[1].trim();
+        String moduleCode = components[1].trim().toUpperCase();
         if (!ModuleRetriever.isValidMod(moduleCode)) {
             throw new InvalidModuleException();
         }
