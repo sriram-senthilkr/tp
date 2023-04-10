@@ -42,7 +42,7 @@ Given below are my contributions to the project.
   - Wrote and edited javadoc for some methods
   
 - **Review/mentoring contributions:**:
-  - PRs reviewed : [\#15](https://github.com/AY2223S2-CS2113-T11-2/tp/pull/15), [\#43](https://github.com/AY2223S2-CS2113-T11-2/tp/pull/43)
+  - PRs reviewed : [\#15](https://github.com/AY2223S2-CS2113-T11-2/tp/pull/15), [\#43](https://github.com/AY2223S2-CS2113-T11-2/tp/pull/43), [\#198](https://github.com/AY2223S2-CS2113-T11-2/tp/pull/198)
 
 - **Contributions beyond the project team**:
   - Reported 11 bugs for PE-D
