@@ -13,7 +13,7 @@ It is written in Java, and has about 6 kLoC.
     displays CAP for Semester and Overall.
 - **Improved Feature**: Help Command
   - What it does: Provides user with a list of commands and its description in the CLI.
-- **Code contributed**: [RepoSense link](https://nus-cs2113-ay2223s2.github.io/tp-dashboard/?search=bentohset&breakdown=true)
+- **Code contributed**: [RepoSense link](https://nus-cs2113-ay2223s2.github.io/tp-dashboard/?search=chiayuxuan&breakdown=true)
 
 
 - **Contributions to DG**:
